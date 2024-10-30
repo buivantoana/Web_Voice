@@ -1,0 +1,91 @@
+.loader {
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+  display: block;
+  background-color: currentColor;
+  margin: 20px auto;
+  position: relative;
+  color: #f2f2f2;
+  animation: animloader 0.3s 0.3s linear infinite alternate;
+}
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+a {
+  text-decoration: none;
+  color: unset;
+}
+.active {
+  border-bottom: 2px solid rgb(5 122 85);
+}
+.active div p {
+  color: rgb(5 122 85) !important;
+}
+body {
+  margin: 0px;
+}
+
+body::-webkit-scrollbar-track {
+  border: 0px solid transparent;
+  padding: 0;
+  background-color: transparent;
+}
+
+body::-webkit-scrollbar {
+  width: 0px;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: transparent;
+  border: 0px solid transparent;
+}
+.list-scroll::-webkit-scrollbar-track {
+  border: 0px solid transparent;
+  padding: 0;
+  background-color: transparent;
+}
+
+.list-scroll::-webkit-scrollbar {
+  width: 0px;
+}
+
+.list-scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: transparent;
+  border: 0px solid transparent;
+}
+.loader::after,
+.loader::before {
+  content: "";
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+  background: currentColor;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 20px;
+  animation: animloader 0.3s 0.45s linear infinite alternate;
+}
+
+.loader::before {
+  left: -20px;
+  animation-delay: 0s;
+}
+
+@keyframes animloader {
+  0% {
+    height: 48px;
+  }
+
+  100% {
+    height: 4px;
+  }
+}
+.range_input {
+  transform: rotate(180deg) !important;
+}
