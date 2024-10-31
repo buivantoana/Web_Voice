@@ -32,10 +32,10 @@ const Router = () => {
           />
         </Route>
         <Route
-          path='tiktok/login-kit/callback'
+          path='signin'
           element={<SignInController />}
         />
-        <Route path='signup' element={<SignUpController />} />
+        <Route path='auth/callback' element={<SignUpController />} />
       </Routes>
     </BrowserRouter>
   );
