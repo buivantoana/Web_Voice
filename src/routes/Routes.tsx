@@ -31,11 +31,8 @@ const Router = () => {
             element={<PaymentHistoryController />}
           />
         </Route>
-        <Route
-          path='signin'
-          element={<SignInController />}
-        />
-        <Route path='callback' element={<SignUpController />} />
+        <Route path='signin' element={<SignInController />} />
+        <Route path='signup' element={<SignUpController />} />
       </Routes>
     </BrowserRouter>
   );
