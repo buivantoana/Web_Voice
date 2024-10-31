@@ -32,7 +32,7 @@ const Router = () => {
           />
         </Route>
         <Route path='signin' element={<SignInController />} />
-        <Route path='signup' element={<SignUpController />} />
+        <Route path='auth/callback' element={<SignUpController />} />
       </Routes>
     </BrowserRouter>
   );
