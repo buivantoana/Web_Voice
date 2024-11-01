@@ -7,7 +7,7 @@ const Footer = () => {
   const theme: any = useTheme();
   return (
     <Box
-      display={"flex"}
+      display={{ xs: "none", md: "flex" }}
       justifyContent={"space-between"}
       alignItems={"center"}
       px={"10%"}

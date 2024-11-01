@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Box, Typography, useTheme } from "@mui/material";
 
-const CustomTextField = ({ label }: any) => {
+const CustomTextField = ({ label, setValue, value }: any) => {
   const theme: any = useTheme();
-  const [value, setValue] = useState("");
-
   const handleChange = (event: any) => {
     setValue(event.target.value);
   };
@@ -27,6 +25,8 @@ const CustomTextField = ({ label }: any) => {
         {label}
       </Typography>
       <TextField
+        onChange={handleChange}
+        value={value}
         className='search-input'
         id='demo-helper-text-aligned'
         size='small'

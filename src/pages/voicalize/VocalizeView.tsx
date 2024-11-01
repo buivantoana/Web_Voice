@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  Dialog,
+  DialogContent,
   Drawer,
   IconButton,
   Popover,
@@ -10,7 +12,12 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
-import { RiArrowDownSLine, RiHqLine, RiOpenaiFill } from "react-icons/ri";
+import {
+  RiArrowDownSLine,
+  RiCloseLine,
+  RiHqLine,
+  RiOpenaiFill,
+} from "react-icons/ri";
 import SearchIcon from "@mui/icons-material/Search";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
@@ -48,14 +55,27 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
   };
+  const [openAuthor, setOpenAuthor] = React.useState(false);
+
+  const handleClickOpenAuthor = () => {
+    setOpenAuthor(true);
+  };
+
+  const handleCloseAuthor = () => {
+    setOpenAuthor(false);
+  };
   return (
     <Box p={"20px"}>
-      <Stack direction={"row"} justifyContent={"space-between"} gap={"20px"}>
+      <Stack
+        direction={"row"}
+        flexDirection={{ xs: "column", md: "row" }}
+        justifyContent={"space-between"}
+        gap={"20px"}>
         <Box
           position={"relative"}
           bgcolor={"white"}
-          height={"75vh"}
-          width={"49%"}
+          height={{ xs: "50vh", md: "75vh" }}
+          width={{ xs: "100%", md: "49%" }}
           border={"1px solid #dddddd"}
           borderRadius={"8px"}>
           <Box sx={{ borderBottom: "1px solid rgb(226 232 240)" }}>
@@ -155,8 +175,13 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
             </Box>
           )}
         </Box>
-        <Box height={"67vh"} width={"49%"}>
-          <Author />
+        <Box
+          display={{ xs: "none", md: "unset" }}
+          height={{ xs: "50vh", md: "75vh" }}
+          width={{ xs: "100%", md: "49%" }}>
+          <Box height={"90%"}>
+            <Author />
+          </Box>
           <Box
             mt={"10px"}
             display={"flex"}
@@ -300,7 +325,7 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
         }}>
         <Box
           sx={{
-            width: "60%",
+            width: { xs: "90%", md: "60%" },
             p: 2,
             cursor: "pointer",
             mx: "auto",
@@ -364,6 +389,184 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
           </Box>
         </Box>
       </Drawer>
+
+      <Box
+        sx={{
+          display: { xs: "block", md: "none" },
+          position: "fixed",
+          bottom: "-20px",
+          left: "0px",
+          width: "100%",
+        }}>
+        <Box display={"flex"} bgcolor={"white"} sx={{ px: "20px" }}>
+          <Box width={"50%"}>
+            <Box
+              width={"100%"}
+              border={"2px solid #dddddd"}
+              sx={{
+                borderTopLeftRadius: "25px",
+
+                ".css-918vr5-MuiStack-root": {
+                  transform: "rotate(180deg)",
+                },
+                ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
+                  {
+                    padding: "0 10px !important",
+                  },
+                ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
+                  width: "45px",
+                },
+              }}>
+              <InputSlider label={true} />
+            </Box>
+            <Box width={"100%"} sx={{ border: "2px solid #dddddd" }}>
+              <Box
+                sx={{
+                  "MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-kvalmi-MuiPaper-root-MuiPopover-paper":
+                    {
+                      padding: "5px",
+                    },
+                  height: "100%",
+                }}>
+                <Box
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "10px",
+                  }}
+                  aria-describedby={idQuality}
+                  onClick={handleClickQuality}>
+                  <RiHqLine size={20} />
+                  <Typography fontSize={"1rem"}>Chất lượng cao</Typography>
+                  <RiArrowDownSLine size={20} />
+                </Box>
+
+                <Popover
+                  id={idQuality}
+                  open={openQuality}
+                  anchorEl={anchorElQuality}
+                  onClose={handleCloseQuality}
+                  sx={{ p: "5px" }}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}>
+                  <Typography sx={{ padding: "10px 8px", width: "180px" }}>
+                    Chất lượng cao
+                  </Typography>
+                  <Typography sx={{ padding: "10px 8px", width: "180px" }}>
+                    Chất lượng HD
+                  </Typography>
+                </Popover>
+              </Box>
+            </Box>
+          </Box>
+          <Box
+            width={"47%"}
+            border={"1px solid #dddddd"}
+            onClick={handleClickOpenAuthor}
+            sx={{
+              borderBottomRightRadius: "25px",
+            }}>
+            <Box
+              display={"flex"}
+              justifyContent={"end"}
+              height={"100%"}
+              alignItems={"center"}>
+              <Box>
+                <Typography fontWeight={"500"}>Allow</Typography>
+                <Typography fontSize={".9rem"}>Chất lượng cao</Typography>
+              </Box>
+              <img
+                src={author}
+                width={40}
+                style={{ borderRadius: "50%" }}
+                alt=''
+              />
+            </Box>
+          </Box>
+        </Box>
+        <Box
+          onClick={toggleDrawer(true)}
+          border={"2px solid #dddddd"}
+          bgcolor={theme.palette.active.main}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          gap={"20%"}
+          width={""}
+          height={"100%"}
+          sx={{
+            px: "20px",
+
+            ".css-918vr5-MuiStack-root": {
+              transform: "rotate(180deg)",
+            },
+            ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
+              {
+                padding: "0 10px",
+              },
+            ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
+              width: "65px",
+            },
+            position: "relative",
+            top: "-100px",
+            left: "45%",
+            borderRadius: "50%",
+          }}>
+          <Box>
+            <svg
+              data-v-fa4d36aa=''
+              xmlns='http://www.w3.org/2000/svg'
+              xmlnsXlink='http://www.w3.org/1999/xlink'
+              aria-hidden='true'
+              role='img'
+              className='icon flex-shrink-0 w-14 h-14 md:w-6 md:h-6'
+              width='1em'
+              style={{ color: "white", fontSize: "30px", marginTop: "5px" }}
+              height='1em'
+              viewBox='0 0 24 24'>
+              <path
+                fill='currentColor'
+                d='M4.929 19.071A9.97 9.97 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10H2zM11 6v12h2V6zM7 9v6h2V9zm8 0v6h2V9z'
+              />
+            </svg>
+          </Box>
+        </Box>
+      </Box>
+
+      <Dialog
+        fullWidth
+        maxWidth='xl' // Đặt maxWidth lớn nhất để có thể sử dụng toàn bộ chiều rộng
+        PaperProps={{
+          sx: {
+            width: "100%", // Chiều rộng 100%
+            maxWidth: "100%",
+            ".css-kw13he-MuiDialogContent-root": {
+              padding: { xs: "0" },
+            },
+          },
+        }}
+        open={openAuthor}
+        onClose={handleCloseAuthor}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'>
+        <Box
+          display={"flex"}
+          onClick={handleCloseAuthor}
+          justifyContent={"end"}>
+          <RiCloseLine size={25} />
+        </Box>
+        <DialogContent>
+          <Author />
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };

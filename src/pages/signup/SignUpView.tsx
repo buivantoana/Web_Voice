@@ -1,4 +1,11 @@
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React from "react";
 import { RiArrowLeftLine } from "react-icons/ri";
 import background_gif from "../../images/source.gif";
@@ -6,9 +13,29 @@ import logo from "../../images/loading-lines-6747317-5601928.webp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CustomTextField from "../../components/CustomTextField";
 import { Link } from "react-router-dom";
-type Props = {};
+import OTPInput from "react-otp-input";
+type Props = {
+  setOtp: any;
+  otp: any;
+  handleOTP: any;
+  handleClickOpenOtp: any;
+  handleCloseOtp: any;
+  openOtp: any;
+  setPhone: any;
+  phone: any;
+  handleChangeOtp: any;
+};
 
-const SignUpView = (props: Props) => {
+const SignUpView = ({
+  setOtp,
+  otp,
+  handleOTP,
+  handleChangeOtp,
+  handleCloseOtp,
+  openOtp,
+  setPhone,
+  phone,
+}: Props) => {
   const theme: any = useTheme();
   return (
     <Box
@@ -104,7 +131,7 @@ const SignUpView = (props: Props) => {
               <Typography variant='h5' fontWeight={"bold"}>
                 Tạo tài khoản
               </Typography>
-              <Typography
+              {/* <Typography
                 sx={{ display: "flex", gap: "5px" }}
                 color='grey_500.main'>
                 Đã có tài khoản ?{" "}
@@ -113,22 +140,23 @@ const SignUpView = (props: Props) => {
                     Đăng nhập
                   </Typography>
                 </Link>
-              </Typography>
+              </Typography> */}
             </Box>
             <Box>
-              <CustomTextField label={"Tên của bạn"} />
-              <CustomTextField label={"Địa chỉ email của bạn."} />
-              <CustomTextField label={"Mật khẩu"} />
-              <CustomTextField label={"Xác nhận mật khẩu"} />
-              <CustomTextField label={"Mã mời (Tùy chọn)"} />
+              <CustomTextField
+                setValue={setPhone}
+                value={phone}
+                label={"Nhập số điện thoại"}
+              />
               <Button
+                onClick={handleOTP}
                 variant='contained'
                 sx={{
                   background: theme.palette.active.main,
                   mt: "15px",
                   width: "100%",
                 }}>
-                Tạo tài khoản
+                Xác thực OTP
               </Button>
               <Typography
                 my={"10px"}
@@ -151,6 +179,36 @@ const SignUpView = (props: Props) => {
           </Box>
         </Box>
       </Box>
+      <Dialog
+        maxWidth='xs' // sets a maximum width
+        fullWidth
+        open={openOtp}
+        onClose={handleCloseOtp}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'>
+        <DialogContent>
+          <Box textAlign={"center"} sx={{ div: { justifyContent: "center" } }}>
+            <Typography my={"20px"} variant='h6' fontWeight={"500"}>
+              Xác thực OTP
+            </Typography>
+            <OTPInput
+              inputStyle='inputStyle'
+              value={otp}
+              onChange={handleChangeOtp}
+              numInputs={4}
+              renderInput={(props: any) => <input {...props} type='text' />}
+            />
+            <Button
+              variant='contained'
+              sx={{
+                background: theme.palette.active.main,
+                mt: "25px",
+              }}>
+              Xác thực OTP
+            </Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };

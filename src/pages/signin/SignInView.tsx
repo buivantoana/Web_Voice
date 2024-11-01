@@ -1,6 +1,6 @@
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import React from "react";
-import { RiArrowLeftLine } from "react-icons/ri";
+import { RiArrowLeftLine, RiTiktokFill } from "react-icons/ri";
 import background_gif from "../../images/source.gif";
 import logo from "../../images/loading-lines-6747317-5601928.webp";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -8,9 +8,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
 import CustomTextField from "../../components/CustomTextField";
-type Props = {};
+type Props = {
+  handleTikTokAuthorizeLink: any;
+};
 
-const SignInView = (props: Props) => {
+const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
   const theme: any = useTheme();
   return (
     <Box
@@ -107,7 +109,7 @@ const SignInView = (props: Props) => {
               <Typography variant='h5' fontWeight={"bold"}>
                 Chào mừng quay trở lại
               </Typography>
-              <Typography
+              {/* <Typography
                 sx={{ display: "flex", gap: "5px" }}
                 color='grey_500.main'>
                 Bạn không có tài khoản ?{" "}
@@ -116,28 +118,29 @@ const SignInView = (props: Props) => {
                     Đăng ký
                   </Typography>
                 </Link>
-              </Typography>
+              </Typography> */}
             </Box>
             <Box>
-              <CustomTextField label={"Email"} />
+              {/* <CustomTextField label={"Email"} />
 
-              <CustomTextField label={"Mật khẩu"} />
-              <Typography
+              <CustomTextField label={"Mật khẩu"} /> */}
+              {/* <Typography
                 mt={"5px"}
                 textAlign={"right"}
                 fontWeight={"500"}
                 color='active.main'>
                 Quên mật khẩu?
-              </Typography>
+              </Typography> */}
               <Button
+                onClick={handleTikTokAuthorizeLink}
                 variant='contained'
                 sx={{
                   background: theme.palette.active.main,
                   mt: "15px",
                   width: "100%",
                 }}
-                endIcon={<ArrowForwardIcon />}>
-                Tiếp tục
+                startIcon={<RiTiktokFill />}>
+                Đăng nhập với tiktok
               </Button>
               <Typography
                 my={"10px"}
