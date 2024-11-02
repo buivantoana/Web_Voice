@@ -66,7 +66,13 @@ export default function InputSlider({ label, setValue, value }: any) {
             }}
           />
         </Stack>
-        <Stack width={"20%"}>
+        <Stack
+          width={"20%"}
+          sx={{
+            ".css-57eq20-MuiInputBase-root-MuiOutlinedInput-root": {
+              width: "70%",
+            },
+          }}>
           <Input
             value={value}
             size='small'
@@ -81,6 +87,8 @@ export default function InputSlider({ label, setValue, value }: any) {
               style: {
                 // CSS để ẩn mũi tên tăng giảm của input kiểu number
                 MozAppearance: "textfield",
+                padding: "0px 10px",
+                width: "90%",
               },
             }}
             sx={{
@@ -92,6 +100,7 @@ export default function InputSlider({ label, setValue, value }: any) {
                   WebkitAppearance: "none", // Ẩn mũi tên trên Chrome, Safari
                   margin: 0,
                 },
+              padding: "0 ",
             }}
           />
         </Stack>

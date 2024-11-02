@@ -198,9 +198,7 @@ const VocalizeView = ({
                   transform: "rotate(180deg)",
                 },
                 ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
-                  {
-                    padding: "0 10px !important",
-                  },
+                  {},
                 ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
                   width: "45px",
                 },
