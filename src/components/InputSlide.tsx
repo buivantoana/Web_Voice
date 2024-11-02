@@ -66,13 +66,7 @@ export default function InputSlider({ label, setValue, value }: any) {
             }}
           />
         </Stack>
-        <Stack
-          width={"20%"}
-          sx={{
-            ".css-57eq20-MuiInputBase-root-MuiOutlinedInput-root": {
-              width: "70%",
-            },
-          }}>
+        <Stack width={"20%"}>
           <Input
             value={value}
             size='small'
@@ -100,6 +94,9 @@ export default function InputSlider({ label, setValue, value }: any) {
                   WebkitAppearance: "none", // Ẩn mũi tên trên Chrome, Safari
                   margin: 0,
                 },
+              ".css-57eq20-MuiInputBase-root-MuiOutlinedInput-root": {
+                width: "70%",
+              },
               padding: "0 ",
             }}
           />
