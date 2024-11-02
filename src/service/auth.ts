@@ -41,7 +41,7 @@ export async function signup({ phone, otp, open_id }: any) {
       phone_number: phone,
       service_name: "register",
       otp,
-      open_id,
+      tiktok_open_id: open_id,
     });
     return response.data;
   } catch (error: any) {

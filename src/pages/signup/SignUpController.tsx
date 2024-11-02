@@ -3,6 +3,7 @@ import SignUpView from "./SignUpView";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getOtp, signIn, signup } from "../../service/auth";
 import Loading from "../../components/Loading";
+import { toast } from "react-toastify";
 
 type Props = {};
 
@@ -64,6 +65,15 @@ const SignUpController = (props: Props) => {
       let data = await signup({ phone, otp, open_id: openId });
       console.log(data);
       if (data.code == 0) {
+      }
+      if (data.code == 1000) {
+        Object.keys(data.data).map((key) => toast.warning(data.data[key][0]));
+      }
+      if (data.code == 1001) {
+        toast.warning("Mã OTP không hợp lệ.");
+      }
+      if (data.code == 1002) {
+        toast.warning("Tiktok profile không tồn tại.");
       }
     } catch (error) {
       console.log(error);

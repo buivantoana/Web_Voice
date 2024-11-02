@@ -39,7 +39,7 @@ export default function InputSlider({ label, setValue, value }: any) {
         direction={"row"}
         spacing={2}
         sx={{ alignItems: "center", justifyContent: "center" }}>
-        <Stack width={"60%"}>
+        <Stack width={"55%"}>
           <input
             className='range_input'
             value={value}

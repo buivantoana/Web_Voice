@@ -159,7 +159,7 @@ const VocalizeView = ({
             <Box
               sx={{
                 position: "absolute",
-                bottom: 10,
+                bottom: { xs: "unset", md: 15 },
                 right: 10,
                 display: "flex",
                 gap: "15px",
@@ -456,7 +456,7 @@ const VocalizeView = ({
                   width: "45px",
                 },
               }}>
-              <InputSlider label={true} />
+              <InputSlider setValue={setSpeed} value={speed} label={true} />
             </Box>
             <Box width={"100%"} sx={{ border: "2px solid #dddddd" }}>
               <Box

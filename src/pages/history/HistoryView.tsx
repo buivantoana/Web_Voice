@@ -43,13 +43,16 @@ const HistoryView = () => {
     setOpenAuthor(false);
   };
   return (
-    <Box py={"30px"} px={"15%"}>
+    <Box py={"30px"} px={{ xs: "2%", md: "15%" }}>
       <Box
         display={"flex"}
         justifyContent={"space-between"}
-        px={"100px"}
+        px={{ xs: "5px", md: "100px" }}
         alignItems={"center"}>
-        <Typography fontSize={"1.2rem"} color='grey_500.main'>
+        <Typography
+          width={"50%"}
+          fontSize={{ xs: "1rem", md: "1.2rem" }}
+          color='grey_500.main'>
           Tất cả lịch sử sau 30 ngày sẽ bị xóa tự động.
         </Typography>
         <Button
@@ -73,6 +76,13 @@ const HistoryView = () => {
           ".css-6n0uv7-MuiTimelineConnector-root": {
             width: "1px",
           },
+          ".css-1be8zi3-MuiTypography-root-MuiTimelineContent-root": {
+            width: "100%",
+            padding: { xs: 0, md: "0 16px" },
+          },
+          ".css-uxg07t-MuiTimeline-root": {
+            padding: { xs: 0 },
+          },
         }}>
         <Timeline
           sx={{
@@ -82,7 +92,7 @@ const HistoryView = () => {
             },
           }}>
           <TimelineItem>
-            <TimelineSeparator>
+            <TimelineSeparator sx={{ display: { xs: "none", md: "flex" } }}>
               <RiZhihuFill
                 style={{
                   background: "rgb(222 247 236)",
@@ -94,8 +104,8 @@ const HistoryView = () => {
             </TimelineSeparator>
             <TimelineContent>
               <Box
-                width={"100%"}
-                padding={"20px"}
+                width={{ xs: "97%", md: "100%" }}
+                padding={{ xs: "10px 5px", md: "20px" }}
                 borderRadius={"10px"}
                 border={"1px solid #dddddd"}
                 bgcolor={"white"}>
@@ -103,7 +113,7 @@ const HistoryView = () => {
                   display={"flex"}
                   alignItems={"center"}
                   justifyContent={"space-between"}>
-                  <Box display={"flex"} gap={"10px"}>
+                  <Box display={"flex"} flexWrap={"wrap"} gap={"10px"}>
                     <Button
                       sx={{
                         borderRadius: "5px",
