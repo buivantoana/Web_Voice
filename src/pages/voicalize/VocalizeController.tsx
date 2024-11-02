@@ -43,11 +43,12 @@ const VocalizeController = (props: Props) => {
     setLoading(true);
     try {
       let data = await createVoice({
-        user_id: "abc",
+        user_id: "abc 22",
         txt: textVoice,
         speed: speed,
         voice: "onyx",
       });
+      console.log(data);
       if (data.code == 0) {
         setBase64Voice(data.voice_base64);
         toggleDrawer(true);
