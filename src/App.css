@@ -94,9 +94,9 @@ body::-webkit-scrollbar-thumb {
     height: 4px;
   }
 }
-.range_input {
+/* .range_input {
   transform: rotate(180deg) !important;
-}
+} */
 /* .MuiPopover-paper {
   display: none;
 } */
