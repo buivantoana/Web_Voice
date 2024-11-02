@@ -68,7 +68,7 @@ const SignUpController = (props: Props) => {
     } catch (error) {
       console.log(error);
     }
-    setLoading(true);
+    setLoading(false);
   };
   return (
     <>

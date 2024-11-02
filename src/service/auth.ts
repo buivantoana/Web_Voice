@@ -37,7 +37,7 @@ export async function getOtp(phone: any) {
 }
 export async function signup({ phone, otp, open_id }: any) {
   try {
-    const response = await axios.post(`${url_auth}/api/v1/otp`, {
+    const response = await axios.post(`${url_auth}/api/v1/auth/register`, {
       phone_number: phone,
       service_name: "register",
       otp,
