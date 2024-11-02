@@ -81,7 +81,7 @@ export default function InputSlider({ label, setValue, value }: any) {
               style: {
                 // CSS để ẩn mũi tên tăng giảm của input kiểu number
                 MozAppearance: "textfield",
-                padding: "0px 10px 0px 0px",
+                padding: "0px 0px 0px 10px",
                 width: "90%",
               },
             }}
