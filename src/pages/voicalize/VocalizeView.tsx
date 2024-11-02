@@ -417,12 +417,9 @@ const VocalizeView = ({
               {" "}
               Allow
             </Typography>
-            <Box display={"flex"} gap={"10px"} alignItems={"center"}>
+            <Box>
               <Box width={"98%"}>
-                <AudioPlayer base64Audio={base64Voice} width={"98%"} />
-              </Box>
-              <Box>
-                <FileDownloadIcon />
+                <AudioPlayer base64Audio={base64Voice} />
               </Box>
             </Box>
           </Box>
@@ -649,10 +646,20 @@ const AudioPlayer = ({ base64Audio }: any) => {
   return (
     <div>
       {audioUrl && (
-        <audio style={{ width: "100%" }} controls>
-          <source src={audioUrl} type='audio/mp3' />
-          Your browser does not support the audio tag.
-        </audio>
+        <Box display={"flex"} gap={"10px"} alignItems={"center"}>
+          <audio style={{ width: "90%" }} controls>
+            <source src={audioUrl} type='audio/mp3' />
+            Your browser does not support the audio tag.
+          </audio>
+          <Box>
+            <a
+              href={audioUrl}
+              download='audio.mp3'
+              style={{ display: "block", marginTop: "10px" }}>
+              <FileDownloadIcon />
+            </a>
+          </Box>
+        </Box>
       )}
     </div>
   );
