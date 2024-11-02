@@ -51,7 +51,7 @@ const VocalizeController = (props: Props) => {
       console.log(data);
       if (data.code == 0) {
         setBase64Voice(data.voice_base64);
-        toggleDrawer(true);
+        setIsOpen(true);
       }
     } catch (error) {
       console.log(error);
