@@ -1,32 +1,18 @@
 import {
   Box,
-  Button,
   Dialog,
   DialogContent,
   Drawer,
-  IconButton,
   Popover,
   Stack,
   TextField,
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
-import {
-  RiArrowDownSLine,
-  RiCloseLine,
-  RiHqLine,
-  RiOpenaiFill,
-} from "react-icons/ri";
-import SearchIcon from "@mui/icons-material/Search";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import profile from "../../images/alloy.svg";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import React, { useEffect, useState } from "react";
+import { RiArrowDownSLine, RiCloseLine, RiHqLine } from "react-icons/ri";
 
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import mp3 from "../../images/hello_toan.mp3";
 import author from "../../images/user.png";
 
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
@@ -36,34 +22,45 @@ import InputSlider from "../../components/InputSlide";
 type Props = {
   textVoice: string;
   setTextVoice: any;
+  setSpeed: any;
+  speed: any;
+  handleClickQuality: any;
+  handleCloseQuality: any;
+  idQuality: any;
+  anchorElQuality: any;
+  openQuality: any;
+  handleSelectQuality: any;
+  selectedQuality: any;
+  base64Voice: any;
+  handleCloseAuthor: any;
+  handleClickOpenAuthor: any;
+  openAuthor: any;
+  toggleDrawer: any;
+  isOpen: any;
+  handleCreateVoice: any;
 };
-
-const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
+const VocalizeView = ({
+  textVoice,
+  setTextVoice,
+  setSpeed,
+  speed,
+  handleClickQuality,
+  handleCloseQuality,
+  idQuality,
+  anchorElQuality,
+  openQuality,
+  handleSelectQuality,
+  selectedQuality,
+  base64Voice,
+  handleClickOpenAuthor,
+  openAuthor,
+  toggleDrawer,
+  isOpen,
+  handleCreateVoice,
+  handleCloseAuthor,
+}: Props) => {
   const theme: any = useTheme();
 
-  const [anchorElQuality, setAnchorElQuality] = useState(null);
-  const handleClickQuality = (event: any) => {
-    setAnchorElQuality(event.currentTarget);
-  };
-  const handleCloseQuality = () => {
-    setAnchorElQuality(null);
-  };
-  const openQuality = Boolean(anchorElQuality);
-  const idQuality = openQuality ? "simple-popover" : undefined;
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDrawer = (open: any) => () => {
-    setIsOpen(open);
-  };
-  const [openAuthor, setOpenAuthor] = React.useState(false);
-
-  const handleClickOpenAuthor = () => {
-    setOpenAuthor(true);
-  };
-
-  const handleCloseAuthor = () => {
-    setOpenAuthor(false);
-  };
   return (
     <Box p={"20px"}>
       <Stack
@@ -188,6 +185,7 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
             justifyContent={"space-between"}
             alignItems={"center"}
             width={"100%"}
+            sx={{ cursor: "pointer" }}
             height={"45px"}>
             <Box
               height={"100%"}
@@ -207,7 +205,7 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
                   width: "45px",
                 },
               }}>
-              <InputSlider label={true} />
+              <InputSlider setValue={setSpeed} value={speed} label={true} />
             </Box>
             <Box
               width={"31%"}
@@ -232,7 +230,7 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
                   aria-describedby={idQuality}
                   onClick={handleClickQuality}>
                   <RiHqLine size={20} />
-                  <Typography fontSize={"1.2rem"}>Chất lượng cao</Typography>
+                  <Typography fontSize={"1.2rem"}>{selectedQuality}</Typography>
                   <RiArrowDownSLine size={20} />
                 </Box>
 
@@ -241,7 +239,8 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
                   open={openQuality}
                   anchorEl={anchorElQuality}
                   onClose={handleCloseQuality}
-                  sx={{ p: "5px" }}
+                  disableEnforceFocus
+                  sx={{ p: "5px", cursor: "pointer", zIndex: 1301 }}
                   anchorOrigin={{
                     vertical: "top",
                     horizontal: "center",
@@ -250,18 +249,57 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
                     vertical: "bottom",
                     horizontal: "center",
                   }}>
-                  <Typography sx={{ padding: "10px 8px", width: "180px" }}>
-                    Chất lượng cao
-                  </Typography>
-                  <Typography sx={{ padding: "10px 8px", width: "180px" }}>
-                    Chất lượng HD
-                  </Typography>
+                  <Box
+                    sx={{
+                      cursor: "pointer",
+                      position: "relative",
+                      zIndex: "1000",
+                    }}>
+                    <Box>
+                      <Typography
+                        onClick={() => handleSelectQuality("Chất lượng cao")}
+                        sx={{
+                          padding: "10px 8px",
+                          width: "180px",
+                          cursor: "pointer",
+                          background:
+                            selectedQuality == "Chất lượng cao"
+                              ? theme.palette.active.main
+                              : "unset",
+                          color:
+                            selectedQuality == "Chất lượng cao"
+                              ? "white"
+                              : "black",
+                        }}>
+                        Chất lượng cao
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography
+                        onClick={() => handleSelectQuality("Chất lượng HD")}
+                        sx={{
+                          padding: "10px 8px",
+                          width: "180px",
+                          cursor: "pointer",
+                          background:
+                            selectedQuality == "Chất lượng HD"
+                              ? theme.palette.active.main
+                              : "unset",
+                          color:
+                            selectedQuality == "Chất lượng HD"
+                              ? "white"
+                              : "black",
+                        }}>
+                        Chất lượng HD
+                      </Typography>
+                    </Box>
+                  </Box>
                 </Popover>
               </Box>
             </Box>
             <Box
-              onClick={toggleDrawer(true)}
               width={"31%"}
+              onClick={handleCreateVoice}
               border={"2px solid #dddddd"}
               bgcolor={theme.palette.active.main}
               display={"flex"}
@@ -270,8 +308,11 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
               gap={"20%"}
               height={"100%"}
               sx={{
+                pointerEvents: textVoice.length ? "auto" : "none",
+                opacity: textVoice.length ? "1" : ".5",
                 borderTopRightRadius: "25px",
                 borderBottomRightRadius: "25px",
+                cursor: "pointer",
                 ".css-918vr5-MuiStack-root": {
                   transform: "rotate(180deg)",
                 },
@@ -380,7 +421,7 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
             </Typography>
             <Box display={"flex"} gap={"10px"} alignItems={"center"}>
               <Box width={"98%"}>
-                <AudioPlayer width={"98%"} />
+                <AudioPlayer base64Audio={base64Voice} width={"98%"} />
               </Box>
               <Box>
                 <FileDownloadIcon />
@@ -573,13 +614,48 @@ const VocalizeView = ({ textVoice, setTextVoice }: Props) => {
 
 export default VocalizeView;
 
-function AudioPlayer({ width }: any) {
+// function AudioPlayer({ width }: any) {
+//   return (
+//     <Box>
+//       <audio style={{ width: width }} controls>
+//         <source src={mp3} type='audio/mpeg' />
+//         Your browser does not support the audio element.
+//       </audio>
+//     </Box>
+//   );
+// }
+const AudioPlayer = ({ base64Audio }: any) => {
+  const [audioUrl, setAudioUrl] = useState("");
+
+  useEffect(() => {
+    // Tạo URL từ Base64
+    const audioBlob = new Blob(
+      [
+        new Uint8Array(
+          atob(base64Audio)
+            .split("")
+            .map((c) => c.charCodeAt(0))
+        ),
+      ],
+      { type: "audio/mp3" }
+    );
+    const url = URL.createObjectURL(audioBlob);
+    setAudioUrl(url);
+
+    // Giải phóng URL khi component unmount
+    return () => {
+      URL.revokeObjectURL(url);
+    };
+  }, [base64Audio]);
+
   return (
-    <Box>
-      <audio style={{ width: width }} controls>
-        <source src={mp3} type='audio/mpeg' />
-        Your browser does not support the audio element.
-      </audio>
-    </Box>
+    <div>
+      {audioUrl && (
+        <audio style={{ width: "100%" }} controls>
+          <source src={audioUrl} type='audio/mp3' />
+          Your browser does not support the audio tag.
+        </audio>
+      )}
+    </div>
   );
-}
+};

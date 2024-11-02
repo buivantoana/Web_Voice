@@ -26,22 +26,23 @@ export async function signIn(auth_code: any) {
 }
 export async function getOtp(phone: any) {
   try {
-    let signature = createSimpleHash({
+    const response = await axios.post(`${url_auth}/api/v1/otp`, {
       phone_number: phone,
       service_name: "register",
     });
-    const response = await axios.post(
-      `${url_auth}/api/v1/otp`,
-      {
-        phone_number: phone,
-        service_name: "register",
-      },
-      {
-        headers: {
-          "X-Signature": signature,
-        },
-      }
-    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+export async function signup({ phone, otp, open_id }: any) {
+  try {
+    const response = await axios.post(`${url_auth}/api/v1/otp`, {
+      phone_number: phone,
+      service_name: "register",
+      otp,
+      open_id,
+    });
     return response.data;
   } catch (error: any) {
     console.error("Error fetching data:", error.message);

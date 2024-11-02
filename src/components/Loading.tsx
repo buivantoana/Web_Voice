@@ -1,12 +1,12 @@
 import { Box, CircularProgress } from "@mui/material";
-
-const Loading = (props:any) => {
+import logo from "../images/loading-lines-6747317-5601928.webp";
+const Loading = (props: any) => {
   return (
     <Box
       sx={{
         display: "flex",
-        width:props.width?props.width: "100%",
-        height: props.height?props.height:"100vh",
+        width: props.width ? props.width : "100%",
+        height: props.height ? props.height : "100vh",
         position: "fixed",
         top: 0,
         left: 0,
@@ -16,7 +16,7 @@ const Loading = (props:any) => {
         zIndex: 10000,
       }}>
       <Box>
-        <CircularProgress />
+        <img src={logo} width={"100px"} alt='' />
       </Box>
     </Box>
   );

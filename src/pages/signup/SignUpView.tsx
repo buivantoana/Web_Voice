@@ -24,6 +24,7 @@ type Props = {
   setPhone: any;
   phone: any;
   handleChangeOtp: any;
+  handleRegister: any;
 };
 
 const SignUpView = ({
@@ -35,6 +36,7 @@ const SignUpView = ({
   openOtp,
   setPhone,
   phone,
+  handleRegister,
 }: Props) => {
   const theme: any = useTheme();
   return (
@@ -199,6 +201,7 @@ const SignUpView = ({
               renderInput={(props: any) => <input {...props} type='text' />}
             />
             <Button
+              onClick={handleRegister}
               variant='contained'
               sx={{
                 background: theme.palette.active.main,

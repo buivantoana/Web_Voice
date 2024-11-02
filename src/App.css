@@ -97,3 +97,6 @@ body::-webkit-scrollbar-thumb {
 .range_input {
   transform: rotate(180deg) !important;
 }
+/* .MuiPopover-paper {
+  display: none;
+} */

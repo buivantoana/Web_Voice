@@ -15,9 +15,9 @@ function sortObjectByKeys(obj: Record<string, any>) {
 export function createSimpleHash(body: any) {
   // Bước 1: Sắp xếp body theo thứ tự key tăng dần
   const sortedBody = sortObjectByKeys(body);
-
+  console.log(sortedBody);
   // Bước 2: Chuyển đổi body đã sắp xếp thành chuỗi JSON
-  const jsonBody = JSON.stringify(sortedBody);
+  const jsonBody = JSON.stringify(body);
 
   // Bước 3: Tạo hash SHA-256 mà không cần secret key
   const hash = CryptoJS.SHA256(jsonBody).toString(CryptoJS.enc.Hex);

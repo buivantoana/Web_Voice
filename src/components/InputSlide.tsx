@@ -1,20 +1,15 @@
-import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import Slider from "@mui/material/Slider";
-import MuiInput from "@mui/material/Input";
-import VolumeUp from "@mui/icons-material/VolumeUp";
 import { Stack, TextField } from "@mui/material";
+import Box from "@mui/material/Box";
+import { styled, useTheme } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
 
 const Input = styled(TextField)`
   width: 62px;
 `;
 
-export default function InputSlider({ label }: any) {
+export default function InputSlider({ label, setValue, value }: any) {
   const theme: any = useTheme();
-  const [value, setValue] = React.useState(0);
 
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(Number(event.target.value));
