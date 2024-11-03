@@ -40,7 +40,9 @@ const SignUpController = (props: Props) => {
       if (data.code == 0) {
         setAccessToken(data.data.access_token);
         setUser(data.data.user);
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
       }
       if (data.code == 1004) {
         setOpenId(data.data.tiktok_open_id);
