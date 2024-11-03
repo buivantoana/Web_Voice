@@ -26,8 +26,10 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../images/loading-lines-6747317-5601928.webp";
 
 import user from "../images/user.png";
+import { useCoursesContext } from "../App";
 const Header = () => {
   const theme: any = useTheme();
+  const context: any = useCoursesContext();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = (open: any) => () => {
@@ -38,6 +40,7 @@ const Header = () => {
   const toggleDrawerMenu = (Menu: any) => () => {
     setIsMenu(Menu);
   };
+  console.log(context);
   return (
     <Box
       sx={{
@@ -142,20 +145,28 @@ const Header = () => {
             </Typography>
           </Box>
         </Hidden>
-        {/* <Box display={"flex"} gap={"20px"} alignItems={"center"}>
-          <RiNotification2Line size={20} />
-          <Link to={"/signin"}>
-            <Button
-              variant='contained'
-              sx={{ background: theme.palette.active.main }}
-              endIcon={<ArrowForwardIcon />}>
-              Đăng nhập
-            </Button>
-          </Link>
-        </Box> */}
-        <Box onClick={toggleDrawer(true)}>
-          <img src={user} style={{ borderRadius: "50%" }} width={50} alt='' />
-        </Box>
+        {context.state.user && Object.keys(context.state.user).length > 0 ? (
+          <Box
+            onClick={toggleDrawer(true)}
+            display={"flex"}
+            gap={"20px"}
+            alignItems={"center"}>
+            <RiNotification2Line size={20} />
+            <img src={user} style={{ borderRadius: "50%" }} width={50} alt='' />
+          </Box>
+        ) : (
+          <Box>
+            <Link to={"/signin"}>
+              <Button
+                variant='contained'
+                sx={{ background: theme.palette.active.main }}
+                endIcon={<ArrowForwardIcon />}>
+                Đăng nhập
+              </Button>
+            </Link>
+          </Box>
+        )}
+
         <Drawer
           anchor='right' // Đảm bảo anchor là "right"
           open={isOpen}

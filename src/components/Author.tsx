@@ -12,10 +12,28 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { RiOpenaiFill } from "react-icons/ri";
-import profile from "../images/alloy.svg";
-import { useState } from "react";
+import {
+  RiOpenaiFill,
+  RiPauseCircleLine,
+  RiPlayCircleLine,
+} from "react-icons/ri";
+import alloy from "../images/alloy.svg";
+import echo from "../images/echo.svg";
+import fable from "../images/fable.svg";
+import onyx from "../images/onyx.svg";
+import nova from "../images/nova.svg";
+import shimmer from "../images/shimmer.svg";
+import { useEffect, useRef, useState } from "react";
+import { country } from "../utils/acent";
 
+const images: any = {
+  alloy: alloy,
+  echo: echo,
+  fable: fable,
+  onyx: onyx,
+  nova: nova,
+  shimmer: shimmer,
+};
 type Props = {
   data?: any;
   voice?: any;
@@ -24,6 +42,7 @@ type Props = {
 
 const Author = ({ data, setVoice, voice }: Props) => {
   const theme: any = useTheme();
+  const [voices, setVoices] = useState(data);
   const [anchorElGender, setAnchorElGender] = useState(null);
   const handleClickGender = (event: any) => {
     setAnchorElGender(event.currentTarget);
@@ -54,9 +73,120 @@ const Author = ({ data, setVoice, voice }: Props) => {
   const openAcent = Boolean(anchorElAcent);
   const idAcent = openAcent ? "simple-popover" : undefined;
 
+  const audioRefs: any = useRef([]);
+  const [playingIndex, setPlayingIndex] = useState(null);
+
+  const togglePlayPause = (index: any) => {
+    if (audioRefs.current[index]) {
+      const isPlaying = playingIndex === index;
+
+      // If an audio is already playing, pause it
+      if (playingIndex !== null && playingIndex !== index) {
+        audioRefs.current[playingIndex].pause();
+        audioRefs.current[playingIndex].currentTime = 0; // Reset the previous audio to the start
+      }
+
+      // Play the new audio or reset to the start if it was already playing
+      if (isPlaying) {
+        audioRefs.current[index].pause();
+        setPlayingIndex(null);
+      } else {
+        audioRefs.current[index].currentTime = 0; // Start from the beginning
+        audioRefs.current[index].play();
+        setPlayingIndex(index);
+      }
+    }
+  };
+  const handleAudioEnded = () => {
+    // Reset playingIndex when audio ends
+    setPlayingIndex(null);
+  };
+
+  // filter
+  const [search, setSearch] = useState("");
+  const handleSearch = (e: any) => {
+    let value = e.target.value.toLowerCase();
+    setSearch(e.target.value);
+    if (value) {
+      setVoices(
+        voices.filter((item: any) => item.name.toLowerCase().includes(value))
+      );
+    } else {
+      filterVoices();
+    }
+  };
+
+  const [SelectedGender, setSelectedGender] = useState(null);
+  const handleSelectGender = (Gender: any) => {
+    if (Gender == SelectedGender) {
+      console.log("toaoana");
+      setSelectedGender(null);
+      filterVoices();
+    } else {
+      setSelectedGender(Gender);
+    }
+
+    handleCloseGender();
+  };
+  const [SelectedAge, setSelectedAge] = useState(null);
+  const handleSelectAge = (Age: any) => {
+    if (Age == SelectedAge) {
+      setSelectedAge(null);
+      filterVoices();
+    } else {
+      setSelectedAge(Age);
+    }
+    console.log("AAA Age ===", Age);
+
+    handleCloseAge();
+  };
+  const [SelectedAcent, setSelectedAcent] = useState(null);
+  const handleSelectAcent = (Acent: any) => {
+    if (Acent == SelectedAcent) {
+      setSelectedAcent(null);
+      filterVoices();
+    } else {
+      setSelectedAcent(Acent);
+    }
+
+    handleCloseAcent();
+  };
+  useEffect(() => {
+    filterVoices();
+  }, [SelectedAcent, SelectedAge, SelectedGender]);
+  const filterVoices = () => {
+    let data_filter = data;
+    console.log(data_filter);
+    if (SelectedAge) {
+      data_filter = data_filter.filter((item: any) => item.age == SelectedAge);
+    }
+    if (SelectedGender) {
+      data_filter = data_filter.filter(
+        (item: any) => item.gender == SelectedGender
+      );
+    }
+    if (SelectedAcent) {
+      data_filter = data_filter.filter(
+        (item: any) => item.gender == SelectedAcent
+      );
+    }
+    console.log(data_filter);
+    setVoices(data_filter);
+  };
+  const handleReset = () => {
+    setSelectedAcent(null);
+    setSelectedAge(null);
+    setSelectedGender(null);
+    setSearch("");
+  };
+  console.log(SelectedGender);
   return (
     <div>
-      <Box border={"1px solid #dddddd"} height={"100%"} borderRadius={"8px"}>
+      <Box
+        border={"1px solid #dddddd"}
+        sx={{ cursor: "pointer" }}
+        height={"100%"}
+        borderRadius={"8px"}>
         <Box p={"5px 10px"}>
           <Box
             sx={{
@@ -104,6 +234,8 @@ const Author = ({ data, setVoice, voice }: Props) => {
               className='search-input'
               placeholder='Tìm kiếm...'
               id='demo-helper-text-aligned'
+              value={search}
+              onChange={handleSearch}
               size='small'
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -166,7 +298,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                 open={openGender}
                 anchorEl={anchorElGender}
                 onClose={handleCloseGender}
-                sx={{ p: "5px" }}
+                sx={{ p: "5px", zIndex: 1301 }}
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "right",
@@ -175,10 +307,30 @@ const Author = ({ data, setVoice, voice }: Props) => {
                   vertical: "top",
                   horizontal: "right",
                 }}>
-                <Typography sx={{ padding: "3px 10px", width: "80px" }}>
+                <Typography
+                  onClick={() => handleSelectGender("Female")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedGender == "Female"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedGender == "Female" ? "white" : "black",
+                  }}>
                   Nam
                 </Typography>
-                <Typography sx={{ padding: "3px 10px", width: "80px" }}>
+                <Typography
+                  onClick={() => handleSelectGender("Male")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedGender == "Male"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedGender == "Male" ? "white" : "black",
+                  }}>
                   Nữ
                 </Typography>
               </Popover>
@@ -214,7 +366,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                 open={openAge}
                 anchorEl={anchorElAge}
                 onClose={handleCloseAge}
-                sx={{ p: "5px" }}
+                sx={{ p: "5px", zIndex: 1301 }}
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "right",
@@ -223,13 +375,43 @@ const Author = ({ data, setVoice, voice }: Props) => {
                   vertical: "top",
                   horizontal: "right",
                 }}>
-                <Typography sx={{ padding: "3px 10px", width: "80px" }}>
+                <Typography
+                  onClick={() => handleSelectAge("Young")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedAge == "Young"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedAge == "Young" ? "white" : "black",
+                  }}>
                   Trẻ
                 </Typography>
-                <Typography sx={{ padding: "3px 10px", width: "80px" }}>
+                <Typography
+                  onClick={() => handleSelectAge("Middle Aged")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedAge == "Middle Aged"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedAge == "Middle Aged" ? "white" : "black",
+                  }}>
                   Trung liên
                 </Typography>
-                <Typography sx={{ padding: "3px 10px", width: "80px" }}>
+                <Typography
+                  onClick={() => handleSelectAge("Old")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedAge == "Old"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedAge == "Old" ? "white" : "black",
+                  }}>
                   Lớn tuổi
                 </Typography>
               </Popover>
@@ -265,7 +447,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                 open={openAcent}
                 anchorEl={anchorElAcent}
                 onClose={handleCloseAcent}
-                sx={{ p: "5px" }}
+                sx={{ p: "5px", zIndex: 1301 }}
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "right",
@@ -274,12 +456,47 @@ const Author = ({ data, setVoice, voice }: Props) => {
                   vertical: "top",
                   horizontal: "right",
                 }}>
-                <Typography sx={{ padding: "3px 10px", width: "80px" }}>
-                  Nam
-                </Typography>
-                <Typography sx={{ padding: "3px 10px", width: "80px" }}>
-                  Nữ
-                </Typography>
+                <Box
+                  sx={{
+                    height: "300px",
+                    overflowY: "scroll",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "5px",
+                  }}>
+                  {country.map((item) => {
+                    return (
+                      <Box
+                        display={"flex"}
+                        onClick={() => handleSelectAcent(item.name)}
+                        alignItems={"center"}
+                        sx={{
+                          background:
+                            SelectedAcent == item.name
+                              ? theme.palette.active.main
+                              : "unset",
+                          color: SelectedAcent == item.name ? "white" : "black",
+                        }}
+                        gap={"8px"}>
+                        <img
+                          src={item.flag}
+                          width={30}
+                          height={30}
+                          style={{ borderRadius: "50%", objectFit: "cover" }}
+                          alt=''
+                        />
+                        <Typography
+                          sx={{
+                            padding: "3px 10px",
+                            width: "100px",
+                            fontSize: ".8rem",
+                          }}>
+                          {item.name}
+                        </Typography>
+                      </Box>
+                    );
+                  })}
+                </Box>
               </Popover>
             </Box>
           </Box>
@@ -291,6 +508,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
             }}>
             <Button
               variant='outlined'
+              onClick={handleReset}
               startIcon={<FilterAltOffIcon />}
               sx={{
                 borderColor: theme.palette.grey_500.main,
@@ -302,7 +520,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                 },
               }}
               size='small'>
-              Reset
+              Đặt lại
             </Button>
 
             <RestartAltIcon
@@ -333,19 +551,21 @@ const Author = ({ data, setVoice, voice }: Props) => {
               flexWrap={"wrap"}
               gap={"10px"}
               padding={"10px"}>
-              {data &&
-                data.length &&
-                data.map((item: any) => {
+              {voices &&
+                voices.length &&
+                voices.map((item: any, index: number) => {
                   return (
                     <Box
                       onClick={() => setVoice(item)}
                       sx={{
                         borderRadius: "8px",
+                        // flexGrow: 1,
                         border:
                           voice.id == item.id
-                            ? `1px solid ${theme.palette.active.main}`
-                            : "1px solid rgb(226 232 240)",
-                        width: { xs: "100%", md: "49%" },
+                            ? `2px solid ${theme.palette.active.main}`
+                            : "2px solid rgb(226 232 240)",
+                        width: { xs: "100%", md: "48%" },
+                        // flexBasis: "200",
                       }}>
                       <Stack
                         direction={"row"}
@@ -355,7 +575,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                           {item.name}
                         </Typography>
                         <Typography fontSize={".85rem"} fontWeight={"500"}>
-                          QA001
+                          QA00{index + 1}
                         </Typography>
                       </Stack>
                       <Stack
@@ -387,7 +607,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                         </Box>
                         <Box>
                           <img
-                            src={profile}
+                            src={images[item.id]}
                             alt=''
                             width={"40px"}
                             style={{ borderRadius: "50%" }}
@@ -403,10 +623,21 @@ const Author = ({ data, setVoice, voice }: Props) => {
                           gap={"5px"}
                           borderTop={"1px solid rgb(226 232 240)"}
                           borderRight={"1px solid rgb(226 232 240)"}
+                          onClick={() => togglePlayPause(index)}
                           justifyContent={"center"}>
-                          <PlayCircleOutlineIcon sx={{ fontSize: "16px" }} />
+                          {playingIndex === index ? (
+                            <RiPauseCircleLine />
+                          ) : (
+                            <RiPlayCircleLine />
+                          )}
                           <Typography fontSize={".85rem"}>Mẫu</Typography>
+                          <audio
+                            ref={(el) => (audioRefs.current[index] = el)}
+                            src={item.sample_audio_path}
+                            onEnded={handleAudioEnded}
+                          />
                         </Box>
+
                         <Box
                           width={"50%"}
                           display={"flex"}
