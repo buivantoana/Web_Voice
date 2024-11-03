@@ -1,6 +1,5 @@
 import axios from "axios";
 import { path_redirect, url_auth } from "../config";
-import { createSimpleHash } from "../utils/utils";
 
 export async function tiktokAuthorizeLink() {
   try {
@@ -19,6 +18,7 @@ export async function signIn(auth_code: any) {
       auth_code: auth_code,
       redirect_uri: path_redirect,
     });
+    console.log("AAAA reponse ===", response);
     return response.data;
   } catch (error: any) {
     console.error("Error fetching data:", error.message);
