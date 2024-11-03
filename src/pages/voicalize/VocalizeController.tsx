@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import VocalizeView from "./VocalizeView";
 import Loading from "../../components/Loading";
-import { createVoice } from "../../service/voice";
+import { createVoice, getVoicesOpenAi } from "../../service/voice";
 
 type Props = {};
 
@@ -17,10 +17,29 @@ const VocalizeController = (props: Props) => {
   const idQuality = openQuality ? "simple-popover" : undefined;
   const [isOpen, setIsOpen] = useState(false);
   const [openAuthor, setOpenAuthor] = React.useState(false);
+  const [loadingVoices, setLoadingVoices] = useState(false);
+  const [voices, setVoices] = useState([]);
+  const [voice, setVoice] = useState<any>({});
+
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
   };
-
+  useEffect(() => {
+    loadVoicesOpenai();
+  }, []);
+  const loadVoicesOpenai = async () => {
+    setLoadingVoices(true);
+    try {
+      let data = await getVoicesOpenAi();
+      if (data.voices && data.voices.length > 0) {
+        setVoice(data.voices[0]);
+        setVoices(data.voices);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoadingVoices(false);
+  };
   const handleClickOpenAuthor = () => {
     setOpenAuthor(true);
   };
@@ -46,7 +65,7 @@ const VocalizeController = (props: Props) => {
         user_id: "abc 22",
         txt: textVoice,
         speed: speed,
-        voice: "onyx",
+        voice: voice.id,
       });
       console.log(data);
       if (data.code == 0) {
@@ -80,6 +99,10 @@ const VocalizeController = (props: Props) => {
         toggleDrawer={toggleDrawer}
         isOpen={isOpen}
         handleCreateVoice={handleCreateVoice}
+        voices={voices}
+        voice={voice}
+        setVoice={setVoice}
+        loadingVoices={loadingVoices}
       />
     </>
   );

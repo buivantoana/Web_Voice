@@ -18,3 +18,15 @@ export async function createVoice(body: {
     console.error("Error fetching data:", error.message);
   }
 }
+export async function getVoicesOpenAi() {
+  try {
+    const response = await axios.post(`${url_voice}/voice/voices`, {
+      headers: {
+        Authorization: "Bearer ABC123",
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}

@@ -1,11 +1,12 @@
 import Router from "./routes/Routes";
 import "./App.css";
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@mui/material";
 import theme from "./theme";
+import { useLocalStorage } from "./hooks/useStorage";
 const queryClient = new QueryClient();
 export const coursesContext = createContext({});
 
@@ -16,16 +17,10 @@ const reducer = (state: any, action: any) => {
         ...state,
         user: action.payload.user,
       };
-    case "PROGRESS":
-      return {
-        ...state,
-        progress: action.payload.progress,
-      };
     case "LOGOUT":
       return {
         ...state,
         user: {},
-        progress: undefined,
       };
     default:
       return state;
@@ -34,9 +29,20 @@ const reducer = (state: any, action: any) => {
 const App = () => {
   const [state, dispatch] = useReducer(reducer, {
     user: {},
-    progress: undefined,
   });
-
+  const [user, setUser] = useLocalStorage("user", {});
+  const [accessToken, setAccessToken] = useLocalStorage("access_token", {});
+  useEffect(() => {
+    if (user && accessToken) {
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          ...state,
+          user: user,
+        },
+      });
+    }
+  }, []);
   console.log(state);
   return (
     <div>

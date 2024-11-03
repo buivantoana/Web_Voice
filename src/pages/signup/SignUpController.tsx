@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getOtp, signIn, signup } from "../../service/auth";
 import Loading from "../../components/Loading";
 import { toast } from "react-toastify";
+import { useLocalStorage } from "../../hooks/useStorage";
 
 type Props = {};
 
@@ -17,6 +18,8 @@ const SignUpController = (props: Props) => {
   const [openOtp, setOpenOtp] = React.useState(false);
   const [otp, setOtp] = useState("");
   const [openId, setOpenId] = useState(null);
+  const [, setAccessToken] = useLocalStorage("access_token", {});
+  const [, setUser] = useLocalStorage("user", {});
 
   const handleClickOpenOtp = () => {
     setOpenOtp(true);
@@ -26,24 +29,25 @@ const SignUpController = (props: Props) => {
   };
   useEffect(() => {
     if (auth_code) {
-      (async () => {
-        setLoading(true);
-        try {
-          let data = await signIn(auth_code);
-          console.log(data);
-          if (data.code == 0) {
-            navigate("/");
-          }
-          if (data.code == 1004) {
-            setOpenId(data.data.tiktok_open_id);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-        setLoading(false);
-      })();
+      login();
     }
   }, []);
+  const login = async () => {
+    setLoading(true);
+    try {
+      let data = await signIn(auth_code);
+      console.log(data);
+      if (data.code == 0) {
+        navigate("/");
+      }
+      if (data.code == 1004) {
+        setOpenId(data.data.tiktok_open_id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
   const handleOTP = async () => {
     setLoading(true);
     try {
@@ -67,6 +71,9 @@ const SignUpController = (props: Props) => {
       let data = await signup({ phone, otp, open_id: openId });
       console.log(data);
       if (data.code == 0) {
+        setAccessToken(data.data.access_token);
+        setUser(data.data.user);
+        login();
       }
       if (data.code == 1000) {
         Object.keys(data.data).map((key) => toast.warning(data.data[key][0]));

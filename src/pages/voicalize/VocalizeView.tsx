@@ -18,6 +18,7 @@ import author from "../../images/user.png";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 import Author from "../../components/Author";
 import InputSlider from "../../components/InputSlide";
+import Loading from "../../components/Loading";
 
 type Props = {
   textVoice: string;
@@ -38,6 +39,10 @@ type Props = {
   toggleDrawer: any;
   isOpen: any;
   handleCreateVoice: any;
+  voices: any;
+  voice: any;
+  setVoice: any;
+  loadingVoices: any;
 };
 const VocalizeView = ({
   textVoice,
@@ -58,6 +63,10 @@ const VocalizeView = ({
   isOpen,
   handleCreateVoice,
   handleCloseAuthor,
+  voices,
+  setVoice,
+  voice,
+  loadingVoices,
 }: Props) => {
   const theme: any = useTheme();
 
@@ -176,8 +185,12 @@ const VocalizeView = ({
           display={{ xs: "none", md: "unset" }}
           height={{ xs: "50vh", md: "75vh" }}
           width={{ xs: "100%", md: "49%" }}>
-          <Box height={"90%"}>
-            <Author />
+          <Box height={"90%"} sx={{ position: "relative" }}>
+            {loadingVoices && voices.length > 0 ? (
+              <Author setVoice={setVoice} voice={voice} data={voices} />
+            ) : (
+              <Loading height={"100%"} />
+            )}
           </Box>
           <Box
             mt={"10px"}
