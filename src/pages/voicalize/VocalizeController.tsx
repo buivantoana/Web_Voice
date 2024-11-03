@@ -31,6 +31,7 @@ const VocalizeController = (props: Props) => {
     setLoadingVoices(true);
     try {
       let data = await getVoicesOpenAi();
+      console.log("AAAA data", data);
       if (data.voices && data.voices.length > 0) {
         setVoice(data.voices[0]);
         setVoices(data.voices);

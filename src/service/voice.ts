@@ -25,6 +25,7 @@ export async function getVoicesOpenAi() {
         Authorization: "Bearer ABC123",
       },
     });
+    console.error("AAAA data:====", response.data);
     return response.data;
   } catch (error: any) {
     console.error("Error fetching data:", error.message);
