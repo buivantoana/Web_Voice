@@ -47,10 +47,10 @@ const SignUpController = (props: Props) => {
   const handleOTP = async () => {
     setLoading(true);
     try {
-      let data = await getOtp(phone);
-      if (data.code == 0) {
-        handleClickOpenOtp();
-      }
+      // let data = await getOtp(phone);
+      // if (data.code == 0) {
+      handleClickOpenOtp();
+      // }
     } catch (error) {
       console.log(error);
     }
@@ -61,6 +61,7 @@ const SignUpController = (props: Props) => {
     setOtp(otpValue);
   };
   const handleRegister = async () => {
+    console.log("AAA body ===", { phone, otp, open_id: openId });
     setLoading(true);
     try {
       let data = await signup({ phone, otp, open_id: openId });
