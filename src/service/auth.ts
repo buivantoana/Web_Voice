@@ -100,7 +100,13 @@ export async function signup({ phone, otp, open_id }: any) {
 export async function signupWebHook({ user_id }: any) {
   try {
     const response = await axios.post(
-      `${url_voice}/voice/login?user_id=${user_id}`
+      `${url_voice}/voice/login?user_id=${user_id}`,
+      {},
+      {
+        headers: {
+          Authorization: "Bearer ABC123",
+        },
+      }
     );
     return response.data;
   } catch (error: any) {
