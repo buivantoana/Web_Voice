@@ -38,6 +38,8 @@ const SignUpController = (props: Props) => {
       let data = await signIn(auth_code);
       console.log(data);
       if (data.code == 0) {
+        setAccessToken(data.data.access_token);
+        setUser(data.data.user);
         navigate("/");
       }
       if (data.code == 1004) {
@@ -71,8 +73,6 @@ const SignUpController = (props: Props) => {
       let data = await signup({ phone, otp, open_id: openId });
       console.log(data);
       if (data.code == 0) {
-        setAccessToken(data.data.access_token);
-        setUser(data.data.user);
         login();
       }
       if (data.code == 1000) {
