@@ -20,7 +20,7 @@ export async function createVoice(body: {
 }
 export async function getVoicesOpenAi() {
   try {
-    const response = await axios.post(`${url_voice}/voice/voices`, {
+    const response = await axios.get(`${url_voice}/voice/voices`, {
       headers: {
         Authorization: "Bearer ABC123",
       },
