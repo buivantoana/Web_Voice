@@ -30,6 +30,7 @@ const SignUpController = (props: Props) => {
         setLoading(true);
         try {
           let data = await signIn(auth_code);
+          console.log(data);
           if (data.code == 0) {
             navigate("/");
           }
