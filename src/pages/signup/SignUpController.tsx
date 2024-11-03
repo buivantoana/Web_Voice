@@ -5,9 +5,14 @@ import { getOtp, signIn, signup, signupWebHook } from "../../service/auth";
 import Loading from "../../components/Loading";
 import { toast } from "react-toastify";
 import { useLocalStorage } from "../../hooks/useStorage";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 type Props = {};
-
+const schema = yup.object({
+  phone: yup.string().required(),
+});
 const SignUpController = (props: Props) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -20,6 +25,13 @@ const SignUpController = (props: Props) => {
   const [openId, setOpenId] = useState(null);
   const [, setAccessToken] = useLocalStorage("access_token", {});
   const [, setUser] = useLocalStorage("user", {});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const handleClickOpenOtp = () => {
     setOpenOtp(true);
@@ -55,7 +67,8 @@ const SignUpController = (props: Props) => {
     }
     setLoading(false);
   };
-  const handleOTP = async () => {
+  const handleOTP = async (data: any) => {
+    console.log(data);
     setLoading(true);
     try {
       // let data = await getOtp(phone);
@@ -94,6 +107,7 @@ const SignUpController = (props: Props) => {
     }
     setLoading(false);
   };
+  console.log(errors);
   return (
     <>
       {loading && <Loading />}
@@ -108,6 +122,9 @@ const SignUpController = (props: Props) => {
         phone={phone}
         handleChangeOtp={handleChangeOtp}
         handleRegister={handleRegister}
+        handleSubmit={handleSubmit}
+        register={register}
+        errors={errors}
       />
     </>
   );

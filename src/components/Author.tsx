@@ -40,8 +40,8 @@ const age: any = {
   "Middle Aged": "Trung liên",
 };
 const gender: any = {
-  Male: "Nữ",
-  Female: "Nam",
+  Male: "Nam",
+  Female: "Nữ",
 };
 type Props = {
   data?: any;

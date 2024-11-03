@@ -25,10 +25,13 @@ type Props = {
   phone: any;
   handleChangeOtp: any;
   handleRegister: any;
+  handleSubmit: any;
+  register: any;
+  errors: any;
 };
 
 const SignUpView = ({
-  setOtp,
+  handleSubmit,
   otp,
   handleOTP,
   handleChangeOtp,
@@ -37,6 +40,8 @@ const SignUpView = ({
   setPhone,
   phone,
   handleRegister,
+  errors,
+  register,
 }: Props) => {
   const theme: any = useTheme();
   return (
@@ -145,21 +150,25 @@ const SignUpView = ({
               </Typography> */}
             </Box>
             <Box>
-              <CustomTextField
-                setValue={setPhone}
-                value={phone}
-                label={"Nhập số điện thoại"}
-              />
-              <Button
-                onClick={handleOTP}
-                variant='contained'
-                sx={{
-                  background: theme.palette.active.main,
-                  mt: "15px",
-                  width: "100%",
-                }}>
-                Xác thực OTP
-              </Button>
+              <form onSubmit={handleSubmit(handleOTP)}>
+                <CustomTextField
+                  register={register}
+                  errors={errors}
+                  setValue={setPhone}
+                  value={phone}
+                  label={"Nhập số điện thoại"}
+                />
+                <Button
+                  type='submit'
+                  variant='contained'
+                  sx={{
+                    background: theme.palette.active.main,
+                    mt: "15px",
+                    width: "100%",
+                  }}>
+                  Xác thực OTP
+                </Button>
+              </form>
               <Typography
                 my={"10px"}
                 fontSize={".9rem"}
