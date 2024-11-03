@@ -607,7 +607,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                         </Box>
                         <Box>
                           <img
-                            src={images[item.id]}
+                            src={images[item.name.toLowerCase()]}
                             alt=''
                             width={"40px"}
                             style={{ borderRadius: "50%" }}
