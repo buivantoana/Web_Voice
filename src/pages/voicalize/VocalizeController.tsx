@@ -65,7 +65,7 @@ const VocalizeController = (props: Props) => {
       let data = await createVoice({
         user_id: "abc 22",
         txt: textVoice,
-        speed: speed,
+        speed: Math.floor(speed),
         voice: voice.id,
       });
       console.log(data);
