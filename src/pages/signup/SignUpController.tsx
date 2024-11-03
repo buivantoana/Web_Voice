@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SignUpView from "./SignUpView";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getOtp, signIn, signup } from "../../service/auth";
+import { getOtp, signIn, signup, signupWebHook } from "../../service/auth";
 import Loading from "../../components/Loading";
 import { toast } from "react-toastify";
 import { useLocalStorage } from "../../hooks/useStorage";
@@ -38,11 +38,14 @@ const SignUpController = (props: Props) => {
       let data = await signIn(auth_code);
       console.log(data);
       if (data.code == 0) {
-        setAccessToken(data.data.access_token);
-        setUser(data.data.user);
-        setTimeout(() => {
-          navigate("/");
-        }, 500);
+        let webhook = await signupWebHook({ user_id: data.data.user.phone });
+        if (webhook.code == 0) {
+          setAccessToken(data.data.access_token);
+          setUser(data.data.user);
+          setTimeout(() => {
+            navigate("/");
+          }, 500);
+        }
       }
       if (data.code == 1004) {
         setOpenId(data.data.tiktok_open_id);
@@ -93,7 +96,7 @@ const SignUpController = (props: Props) => {
   };
   return (
     <>
-      {loading && <Loading />}{" "}
+      {loading && <Loading />}
       <SignUpView
         setOtp={setOtp}
         handleClickOpenOtp={handleClickOpenOtp}
