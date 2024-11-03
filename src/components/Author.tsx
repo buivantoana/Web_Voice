@@ -34,6 +34,15 @@ const images: any = {
   nova: nova,
   shimmer: shimmer,
 };
+const age: any = {
+  Young: "Trẻ",
+  Old: "Lớn tuổi",
+  "Middle Aged": "Trung liên",
+};
+const gender: any = {
+  Male: "Nữ",
+  Female: "Nam",
+};
 type Props = {
   data?: any;
   voice?: any;
@@ -593,7 +602,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                               bgcolor={"rgb(248 250 252)"}
                               borderRadius={"5px"}
                               width={"max-content"}>
-                              <Typography>Trẻ</Typography>
+                              <Typography>{age[item.age]}</Typography>
                             </Box>
                             <Box
                               border={"2px solid rgb(226 232 240)"}
@@ -601,7 +610,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                               bgcolor={"rgb(248 250 252)"}
                               borderRadius={"5px"}
                               width={"max-content"}>
-                              <Typography>Nam</Typography>
+                              <Typography>{gender[item.gender]}</Typography>
                             </Box>
                           </Box>
                         </Box>
