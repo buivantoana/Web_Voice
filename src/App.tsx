@@ -40,7 +40,7 @@ const App = () => {
         type: "LOGIN",
         payload: {
           ...state,
-          user: user,
+          user: JSON.parse(user),
         },
       });
     }

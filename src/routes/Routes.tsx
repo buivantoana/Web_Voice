@@ -11,6 +11,7 @@ import PricingPlansController from "../pages/pricing_plans/PricingPlansControlle
 import PaymentHistoryController from "../pages/payment_history/PaymentHistoryController";
 import SignInController from "../pages/signin/SignInController";
 import SignUpController from "../pages/signup/SignUpController";
+import PrivateRouter from "../components/PrivateRouter";
 
 const Router = () => {
   const context: any = useCoursesContext();
@@ -20,15 +21,33 @@ const Router = () => {
       <Routes>
         <Route path='/' element={<LayoutWebsite />}>
           <Route path='' element={<VocalizeController />} />
-          <Route path='buy-credits' element={<BuyCreditController />} />
-          <Route path='profile' element={<ProfileController />} />
+          <Route
+            path='buy-credits'
+            element={
+              <PrivateRouter user={context.state.user}>
+                <BuyCreditController />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path='profile'
+            element={
+              <PrivateRouter user={context.state.user}>
+                <ProfileController />
+              </PrivateRouter>
+            }
+          />
           <Route path='history' element={<HistoryController />} />
           <Route path='privacy' element={<PrivacyController />} />
           <Route path='terms' element={<TermsController />} />
           <Route path='pricing-plans' element={<PricingPlansController />} />
           <Route
             path='payment-history'
-            element={<PaymentHistoryController />}
+            element={
+              <PrivateRouter user={context.state.user}>
+                <PaymentHistoryController />
+              </PrivateRouter>
+            }
           />
         </Route>
         <Route path='signin' element={<SignInController />} />

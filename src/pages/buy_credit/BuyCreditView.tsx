@@ -1,14 +1,6 @@
 import AddIcon from "@mui/icons-material/Add";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
-import DescriptionIcon from "@mui/icons-material/Description";
-import HelpIcon from "@mui/icons-material/Help";
-import LockClockOutlinedIcon from "@mui/icons-material/LockClockOutlined";
-import LogoutIcon from "@mui/icons-material/Logout";
 import RemoveIcon from "@mui/icons-material/Remove";
-import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import {
   Box,
   Button,
@@ -19,184 +11,36 @@ import {
   useTheme,
 } from "@mui/material";
 import { RiPaypalFill } from "react-icons/ri";
-import user from "../../images/user.png";
-
-const BuyCreditView = () => {
+import LeftProfile from "../../components/LeftProfile";
+const buy_amount = [
+  { amount: 200, type: "K" },
+  { amount: 400, type: "K" },
+  { amount: 1, type: "M" },
+  { amount: 1.4, type: "M" },
+  { amount: 2, type: "M" },
+  { amount: 2.4, type: "M" },
+  { amount: 3, type: "M" },
+  { amount: 3.4, type: "M" },
+  { amount: 4, type: "M" },
+];
+const BuyCreditView = ({
+  amount,
+  handleSliderChange,
+  setAmount,
+  handleClickOpenQr,
+}: any) => {
   const theme: any = useTheme();
+  const formatAmount = (value: any) => {
+    if (value < 1) {
+      return `${(value * 1000).toFixed(0)}K`; // Nếu dưới 1, hiển thị K
+    } else {
+      return `${value.toFixed(1)}M`; // Nếu từ 1 trở lên, hiển thị M
+    }
+  };
   return (
     <Box padding={"2% 10%"}>
       <Box display={"flex"} justifyContent={"space-between"}>
-        <Box sx={{ width: "33%", p: 2, cursor: "pointer" }}>
-          <Box
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            gap={"8px"}
-            flexDirection={"column"}>
-            <img
-              src={user}
-              style={{ borderRadius: "50%" }}
-              width={100}
-              alt=''
-            />
-            <Typography variant='h4' fontWeight={"500"}>
-              Bui Toan
-            </Typography>
-            <Typography color='grey_500.main'>toanbui219@gmail.com</Typography>
-          </Box>
-          <Box
-            mt={"20px"}
-            display={"flex"}
-            justifyContent={"space-between"}
-            alignItems={"center"}>
-            <Box
-              gap={"10px"}
-              display={"flex"}
-              justifyContent={"space-between"}
-              alignItems={"center"}>
-              <CheckCircleOutlineIcon />
-              <Typography>Kế hoạch hiện tại</Typography>
-            </Box>
-            <Box padding={"2px 8px"} borderRadius={"25px"} bgcolor={"#fdf6b2"}>
-              <Typography fontWeight={"500"}>Miễn phí</Typography>
-            </Box>
-          </Box>
-          <Box
-            mt={"10px"}
-            display={"flex"}
-            justifyContent={"space-between"}
-            alignItems={"center"}>
-            <Box
-              gap={"10px"}
-              display={"flex"}
-              justifyContent={"space-between"}
-              alignItems={"center"}>
-              <StarOutlineOutlinedIcon />
-
-              <Typography>Tín dụng có sẵn</Typography>
-            </Box>
-            <Box
-              padding={"3px 10px"}
-              borderRadius={"50%"}
-              bgcolor={"rgb(225 239 254)"}>
-              <Typography fontWeight={"500"}>0</Typography>
-            </Box>
-          </Box>
-          <Box
-            mt={"10px"}
-            display={"flex"}
-            justifyContent={"space-between"}
-            alignItems={"center"}>
-            <Box
-              gap={"10px"}
-              display={"flex"}
-              justifyContent={"space-between"}
-              alignItems={"center"}>
-              <LockClockOutlinedIcon />
-
-              <Typography>Tín dụng bị khóa</Typography>
-              <WhiteTooltip
-                title='Chúng tôi khóa tín dụng của bạn để thực hiện công việc bạn yêu cầu. Nếu công việc thất bại hoặc bị hủy, số tín dụng sẽ được trả lại vào tài khoản của bạn.'
-                placement='top'>
-                <HelpIcon fontSize='small' />
-              </WhiteTooltip>
-            </Box>
-            <Box
-              padding={"3px 10px"}
-              borderRadius={"50%"}
-              bgcolor={"rgb(252 232 243)"}>
-              <Typography fontWeight={"500"}>0</Typography>
-            </Box>
-          </Box>
-          <Box
-            mt={"40px"}
-            border={"1px solid #dddddd"}
-            borderRadius={"10px"}
-            p={"10px 15px"}
-            sx={{
-              cursor: "pointer",
-              transition: "background-color 0.3s, color 0.3s", // Smooth transition for hover
-              "&:hover": {
-                backgroundColor: "grey_700.main", // Background on hover
-                color: "active.main", // Text and icon color on hover
-              },
-              "&:hover .MuiSvgIcon-root": {
-                color: "active.main", // Icon color on hover
-              },
-            }}
-            width={"calc(100%-30px)"}>
-            <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-              <AddShoppingCartIcon />
-              <Typography> Mua tín dụng</Typography>
-            </Box>
-          </Box>
-          <Box
-            mt={"20px"}
-            border={"1px solid #dddddd"}
-            borderRadius={"10px"}
-            p={"10px 15px"}
-            sx={{
-              cursor: "pointer",
-              transition: "background-color 0.3s, color 0.3s", // Smooth transition for hover
-              "&:hover": {
-                backgroundColor: "grey_700.main", // Background on hover
-                color: "active.main", // Text and icon color on hover
-              },
-              "&:hover .MuiSvgIcon-root": {
-                color: "active.main", // Icon color on hover
-              },
-            }}
-            width={"calc(100%-30px)"}>
-            <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-              <DescriptionIcon />
-              <Typography> Lịch sử thanh toán</Typography>
-            </Box>
-          </Box>
-          <Box
-            mt={"20px"}
-            border={"1px solid #dddddd"}
-            borderRadius={"10px"}
-            p={"10px 15px"}
-            sx={{
-              cursor: "pointer",
-              transition: "background-color 0.3s, color 0.3s", // Smooth transition for hover
-              "&:hover": {
-                backgroundColor: "grey_700.main", // Background on hover
-                color: "active.main", // Text and icon color on hover
-              },
-              "&:hover .MuiSvgIcon-root": {
-                color: "active.main", // Icon color on hover
-              },
-            }}
-            width={"calc(100%-30px)"}>
-            <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-              <ContactMailIcon />
-              <Typography> Thông tin tài khoản</Typography>
-            </Box>
-          </Box>
-          <Box
-            mt={"20px"}
-            border={"1px solid #dddddd"}
-            borderRadius={"10px"}
-            p={"10px 15px"}
-            sx={{
-              cursor: "pointer",
-              transition: "background-color 0.3s, color 0.3s", // Smooth transition for hover
-              "&:hover": {
-                backgroundColor: "grey_700.main", // Background on hover
-                color: "active.main", // Text and icon color on hover
-              },
-              "&:hover .MuiSvgIcon-root": {
-                color: "active.main", // Icon color on hover
-              },
-            }}
-            width={"calc(100%-30px)"}>
-            <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-              <LogoutIcon />
-              <Typography>Đăng xuất </Typography>
-            </Box>
-          </Box>
-        </Box>
+        <LeftProfile />
         <Box
           sx={{ position: "relative" }}
           bgcolor={"white"}
@@ -233,6 +77,7 @@ const BuyCreditView = () => {
               bgcolor: "rgb(229 233 237)",
               width: "94%",
               borderRadius: "20px",
+              cursor: "pointer",
             }}>
             <Box width={"100%"} padding={"20px 10px"}>
               <Typography fontSize={"1.1rem"}>Nạp tiền nhanh</Typography>
@@ -249,9 +94,18 @@ const BuyCreditView = () => {
                     whiteSpace: "nowrap",
                     width: "93%",
                   }}>
-                  {[...Array(8)].map((_, index) => (
+                  {buy_amount.map((_, index) => (
                     <Box
                       width={"128px"}
+                      onClick={() => {
+                        if (_.amount == 200 || _.amount == 400) {
+                          console.log("tona");
+                          setAmount(_.amount / 1000);
+                        } else {
+                          setAmount(_.amount);
+                        }
+                        handleClickOpenQr();
+                      }}
                       sx={{
                         transition:
                           "transform 0.3s ease, background-color 0.3s ease", // Thêm hiệu ứng chuyển tiếp
@@ -283,7 +137,7 @@ const BuyCreditView = () => {
                             textAlign={"center"}
                             variant='h6'
                             sx={{ color: "inherit" }}>
-                            + 200k
+                            + {`${_.amount}${_.type}`}
                           </Typography>
                           <Typography
                             fontSize={".8rem"}
@@ -294,14 +148,6 @@ const BuyCreditView = () => {
                           <ArrowDownwardIcon sx={{ color: "inherit" }} />
                         </Box>
                       </Box>
-                      <Typography
-                        textAlign={"center"}
-                        sx={{
-                          color: "inherit",
-                          transition: "transform 0.3s ease", // Thêm hiệu ứng chuyển tiếp
-                        }}>
-                        8$
-                      </Typography>
                     </Box>
                   ))}
                 </Box>
@@ -323,6 +169,11 @@ const BuyCreditView = () => {
                   justifyContent={"space-between"}
                   gap={"10px"}>
                   <Box
+                    onClick={() => {
+                      if (amount - 2 > 0) {
+                        setAmount((prev: any) => prev - 2); // Giảm 0.2
+                      }
+                    }}
                     sx={{
                       width: "50px",
                       height: "50px",
@@ -340,14 +191,20 @@ const BuyCreditView = () => {
                     alignItems={"center"}
                     gap={"10px"}>
                     <Box>
-                      <Typography variant='h4'>200k</Typography>
-                      <Typography>~8$</Typography>
+                      <Typography variant='h4'>
+                        {formatAmount(amount)}
+                      </Typography>
                     </Box>
                     <Typography fontSize={".8rem"}>
                       tín dụng không hết hạn
                     </Typography>
                   </Box>
                   <Box
+                    onClick={() => {
+                      if (amount + 2 < 60) {
+                        setAmount((prev: any) => prev + 2);
+                      }
+                    }}
                     sx={{
                       width: "50px",
                       height: "50px",
@@ -362,9 +219,14 @@ const BuyCreditView = () => {
                 </Box>
                 <Box width={"45%"}>
                   <Slider
+                    onChange={handleSliderChange}
+                    value={amount}
                     defaultValue={50}
                     aria-label='Default'
                     valueLabelDisplay='auto'
+                    max={60}
+                    min={0.2}
+                    step={0.2}
                     sx={{
                       color: "#4CAF50", // Đặt màu chính của slider
                       height: 15, // Đặt chiều cao của thanh slider
@@ -389,6 +251,9 @@ const BuyCreditView = () => {
                 </Box>
                 <Box width={"50%"}>
                   <Button
+                    onClick={() => {
+                      handleClickOpenQr();
+                    }}
                     startIcon={<RiPaypalFill />}
                     sx={{
                       width: "100%",

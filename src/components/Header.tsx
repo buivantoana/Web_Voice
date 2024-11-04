@@ -196,10 +196,14 @@ const Header = () => {
                 alt=''
               />
               <Typography variant='h4' fontWeight={"500"}>
-                Bui Toan
+                {context.state.user &&
+                  Object.keys(context.state.user).length > 0 &&
+                  context.state.user.name}
               </Typography>
               <Typography color='grey_500.main'>
-                toanbui219@gmail.com
+                {context.state.user &&
+                  Object.keys(context.state.user).length > 0 &&
+                  context.state.user.phone}
               </Typography>
             </Box>
             <Box
@@ -342,6 +346,18 @@ const Header = () => {
                 </Box>
               </Box>
               <Box
+                onClick={() => {
+                  localStorage.removeItem("user");
+                  localStorage.removeItem("access_token");
+                  context.dispatch({
+                    type: "LOGIN",
+                    payload: {
+                      ...context.state,
+                      user: {},
+                    },
+                  });
+                  toggleDrawer(false);
+                }}
                 mt={"20px"}
                 border={"1px solid #dddddd"}
                 borderRadius={"10px"}
