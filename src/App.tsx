@@ -30,8 +30,8 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, {
     user: {},
   });
-  const [user, setUser] = useLocalStorage("user", {});
-  const [accessToken, setAccessToken] = useLocalStorage("access_token", {});
+  let user = localStorage.getItem("user");
+  let accessToken = localStorage.getItem("access_token");
   console.log(user);
   console.log(accessToken);
   useEffect(() => {
