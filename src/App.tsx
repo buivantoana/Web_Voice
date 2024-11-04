@@ -32,6 +32,8 @@ const App = () => {
   });
   const [user, setUser] = useLocalStorage("user", {});
   const [accessToken, setAccessToken] = useLocalStorage("access_token", {});
+  console.log(user);
+  console.log(accessToken);
   useEffect(() => {
     if (user && accessToken) {
       dispatch({
@@ -42,7 +44,7 @@ const App = () => {
         },
       });
     }
-  }, []);
+  }, [user, accessToken]);
   console.log(state);
   return (
     <div>
