@@ -18,73 +18,8 @@ const VocalizeController = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openAuthor, setOpenAuthor] = React.useState(false);
   const [loadingVoices, setLoadingVoices] = useState(false);
-  const [voices, setVoices] = useState([
-    {
-      id: "alloy",
-      name: "Alloy",
-      description: "Neutral, professional, and clear",
-      age: "Old",
-      gender: "Male",
-      accent: "Vietnamese",
-      sample_audio_path:
-        "https://87c129bea46e5e69d2d92f9b9ef83ca8.r2.cloudflarestorage.com/cdk-ttsopenai-gpt-prod-upload-bucket/samples/alloy.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=c059c5e08a0dd199cb0fb22ee31dad1b%2F20241103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241103T044455Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=53f7db2d4706a29662d2026000406ecf44a31dae6f2818c28aa53c735a1dbf2d",
-    },
-    {
-      id: "echo",
-      name: "Echo",
-      description: "Warm, friendly, and engaging",
-      age: "Young",
-      gender: "Male",
-      accent: "English",
-      sample_audio_path:
-        "https://87c129bea46e5e69d2d92f9b9ef83ca8.r2.cloudflarestorage.com/cdk-ttsopenai-gpt-prod-upload-bucket/samples/alloy.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=c059c5e08a0dd199cb0fb22ee31dad1b%2F20241103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241103T044455Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=53f7db2d4706a29662d2026000406ecf44a31dae6f2818c28aa53c735a1dbf2d",
-    },
-    {
-      id: "fable",
-      name: "Fable",
-      description: "Energetic, expressive, and engaging",
-      age: "Old",
-      gender: "Female",
-      accent: "English",
-      sample_audio_path:
-        "https://87c129bea46e5e69d2d92f9b9ef83ca8.r2.cloudflarestorage.com/cdk-ttsopenai-gpt-prod-upload-bucket/samples/alloy.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=c059c5e08a0dd199cb0fb22ee31dad1b%2F20241103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241103T044455Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=53f7db2d4706a29662d2026000406ecf44a31dae6f2818c28aa53c735a1dbf2d",
-    },
-    {
-      id: "onyx",
-      name: "Onyx",
-      description: "Older, mature, and experienced",
-      age: "Young",
-      gender: "Female",
-      accent: "English",
-      sample_audio_path:
-        "https://87c129bea46e5e69d2d92f9b9ef83ca8.r2.cloudflarestorage.com/cdk-ttsopenai-gpt-prod-upload-bucket/samples/alloy.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=c059c5e08a0dd199cb0fb22ee31dad1b%2F20241103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241103T044455Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=53f7db2d4706a29662d2026000406ecf44a31dae6f2818c28aa53c735a1dbf2d",
-    },
-    {
-      id: "nova",
-      name: "Nova",
-      description: "Young, energetic, and engaging",
-      age: "Young",
-      gender: "Male",
-      accent: "English",
-      sample_audio_path:
-        "https://87c129bea46e5e69d2d92f9b9ef83ca8.r2.cloudflarestorage.com/cdk-ttsopenai-gpt-prod-upload-bucket/samples/alloy.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=c059c5e08a0dd199cb0fb22ee31dad1b%2F20241103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241103T044455Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=53f7db2d4706a29662d2026000406ecf44a31dae6f2818c28aa53c735a1dbf2d",
-    },
-    {
-      id: "shimmer",
-      name: "Shimmer",
-      description: "Lively, vibrant, and dynamic",
-      age: "Middle Aged",
-      gender: "Female",
-      accent: "English",
-      sample_audio_path:
-        "https://87c129bea46e5e69d2d92f9b9ef83ca8.r2.cloudflarestorage.com/cdk-ttsopenai-gpt-prod-upload-bucket/samples/alloy.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=c059c5e08a0dd199cb0fb22ee31dad1b%2F20241103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241103T044455Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=53f7db2d4706a29662d2026000406ecf44a31dae6f2818c28aa53c735a1dbf2d",
-    },
-  ]);
-  const [voice, setVoice] = useState<any>({
-    id: "alloy",
-    name: "Alloy",
-    description: "Neutral, professional, and clear",
-  });
+  const [voices, setVoices] = useState([]);
+  const [voice, setVoice] = useState<any>({});
 
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
