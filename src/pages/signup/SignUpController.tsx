@@ -50,8 +50,11 @@ const SignUpController = (props: Props) => {
       if (data.code == 0) {
         let webhook = await signupWebHook({ user_id: data.data.user.phone });
         if (webhook.code == 0) {
-          localStorage.setItem("access_token", data.data.access_token);
-          localStorage.setItem("user", data.data.user);
+          localStorage.setItem(
+            "access_token",
+            JSON.stringify(data.data.access_token)
+          );
+          localStorage.setItem("user", JSON.stringify(data.data.user));
           setTimeout(() => {
             navigate("/");
           }, 500);
