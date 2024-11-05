@@ -9,7 +9,7 @@ const HistoryController = () => {
   const [loadingVoices, setLoadingVoices] = useState(false);
   const context: any = useCoursesContext();
   useEffect(() => {
-    loadVoices();
+    if (Object.keys(context.state.user).length > 0) loadVoices();
   }, []);
   const loadVoices = async () => {
     setLoadingVoices(true);
