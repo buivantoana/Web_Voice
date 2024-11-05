@@ -31,11 +31,10 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, {
     user: {},
   });
-  let user = localStorage.getItem("user");
-  let accessToken = localStorage.getItem("access_token");
-  console.log(user);
-  console.log(accessToken);
+
   useEffect(() => {
+    let user = localStorage.getItem("user");
+    let accessToken = localStorage.getItem("access_token");
     if (user && accessToken) {
       (async () => {
         let infor = await getInfo({ user_id: JSON.parse(user).phone });
@@ -50,7 +49,7 @@ const App = () => {
         }
       })();
     }
-  }, [user, accessToken]);
+  }, []);
   console.log(state);
   return (
     <div>
