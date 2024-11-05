@@ -359,6 +359,7 @@ const Header = () => {
                 onClick={() => {
                   localStorage.removeItem("user");
                   localStorage.removeItem("access_token");
+                  setUser(null);
                   context.dispatch({
                     type: "LOGIN",
                     payload: {
