@@ -31,7 +31,7 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, {
     user: {},
   });
-  const [user] = useLocalStorage("user", {});
+
   useEffect(() => {
     let user = localStorage.getItem("user");
     let accessToken = localStorage.getItem("access_token");
@@ -52,7 +52,7 @@ const App = () => {
         }
       })();
     }
-  }, [user]);
+  }, []);
   console.log("AAAA state ====", state);
   return (
     <div>

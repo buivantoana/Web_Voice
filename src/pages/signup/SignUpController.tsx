@@ -23,8 +23,6 @@ const SignUpController = (props: Props) => {
   const [openOtp, setOpenOtp] = React.useState(false);
   const [otp, setOtp] = useState("");
   const [openId, setOpenId] = useState(null);
-  const [, setAccessToken] = useLocalStorage("access_token", {});
-  const [, setUser] = useLocalStorage("user", {});
   const {
     register,
     handleSubmit,
