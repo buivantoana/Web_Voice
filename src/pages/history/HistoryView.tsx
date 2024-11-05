@@ -416,12 +416,7 @@ function AudioPlayer({ width, voice_id }: any) {
 
   return (
     <Box>
-      <audio
-        ref={audioRef}
-        style={{ width }}
-        controls
-        onPlay={handlePlay}
-        onEnded={handleEnded}>
+      <audio ref={audioRef} style={{ width }} controls onEnded={handleEnded}>
         {mp3 && <source src={mp3} type='audio/mpeg' />}
         Your browser does not support the audio element.
       </audio>
