@@ -410,13 +410,10 @@ function AudioPlayer({ width, voice_id }: any) {
   }, [mp3]);
 
   // Event handler for when playback ends
-  const handleEnded = () => {
-    setMp3(null); // Reset MP3 URL to allow re-fetching
-  };
 
   return (
     <Box>
-      <audio ref={audioRef} style={{ width }} controls onEnded={handleEnded}>
+      <audio ref={audioRef} style={{ width }} controls>
         {mp3 && <source src={mp3} type='audio/mpeg' />}
         Your browser does not support the audio element.
       </audio>
