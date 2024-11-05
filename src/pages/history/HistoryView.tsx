@@ -377,7 +377,7 @@ function AudioPlayer({ width, voice_id }: any) {
   const fetchMp3 = async () => {
     try {
       const data = await getPlayVoice({ voice_id });
-      if (data.code == 0) {
+      if (data.code === 0) {
         const audioBlob = new Blob(
           [
             new Uint8Array(
@@ -389,34 +389,39 @@ function AudioPlayer({ width, voice_id }: any) {
           { type: "audio/mp3" }
         );
         const url = URL.createObjectURL(audioBlob);
-        setMp3(url);
-      }
+        setMp3(url); // Set MP3 URL in state
 
-      // Update the state with the fetched MP3 URL
+        // Play audio after URL is set
+        if (audioRef.current) {
+          audioRef.current.load(); // Reload the audio element with the new source
+          audioRef.current.play(); // Start playing
+        }
+      }
     } catch (error) {
       console.error("Error fetching MP3:", error);
     }
   };
 
-  // Use effect to fetch MP3 when the component mounts or when `mp3` is null
+  // Handler for play button
   const handlePlay = () => {
     if (!mp3) {
-      // Only fetch if MP3 isn't already set
-      fetchMp3();
+      fetchMp3(); // Fetch MP3 if it's not already loaded
+    } else if (audioRef.current) {
+      audioRef.current.play(); // Play if already loaded
     }
   };
 
   // Event handler for when playback ends
   const handleEnded = () => {
-    fetchMp3(); // Fetch a new MP3 after the current one finishes playing
+    setMp3(null); // Reset MP3 URL to allow re-fetching
   };
+
   return (
     <Box>
       <audio
         ref={audioRef}
         style={{ width }}
         controls
-        autoPlay
         onPlay={handlePlay}
         onEnded={handleEnded}>
         {mp3 && <source src={mp3} type='audio/mpeg' />}
