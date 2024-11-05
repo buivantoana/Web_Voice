@@ -403,13 +403,11 @@ function AudioPlayer({ width, voice_id }: any) {
   };
 
   // Handler for play button
-  const handlePlay = () => {
+  useEffect(() => {
     if (!mp3) {
-      fetchMp3(); // Fetch MP3 if it's not already loaded
-    } else if (audioRef.current) {
-      audioRef.current.play(); // Play if already loaded
+      fetchMp3();
     }
-  };
+  }, [mp3]);
 
   // Event handler for when playback ends
   const handleEnded = () => {
@@ -424,6 +422,7 @@ function AudioPlayer({ width, voice_id }: any) {
         controls
         onPlay={handlePlay}
         onEnded={handleEnded}>
+        {mp3 && <source src={mp3} type='audio/mpeg' />}
         Your browser does not support the audio element.
       </audio>
     </Box>
