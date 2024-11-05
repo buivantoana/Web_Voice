@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@mui/material";
 import theme from "./theme";
 import { getInfo } from "./service/voice";
+import { useLocalStorage } from "./hooks/useStorage";
 const queryClient = new QueryClient();
 export const coursesContext = createContext({});
 
@@ -30,7 +31,7 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, {
     user: {},
   });
-
+  const [user] = useLocalStorage("user", {});
   useEffect(() => {
     let user = localStorage.getItem("user");
     let accessToken = localStorage.getItem("access_token");
@@ -51,7 +52,7 @@ const App = () => {
         }
       })();
     }
-  }, []);
+  }, [user]);
   console.log("AAAA state ====", state);
   return (
     <div>
