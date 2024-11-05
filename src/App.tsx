@@ -40,6 +40,7 @@ const App = () => {
       (async () => {
         let infor = await getInfo({ user_id: JSON.parse(user).phone });
         if (infor.code == 0) {
+          console.log("AAAA USER====", { ...JSON.parse(user), ...infor.data });
           dispatch({
             type: "LOGIN",
             payload: {
@@ -51,7 +52,7 @@ const App = () => {
       })();
     }
   }, []);
-
+  console.log("AAAA state ====", state);
   return (
     <div>
       <ThemeProvider theme={theme}>
