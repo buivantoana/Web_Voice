@@ -20,17 +20,18 @@ import {
   useTheme,
   Hidden,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiMenuFill, RiNotification2Line } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../images/loading-lines-6747317-5601928.webp";
 
-import user from "../images/user.png";
+import profile from "../images/user.png";
 import { useCoursesContext } from "../App";
 const Header = () => {
   const theme: any = useTheme();
   const context: any = useCoursesContext();
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
@@ -40,7 +41,11 @@ const Header = () => {
   const toggleDrawerMenu = (Menu: any) => () => {
     setIsMenu(Menu);
   };
-  console.log(context);
+  useEffect(() => {
+    if (Object.keys(context.state.user).length > 0) {
+      setUser(context.state.user);
+    }
+  }, [context.state.user]);
   return (
     <Box
       sx={{
@@ -145,14 +150,19 @@ const Header = () => {
             </Typography>
           </Box>
         </Hidden>
-        {context.state.user && Object.keys(context.state.user).length > 0 ? (
+        {user && Object.keys(user).length > 0 ? (
           <Box
             onClick={toggleDrawer(true)}
             display={"flex"}
             gap={"20px"}
             alignItems={"center"}>
             <RiNotification2Line size={20} />
-            <img src={user} style={{ borderRadius: "50%" }} width={50} alt='' />
+            <img
+              src={profile}
+              style={{ borderRadius: "50%" }}
+              width={50}
+              alt=''
+            />
           </Box>
         ) : (
           <Box>
@@ -190,7 +200,7 @@ const Header = () => {
               gap={"8px"}
               flexDirection={"column"}>
               <img
-                src={user}
+                src={profile}
                 style={{ borderRadius: "50%" }}
                 width={100}
                 alt=''
