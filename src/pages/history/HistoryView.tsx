@@ -8,7 +8,14 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineItem, { timelineItemClasses } from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
-import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React, { useState } from "react";
 import {
   RiArrowDownLine,
@@ -21,7 +28,7 @@ import {
 } from "react-icons/ri";
 import mp3 from "../../images/hello_toan.mp3";
 
-const HistoryView = () => {
+const HistoryView = ({ voices, loadingVoices }: any) => {
   const theme: any = useTheme();
   const [accordion, setAccordion] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -91,206 +98,242 @@ const HistoryView = () => {
               padding: 0,
             },
           }}>
-          <TimelineItem>
-            <TimelineSeparator sx={{ display: { xs: "none", md: "flex" } }}>
-              <RiZhihuFill
-                style={{
-                  background: "rgb(222 247 236)",
-                  padding: "6px",
-                  borderRadius: "50%",
-                }}
-              />
-              <TimelineConnector sx={{ minHeight: "40px" }} />
-            </TimelineSeparator>
-            <TimelineContent>
-              <Box
-                width={{ xs: "97%", md: "100%" }}
-                padding={{ xs: "10px 5px", md: "20px" }}
-                borderRadius={"10px"}
-                border={"1px solid #dddddd"}
-                bgcolor={"white"}>
-                <Box
-                  display={"flex"}
-                  alignItems={"center"}
-                  justifyContent={"space-between"}>
-                  <Box display={"flex"} flexWrap={"wrap"} gap={"10px"}>
-                    <Button
-                      sx={{
-                        borderRadius: "5px",
-                        padding: "2px 0px",
-                        backgroundColor: "rgb(253 232 232)", // Màu nền của nút
-                        color: "rgb(138 44 13)", // Màu chữ
-                        "&:hover": {
-                          backgroundColor: "rgb(253 232 232)", // Màu nền khi hover
-                        },
-                      }}
-                      variant='contained'>
-                      A9042
-                    </Button>
-                    <Button
-                      sx={{
-                        borderRadius: "5px",
-                        padding: "2px 5px",
-                        backgroundColor: "rgb(222 247 236)", // Màu nền của nút
-                        color: "black", // Màu chữ
-                        "&:hover": {
-                          backgroundColor: "rgb(222 247 236)", // Màu nền khi hover
-                        },
-                      }}
-                      variant='contained'>
-                      Alloy
-                    </Button>
-                    <Button
-                      sx={{
-                        borderRadius: "5px",
-                        padding: "2px 5px",
-                        backgroundColor: "rgb(253 246 178)", // Màu nền của nút
-                        color: "rgb(138 44 13)", // Màu chữ
-                        "&:hover": {
-                          backgroundColor: "rgb(253 246 178)", // Màu nền khi hover
-                        },
-                      }}
-                      variant='contained'>
-                      0 tín dụng
-                    </Button>
-                    <Button
-                      sx={{
-                        borderRadius: "5px",
-                        padding: "2px 5px",
-                        backgroundColor: "rgb(225 239 254)", // Màu nền của nút
-                        color: "black", // Màu chữ
-                        "&:hover": {
-                          backgroundColor: "rgb(225 239 254)", // Màu nền khi hover
-                        },
-                      }}
-                      variant='contained'>
-                      Chất lượng cao
-                    </Button>
-                  </Box>
-                  <Box display={"flex"} gap={"10px"} alignItems={"center"}>
-                    <Typography color='grey_500.main'>
-                      2024-10-27 22:36:56
-                    </Typography>
-                    <RiCloseLine
-                      size={25}
-                      style={{ color: theme.palette.grey_500.main }}
-                    />
-                  </Box>
-                </Box>
-                <Box
-                  mt={"20px"}
-                  sx={{
-                    ".css-16dlh63-MuiInputBase-root-MuiInput-root": {
-                      border: "1px solid #dddddd",
-                    },
-                  }}>
-                  <TextField
-                    placeholder='Nhập văn bản bạn muốn chuyển đổi thành tiếng nói ở đây...'
-                    multiline
-                    onChange={(e) => {}}
-                    fullWidth
-                    variant='standard' // Loại bỏ border mặc định
-                    InputProps={{
-                      disableUnderline: true, // Bỏ underline của variant="standard"
-                      sx: {
-                        backgroundColor: "rgb(248 250 252)", // Nền trắng
-                        borderRadius: 2, // Đặt border-radius nếu cần
-                        padding: 2, // Khoảng cách padding
-                      },
-                    }}
-                    sx={{
-                      "& .MuiInputBase-input": {
-                        minHeight: "35px !important", // Đặt chiều cao tối thiểu nếu cần
-                        resize: "none", // Bỏ resize của textarea
-                        overflow: "auto", // Để có thể cuộn
-                        scrollbarWidth: "none", // Ẩn thanh cuộn cho Firefox
-                        msOverflowStyle: "none", // Ẩn thanh cuộn cho Internet Explorer và Edge
-                        height: "35px !important",
-                      },
-                      "& .MuiFormControl-root": {
-                        // Đặt chiều cao tối thiểu cho TextField
-                      },
-                      // Ẩn thanh cuộn trong các trình duyệt WebKit
-                      "&::-webkit-scrollbar": {
-                        display: "none", // Ẩn thanh cuộn
-                      },
-                    }}
-                  />
-                </Box>
-                <Box display={"flex"} justifyContent={"center"} my={"5px"}>
-                  <RiArrowDownLine
-                    size={26}
-                    style={{
-                      color: theme.palette.active.main,
-                    }}
-                  />
-                </Box>
-                <Box
-                  bgcolor={"rgb(248 250 252)"}
-                  padding={"10px 10px 8px 10px"}
-                  border={"1px solid #dddddd"}
-                  borderRadius={"10px"}>
-                  <Box display={"flex"} gap={"10px"} alignItems={"center"}>
-                    <Box width={"98%"}>
-                      <AudioPlayer width={"98%"} />
-                    </Box>
-                    <Box>
-                      <FileDownloadIcon />
-                    </Box>
-                  </Box>
-                </Box>
-                <Box
-                  mt={"15px"}
-                  sx={{
-                    maxHeight: accordion ? "500px" : "50px",
-                    overflow: "hidden",
-                    transition: ".3s",
-                  }}>
-                  <Box
-                    bgcolor={"rgb(248 250 252)"}
-                    border={"1px solid #dddddd"}
-                    padding={"8px 10px"}
-                    borderRadius={"25px"}>
-                    <Box
-                      onClick={() => setAccordion(!accordion)}
-                      display={"flex"}
-                      justifyContent={"space-between"}
-                      alignItems={"center"}>
-                      <Box display={"flex"} gap={"10px"}>
-                        <Box
-                          sx={{
-                            borderRadius: "50%",
-                            border: "2px solid black",
-                            width: "20px",
-                            height: "20px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}>
-                          <MoreHorizIcon />
-                        </Box>
-                        <Typography fontWeight={"500"}>
-                          Chi tiết mỗi khối
-                        </Typography>
-                      </Box>
+          {loadingVoices ? (
+            <CircularProgress color='success' />
+          ) : (
+            <>
+              {voices.length > 0 ? (
+                <>
+                  {voices.map((item: any) => {
+                    return (
+                      <TimelineItem>
+                        <TimelineSeparator
+                          sx={{ display: { xs: "none", md: "flex" } }}>
+                          <RiZhihuFill
+                            style={{
+                              background: "rgb(222 247 236)",
+                              padding: "6px",
+                              borderRadius: "50%",
+                            }}
+                          />
+                          <TimelineConnector sx={{ minHeight: "40px" }} />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                          <Box
+                            width={{ xs: "97%", md: "100%" }}
+                            padding={{ xs: "10px 5px", md: "20px" }}
+                            borderRadius={"10px"}
+                            border={"1px solid #dddddd"}
+                            bgcolor={"white"}>
+                            <Box
+                              display={"flex"}
+                              alignItems={"center"}
+                              justifyContent={"space-between"}>
+                              <Box
+                                display={"flex"}
+                                flexWrap={"wrap"}
+                                gap={"10px"}>
+                                <Button
+                                  sx={{
+                                    borderRadius: "5px",
+                                    padding: "2px 0px",
+                                    backgroundColor: "rgb(253 232 232)", // Màu nền của nút
+                                    color: "rgb(138 44 13)", // Màu chữ
+                                    "&:hover": {
+                                      backgroundColor: "rgb(253 232 232)", // Màu nền khi hover
+                                    },
+                                  }}
+                                  variant='contained'>
+                                  A9042
+                                </Button>
+                                <Button
+                                  sx={{
+                                    borderRadius: "5px",
+                                    padding: "2px 5px",
+                                    backgroundColor: "rgb(222 247 236)", // Màu nền của nút
+                                    color: "black", // Màu chữ
+                                    "&:hover": {
+                                      backgroundColor: "rgb(222 247 236)", // Màu nền khi hover
+                                    },
+                                  }}
+                                  variant='contained'>
+                                  Alloy
+                                </Button>
+                                <Button
+                                  sx={{
+                                    borderRadius: "5px",
+                                    padding: "2px 5px",
+                                    backgroundColor: "rgb(253 246 178)", // Màu nền của nút
+                                    color: "rgb(138 44 13)", // Màu chữ
+                                    "&:hover": {
+                                      backgroundColor: "rgb(253 246 178)", // Màu nền khi hover
+                                    },
+                                  }}
+                                  variant='contained'>
+                                  0 tín dụng
+                                </Button>
+                                <Button
+                                  sx={{
+                                    borderRadius: "5px",
+                                    padding: "2px 5px",
+                                    backgroundColor: "rgb(225 239 254)", // Màu nền của nút
+                                    color: "black", // Màu chữ
+                                    "&:hover": {
+                                      backgroundColor: "rgb(225 239 254)", // Màu nền khi hover
+                                    },
+                                  }}
+                                  variant='contained'>
+                                  Chất lượng cao
+                                </Button>
+                              </Box>
+                              <Box
+                                display={"flex"}
+                                gap={"10px"}
+                                alignItems={"center"}>
+                                <Typography color='grey_500.main'>
+                                  2024-10-27 22:36:56
+                                </Typography>
+                                <RiCloseLine
+                                  size={25}
+                                  style={{
+                                    color: theme.palette.grey_500.main,
+                                  }}
+                                />
+                              </Box>
+                            </Box>
+                            <Box
+                              mt={"20px"}
+                              sx={{
+                                ".css-16dlh63-MuiInputBase-root-MuiInput-root":
+                                  {
+                                    border: "1px solid #dddddd",
+                                  },
+                              }}>
+                              <TextField
+                                placeholder='Nhập văn bản bạn muốn chuyển đổi thành tiếng nói ở đây...'
+                                multiline
+                                onChange={(e) => {}}
+                                fullWidth
+                                variant='standard' // Loại bỏ border mặc định
+                                InputProps={{
+                                  disableUnderline: true, // Bỏ underline của variant="standard"
+                                  sx: {
+                                    backgroundColor: "rgb(248 250 252)", // Nền trắng
+                                    borderRadius: 2, // Đặt border-radius nếu cần
+                                    padding: 2, // Khoảng cách padding
+                                  },
+                                }}
+                                sx={{
+                                  "& .MuiInputBase-input": {
+                                    minHeight: "35px !important", // Đặt chiều cao tối thiểu nếu cần
+                                    resize: "none", // Bỏ resize của textarea
+                                    overflow: "auto", // Để có thể cuộn
+                                    scrollbarWidth: "none", // Ẩn thanh cuộn cho Firefox
+                                    msOverflowStyle: "none", // Ẩn thanh cuộn cho Internet Explorer và Edge
+                                    height: "35px !important",
+                                  },
+                                  "& .MuiFormControl-root": {
+                                    // Đặt chiều cao tối thiểu cho TextField
+                                  },
+                                  // Ẩn thanh cuộn trong các trình duyệt WebKit
+                                  "&::-webkit-scrollbar": {
+                                    display: "none", // Ẩn thanh cuộn
+                                  },
+                                }}
+                              />
+                            </Box>
+                            <Box
+                              display={"flex"}
+                              justifyContent={"center"}
+                              my={"5px"}>
+                              <RiArrowDownLine
+                                size={26}
+                                style={{
+                                  color: theme.palette.active.main,
+                                }}
+                              />
+                            </Box>
+                            <Box
+                              bgcolor={"rgb(248 250 252)"}
+                              padding={"10px 10px 8px 10px"}
+                              border={"1px solid #dddddd"}
+                              borderRadius={"10px"}>
+                              <Box
+                                display={"flex"}
+                                gap={"10px"}
+                                alignItems={"center"}>
+                                <Box width={"98%"}>
+                                  <AudioPlayer width={"98%"} />
+                                </Box>
+                                <Box>
+                                  <FileDownloadIcon />
+                                </Box>
+                              </Box>
+                            </Box>
+                            <Box
+                              mt={"15px"}
+                              sx={{
+                                maxHeight: accordion ? "500px" : "50px",
+                                overflow: "hidden",
+                                transition: ".3s",
+                              }}>
+                              <Box
+                                bgcolor={"rgb(248 250 252)"}
+                                border={"1px solid #dddddd"}
+                                padding={"8px 10px"}
+                                borderRadius={"25px"}>
+                                <Box
+                                  onClick={() => setAccordion(!accordion)}
+                                  display={"flex"}
+                                  justifyContent={"space-between"}
+                                  alignItems={"center"}>
+                                  <Box display={"flex"} gap={"10px"}>
+                                    <Box
+                                      sx={{
+                                        borderRadius: "50%",
+                                        border: "2px solid black",
+                                        width: "20px",
+                                        height: "20px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                      }}>
+                                      <MoreHorizIcon />
+                                    </Box>
+                                    <Typography fontWeight={"500"}>
+                                      Chi tiết mỗi khối
+                                    </Typography>
+                                  </Box>
 
-                      <KeyboardArrowDownIcon
-                        sx={{
-                          transform: accordion
-                            ? "rotate(180deg)"
-                            : "rotate(0deg)",
-                          transition: ".3s",
-                        }}
-                      />
-                    </Box>
-                  </Box>
-                  <Box>
-                    <EnhancedTable handleClickOpen={handleClickOpen} />
-                  </Box>
-                </Box>
-              </Box>
-            </TimelineContent>
-          </TimelineItem>
+                                  <KeyboardArrowDownIcon
+                                    sx={{
+                                      transform: accordion
+                                        ? "rotate(180deg)"
+                                        : "rotate(0deg)",
+                                      transition: ".3s",
+                                    }}
+                                  />
+                                </Box>
+                              </Box>
+                              <Box>
+                                <EnhancedTable
+                                  handleClickOpen={handleClickOpen}
+                                />
+                              </Box>
+                            </Box>
+                          </Box>
+                        </TimelineContent>
+                      </TimelineItem>
+                    );
+                  })}
+                </>
+              ) : (
+                <Typography textAlign={"center"} color='grey_500.main'>
+                  Không tìm thấy lịch sử
+                </Typography>
+              )}
+            </>
+          )}
         </Timeline>
       </Box>
       <AlertDialogSlide

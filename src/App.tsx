@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@mui/material";
 import theme from "./theme";
 import { useLocalStorage } from "./hooks/useStorage";
+import { getInfo } from "./service/voice";
 const queryClient = new QueryClient();
 export const coursesContext = createContext({});
 
@@ -36,13 +37,18 @@ const App = () => {
   console.log(accessToken);
   useEffect(() => {
     if (user && accessToken) {
-      dispatch({
-        type: "LOGIN",
-        payload: {
-          ...state,
-          user: JSON.parse(user),
-        },
-      });
+      (async () => {
+        let infor = await getInfo({ user_id: JSON.parse(user).phone });
+        if (infor.code == 0) {
+          dispatch({
+            type: "LOGIN",
+            payload: {
+              ...state,
+              user: { ...JSON.parse(user), ...infor.data },
+            },
+          });
+        }
+      })();
     }
   }, [user, accessToken]);
   console.log(state);

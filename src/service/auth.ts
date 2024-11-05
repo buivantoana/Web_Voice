@@ -104,7 +104,7 @@ export async function signupWebHook({ user_id }: any) {
       {},
       {
         headers: {
-          Authorization: "Bearer ABC123",
+          Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
         },
       }
     );
