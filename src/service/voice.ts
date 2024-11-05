@@ -57,7 +57,7 @@ export async function getPlayVoice({ voice_id }: any) {
     console.error("Error fetching data:", error.message);
   }
 }
-export async function deleteVoice({ voice_id }: any) {
+export async function deleteVoiceApi({ voice_id }: any) {
   try {
     const response = await axios.post(`${url_voice}/voice/delete/${voice_id}`, {
       headers: {

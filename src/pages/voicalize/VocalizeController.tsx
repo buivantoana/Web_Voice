@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import VocalizeView from "./VocalizeView";
 import Loading from "../../components/Loading";
 import { createVoice, getVoicesOpenAi } from "../../service/voice";
+import { useCoursesContext } from "../../App";
 
 type Props = {};
 
@@ -20,7 +21,7 @@ const VocalizeController = (props: Props) => {
   const [loadingVoices, setLoadingVoices] = useState(false);
   const [voices, setVoices] = useState([]);
   const [voice, setVoice] = useState<any>({});
-
+  const context: any = useCoursesContext();
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
   };
@@ -63,7 +64,10 @@ const VocalizeController = (props: Props) => {
     setLoading(true);
     try {
       let data = await createVoice({
-        user_id: "abc 22",
+        user_id:
+          Object.keys(context.state.user).length > 0
+            ? context.state.user.user_id
+            : "abc 22",
         txt: textVoice,
         speed: Math.floor(speed),
         voice: voice.id,

@@ -28,7 +28,7 @@ import {
 } from "react-icons/ri";
 import mp3 from "../../images/hello_toan.mp3";
 
-const HistoryView = ({ voices, loadingVoices }: any) => {
+const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
   const theme: any = useTheme();
   const [accordion, setAccordion] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -194,6 +194,7 @@ const HistoryView = ({ voices, loadingVoices }: any) => {
                                   2024-10-27 22:36:56
                                 </Typography>
                                 <RiCloseLine
+                                  onClick={() => deleteVoice(item.voice_id)}
                                   size={25}
                                   style={{
                                     color: theme.palette.grey_500.main,
