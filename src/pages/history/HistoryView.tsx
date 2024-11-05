@@ -16,7 +16,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   RiArrowDownLine,
   RiCloseLine,
@@ -264,7 +264,10 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                 gap={"10px"}
                                 alignItems={"center"}>
                                 <Box width={"98%"}>
-                                  <AudioPlayer width={"98%"} />
+                                  <AudioPlayer
+                                    width={"98%"}
+                                    voice_id={item.voice_id}
+                                  />
                                 </Box>
                                 <Box>
                                   <FileDownloadIcon />
@@ -366,11 +369,55 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
 };
 
 export default HistoryView;
-function AudioPlayer({ width }: any) {
+function AudioPlayer({ width, voice_id }: any) {
+  const [mp3, setMp3] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Function to call API and fetch MP3
+  const fetchMp3 = async () => {
+    try {
+      const data = await getPlayVoice({ voice_id });
+      if (data.code == 0) {
+        const audioBlob = new Blob(
+          [
+            new Uint8Array(
+              atob(data.data.voice_base64)
+                .split("")
+                .map((c) => c.charCodeAt(0))
+            ),
+          ],
+          { type: "audio/mp3" }
+        );
+        const url = URL.createObjectURL(audioBlob);
+        setMp3(url);
+      }
+
+      // Update the state with the fetched MP3 URL
+    } catch (error) {
+      console.error("Error fetching MP3:", error);
+    }
+  };
+
+  // Use effect to fetch MP3 when the component mounts or when `mp3` is null
+  useEffect(() => {
+    if (!mp3) {
+      fetchMp3();
+    }
+  }, [mp3]);
+
+  // Event handler for when playback ends
+  const handleEnded = () => {
+    fetchMp3(); // Fetch a new MP3 after the current one finishes playing
+  };
   return (
     <Box>
-      <audio style={{ width: width }} controls>
-        <source src={mp3} type='audio/mpeg' />
+      <audio
+        ref={audioRef}
+        style={{ width }}
+        controls
+        autoPlay
+        onEnded={handleEnded}>
+        {mp3 && <source src={mp3} type='audio/mpeg' />}
         Your browser does not support the audio element.
       </audio>
     </Box>
@@ -804,6 +851,7 @@ import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import InputSlider from "../../components/InputSlide";
 import Author from "../../components/Author";
+import { getPlayVoice } from "../../service/voice";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
