@@ -59,11 +59,14 @@ export async function getPlayVoice({ voice_id }: any) {
 }
 export async function deleteVoiceApi({ voice_id }: any) {
   try {
-    const response = await axios.post(`${url_voice}/voice/delete/${voice_id}`, {
-      headers: {
-        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-      },
-    });
+    const response = await axios.post(
+      `${url_voice}/voice/delete?voice_id=${voice_id}`,
+      {
+        headers: {
+          Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+        },
+      }
+    );
     console.error("AAAA data:====", response.data);
     return response.data;
   } catch (error: any) {
