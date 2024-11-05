@@ -6,7 +6,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@mui/material";
 import theme from "./theme";
-import { useLocalStorage } from "./hooks/useStorage";
 import { getInfo } from "./service/voice";
 const queryClient = new QueryClient();
 export const coursesContext = createContext({});
@@ -35,6 +34,8 @@ const App = () => {
   useEffect(() => {
     let user = localStorage.getItem("user");
     let accessToken = localStorage.getItem("access_token");
+    console.log("AAA user", user);
+    console.log("AAA accessToken", accessToken);
     if (user && accessToken) {
       (async () => {
         let infor = await getInfo({ user_id: JSON.parse(user).phone });
@@ -50,7 +51,7 @@ const App = () => {
       })();
     }
   }, []);
-  console.log(state);
+
   return (
     <div>
       <ThemeProvider theme={theme}>
