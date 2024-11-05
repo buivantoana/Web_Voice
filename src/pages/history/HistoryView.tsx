@@ -424,7 +424,6 @@ function AudioPlayer({ width, voice_id }: any) {
         controls
         onPlay={handlePlay}
         onEnded={handleEnded}>
-        {mp3 && <source src={mp3} type='audio/mpeg' />}
         Your browser does not support the audio element.
       </audio>
     </Box>
