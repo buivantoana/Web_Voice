@@ -10,13 +10,13 @@ const HistoryController = () => {
   const context: any = useCoursesContext();
   useEffect(() => {
     if (Object.keys(context.state.user).length > 0) loadVoices();
-  }, [context.state.user]);
+  }, [context]);
   const loadVoices = async () => {
     setLoadingVoices(true);
     try {
-      let data = await getHistoryVoices(
-        context.state.user && context.state.user.user_id
-      );
+      let data = await getHistoryVoices({
+        user_id: context.state.user && context.state.user.user_id,
+      });
       console.log("AAAA data", data);
       if (data.code == 0) {
         if (data.data && data.data.length > 0) {
