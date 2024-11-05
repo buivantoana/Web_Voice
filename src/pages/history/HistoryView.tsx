@@ -381,7 +381,7 @@ function AudioPlayer({ width, voice_id }: any) {
         const audioBlob = new Blob(
           [
             new Uint8Array(
-              atob(data.data.voice_base64)
+              atob(data.voice_base64)
                 .split("")
                 .map((c) => c.charCodeAt(0))
             ),
@@ -399,11 +399,12 @@ function AudioPlayer({ width, voice_id }: any) {
   };
 
   // Use effect to fetch MP3 when the component mounts or when `mp3` is null
-  useEffect(() => {
+  const handlePlay = () => {
     if (!mp3) {
+      // Only fetch if MP3 isn't already set
       fetchMp3();
     }
-  }, [mp3]);
+  };
 
   // Event handler for when playback ends
   const handleEnded = () => {
@@ -416,6 +417,7 @@ function AudioPlayer({ width, voice_id }: any) {
         style={{ width }}
         controls
         autoPlay
+        onPlay={handlePlay}
         onEnded={handleEnded}>
         {mp3 && <source src={mp3} type='audio/mpeg' />}
         Your browser does not support the audio element.
