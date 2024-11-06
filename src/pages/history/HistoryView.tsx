@@ -105,6 +105,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
               {voices.length > 0 ? (
                 <>
                   {voices.map((item: any) => {
+                    let date = item.created.split("T");
                     return (
                       <TimelineItem>
                         <TimelineSeparator
@@ -191,7 +192,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                 gap={"10px"}
                                 alignItems={"center"}>
                                 <Typography color='grey_500.main'>
-                                  2024-10-27 22:36:56
+                                  {date[0]} {date[1]}
                                 </Typography>
                                 <RiCloseLine
                                   onClick={() => deleteVoice(item.voice_id)}
@@ -213,6 +214,8 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                               <TextField
                                 placeholder='Nhập văn bản bạn muốn chuyển đổi thành tiếng nói ở đây...'
                                 multiline
+                                disabled={true}
+                                value={item.text}
                                 onChange={(e) => {}}
                                 fullWidth
                                 variant='standard' // Loại bỏ border mặc định
@@ -392,10 +395,10 @@ function AudioPlayer({ width, voice_id }: any) {
         setMp3(url); // Set MP3 URL in state
 
         // Play audio after URL is set
-        if (audioRef.current) {
-          audioRef.current.load(); // Reload the audio element with the new source
-          audioRef.current.play(); // Start playing
-        }
+        // if (audioRef.current) {
+        //   audioRef.current.load(); // Reload the audio element with the new source
+        //   audioRef.current.play(); // Start playing
+        // }
       }
     } catch (error) {
       console.error("Error fetching MP3:", error);
