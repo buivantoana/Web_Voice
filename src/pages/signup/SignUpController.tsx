@@ -57,7 +57,7 @@ const SignUpController = (props: Props) => {
           localStorage.setItem("user", JSON.stringify(data.data.user));
           setTimeout(() => {
             navigate("/");
-          }, 500);
+          }, 1000);
         }
       }
       if (data.code == 1004) {

@@ -43,7 +43,7 @@ const BuyCreditController = () => {
 
   return (
     <>
-      {loading && <Loading />}
+      {loading && <Loading position={"fixed"} />}
       <BuyCreditView
         amount={amount}
         setAmount={setAmount}
