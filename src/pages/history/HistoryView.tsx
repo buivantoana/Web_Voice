@@ -266,9 +266,9 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                 display={"flex"}
                                 gap={"10px"}
                                 alignItems={"center"}>
-                                <Box width={"98%"}>
+                                <Box width={"100%"}>
                                   <AudioPlayer
-                                    width={"98%"}
+                                    width={"100%"}
                                     voice_id={item.voice_id}
                                   />
                                 </Box>
@@ -415,19 +415,21 @@ function AudioPlayer({ width, voice_id }: any) {
 
   return (
     <>
-      <Box>
-        <audio ref={audioRef} style={{ width }} controls>
-          {mp3 && <source src={mp3} type='audio/mpeg' />}
-          Your browser does not support the audio element.
-        </audio>
-      </Box>
-      <Box>
-        <a
-          href={mp3}
-          download='audio.mp3'
-          style={{ display: "block", marginTop: "10px" }}>
-          <FileDownloadIcon />
-        </a>
+      <Box display={"flex"} width={"100%"}>
+        <Box width={"98%"}>
+          <audio ref={audioRef} style={{ width: "98%" }} controls>
+            {mp3 && <source src={mp3} type='audio/mpeg' />}
+            Your browser does not support the audio element.
+          </audio>
+        </Box>
+        <Box>
+          <a
+            href={mp3}
+            download='audio.mp3'
+            style={{ display: "block", marginTop: "10px" }}>
+            <FileDownloadIcon />
+          </a>
+        </Box>
       </Box>
     </>
   );
