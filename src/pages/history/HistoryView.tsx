@@ -272,9 +272,6 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                     voice_id={item.voice_id}
                                   />
                                 </Box>
-                                <Box>
-                                  <FileDownloadIcon />
-                                </Box>
                               </Box>
                             </Box>
                             <Box
@@ -375,7 +372,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
 
 export default HistoryView;
 function AudioPlayer({ width, voice_id }: any) {
-  const [mp3, setMp3] = useState<string | null>(null);
+  const [mp3, setMp3] = useState<string>("");
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Function to call API and fetch MP3
@@ -417,12 +414,22 @@ function AudioPlayer({ width, voice_id }: any) {
   // Event handler for when playback ends
 
   return (
-    <Box>
-      <audio ref={audioRef} style={{ width }} controls>
-        {mp3 && <source src={mp3} type='audio/mpeg' />}
-        Your browser does not support the audio element.
-      </audio>
-    </Box>
+    <>
+      <Box>
+        <audio ref={audioRef} style={{ width }} controls>
+          {mp3 && <source src={mp3} type='audio/mpeg' />}
+          Your browser does not support the audio element.
+        </audio>
+      </Box>
+      <Box>
+        <a
+          href={mp3}
+          download='audio.mp3'
+          style={{ display: "block", marginTop: "10px" }}>
+          <FileDownloadIcon />
+        </a>
+      </Box>
+    </>
   );
 }
 
