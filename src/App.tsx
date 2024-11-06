@@ -31,13 +31,9 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, {
     user: {},
   });
-
+  let user = localStorage.getItem("user");
   useEffect(() => {
-    let user = localStorage.getItem("user");
-    let accessToken = localStorage.getItem("access_token");
-    console.log("AAA user", user);
-    console.log("AAA accessToken", accessToken);
-    if (user && accessToken) {
+    if (user) {
       (async () => {
         let infor = await getInfo({ user_id: JSON.parse(user).phone });
         if (infor.code == 0) {
@@ -52,7 +48,7 @@ const App = () => {
         }
       })();
     }
-  }, []);
+  }, [user]);
   console.log("AAAA state ====", state);
   return (
     <div>
