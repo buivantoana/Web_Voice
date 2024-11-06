@@ -2,15 +2,33 @@ import { useState } from "react";
 import BuyCreditView from "./BuyCreditView";
 import { Box, Dialog, DialogContent } from "@mui/material";
 import { RiCloseLine } from "react-icons/ri";
+import { createPayment } from "../../service/payment";
+import { useCoursesContext } from "../../App";
 
 const BuyCreditController = () => {
   const [amount, setAmount] = useState(0.2);
   const [openQr, setOpenQr] = useState(false);
+  const [codePayment, setCodePayment] = useState("");
+  const context: any = useCoursesContext();
   const handleSliderChange = (event: any, newValue: any) => {
     // Cập nhật giá trị của Slider
     setAmount(newValue);
   };
 
+  const handleCreatePayment = async () => {
+    try {
+      let data = await createPayment({
+        user_id: context.state.user.user_id,
+        amount: amount * 1000000,
+      });
+      if (data.code == 0) {
+        setCodePayment(data.data.code_payment);
+        handleClickOpenQr();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleClickOpenQr = () => {
     setOpenQr(true);
   };
