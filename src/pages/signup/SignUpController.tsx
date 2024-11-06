@@ -8,6 +8,7 @@ import { useLocalStorage } from "../../hooks/useStorage";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useCoursesContext } from "../../App";
 
 type Props = {};
 const schema = yup.object({
@@ -23,6 +24,7 @@ const SignUpController = (props: Props) => {
   const [openOtp, setOpenOtp] = React.useState(false);
   const [otp, setOtp] = useState("");
   const [openId, setOpenId] = useState(null);
+  const context: any = useCoursesContext();
   const {
     register,
     handleSubmit,
@@ -55,6 +57,13 @@ const SignUpController = (props: Props) => {
             JSON.stringify(data.data.access_token)
           );
           localStorage.setItem("user", JSON.stringify(data.data.user));
+          context.dispatch({
+            type: "LOGIN",
+            payload: {
+              ...context.state,
+              user: { ...data.data.user },
+            },
+          });
           setTimeout(() => {
             navigate("/");
             setLoading(false);
