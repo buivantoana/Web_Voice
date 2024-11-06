@@ -21,7 +21,15 @@ import {
   Hidden,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { RiMenuFill, RiNotification2Line } from "react-icons/ri";
+import {
+  RiFileHistoryLine,
+  RiFileList3Line,
+  RiHistoryLine,
+  RiMenuFill,
+  RiNotification2Line,
+  RiPriceTag2Line,
+  RiShieldKeyholeLine,
+} from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../images/loading-lines-6747317-5601928.webp";
 
@@ -414,7 +422,7 @@ const Header = () => {
                 Điều hướng
               </Typography>
             </Box>
-            <Link onClick={toggleDrawer(false)} to={"/buy-credits"}>
+            <Link onClick={toggleDrawerMenu(false)} to={"/"}>
               <Box
                 mt={"10px"}
                 border={"1px solid #dddddd"}
@@ -433,12 +441,26 @@ const Header = () => {
                 }}
                 width={"calc(100%-30px)"}>
                 <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-                  <AddShoppingCartIcon />
-                  <Typography> Mua tín dụng</Typography>
+                  <svg
+                    data-v-fa4d36aa=''
+                    xmlns='http://www.w3.org/2000/svg'
+                    xmlnsXlink='http://www.w3.org/1999/xlink'
+                    aria-hidden='true'
+                    role='img'
+                    className='icon flex-shrink-0 w-5 h-5 relative text-gray-700 dark:text-gray-200'
+                    width='1em'
+                    height='1em'
+                    viewBox='0 0 24 24'>
+                    <path
+                      fill='currentColor'
+                      d='m11.9 22l4.55-12h2.1l4.55 12H21l-1.075-3.05h-4.85L14 22zM4 19l-1.4-1.4l5.05-5.05q-.875-.875-1.588-2T4.75 8h2.1q.5.975 1 1.7t1.2 1.45q.825-.825 1.713-2.313T12.1 6H1V4h7V2h2v2h7v2h-2.9q-.525 1.8-1.575 3.7t-2.075 2.9l2.4 2.45l-.75 2.05l-3.05-3.125zm11.7-1.8h3.6l-1.8-5.1z'
+                    />
+                  </svg>
+                  <Typography>Phát âm</Typography>
                 </Box>
               </Box>
             </Link>
-            <Link onClick={toggleDrawer(false)} to={"/payment-history"}>
+            <Link onClick={toggleDrawerMenu(false)} to={"/history"}>
               <Box
                 mt={"20px"}
                 border={"1px solid #dddddd"}
@@ -457,12 +479,12 @@ const Header = () => {
                 }}
                 width={"calc(100%-30px)"}>
                 <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-                  <DescriptionIcon />
-                  <Typography> Lịch sử thanh toán</Typography>
+                  <RiHistoryLine />
+                  <Typography>Lịch sử</Typography>
                 </Box>
               </Box>
             </Link>
-            <Link onClick={toggleDrawer(false)} to={"/profile"}>
+            <Link onClick={toggleDrawerMenu(false)} to={"/pricing-plans"}>
               <Box
                 mt={"20px"}
                 border={"1px solid #dddddd"}
@@ -481,10 +503,12 @@ const Header = () => {
                 }}
                 width={"calc(100%-30px)"}>
                 <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-                  <ContactMailIcon />
-                  <Typography> Thông tin tài khoản</Typography>
+                  <RiPriceTag2Line />
+                  <Typography> Giá cả dịch vụ</Typography>
                 </Box>
               </Box>
+            </Link>
+            <Link onClick={toggleDrawerMenu(false)} to={"/privacy"}>
               <Box
                 mt={"20px"}
                 border={"1px solid #dddddd"}
@@ -503,8 +527,32 @@ const Header = () => {
                 }}
                 width={"calc(100%-30px)"}>
                 <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-                  <LogoutIcon />
-                  <Typography>Đăng xuất </Typography>
+                  <RiShieldKeyholeLine />
+                  <Typography>Chính sách bảo mật</Typography>
+                </Box>
+              </Box>
+            </Link>
+            <Link onClick={toggleDrawerMenu(false)} to={"/terms"}>
+              <Box
+                mt={"20px"}
+                border={"1px solid #dddddd"}
+                borderRadius={"10px"}
+                p={"10px 15px"}
+                sx={{
+                  cursor: "pointer",
+                  transition: "background-color 0.3s, color 0.3s", // Smooth transition for hover
+                  "&:hover": {
+                    backgroundColor: "grey_700.main", // Background on hover
+                    color: "active.main", // Text and icon color on hover
+                  },
+                  "&:hover .MuiSvgIcon-root": {
+                    color: "active.main", // Icon color on hover
+                  },
+                }}
+                width={"calc(100%-30px)"}>
+                <Box display={"flex"} alignItems={"center"} gap={"10px"}>
+                  <RiFileList3Line />
+                  <Typography>Điều khoản dịch vụ</Typography>
                 </Box>
               </Box>
             </Link>

@@ -93,7 +93,7 @@ const BuyCreditView = ({
                     overflowX: "scroll",
                     overflowY: "hidden", // Ẩn thanh cuộn dọc
                     whiteSpace: "nowrap",
-                    width: "93%",
+                    width: { xs: "87%", md: "93%" },
                   }}>
                   {buy_amount.map((_, index) => (
                     <Box
@@ -157,14 +157,14 @@ const BuyCreditView = ({
                 Nạp tiền tuỳ chỉnh
               </Typography>
               <Box
-                width={"100%"}
+                width={{ xs: "97%", md: "100%" }}
                 display={"flex"}
                 justifyContent={"center"}
                 flexDirection={"column"}
                 gap={"10px"}
                 alignItems={"center"}>
                 <Box
-                  width={"50%"}
+                  width={{ xs: "75%", md: "50%" }}
                   display={"flex"}
                   alignItems={"center"}
                   justifyContent={"space-between"}
@@ -187,7 +187,7 @@ const BuyCreditView = ({
                     <RemoveIcon sx={{ color: "white" }} />
                   </Box>
                   <Box
-                    display={"flex"}
+                    display={{ xs: "unset", md: "flex" }}
                     color={"#ff9800"}
                     alignItems={"center"}
                     gap={"10px"}>
@@ -250,7 +250,7 @@ const BuyCreditView = ({
                     }}
                   />
                 </Box>
-                <Box width={"50%"}>
+                <Box width={{ xs: "70%", md: "50%" }}>
                   <Button
                     onClick={() => {
                       handleCreatePayment();

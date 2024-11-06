@@ -52,7 +52,7 @@ const ProfileView = (props: Props) => {
             <TextField
               variant='outlined'
               sx={{
-                width: "500px",
+                width: { xs: "291px", md: "500px" },
                 "& .MuiOutlinedInput-root": {
                   borderRadius: "10px",
                   backgroundColor: "white",
