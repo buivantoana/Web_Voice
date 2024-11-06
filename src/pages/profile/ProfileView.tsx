@@ -42,7 +42,7 @@ const ProfileView = (props: Props) => {
           minHeight={"80vh"}
           border={"1px solid #dddddd"}
           p={"30px"}
-          width={"62%"}>
+          width={{ xs: "100%", md: "100%", lg: "62%" }}>
           <Box borderBottom={"1px solid #dddddd"} pb={"20px"}>
             <Typography variant='h6' fontWeight={"500"}>
               Thay đổi tên tài khoản.

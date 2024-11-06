@@ -415,7 +415,7 @@ function AudioPlayer({ width, voice_id }: any) {
 
   return (
     <>
-      <Box display={"flex"} width={"100%"}>
+      <Box display={"flex"} width={"100%"} alignItems={"center"}>
         <Box width={"98%"}>
           <audio ref={audioRef} style={{ width: "98%" }} controls>
             {mp3 && <source src={mp3} type='audio/mpeg' />}

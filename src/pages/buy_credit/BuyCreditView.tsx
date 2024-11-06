@@ -48,7 +48,7 @@ const BuyCreditView = ({
           padding={"10px"}
           minHeight={"102vh"}
           border={"1px solid #dddddd"}
-          width={"62%"}>
+          width={{ xs: "100%", md: "100%", lg: "62%" }}>
           <Box
             sx={{
               height: "160px",
@@ -105,7 +105,7 @@ const BuyCreditView = ({
                         } else {
                           setAmount(_.amount);
                         }
-                       handleCreatePayment()
+                        handleCreatePayment();
                       }}
                       sx={{
                         transition:
@@ -253,7 +253,7 @@ const BuyCreditView = ({
                 <Box width={"50%"}>
                   <Button
                     onClick={() => {
-                      handleCreatePayment()
+                      handleCreatePayment();
                     }}
                     startIcon={<RiPaypalFill />}
                     sx={{
