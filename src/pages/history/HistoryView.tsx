@@ -30,7 +30,7 @@ import mp3 from "../../images/hello_toan.mp3";
 
 const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
   const theme: any = useTheme();
-  const [accordion, setAccordion] = useState(false);
+  const [accordion, setAccordion] = useState(null);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -104,7 +104,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
             <>
               {voices.length > 0 ? (
                 <>
-                  {voices.map((item: any) => {
+                  {voices.map((item: any, index: any) => {
                     let date = item.created.split("T");
                     return (
                       <TimelineItem>
@@ -280,7 +280,8 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                             <Box
                               mt={"15px"}
                               sx={{
-                                maxHeight: accordion ? "500px" : "50px",
+                                maxHeight:
+                                  accordion == index ? "500px" : "50px",
                                 overflow: "hidden",
                                 transition: ".3s",
                               }}>
@@ -290,7 +291,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                 padding={"8px 10px"}
                                 borderRadius={"25px"}>
                                 <Box
-                                  onClick={() => setAccordion(!accordion)}
+                                  onClick={() => setAccordion(index)}
                                   display={"flex"}
                                   justifyContent={"space-between"}
                                   alignItems={"center"}>
@@ -314,9 +315,10 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
 
                                   <KeyboardArrowDownIcon
                                     sx={{
-                                      transform: accordion
-                                        ? "rotate(180deg)"
-                                        : "rotate(0deg)",
+                                      transform:
+                                        accordion == index
+                                          ? "rotate(180deg)"
+                                          : "rotate(0deg)",
                                       transition: ".3s",
                                     }}
                                   />
