@@ -28,6 +28,7 @@ const BuyCreditView = ({
   handleSliderChange,
   setAmount,
   handleClickOpenQr,
+  handleCreatePayment,
 }: any) => {
   const theme: any = useTheme();
   const formatAmount = (value: any) => {
@@ -104,7 +105,7 @@ const BuyCreditView = ({
                         } else {
                           setAmount(_.amount);
                         }
-                        handleClickOpenQr();
+                       handleCreatePayment()
                       }}
                       sx={{
                         transition:
@@ -252,7 +253,7 @@ const BuyCreditView = ({
                 <Box width={"50%"}>
                   <Button
                     onClick={() => {
-                      handleClickOpenQr();
+                      handleCreatePayment()
                     }}
                     startIcon={<RiPaypalFill />}
                     sx={{
