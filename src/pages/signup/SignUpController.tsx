@@ -57,6 +57,7 @@ const SignUpController = (props: Props) => {
           localStorage.setItem("user", JSON.stringify(data.data.user));
           setTimeout(() => {
             navigate("/");
+            setLoading(false);
           }, 1000);
         }
       }
@@ -66,7 +67,6 @@ const SignUpController = (props: Props) => {
     } catch (error) {
       console.log(error);
     }
-    setLoading(false);
   };
   const handleOTP = async (data: any) => {
     console.log(data);
