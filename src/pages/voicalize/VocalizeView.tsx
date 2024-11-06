@@ -186,7 +186,7 @@ const VocalizeView = ({
           height={{ xs: "50vh", md: "75vh" }}
           width={{ xs: "100%", md: "49%" }}>
           <Box height={"90%"} sx={{ position: "relative" }}>
-            {!loadingVoices && voices.length > 0 ? (
+            {!loadingVoices ? (
               <Author setVoice={setVoice} voice={voice} data={voices} />
             ) : (
               <Loading height={"100%"} />

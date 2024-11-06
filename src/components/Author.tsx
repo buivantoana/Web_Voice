@@ -560,122 +560,145 @@ const Author = ({ data, setVoice, voice }: Props) => {
               flexWrap={"wrap"}
               gap={"10px"}
               padding={"10px"}>
-              {voices &&
-                voices.length &&
-                voices.map((item: any, index: number) => {
-                  return (
-                    <Box
-                      onClick={() => setVoice(item)}
-                      sx={{
-                        borderRadius: "8px",
-                        // flexGrow: 1,
-                        border:
-                          voice.id == item.id
-                            ? `2px solid ${theme.palette.active.main}`
-                            : "2px solid rgb(226 232 240)",
-                        width: { xs: "100%", md: "48%" },
-                        // flexBasis: "200",
-                      }}>
-                      <Stack
-                        direction={"row"}
-                        sx={{ padding: "6px" }}
-                        justifyContent={"space-between"}>
-                        <Typography fontSize={".9rem"} fontWeight={"500"}>
-                          {item.name}
-                        </Typography>
-                        <Typography fontSize={".85rem"} fontWeight={"500"}>
-                          QA00{index + 1}
-                        </Typography>
-                      </Stack>
-                      <Stack
-                        sx={{ padding: "6px" }}
-                        direction={"row"}
-                        justifyContent={"space-between"}>
-                        <Box>
-                          <Typography mb={"7px"} ml={"8px"} fontSize={".85rem"}>
-                            {item.description}
+              {voices && voices.length > 0 ? (
+                <>
+                  {voices.map((item: any, index: number) => {
+                    return (
+                      <Box
+                        onClick={() => setVoice(item)}
+                        sx={{
+                          borderRadius: "8px",
+                          // flexGrow: 1,
+                          border:
+                            voice.id == item.id
+                              ? `2px solid ${theme.palette.active.main}`
+                              : "2px solid rgb(226 232 240)",
+                          width: { xs: "100%", md: "48%" },
+                          // flexBasis: "200",
+                        }}>
+                        <Stack
+                          direction={"row"}
+                          sx={{ padding: "6px" }}
+                          justifyContent={"space-between"}>
+                          <Typography fontSize={".9rem"} fontWeight={"500"}>
+                            {item.name}
                           </Typography>
-                          <Box display={"flex"} gap={"5px"}>
-                            <Box
-                              border={"2px solid rgb(226 232 240)"}
-                              p={"0px 8px"}
-                              bgcolor={"rgb(248 250 252)"}
-                              borderRadius={"5px"}
-                              width={"max-content"}>
-                              <Typography>{age[item.age]}</Typography>
-                            </Box>
-                            <Box
-                              border={"2px solid rgb(226 232 240)"}
-                              p={"0px 8px"}
-                              bgcolor={"rgb(248 250 252)"}
-                              borderRadius={"5px"}
-                              width={"max-content"}>
-                              <Typography>{gender[item.gender]}</Typography>
+                          <Typography fontSize={".85rem"} fontWeight={"500"}>
+                            QA00{index + 1}
+                          </Typography>
+                        </Stack>
+                        <Stack
+                          sx={{ padding: "6px" }}
+                          direction={"row"}
+                          justifyContent={"space-between"}>
+                          <Box>
+                            <Typography
+                              mb={"7px"}
+                              ml={"8px"}
+                              fontSize={".85rem"}>
+                              {item.description}
+                            </Typography>
+                            <Box display={"flex"} gap={"5px"}>
+                              <Box
+                                border={"2px solid rgb(226 232 240)"}
+                                p={"0px 8px"}
+                                bgcolor={"rgb(248 250 252)"}
+                                borderRadius={"5px"}
+                                width={"max-content"}>
+                                <Typography>{age[item.age]}</Typography>
+                              </Box>
+                              <Box
+                                border={"2px solid rgb(226 232 240)"}
+                                p={"0px 8px"}
+                                bgcolor={"rgb(248 250 252)"}
+                                borderRadius={"5px"}
+                                width={"max-content"}>
+                                <Typography>{gender[item.gender]}</Typography>
+                              </Box>
                             </Box>
                           </Box>
-                        </Box>
-                        <Box>
-                          <img
-                            src={images[item.name.toLowerCase()]}
-                            alt=''
-                            width={"40px"}
-                            style={{ borderRadius: "50%" }}
-                          />
-                        </Box>
-                      </Stack>
-                      <Stack mt={"30px"} direction={"row"}>
-                        <Box
-                          padding={"8px"}
-                          width={"50%"}
-                          display={"flex"}
-                          alignItems={"center"}
-                          gap={"5px"}
-                          borderTop={"1px solid rgb(226 232 240)"}
-                          borderRight={"1px solid rgb(226 232 240)"}
-                          onClick={() => togglePlayPause(index)}
-                          justifyContent={"center"}>
-                          {playingIndex === index ? (
-                            <RiPauseCircleLine />
-                          ) : (
-                            <RiPlayCircleLine />
-                          )}
-                          <Typography fontSize={".85rem"}>Mẫu</Typography>
-                          <audio
-                            ref={(el) => (audioRefs.current[index] = el)}
-                            src={item.sample_audio_path}
-                            onEnded={handleAudioEnded}
-                          />
-                        </Box>
-
-                        <Box
-                          width={"50%"}
-                          display={"flex"}
-                          alignItems={"center"}
-                          gap={"5px"}
-                          borderTop={"1px solid rgb(226 232 240)"}
-                          justifyContent={"center"}>
-                          <svg
-                            data-v-fa4d36aa=''
-                            xmlns='http://www.w3.org/2000/svg'
-                            xmlnsXlink='http://www.w3.org/1999/xlink'
-                            aria-hidden='true'
-                            role='img'
-                            className='icon text-lg'
-                            width='1em'
-                            height='1em'
-                            viewBox='0 0 24 24'>
-                            <path
-                              fill='currentColor'
-                              d='m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825'
+                          <Box>
+                            <img
+                              src={images[item.name.toLowerCase()]}
+                              alt=''
+                              width={"40px"}
+                              style={{ borderRadius: "50%" }}
                             />
-                          </svg>
+                          </Box>
+                        </Stack>
+                        <Stack mt={"30px"} direction={"row"}>
+                          <Box
+                            padding={"8px"}
+                            width={"50%"}
+                            display={"flex"}
+                            alignItems={"center"}
+                            gap={"5px"}
+                            borderTop={"1px solid rgb(226 232 240)"}
+                            borderRight={"1px solid rgb(226 232 240)"}
+                            onClick={() => togglePlayPause(index)}
+                            justifyContent={"center"}>
+                            {playingIndex === index ? (
+                              <RiPauseCircleLine />
+                            ) : (
+                              <RiPlayCircleLine />
+                            )}
+                            <Typography fontSize={".85rem"}>Mẫu</Typography>
+                            <audio
+                              ref={(el) => (audioRefs.current[index] = el)}
+                              src={item.sample_audio_path}
+                              onEnded={handleAudioEnded}
+                            />
+                          </Box>
 
-                          <Typography fontSize={".85rem"}>Yêu thích</Typography>
-                        </Box>
-                      </Stack>
-                    </Box>
-                  );
-                })}
+                          <Box
+                            width={"50%"}
+                            display={"flex"}
+                            alignItems={"center"}
+                            gap={"5px"}
+                            borderTop={"1px solid rgb(226 232 240)"}
+                            justifyContent={"center"}>
+                            <svg
+                              data-v-fa4d36aa=''
+                              xmlns='http://www.w3.org/2000/svg'
+                              xmlnsXlink='http://www.w3.org/1999/xlink'
+                              aria-hidden='true'
+                              role='img'
+                              className='icon text-lg'
+                              width='1em'
+                              height='1em'
+                              viewBox='0 0 24 24'>
+                              <path
+                                fill='currentColor'
+                                d='m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825'
+                              />
+                            </svg>
+
+                            <Typography fontSize={".85rem"}>
+                              Yêu thích
+                            </Typography>
+                          </Box>
+                        </Stack>
+                      </Box>
+                    );
+                  })}
+                </>
+              ) : (
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  flexDirection={"column"}
+                  paddingTop={"100px"}
+                  width={"100%"}
+                  height={"100%"}>
+                  <FilterAltOffIcon
+                    sx={{ fontSize: "60px", color: "#dddddd" }}
+                  />
+                  <Typography fontSize={"1.3rem"} color={"#dddddd"}>
+                    Không tìm thấy giọng nói
+                  </Typography>
+                </Box>
+              )}
             </Box>
           </Box>
         </Box>
