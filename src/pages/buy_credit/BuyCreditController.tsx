@@ -6,6 +6,7 @@ import { confirmPayment, createPayment } from "../../service/payment";
 import { useCoursesContext } from "../../App";
 import Loading from "../../components/Loading";
 import { convertToVND } from "../../utils/utils";
+import { toast } from "react-toastify";
 
 const BuyCreditController = () => {
   const [amount, setAmount] = useState(0.2);
@@ -52,6 +53,8 @@ const BuyCreditController = () => {
             user: { ...context.state.user, credits: data.data.credits },
           },
         });
+        toast.success("Bạn đã nạp tiền thành công");
+        handleCloseQr();
       }
     } catch (error) {
       console.log(error);
@@ -84,7 +87,8 @@ const BuyCreditController = () => {
           </Typography>
           <img
             src={`https://qr.limcorp.vn/qrcode.png?bank=970422&number=99192886868&amount=${
-              amount < 1 ? amount * 1000000 : amount * 1000000
+              2000
+              // amount < 1 ? amount * 1000000 : amount * 1000000
             }&content=${codePayment}`}
             alt='QR Code'
             width='100%'
