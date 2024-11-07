@@ -239,7 +239,25 @@ const Author = ({ data, setVoice, voice }: Props) => {
                 borderRadius: "16px",
               },
             }}>
-            <TextField
+            <Button
+              aria-describedby={idGender}
+              onClick={handleClickGender}
+              variant='outlined'
+              endIcon={<ExpandMoreIcon />}
+              sx={{
+                borderColor: theme.palette.grey_500.main,
+                background: "white",
+                color: "black",
+                "&:hover": {
+                  borderColor: "unset",
+                  color: "unset",
+                  background: "white",
+                },
+              }}
+              size='small'>
+              Giới tính
+            </Button>
+            {/* <TextField
               className='search-input'
               placeholder='Tìm kiếm...'
               id='demo-helper-text-aligned'
@@ -273,7 +291,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                   />
                 ),
               }}
-            />
+            /> */}
           </Box>
           <Box display={"flex"} gap={"3px"}>
             <Box
@@ -283,25 +301,6 @@ const Author = ({ data, setVoice, voice }: Props) => {
                     padding: "5px",
                   },
               }}>
-              <Button
-                aria-describedby={idGender}
-                onClick={handleClickGender}
-                variant='outlined'
-                endIcon={<ExpandMoreIcon />}
-                sx={{
-                  borderColor: theme.palette.grey_500.main,
-                  background: "white",
-                  color: "black",
-                  "&:hover": {
-                    borderColor: "unset",
-                    color: "unset",
-                    background: "white",
-                  },
-                }}
-                size='small'>
-                Giới tính
-              </Button>
-
               <Popover
                 id={idGender}
                 open={openGender}
@@ -351,7 +350,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                     padding: "5px",
                   },
               }}>
-              <Button
+              {/* <Button
                 aria-describedby={idAge}
                 onClick={handleClickAge}
                 variant='outlined'
@@ -368,7 +367,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                 }}
                 size='small'>
                 Tuổi
-              </Button>
+              </Button> */}
 
               <Popover
                 id={idAge}
@@ -432,7 +431,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                     padding: "5px",
                   },
               }}>
-              <Button
+              {/* <Button
                 aria-describedby={idAcent}
                 onClick={handleClickAcent}
                 variant='outlined'
@@ -449,7 +448,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                 }}
                 size='small'>
                 Phát âm
-              </Button>
+              </Button> */}
 
               <Popover
                 id={idAcent}
@@ -532,14 +531,14 @@ const Author = ({ data, setVoice, voice }: Props) => {
               Đặt lại
             </Button>
 
-            <RestartAltIcon
+            {/* <RestartAltIcon
               sx={{
                 border: `1px solid ${theme.palette.grey_500.main}`,
                 borderRadius: "50%",
                 padding: "2px",
                 background: "white",
               }}
-            />
+            /> */}
           </Box>
         </Box>
         <Box
@@ -629,7 +628,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                         <Stack mt={"30px"} direction={"row"}>
                           <Box
                             padding={"8px"}
-                            width={"50%"}
+                            width={"100%"}
                             display={"flex"}
                             alignItems={"center"}
                             gap={"5px"}
@@ -650,7 +649,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                             />
                           </Box>
 
-                          <Box
+                          {/* <Box
                             width={"50%"}
                             display={"flex"}
                             alignItems={"center"}
@@ -676,7 +675,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
                             <Typography fontSize={".85rem"}>
                               Yêu thích
                             </Typography>
-                          </Box>
+                          </Box> */}
                         </Stack>
                       </Box>
                     );
