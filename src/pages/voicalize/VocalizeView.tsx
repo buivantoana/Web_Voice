@@ -43,6 +43,7 @@ type Props = {
   voice: any;
   setVoice: any;
   loadingVoices: any;
+  limit: any;
 };
 const VocalizeView = ({
   textVoice,
@@ -67,6 +68,7 @@ const VocalizeView = ({
   setVoice,
   voice,
   loadingVoices,
+  limit,
 }: Props) => {
   const theme: any = useTheme();
 
@@ -132,7 +134,8 @@ const VocalizeView = ({
               multiline
               value={textVoice}
               onChange={(e) => {
-                setTextVoice(e.target.value);
+                if (e.target.value.length <= limit)
+                  setTextVoice(e.target.value);
               }}
               fullWidth
               rows={4} // Số dòng hiển thị
@@ -174,7 +177,9 @@ const VocalizeView = ({
                 gap: "15px",
                 cursor: "pointer",
               }}>
-              <Typography>{textVoice.length}/3000</Typography>
+              <Typography>
+                {textVoice.length}/{limit}
+              </Typography>
               <Box onClick={() => setTextVoice("")}>
                 <Typography color='red'>Xóa văn bản</Typography>
               </Box>
@@ -202,7 +207,7 @@ const VocalizeView = ({
             height={"45px"}>
             <Box
               height={"100%"}
-              width={"31%"}
+              width={"48%"}
               border={"2px solid #dddddd"}
               sx={{
                 borderTopLeftRadius: "25px",
@@ -218,7 +223,7 @@ const VocalizeView = ({
               }}>
               <InputSlider setValue={setSpeed} value={speed} label={true} />
             </Box>
-            <Box
+            {/* <Box
               width={"31%"}
               height={"100%"}
               sx={{ border: "2px solid #dddddd" }}>
@@ -307,9 +312,9 @@ const VocalizeView = ({
                   </Box>
                 </Popover>
               </Box>
-            </Box>
+            </Box> */}
             <Box
-              width={"31%"}
+              width={"48%"}
               onClick={handleCreateVoice}
               border={"2px solid #dddddd"}
               bgcolor={theme.palette.active.main}

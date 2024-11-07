@@ -30,7 +30,7 @@ export default function InputSlider({ label, setValue, value }: any) {
   return (
     <Box sx={{ width: "100%" }}>
       {label && (
-        <Typography fontWeight={"500"} ml={"15px"}>
+        <Typography fontWeight={"500"} ml={"35px"}>
           Tốc độ
         </Typography>
       )}

@@ -18,10 +18,10 @@ const buy_amount = [
   { amount: 1, type: "M" },
   { amount: 1.4, type: "M" },
   { amount: 2, type: "M" },
-  { amount: 2.4, type: "M" },
-  { amount: 3, type: "M" },
-  { amount: 3.4, type: "M" },
-  { amount: 4, type: "M" },
+  // { amount: 2.4, type: "M" },
+  // { amount: 3, type: "M" },
+  // { amount: 3.4, type: "M" },
+  // { amount: 4, type: "M" },
 ];
 const BuyCreditView = ({
   amount,

@@ -31,7 +31,7 @@ const HistoryController = () => {
       console.log("AAAA data", data);
       if (data.code == 0) {
         if (data.data && data.data.length > 0) {
-          setVoices(data.data);
+          setVoices(data.data.reverse());
         }
       }
     } catch (error) {

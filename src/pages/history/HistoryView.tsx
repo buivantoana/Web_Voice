@@ -99,7 +99,9 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
             },
           }}>
           {loadingVoices ? (
-            <CircularProgress color='success' />
+            <Box display={"flex"} justifyContent={"center"} width={"100%"}>
+              <CircularProgress color='success' />
+            </Box>
           ) : (
             <>
               {voices.length > 0 ? (
@@ -107,8 +109,8 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                   {voices.map((item: any, index: any) => {
                     let date = item.created.split("T");
                     return (
-                      <TimelineItem>
-                        <TimelineSeparator
+                      <TimelineItem sx={{ mt: "20px" }}>
+                        {/* <TimelineSeparator
                           sx={{ display: { xs: "none", md: "flex" } }}>
                           <RiZhihuFill
                             style={{
@@ -118,7 +120,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                             }}
                           />
                           <TimelineConnector sx={{ minHeight: "40px" }} />
-                        </TimelineSeparator>
+                        </TimelineSeparator> */}
                         <TimelineContent>
                           <Box
                             width={{ xs: "97%", md: "100%" }}
@@ -134,7 +136,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                 display={"flex"}
                                 flexWrap={"wrap"}
                                 gap={"10px"}>
-                                <Button
+                                {/* <Button
                                   sx={{
                                     borderRadius: "5px",
                                     padding: "2px 0px",
@@ -146,7 +148,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                   }}
                                   variant='contained'>
                                   A9042
-                                </Button>
+                                </Button> */}
                                 <Button
                                   sx={{
                                     borderRadius: "5px",
@@ -171,9 +173,9 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                     },
                                   }}
                                   variant='contained'>
-                                  0 tín dụng
+                                  {item.credit} tín dụng
                                 </Button>
-                                <Button
+                                {/* <Button
                                   sx={{
                                     borderRadius: "5px",
                                     padding: "2px 5px",
@@ -185,7 +187,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                   }}
                                   variant='contained'>
                                   Chất lượng cao
-                                </Button>
+                                </Button> */}
                               </Box>
                               <Box
                                 display={"flex"}
@@ -270,11 +272,13 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                   <AudioPlayer
                                     width={"100%"}
                                     voice_id={item.voice_id}
+                                    content={item.text}
+                                    speed={item.speed}
                                   />
                                 </Box>
                               </Box>
                             </Box>
-                            <Box
+                            {/* <Box
                               mt={"15px"}
                               sx={{
                                 maxHeight:
@@ -326,7 +330,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                   handleClickOpen={handleClickOpen}
                                 />
                               </Box>
-                            </Box>
+                            </Box> */}
                           </Box>
                         </TimelineContent>
                       </TimelineItem>
@@ -371,10 +375,11 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
 };
 
 export default HistoryView;
-function AudioPlayer({ width, voice_id }: any) {
+function AudioPlayer({ width, voice_id, content, speed }: any) {
   const [mp3, setMp3] = useState<string>("");
   const audioRef = useRef<HTMLAudioElement>(null);
-
+  const navigate: any = useNavigate();
+  const context: any = useCoursesContext();
   // Function to call API and fetch MP3
   const fetchMp3 = async () => {
     try {
@@ -416,19 +421,42 @@ function AudioPlayer({ width, voice_id }: any) {
   return (
     <>
       <Box display={"flex"} width={"100%"} alignItems={"center"}>
-        <Box width={"98%"}>
+        <Box width={"95%"}>
           <audio ref={audioRef} style={{ width: "98%" }} controls>
             {mp3 && <source src={mp3} type='audio/mpeg' />}
             Your browser does not support the audio element.
           </audio>
         </Box>
-        <Box>
+        <Box
+          display={"flex"}
+          gap={"10px"}
+          sx={{ cursor: "pointer" }}
+          alignItems={"center"}>
           <a
             href={mp3}
             download='audio.mp3'
             style={{ display: "block", marginTop: "10px" }}>
             <FileDownloadIcon />
           </a>
+          <RiLoopLeftFill
+            onClick={() => {
+              context.dispatch({
+                type: "HISTORY",
+                payload: {
+                  ...context.state,
+                  history: { content: content, speed: speed },
+                },
+              });
+              navigate(`/`);
+            }}
+            style={{
+              background: "rgb(255 90 31)",
+              padding: "4px",
+              borderRadius: "50%",
+              border: "1px solid #dddddd",
+              color: "white",
+            }}
+          />
         </Box>
       </Box>
     </>
@@ -863,6 +891,8 @@ import { TransitionProps } from "@mui/material/transitions";
 import InputSlider from "../../components/InputSlide";
 import Author from "../../components/Author";
 import { getPlayVoice } from "../../service/voice";
+import { useNavigate } from "react-router-dom";
+import { useCoursesContext } from "../../App";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {

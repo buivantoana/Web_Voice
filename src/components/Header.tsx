@@ -33,7 +33,7 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import logo from "../images/loading-lines-6747317-5601928.webp";
 
-import profile from "../images/user.png";
+import profile from "../images/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg";
 import { useCoursesContext } from "../App";
 const Header = () => {
   const theme: any = useTheme();
@@ -164,7 +164,7 @@ const Header = () => {
             display={"flex"}
             gap={"20px"}
             alignItems={"center"}>
-            <RiNotification2Line size={20} />
+            {/* <RiNotification2Line size={20} /> */}
             <img
               src={profile}
               style={{ borderRadius: "50%" }}
@@ -263,10 +263,14 @@ const Header = () => {
                 padding={"3px 10px"}
                 borderRadius={"50%"}
                 bgcolor={"rgb(225 239 254)"}>
-                <Typography fontWeight={"500"}>0</Typography>
+                <Typography fontWeight={"500"}>
+                  {Object.keys(context.state.user).length > 0
+                    ? context.state.user.credits
+                    : 0}
+                </Typography>
               </Box>
             </Box>
-            <Box
+            {/* <Box
               mt={"10px"}
               display={"flex"}
               justifyContent={"space-between"}
@@ -291,7 +295,7 @@ const Header = () => {
                 bgcolor={"rgb(252 232 243)"}>
                 <Typography fontWeight={"500"}>0</Typography>
               </Box>
-            </Box>
+            </Box> */}
             <Link onClick={toggleDrawer(false)} to={"/buy-credits"}>
               <Box
                 mt={"40px"}
@@ -340,7 +344,7 @@ const Header = () => {
                 </Box>
               </Box>
             </Link>
-            <Link onClick={toggleDrawer(false)} to={"/profile"}>
+            {/* <Link onClick={toggleDrawer(false)} to={"/profile"}>
               <Box
                 mt={"20px"}
                 border={"1px solid #dddddd"}
@@ -363,42 +367,42 @@ const Header = () => {
                   <Typography> Thông tin tài khoản</Typography>
                 </Box>
               </Box>
-              <Box
-                onClick={() => {
-                  localStorage.removeItem("user");
-                  localStorage.removeItem("access_token");
-                  setUser(null);
-                  context.dispatch({
-                    type: "LOGIN",
-                    payload: {
-                      ...context.state,
-                      user: {},
-                    },
-                  });
-                  toggleDrawer(false);
-                }}
-                mt={"20px"}
-                border={"1px solid #dddddd"}
-                borderRadius={"10px"}
-                p={"10px 15px"}
-                sx={{
-                  cursor: "pointer",
-                  transition: "background-color 0.3s, color 0.3s", // Smooth transition for hover
-                  "&:hover": {
-                    backgroundColor: "grey_700.main", // Background on hover
-                    color: "active.main", // Text and icon color on hover
+            </Link> */}
+            <Box
+              onClick={() => {
+                localStorage.removeItem("user");
+                localStorage.removeItem("access_token");
+                setUser(null);
+                context.dispatch({
+                  type: "LOGIN",
+                  payload: {
+                    ...context.state,
+                    user: {},
                   },
-                  "&:hover .MuiSvgIcon-root": {
-                    color: "active.main", // Icon color on hover
-                  },
-                }}
-                width={"calc(100%-30px)"}>
-                <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-                  <LogoutIcon />
-                  <Typography>Đăng xuất </Typography>
-                </Box>
+                });
+                toggleDrawer(false);
+              }}
+              mt={"20px"}
+              border={"1px solid #dddddd"}
+              borderRadius={"10px"}
+              p={"10px 15px"}
+              sx={{
+                cursor: "pointer",
+                transition: "background-color 0.3s, color 0.3s", // Smooth transition for hover
+                "&:hover": {
+                  backgroundColor: "grey_700.main", // Background on hover
+                  color: "active.main", // Text and icon color on hover
+                },
+                "&:hover .MuiSvgIcon-root": {
+                  color: "active.main", // Icon color on hover
+                },
+              }}
+              width={"calc(100%-30px)"}>
+              <Box display={"flex"} alignItems={"center"} gap={"10px"}>
+                <LogoutIcon />
+                <Typography>Đăng xuất </Typography>
               </Box>
-            </Link>
+            </Box>
           </Box>
         </Drawer>
         <Drawer

@@ -4,6 +4,7 @@ import VocalizeView from "./VocalizeView";
 import Loading from "../../components/Loading";
 import { createVoice, getVoicesOpenAi } from "../../service/voice";
 import { useCoursesContext } from "../../App";
+import { useLocation } from "react-router-dom";
 
 type Props = {};
 
@@ -22,10 +23,20 @@ const VocalizeController = (props: Props) => {
   const [voices, setVoices] = useState<any>([]);
   const [voice, setVoice] = useState<any>({});
   const context: any = useCoursesContext();
+
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
   };
+
   useEffect(() => {
+    if (Object.keys(context.state.history).length > 0) {
+      if (context.state.history.content) {
+        setTextVoice(context.state.history.content);
+      }
+      if (context.state.history.speed) {
+        setSpeed(context.state.history.speed);
+      }
+    }
     loadVoicesOpenai();
   }, []);
   const loadVoicesOpenai = async () => {
@@ -82,7 +93,7 @@ const VocalizeController = (props: Props) => {
     }
     setLoading(false);
   };
-
+  console.log("AAA context voice====", context);
   return (
     <>
       {loading && <Loading />}
@@ -109,6 +120,12 @@ const VocalizeController = (props: Props) => {
         voice={voice}
         setVoice={setVoice}
         loadingVoices={loadingVoices}
+        limit={
+          Object.keys(context.state.user).length > 0 &&
+          context.state.user.limit_txt
+            ? context.state.user.limit_txt
+            : 0
+        }
       />
     </>
   );

@@ -8,7 +8,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import { Box, Hidden, styled, Tooltip, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import user from "../images/user.png";
+import user from "../images/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg";
 import { useCoursesContext } from "../App";
 
 type Props = {};
@@ -73,10 +73,14 @@ const LeftProfile = (props: Props) => {
             padding={"3px 10px"}
             borderRadius={"50%"}
             bgcolor={"rgb(225 239 254)"}>
-            <Typography fontWeight={"500"}>0</Typography>
+            <Typography fontWeight={"500"}>
+              {Object.keys(context.state.user).length > 0
+                ? context.state.user.credits
+                : 0}
+            </Typography>
           </Box>
         </Box>
-        <Box
+        {/* <Box
           mt={"10px"}
           display={"flex"}
           justifyContent={"space-between"}
@@ -101,7 +105,7 @@ const LeftProfile = (props: Props) => {
             bgcolor={"rgb(252 232 243)"}>
             <Typography fontWeight={"500"}>0</Typography>
           </Box>
-        </Box>
+        </Box> */}
         <Link to={"/buy-credits"}>
           <Box
             mt={"40px"}
@@ -150,7 +154,7 @@ const LeftProfile = (props: Props) => {
             </Box>
           </Box>
         </Link>
-        <Link to={"/profile"}>
+        {/* <Link to={"/profile"}>
           <Box
             mt={"20px"}
             border={"1px solid #dddddd"}
@@ -173,46 +177,46 @@ const LeftProfile = (props: Props) => {
               <Typography> Thông tin tài khoản</Typography>
             </Box>
           </Box>
+        </Link> */}
+        <Box
+          mt={"20px"}
+          border={"1px solid #dddddd"}
+          borderRadius={"10px"}
+          p={"10px 15px"}
+          sx={{
+            cursor: "pointer",
+            transition: "background-color 0.3s, color 0.3s", // Smooth transition for hover
+            "&:hover": {
+              backgroundColor: "grey_700.main", // Background on hover
+              color: "active.main", // Text and icon color on hover
+            },
+            "&:hover .MuiSvgIcon-root": {
+              color: "active.main", // Icon color on hover
+            },
+          }}
+          width={"calc(100%-30px)"}>
           <Box
-            mt={"20px"}
-            border={"1px solid #dddddd"}
-            borderRadius={"10px"}
-            p={"10px 15px"}
-            sx={{
-              cursor: "pointer",
-              transition: "background-color 0.3s, color 0.3s", // Smooth transition for hover
-              "&:hover": {
-                backgroundColor: "grey_700.main", // Background on hover
-                color: "active.main", // Text and icon color on hover
-              },
-              "&:hover .MuiSvgIcon-root": {
-                color: "active.main", // Icon color on hover
-              },
+            display={"flex"}
+            onClick={() => {
+              localStorage.removeItem("user");
+              localStorage.removeItem("access_token");
+              context.dispatch({
+                type: "LOGIN",
+                payload: {
+                  ...context.state,
+                  user: {},
+                },
+              });
+              setTimeout(() => {
+                navigate("/");
+              }, 500);
             }}
-            width={"calc(100%-30px)"}>
-            <Box
-              display={"flex"}
-              onClick={() => {
-                localStorage.removeItem("user");
-                localStorage.removeItem("access_token");
-                context.dispatch({
-                  type: "LOGIN",
-                  payload: {
-                    ...context.state,
-                    user: {},
-                  },
-                });
-                setTimeout(() => {
-                  navigate("/");
-                }, 500);
-              }}
-              alignItems={"center"}
-              gap={"10px"}>
-              <LogoutIcon />
-              <Typography>Đăng xuất </Typography>
-            </Box>
+            alignItems={"center"}
+            gap={"10px"}>
+            <LogoutIcon />
+            <Typography>Đăng xuất </Typography>
           </Box>
-        </Link>
+        </Box>
       </Box>
     </Hidden>
   );

@@ -18,6 +18,11 @@ const reducer = (state: any, action: any) => {
         ...state,
         user: action.payload.user,
       };
+    case "HISTORY":
+      return {
+        ...state,
+        history: action.payload.history,
+      };
     case "LOGOUT":
       return {
         ...state,
@@ -30,6 +35,7 @@ const reducer = (state: any, action: any) => {
 const App = () => {
   const [state, dispatch] = useReducer(reducer, {
     user: {},
+    history: {},
   });
   let user = localStorage.getItem("user");
   useEffect(() => {

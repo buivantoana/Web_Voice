@@ -316,19 +316,6 @@ const Author = ({ data, setVoice, voice }: Props) => {
                   horizontal: "right",
                 }}>
                 <Typography
-                  onClick={() => handleSelectGender("Female")}
-                  sx={{
-                    padding: "3px 10px",
-                    width: "80px",
-                    background:
-                      SelectedGender == "Female"
-                        ? theme.palette.active.main
-                        : "unset",
-                    color: SelectedGender == "Female" ? "white" : "black",
-                  }}>
-                  Nam
-                </Typography>
-                <Typography
                   onClick={() => handleSelectGender("Male")}
                   sx={{
                     padding: "3px 10px",
@@ -338,6 +325,19 @@ const Author = ({ data, setVoice, voice }: Props) => {
                         ? theme.palette.active.main
                         : "unset",
                     color: SelectedGender == "Male" ? "white" : "black",
+                  }}>
+                  Nam
+                </Typography>
+                <Typography
+                  onClick={() => handleSelectGender("Female")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedGender == "Female"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedGender == "Female" ? "white" : "black",
                   }}>
                   Nữ
                 </Typography>

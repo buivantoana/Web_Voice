@@ -1,10 +1,11 @@
 import { useState } from "react";
 import BuyCreditView from "./BuyCreditView";
-import { Box, Dialog, DialogContent } from "@mui/material";
+import { Box, Button, Dialog, DialogContent, Typography } from "@mui/material";
 import { RiCloseLine } from "react-icons/ri";
 import { createPayment } from "../../service/payment";
 import { useCoursesContext } from "../../App";
 import Loading from "../../components/Loading";
+import { convertToVND } from "../../utils/utils";
 
 const BuyCreditController = () => {
   const [amount, setAmount] = useState(0.2);
@@ -61,7 +62,11 @@ const BuyCreditController = () => {
         <Box display={"flex"} onClick={handleCloseQr} justifyContent={"end"}>
           <RiCloseLine size={25} />
         </Box>
+
         <DialogContent>
+          <Typography textAlign={"center"} variant='h5'>
+            Quét mã QR để chuyển khoản{" "}
+          </Typography>
           <img
             src={`https://qr.limcorp.vn/qrcode.png?bank=970422&number=99192886868&amount=${
               amount < 1 ? amount * 1000000 : amount * 1000000
@@ -70,6 +75,26 @@ const BuyCreditController = () => {
             width='100%'
             height='100%'
           />
+          <Typography textAlign={"center"} variant='h6'>
+            Số tiền: {convertToVND(amount * 1000000)}
+          </Typography>
+          <Typography textAlign={"center"} variant='h6'>
+            Số TK: 99192886868
+          </Typography>
+          <Box width={{}}>
+            <Button
+              sx={{
+                width: "100%",
+                backgroundColor: "#4CAF50", // Màu nền của nút
+                color: "#fff", // Màu chữ
+                "&:hover": {
+                  backgroundColor: "#388E3C", // Màu nền khi hover
+                },
+              }}
+              variant='contained'>
+              Đã thanh toán
+            </Button>
+          </Box>
         </DialogContent>
       </Dialog>
     </>
