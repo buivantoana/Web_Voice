@@ -5,6 +5,7 @@ import Loading from "../../components/Loading";
 import { createVoice, getVoicesOpenAi } from "../../service/voice";
 import { useCoursesContext } from "../../App";
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 type Props = {};
 
@@ -87,6 +88,8 @@ const VocalizeController = (props: Props) => {
       if (data.code == 0) {
         setBase64Voice(data.voice_base64);
         setIsOpen(true);
+      } else {
+        toast.warning(data.msg);
       }
     } catch (error) {
       console.log(error);
