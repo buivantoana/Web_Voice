@@ -2,7 +2,7 @@ import { useState } from "react";
 import BuyCreditView from "./BuyCreditView";
 import { Box, Button, Dialog, DialogContent, Typography } from "@mui/material";
 import { RiCloseLine } from "react-icons/ri";
-import { createPayment } from "../../service/payment";
+import { confirmPayment, createPayment } from "../../service/payment";
 import { useCoursesContext } from "../../App";
 import Loading from "../../components/Loading";
 import { convertToVND } from "../../utils/utils";
@@ -41,7 +41,22 @@ const BuyCreditController = () => {
   const handleCloseQr = () => {
     setOpenQr(false);
   };
-
+  const handleConfirmPayment = async () => {
+    try {
+      let data = await confirmPayment({ payment_id: codePayment });
+      if (data.code == 0) {
+        context.dispatch({
+          type: "PAYMENT",
+          payload: {
+            ...context.state,
+            user: { ...context.state.user, credits: data.data.credits },
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       {loading && <Loading position={"fixed"} />}
@@ -83,6 +98,7 @@ const BuyCreditController = () => {
           </Typography>
           <Box width={{}}>
             <Button
+              onClick={handleConfirmPayment}
               sx={{
                 width: "100%",
                 backgroundColor: "#4CAF50", // Màu nền của nút

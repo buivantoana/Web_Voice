@@ -23,6 +23,11 @@ const reducer = (state: any, action: any) => {
         ...state,
         history: action.payload.history,
       };
+    case "PAYMENT":
+      return {
+        ...state,
+        user: action.payload.user,
+      };
     case "LOGOUT":
       return {
         ...state,
