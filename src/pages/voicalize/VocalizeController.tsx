@@ -69,7 +69,7 @@ const VocalizeController = (props: Props) => {
             ? context.state.user.user_id
             : "abc 22",
         txt: textVoice,
-        speed: Math.floor(speed),
+        speed: speed,
         voice: voice.id,
       });
       console.log(data);
