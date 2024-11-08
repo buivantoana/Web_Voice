@@ -81,13 +81,17 @@ const Header = () => {
             </Box>
           </Hidden>
           <Box>
-            <img src={logo} width={50} />
+            <Link to={"/"}>
+              <img src={logo} width={50} />
+            </Link>
           </Box>
           <Hidden mdDown>
             <Box>
-              <Typography fontSize={"1.25rem"}>
-                Text To Speech OpenAI
-              </Typography>
+              <Link to={"/"}>
+                <Typography fontSize={"1.25rem"}>
+                  Text To Speech OpenAI
+                </Typography>
+              </Link>
             </Box>
           </Hidden>
         </Box>

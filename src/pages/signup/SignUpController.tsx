@@ -81,10 +81,10 @@ const SignUpController = (props: Props) => {
     console.log(data);
     setLoading(true);
     try {
-      // let data = await getOtp(phone);
-      // if (data.code == 0) {
-      handleClickOpenOtp();
-      // }
+      let data = await getOtp(phone);
+      if (data.code == 0) {
+        handleClickOpenOtp();
+      }
     } catch (error) {
       console.log(error);
     }

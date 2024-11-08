@@ -12,6 +12,7 @@ import PaymentHistoryController from "../pages/payment_history/PaymentHistoryCon
 import SignInController from "../pages/signin/SignInController";
 import SignUpController from "../pages/signup/SignUpController";
 import PrivateRouter from "../components/PrivateRouter";
+import NotFound from "../components/NotFound";
 
 const Router = () => {
   const context: any = useCoursesContext();
@@ -52,6 +53,7 @@ const Router = () => {
         </Route>
         <Route path='signin' element={<SignInController />} />
         <Route path='auth/callback' element={<SignUpController />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
