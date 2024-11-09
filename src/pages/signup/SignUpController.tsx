@@ -73,6 +73,7 @@ const SignUpController = (props: Props) => {
             },
           });
           setTimeout(() => {
+            localStorage.removeItem("tts_text");
             navigate("/");
             setLoading(false);
           }, 1000);
