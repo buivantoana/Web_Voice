@@ -57,6 +57,14 @@ const SignUpController = (props: Props) => {
             JSON.stringify(data.data.access_token)
           );
           localStorage.setItem("user", JSON.stringify(data.data.user));
+          let tts_text = localStorage.getItem("tts_text");
+          context.dispatch({
+            type: "TTS_TEXT",
+            payload: {
+              ...context.state,
+              tts_text: tts_text,
+            },
+          });
           context.dispatch({
             type: "LOGIN",
             payload: {

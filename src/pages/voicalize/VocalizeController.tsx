@@ -4,7 +4,7 @@ import VocalizeView from "./VocalizeView";
 import Loading from "../../components/Loading";
 import { createVoice, getVoicesOpenAi } from "../../service/voice";
 import { useCoursesContext } from "../../App";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 type Props = {};
@@ -24,7 +24,7 @@ const VocalizeController = (props: Props) => {
   const [voices, setVoices] = useState<any>([]);
   const [voice, setVoice] = useState<any>({});
   const context: any = useCoursesContext();
-
+  const navigate: any = useNavigate();
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
   };
@@ -37,6 +37,9 @@ const VocalizeController = (props: Props) => {
       if (context.state.history.speed) {
         setSpeed(context.state.history.speed);
       }
+    }
+    if (context.state.tts_text) {
+      setTextVoice(context.state.tts_text);
     }
     loadVoicesOpenai();
   }, []);
@@ -75,21 +78,26 @@ const VocalizeController = (props: Props) => {
   const handleCreateVoice = async () => {
     setLoading(true);
     try {
-      let data = await createVoice({
-        user_id:
-          Object.keys(context.state.user).length > 0
-            ? context.state.user.user_id
-            : "abc 22",
-        txt: textVoice,
-        speed: speed,
-        voice: voice.id,
-      });
-      console.log(data);
-      if (data.code == 0) {
-        setBase64Voice(data.voice_base64);
-        setIsOpen(true);
+      if (
+        Object.keys(context.state.user).length > 0 &&
+        context.state.user.user_id
+      ) {
+        let data = await createVoice({
+          user_id: context.state.user.user_id,
+          txt: textVoice,
+          speed: speed,
+          voice: voice.id,
+        });
+        console.log(data);
+        if (data.code == 0) {
+          setBase64Voice(data.voice_base64);
+          setIsOpen(true);
+        } else {
+          toast.warning(data.msg);
+        }
       } else {
-        toast.warning(data.msg);
+        localStorage.setItem("tts_text", textVoice);
+        navigate("/signin");
       }
     } catch (error) {
       console.log(error);

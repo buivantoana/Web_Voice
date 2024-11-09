@@ -149,8 +149,13 @@ const VocalizeView = ({
               multiline
               value={textVoice}
               onChange={(e) => {
-                if (e.target.value.length <= limit)
+                if (e.target.value.length <= limit) {
                   setTextVoice(e.target.value);
+                } else {
+                  if (!limit) {
+                    setTextVoice(e.target.value);
+                  }
+                }
               }}
               fullWidth
               rows={4} // Số dòng hiển thị

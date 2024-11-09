@@ -28,6 +28,11 @@ const reducer = (state: any, action: any) => {
         ...state,
         user: action.payload.user,
       };
+    case "TTS_TEXT":
+      return {
+        ...state,
+        tts_text: action.payload.tts_text,
+      };
     case "LOGOUT":
       return {
         ...state,
@@ -41,6 +46,7 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, {
     user: {},
     history: {},
+    tts_text: "",
   });
   let user = localStorage.getItem("user");
   useEffect(() => {
