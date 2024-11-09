@@ -60,7 +60,7 @@ const PaymentHistoryView = (props: Props) => {
                     width={"100%"}
                     padding={"0px 20px 30px"}
                     justifyContent={"space-between"}>
-                    <Box>
+                    <Box display={"flex"} flexDirection={"column"} gap={"10px"}>
                       <Box
                         display={{ xs: "unset", md: "flex" }}
                         alignItems={"end"}
@@ -106,13 +106,13 @@ const PaymentHistoryView = (props: Props) => {
                       <Typography fontSize={".9rem"} color='grey_500.main'>
                         Order ID: 1db0f73e-9223-11ef-b28d-be6d42b1dbef
                       </Typography>
-                      <Typography
+                      {/* <Typography
                         fontSize={".9rem"}
                         sx={{ display: "flex", alignItems: "center" }}
                         color='grey_500.main'>
                         <RiPaypalFill /> Paypal ID:
                         1db0f73e-9223-11ef-b28d-be6d42b1dbef
-                      </Typography>
+                      </Typography> */}
                     </Box>
                     <Typography variant='h5' color='grey_500.main'>
                       8$
