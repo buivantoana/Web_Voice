@@ -66,7 +66,7 @@ export default function InputSlider({ label, setValue, value }: any) {
             }}
           />
         </Stack>
-        <Stack width={"20%"}>
+        <Stack width={{ xs: "40px", md: "20%" }}>
           <Input
             value={value}
             size='small'

@@ -80,12 +80,14 @@ export async function getInfo({ user_id }: any) {
     const response = await axios({
       method: "get",
       url: `${url_voice}/voice/user/${user_id}`,
-      data: {
+      data: JSON.stringify({
         user_id: user_id,
         bearer_token: access_token,
-      }, // Thêm body vào GET request (nếu server cho phép)
+      }), // Thêm body vào GET request (nếu server cho phép)
       headers: {
         Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+        "Content-Type": "application/json",
+        "Custom-Header": "CustomHeaderValue",
       },
     });
     // const response = await axios.get(`${url_voice}/voice/user/${user_id}`, {
