@@ -71,6 +71,10 @@ const SignUpController = (props: Props) => {
         }
       }
       if (data.code == 1004) {
+        toast.warning(data.message);
+        setLoading(false);
+      }
+      if (data.code == 1004) {
         setOpenId(data.data.tiktok_open_id);
       }
     } catch (error) {
