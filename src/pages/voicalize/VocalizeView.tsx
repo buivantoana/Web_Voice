@@ -96,7 +96,7 @@ const VocalizeView = ({
         <Box
           position={"relative"}
           bgcolor={"white"}
-          height={{ xs: "50vh", md: "75vh" }}
+          height={{ xs: "65vh", md: "75vh" }}
           width={{ xs: "100%", md: "49%" }}
           border={"1px solid #dddddd"}
           borderRadius={"8px"}>
@@ -133,6 +133,7 @@ const VocalizeView = ({
           <Box
             width={"100%"}
             height={"100%"}
+            position={"relative"}
             sx={{
               ".css-lh8pzc-MuiInputBase-root-MuiOutlinedInput-root": {
                 height: "83%",
@@ -164,7 +165,7 @@ const VocalizeView = ({
               }}
               sx={{
                 "& .MuiInputBase-input": {
-                  height: "auto", // Cài đặt chiều cao tự động
+                  height: "50vh !important", // Cài đặt chiều cao tự động
                   minHeight: "100px", // Đặt chiều cao tối thiểu nếu cần
                   resize: "none", // Bỏ resize của textarea
                   overflow: "auto", // Để có thể cuộn
@@ -185,7 +186,7 @@ const VocalizeView = ({
             <Box
               sx={{
                 position: "absolute",
-                bottom: { xs: "unset", md: 15 },
+                bottom: { xs: 10, md: 15 },
                 right: 10,
                 display: "flex",
                 gap: "15px",

@@ -31,8 +31,9 @@ const PricingPlansView = (props: Props) => {
           <Box
             display={"flex"}
             gap={"40px"}
-            alignItems={"center"}
+            alignItems={{ xs: "center", md: "unset" }}
             flexDirection={{ xs: "column", md: "row" }}
+            px={{ xs: "0", md: "100px" }}
             justifyContent={"space-between"}>
             <Box
               borderRadius={"15px"}

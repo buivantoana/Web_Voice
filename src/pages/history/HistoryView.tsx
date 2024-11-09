@@ -85,7 +85,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
           },
           ".css-1be8zi3-MuiTypography-root-MuiTimelineContent-root": {
             width: "100%",
-            padding: { xs: 0, md: "0 16px" },
+            padding: { xs: 0, md: "0" },
           },
           ".css-uxg07t-MuiTimeline-root": {
             padding: { xs: 0 },

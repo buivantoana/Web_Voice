@@ -79,7 +79,7 @@ export async function getInfo({ user_id }: any) {
     let access_token: any = localStorage.getItem("access_token");
     console.log(access_token);
     const response = await axios.post(
-      `${url_voice}/voice/user/${user_id}`,
+      `${url_voice}/voice/user?user_id${user_id}`,
       {
         user_id: user_id,
         bearer_token: JSON.parse(access_token),
