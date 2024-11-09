@@ -76,23 +76,20 @@ export async function deleteVoiceApi({ voice_id }: any) {
 }
 export async function getInfo({ user_id }: any) {
   try {
-    let access_token = localStorage.getItem("access_token");
-    const response = await axios({
-      method: "get",
-      url: `${url_voice}/voice/user/${user_id}`,
-      data: JSON.stringify({
+    let access_token: any = localStorage.getItem("acess_token");
+    console.log(access_token);
+    const response = await axios.post(
+      `${url_voice}/voice/user/${user_id}`,
+      {
         user_id: user_id,
-        bearer_token: access_token,
-      }), // Thêm body vào GET request (nếu server cho phép)
-      headers: {
-        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-        "Content-Type": "application/json",
-        "Custom-Header": "CustomHeaderValue",
+        bearer_token: JSON.parse(access_token),
       },
-    });
-    // const response = await axios.get(`${url_voice}/voice/user/${user_id}`, {
-
-    // });
+      {
+        headers: {
+          Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+        },
+      }
+    );
     console.error("AAAA data:====", response.data);
     return response.data;
   } catch (error: any) {

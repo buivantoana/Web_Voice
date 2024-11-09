@@ -9,27 +9,34 @@ type Props = {};
 const PricingPlansView = (props: Props) => {
   const theme: any = useTheme();
   return (
-    <Box p={"30px 10%"}>
+    <Box p={{ xs: "30px 10px", md: "30px 10%" }}>
       <Box
         my={"40px"}
         textAlign={"center"}
         display={"flex"}
         flexDirection={"column"}
         gap={"30px"}>
-        <Typography fontSize={"3rem"} variant='h1'>
+        <Typography fontSize={{ xs: "2rem", md: "3rem" }} variant='h1'>
           Giá cả gói dịch vụ{" "}
         </Typography>
-        <Typography fontSize={"1.2rem"} color='grey_500.main'>
+        <Typography
+          fontSize={{ xs: "1rem", md: "1.2rem" }}
+          color='grey_500.main'>
           Kế hoạch của chúng tôi được thiết kế để đáp ứng yêu cầu của cả người
           mới bắt đầu và người chơi. Chọn kế hoạch phù hợp với bạn
         </Typography>
       </Box>
       <Box display={"flex"} justifyContent={"center"}>
-        <Box width={"70%"} mt={"40px"}>
-          <Box display={"flex"} gap={"40px"} justifyContent={"space-between"}>
+        <Box width={"90%"} mt={"40px"}>
+          <Box
+            display={"flex"}
+            gap={"40px"}
+            alignItems={"center"}
+            flexDirection={{ xs: "column", md: "row" }}
+            justifyContent={"space-between"}>
             <Box
               borderRadius={"15px"}
-              width={"45%"}
+              width={{ xs: "85%", md: "45%" }}
               border={`2px solid ${theme.palette.active.main}`}
               sx={{
                 background: theme.palette.grey_700.main,
@@ -80,7 +87,7 @@ const PricingPlansView = (props: Props) => {
             </Box>
             <Box
               borderRadius={"15px"}
-              width={"45%"}
+              width={{ xs: "85%", md: "45%" }}
               border={"2px solid white"}
               sx={{
                 background: theme.palette.grey_700.main,
@@ -231,12 +238,14 @@ const PricingPlansView = (props: Props) => {
         display={"flex"}
         mt={"50px"}
         justifyContent={"space-between"}
+        alignItems={"center"}
+        flexDirection={{ xs: "column", md: "row" }}
         gap={"20px"}>
         <Box
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Box>
             <svg
               style={{ fontSize: "36px" }}
@@ -272,7 +281,7 @@ const PricingPlansView = (props: Props) => {
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Box>
             <svg
               style={{ fontSize: "36px" }}
@@ -316,7 +325,7 @@ const PricingPlansView = (props: Props) => {
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Box>
             <svg
               style={{ fontSize: "36px" }}
@@ -349,12 +358,14 @@ const PricingPlansView = (props: Props) => {
         display={"flex"}
         mt={"50px"}
         justifyContent={"space-between"}
+        alignItems={"center"}
+        flexDirection={{ xs: "column", md: "row" }}
         gap={"20px"}>
         <Box
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Box>
             <svg
               style={{ fontSize: "36px" }}
@@ -388,7 +399,7 @@ const PricingPlansView = (props: Props) => {
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Box>
             <svg
               style={{ fontSize: "36px" }}
@@ -423,7 +434,7 @@ const PricingPlansView = (props: Props) => {
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Box>
             <svg
               style={{ fontSize: "36px" }}
@@ -457,12 +468,14 @@ const PricingPlansView = (props: Props) => {
         display={"flex"}
         mt={"50px"}
         justifyContent={"space-between"}
+        alignItems={"center"}
+        flexDirection={{ xs: "column", md: "row" }}
         gap={"20px"}>
         <Box
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Box>
             <svg
               style={{ fontSize: "36px" }}
@@ -495,7 +508,7 @@ const PricingPlansView = (props: Props) => {
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Box>
             <svg
               fontSize={"36px"}
@@ -530,7 +543,7 @@ const PricingPlansView = (props: Props) => {
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Box>
             <svg
               fontSize={"36px"}
@@ -565,8 +578,12 @@ const PricingPlansView = (props: Props) => {
         flexDirection={"column"}
         mt={"150px"}
         gap={"30px"}>
-        <Typography variant='h1'>Câu hỏi thường gặp</Typography>
-        <Typography color='grey_500.main' fontSize={"1.3rem"}>
+        <Typography variant='h1' fontSize={{ xs: "2rem", md: "3rem" }}>
+          Câu hỏi thường gặp
+        </Typography>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.3rem" }}>
           Nếu bạn không tìm thấy câu trả lời mà bạn đang tìm ở đây, vui lòng
           liên hệ với chúng tôi:{" "}
           <span style={{ color: theme.palette.active.main, fontWeight: "500" }}>
@@ -574,7 +591,7 @@ const PricingPlansView = (props: Props) => {
           </span>
         </Typography>
       </Box>
-      <Box mt={"50px"} px={"50px"}>
+      <Box mt={"50px"} px={{ xs: "10px", md: "50px" }}>
         <AccordionTransition />
       </Box>
       <Box
@@ -586,8 +603,12 @@ const PricingPlansView = (props: Props) => {
         <Typography fontSize={"1.2rem"} fontWeight={"500"} color='active.main'>
           Các người dùng của chúng tôi nói gì
         </Typography>
-        <Typography variant='h1'>Đánh giá</Typography>
-        <Typography color='grey_500.main' fontSize={"1.3rem"}>
+        <Typography variant='h1' fontSize={{ xs: "2rem", md: "3rem" }}>
+          Đánh giá
+        </Typography>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.3rem" }}>
           Dịch vụ của chúng tôi đã nhận được phản hồi tích cực từ nhiều người
           dùng. Dưới đây là một số lời chứng thực chúng tôi đã nhận được.
         </Typography>
@@ -596,12 +617,14 @@ const PricingPlansView = (props: Props) => {
         display={"flex"}
         mt={"50px"}
         justifyContent={"space-between"}
+        flexDirection={{ xs: "column", md: "row" }}
+        alignItems={"center"}
         gap={"20px"}>
         <Box
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Typography color='grey_500.main'>
             Tôi đã sử dụng ttsopenai.com trong một thời gian và tôi rất hài lòng
             với chất lượng của các giọng đọc và sự dễ sử dụng. Tôi mạnh mẽ
@@ -624,7 +647,7 @@ const PricingPlansView = (props: Props) => {
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Typography color='grey_500.main'>
             Tôi đã sử dụng ttsopenai.com trong một thời gian và tôi rất hài lòng
             với chất lượng của các giọng đọc và sự dễ sử dụng. Tôi mạnh mẽ
@@ -647,7 +670,7 @@ const PricingPlansView = (props: Props) => {
           borderRadius={"20px"}
           border={"1px solid #dddddd"}
           padding={"20px"}
-          width={"30%"}>
+          width={{ xs: "85%", md: "30%" }}>
           <Typography color='grey_500.main'>
             Tôi đã sử dụng ttsopenai.com trong một thời gian và tôi rất hài lòng
             với chất lượng của các giọng đọc và sự dễ sử dụng. Tôi mạnh mẽ
@@ -675,8 +698,13 @@ const PricingPlansView = (props: Props) => {
           alignItems={"center"}
           mt={"150px"}
           gap={"30px"}>
-          <Typography variant='h1'> Sẵn sàng bắt đầu không?</Typography>
-          <Typography color='grey_500.main' fontSize={"1.3rem"}>
+          <Typography variant='h1' fontSize={{ xs: "2rem", md: "3rem" }}>
+            {" "}
+            Sẵn sàng bắt đầu không?
+          </Typography>
+          <Typography
+            color='grey_500.main'
+            fontSize={{ xs: "1rem", md: "1.3rem" }}>
             Tham gia ttsopenai.com ngày hôm nay và trải nghiệm sự tiện lợi và
             chất lượng của dịch vụ chuyển văn bản thành giọng nói của chúng tôi.
           </Typography>

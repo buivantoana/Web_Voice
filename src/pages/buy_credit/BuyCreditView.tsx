@@ -46,7 +46,7 @@ const BuyCreditView = ({
           sx={{ position: "relative" }}
           bgcolor={"white"}
           padding={"10px"}
-          minHeight={"102vh"}
+          minHeight={{ xs: "121vh", sm: "102vh", md: "102vh" }}
           border={"1px solid #dddddd"}
           width={{ xs: "100%", md: "100%", lg: "62%" }}>
           <Box
@@ -164,7 +164,7 @@ const BuyCreditView = ({
                 gap={"10px"}
                 alignItems={"center"}>
                 <Box
-                  width={{ xs: "75%", md: "50%" }}
+                  width={{ xs: "80%", md: "50%" }}
                   display={"flex"}
                   alignItems={"center"}
                   justifyContent={"space-between"}
@@ -176,8 +176,8 @@ const BuyCreditView = ({
                       }
                     }}
                     sx={{
-                      width: "50px",
-                      height: "50px",
+                      width: { xs: "40px", md: "50px" },
+                      height: { xs: "40px", md: "50px" },
                       borderRadius: "50%",
                       display: "flex",
                       justifyContent: "center",
@@ -192,7 +192,9 @@ const BuyCreditView = ({
                     alignItems={"center"}
                     gap={"10px"}>
                     <Box>
-                      <Typography variant='h4'>
+                      <Typography
+                        variant='h4'
+                        fontSize={{ xs: "1.5rem", md: "2.5rem" }}>
                         {formatAmount(amount)}
                       </Typography>
                     </Box>
@@ -207,8 +209,8 @@ const BuyCreditView = ({
                       }
                     }}
                     sx={{
-                      width: "50px",
-                      height: "50px",
+                      width: { xs: "40px", md: "50px" },
+                      height: { xs: "40px", md: "50px" },
                       borderRadius: "50%",
                       display: "flex",
                       justifyContent: "center",
@@ -269,7 +271,9 @@ const BuyCreditView = ({
                   </Button>
                 </Box>
                 <Box width={"50%"}>
-                  <Typography textAlign={"center"}>
+                  <Typography
+                    textAlign={"center"}
+                    fontSize={{ xs: ".9rem", md: "1rem" }}>
                     ※ 1.000 tín dụng = 1.000 ký tự với chất lượng âm thanh cao
                     cấp (500 ký tự với chất lượng âm thanh HD)
                   </Typography>

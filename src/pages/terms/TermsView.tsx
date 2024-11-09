@@ -5,7 +5,7 @@ type Props = {};
 
 const TermsView = (props: Props) => {
   return (
-     <Box padding={"30px 10%"}>
+    <Box padding={"30px 10%"}>
       <Box
         textAlign={"center"}
         display={"flex"}
@@ -14,15 +14,21 @@ const TermsView = (props: Props) => {
         <Typography fontSize={"1.2rem"} fontWeight={"500"} color='active.main'>
           Text To Speech OpenAI
         </Typography>
-        <Typography variant='h1'>Điều khoản Dịch vụ</Typography>
-        <Typography color='grey_500.main' fontSize={"1.3rem"}>
+        <Typography variant='h1' fontSize={{ xs: "2rem", md: "3rem" }}>
+          Điều khoản Dịch vụ
+        </Typography>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.3rem" }}>
           Sản phẩm Điều khoản dịch vụ này được thiết kế để giúp bạn hiểu thông
           tin chúng tôi thu thập, lý do chúng tôi thu thập nó, và cách bạn có
           thể cập nhật, quản lý, xuất khẩu, và xóa thông tin của bạn.
         </Typography>
       </Box>
       <Box display={"flex"} mt={"100px"}>
-        <Typography color='grey_500.main' fontSize={"1.2rem"}>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.2rem" }}>
           <b>Chấp nhận các Điều khoản:</b>Bằng cách sử dụng Dịch vụ Tạo lời nói,
           bạn đồng ý tuân thủ các Điều khoản Dịch vụ này. Nếu bạn không đồng ý
           với bất kỳ phần nào của những điều khoản này, vui lòng không sử dụng
@@ -30,7 +36,9 @@ const TermsView = (props: Props) => {
         </Typography>
       </Box>
       <Box display={"flex"} mt={"20px"}>
-        <Typography color='grey_500.main' fontSize={"1.2rem"}>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.2rem" }}>
           <b>Tài khoản người dùng: </b>Truy cập các tính năng cụ thể của dịch vụ
           của chúng tôi có thể đòi hỏi việc tạo tài khoản người dùng. Bạn cam
           kết duy trì tính bí mật của thông tin đăng nhập tài khoản của mình và
@@ -39,7 +47,9 @@ const TermsView = (props: Props) => {
         </Typography>
       </Box>
       <Box display={"flex"} mt={"20px"}>
-        <Typography color='grey_500.main' fontSize={"1.2rem"}>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.2rem" }}>
           <b>Thanh toán và Tín dụng: </b>Dịch vụ tạo giọng nói của chúng tôi
           hoạt động trên hệ thống dựa trên tín chỉ. Số tín chỉ cần thiết để tạo
           giọng nói được xác định bằng thuật toán độc quyền của chúng tôi và
@@ -49,7 +59,9 @@ const TermsView = (props: Props) => {
         </Typography>
       </Box>
       <Box display={"flex"} mt={"20px"}>
-        <Typography color='grey_500.main' fontSize={"1.2rem"}>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.2rem" }}>
           <b>Dịch vụ Sử dụng: </b>Bạn cam kết sử dụng dịch vụ của chúng tôi chỉ
           cho mục đích hợp pháp. Bạn sẽ không tải lên, truyền tải hoặc lưu trữ
           bất kỳ nội dung nào vi phạm pháp luật, gây hại, phỉ báng hoặc xâm phạm
@@ -58,7 +70,9 @@ const TermsView = (props: Props) => {
         </Typography>
       </Box>
       <Box display={"flex"} mt={"20px"}>
-        <Typography color='grey_500.main' fontSize={"1.2rem"}>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.2rem" }}>
           <b>Tài sản trí tuệ: </b> Tất cả nội dung và tài liệu có thể truy cập
           thông qua dịch vụ của chúng tôi, bao gồm văn bản, đồ họa, logo và phần
           mềm, là tài sản của ttsopenai.com và được bảo vệ bởi luật sở hữu trí
@@ -68,7 +82,9 @@ const TermsView = (props: Props) => {
         </Typography>
       </Box>
       <Box display={"flex"} mt={"20px"}>
-        <Typography color='grey_500.main' fontSize={"1.2rem"}>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.2rem" }}>
           <b>Hạn chế Trách nhiệm: </b>ttsopenai.com sẽ không chịu trách nhiệm về
           bất kỳ thiệt hại trực tiếp, gián tiếp, ngẫu nhiên, đặc biệt hoặc hậu
           quả nào phát sinh từ việc sử dụng dịch vụ của chúng tôi. Chúng tôi
@@ -78,7 +94,9 @@ const TermsView = (props: Props) => {
         </Typography>
       </Box>
       <Box display={"flex"} mt={"20px"}>
-        <Typography color='grey_500.main' fontSize={"1.2rem"}>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.2rem" }}>
           <b>Chấm dứt: </b>Chúng tôi giữ quyền tạm ngừng hoặc chấm dứt tài khoản
           và quyền truy cập vào dịch vụ của chúng tôi theo quyết định của chúng
           tôi, có hoặc không có lý do. Khi chấm dứt, tài khoản của bạn và dữ
@@ -87,7 +105,9 @@ const TermsView = (props: Props) => {
         </Typography>
       </Box>
       <Box display={"flex"} mt={"20px"}>
-        <Typography color='grey_500.main' fontSize={"1.2rem"}>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.2rem" }}>
           <b>Luật pháp quản lý: </b> Các Điều khoản Dịch vụ này sẽ được diễn
           giải và điều chỉnh theo luật pháp của Việt Nam, không phụ thuộc vào
           nguyên tắc xung đột pháp luật của nó. Mọi tranh chấp phát sinh từ hoặc
@@ -97,7 +117,9 @@ const TermsView = (props: Props) => {
       </Box>
 
       <Box display={"flex"} pb={"50px"} mt={"20px"}>
-        <Typography color='grey_500.main' fontSize={"1.2rem"}>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.2rem" }}>
           <b>Làm rõ về việc liên kết với OpenAI: </b> ttsopenai.com là một đơn
           vị độc lập và không liên kết với OpenAI. Dịch vụ text-to-speech của
           chúng tôi sử dụng API của OpenAI để chuyển đổi văn bản thành giọng
@@ -110,7 +132,6 @@ const TermsView = (props: Props) => {
         </Typography>
       </Box>
     </Box>
-   
   );
 };
 
