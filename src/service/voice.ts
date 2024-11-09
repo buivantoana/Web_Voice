@@ -76,11 +76,21 @@ export async function deleteVoiceApi({ voice_id }: any) {
 }
 export async function getInfo({ user_id }: any) {
   try {
-    const response = await axios.get(`${url_voice}/voice/user/${user_id}`, {
+    let access_token = localStorage.getItem("access_token");
+    const response = await axios({
+      method: "get",
+      url: `${url_voice}/voice/user/${user_id}`,
+      data: {
+        user_id: user_id,
+        bearer_token: access_token,
+      }, // Thêm body vào GET request (nếu server cho phép)
       headers: {
         Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
       },
     });
+    // const response = await axios.get(`${url_voice}/voice/user/${user_id}`, {
+
+    // });
     console.error("AAAA data:====", response.data);
     return response.data;
   } catch (error: any) {
