@@ -14,9 +14,14 @@ import {
 } from "@mui/material";
 import { RiPaypalFill } from "react-icons/ri";
 import LeftProfile from "../../components/LeftProfile";
-type Props = {};
+import Loading from "../../components/Loading";
+import { convertToVND } from "../../utils/utils";
+type Props = {
+  history: any;
+  loadingHistory: any;
+};
 
-const PaymentHistoryView = (props: Props) => {
+const PaymentHistoryView = ({ history, loadingHistory }: Props) => {
   const theme: any = useTheme();
   return (
     <Box padding={"2% 10%"}>
@@ -41,86 +46,101 @@ const PaymentHistoryView = (props: Props) => {
               ".css-1be8zi3-MuiTypography-root-MuiTimelineContent-root": {
                 padding: 0,
               },
+              position: "relation",
             }}>
-            <Timeline
-              sx={{
-                [`& .${timelineItemClasses.root}:before`]: {
-                  flex: 0,
-                  padding: 0,
-                },
-              }}>
-              <TimelineItem>
-                <TimelineSeparator>
-                  <HighlightOffIcon />
-                  <TimelineConnector sx={{ minHeight: "40px" }} />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Box
-                    display={"flex"}
-                    width={"100%"}
-                    padding={"0px 20px 30px"}
-                    justifyContent={"space-between"}>
-                    <Box display={"flex"} flexDirection={"column"} gap={"10px"}>
-                      <Box
-                        display={{ xs: "unset", md: "flex" }}
-                        alignItems={"end"}
-                        gap={"10px"}>
-                        <Typography
-                          variant='h5'
-                          fontWeight={"500"}
-                          fontSize={{ xs: "1.2rem", md: "1.3rem" }}>
-                          200K tín dụng
-                        </Typography>
-                        <Box display={"flex"} gap={"10px"}>
-                          <Button
-                            sx={{
-                              borderRadius: "5px",
-                              padding: "2px 0px",
-                              backgroundColor: "rgb(254 236 220)", // Màu nền của nút
-                              color: "rgb(138 44 13)", // Màu chữ
-                              "&:hover": {
-                                backgroundColor: "rgb(254 236 220)", // Màu nền khi hover
-                              },
-                            }}
-                            variant='contained'>
-                            Mua tín dụng
-                          </Button>
-                          <Button
-                            sx={{
-                              borderRadius: "5px",
-                              padding: "2px 5px",
-                              backgroundColor: theme.palette.grey_700.main, // Màu nền của nút
-                              color: "black", // Màu chữ
-                              "&:hover": {
-                                backgroundColor: theme.palette.grey_700.main, // Màu nền khi hover
-                              },
-                            }}
-                            variant='contained'>
-                            Hủy bỏ
-                          </Button>
-                        </Box>
-                      </Box>
-                      <Typography fontSize={".8rem"} color='grey_500.main'>
-                        2024-10-24 23:15:02
-                      </Typography>
-                      <Typography fontSize={".9rem"} color='grey_500.main'>
-                        Order ID: 1db0f73e-9223-11ef-b28d-be6d42b1dbef
-                      </Typography>
-                      {/* <Typography
+            {!loadingHistory ? (
+              <>
+                <Timeline
+                  sx={{
+                    [`& .${timelineItemClasses.root}:before`]: {
+                      flex: 0,
+                      padding: 0,
+                    },
+                  }}>
+                  {history && history.length > 0 ? (
+                    <>
+                      {history.map((item: any) => {
+                        let date = item.date.split("T");
+                        return (
+                          <TimelineItem>
+                            <TimelineSeparator>
+                              <HighlightOffIcon />
+                              <TimelineConnector sx={{ minHeight: "40px" }} />
+                            </TimelineSeparator>
+                            <TimelineContent>
+                              <Box
+                                display={"flex"}
+                                width={"100%"}
+                                padding={"0px 20px 30px"}
+                                justifyContent={"space-between"}>
+                                <Box
+                                  display={"flex"}
+                                  flexDirection={"column"}
+                                  gap={"10px"}>
+                                  <Box
+                                    display={{ xs: "unset", md: "flex" }}
+                                    alignItems={"end"}
+                                    gap={"10px"}>
+                                    <Typography
+                                      variant='h5'
+                                      fontWeight={"500"}
+                                      fontSize={{ xs: "1.2rem", md: "1.3rem" }}>
+                                      {convertToVND(item.amount)} tín dụng
+                                    </Typography>
+                                    <Box display={"flex"} gap={"10px"}>
+                                      <Button
+                                        sx={{
+                                          borderRadius: "5px",
+                                          padding: "2px 0px",
+                                          backgroundColor: "rgb(254 236 220)", // Màu nền của nút
+                                          color: "rgb(138 44 13)", // Màu chữ
+                                          "&:hover": {
+                                            backgroundColor: "rgb(254 236 220)", // Màu nền khi hover
+                                          },
+                                        }}
+                                        variant='contained'>
+                                        {item.status}
+                                      </Button>
+                                    </Box>
+                                  </Box>
+                                  <Typography
+                                    fontSize={".8rem"}
+                                    color='grey_500.main'>
+                                    {date[0]} {date[1]}
+                                  </Typography>
+                                  <Typography
+                                    fontSize={".9rem"}
+                                    color='grey_500.main'>
+                                    Order ID:
+                                    {item.code_payment}
+                                  </Typography>
+                                  {/* <Typography
                         fontSize={".9rem"}
                         sx={{ display: "flex", alignItems: "center" }}
                         color='grey_500.main'>
                         <RiPaypalFill /> Paypal ID:
                         1db0f73e-9223-11ef-b28d-be6d42b1dbef
                       </Typography> */}
-                    </Box>
-                    <Typography variant='h5' color='grey_500.main'>
-                      8$
+                                </Box>
+                                {/* <Typography variant='h5' color='grey_500.main'>
+                                  8$
+                                </Typography> */}
+                              </Box>
+                            </TimelineContent>
+                          </TimelineItem>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <Typography textAlign={"center"} color='grey_500.main'>
+                      Không tìm thấy lịch sử
                     </Typography>
-                  </Box>
-                </TimelineContent>
-              </TimelineItem>
-            </Timeline>
+                  )}
+                </Timeline>
+              </>
+            ) : (
+              <Loading height={"100%"} />
+            )}
           </Box>
         </Box>
       </Box>

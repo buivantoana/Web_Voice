@@ -373,9 +373,8 @@ const Header = () => {
               </Box>
             </Link> */}
             <Box
-              
               onClick={() => {
-                toggleDrawer(false);
+                setIsOpen(false);
                 localStorage.removeItem("user");
                 localStorage.removeItem("access_token");
                 setUser(null);
@@ -386,7 +385,6 @@ const Header = () => {
                     user: {},
                   },
                 });
-                
               }}
               mt={"20px"}
               border={"1px solid #dddddd"}

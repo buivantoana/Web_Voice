@@ -28,3 +28,18 @@ export async function confirmPayment({ payment_id }: any) {
     console.error("Error fetching data:", error.message);
   }
 }
+export async function historyPayment({ user_id }: any) {
+  try {
+    const response = await axios.get(
+      `${url_voice}/payment/history/${user_id}`,
+      {
+        headers: {
+          Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
