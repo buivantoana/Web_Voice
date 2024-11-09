@@ -76,7 +76,7 @@ export async function deleteVoiceApi({ voice_id }: any) {
 }
 export async function getInfo({ user_id }: any) {
   try {
-    let access_token: any = localStorage.getItem("acess_token");
+    let access_token: any = localStorage.getItem("access_token");
     console.log(access_token);
     const response = await axios.post(
       `${url_voice}/voice/user/${user_id}`,
