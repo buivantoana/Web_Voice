@@ -228,7 +228,7 @@ const Header = () => {
                   context.state.user.phone}
               </Typography>
             </Box>
-            <Box
+            {/* <Box
               mt={"20px"}
               display={"flex"}
               justifyContent={"space-between"}
@@ -247,7 +247,7 @@ const Header = () => {
                 bgcolor={"#fdf6b2"}>
                 <Typography fontWeight={"500"}>Miễn phí</Typography>
               </Box>
-            </Box>
+            </Box> */}
 
             <Box
               mt={"10px"}

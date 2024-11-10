@@ -55,11 +55,22 @@ const PricingPlansView = (props: Props) => {
                 <Typography fontSize={"1.6rem"} fontWeight={"500"}>
                   Miễn phí
                 </Typography>
-                <Typography fontSize={"2.3rem"} fontWeight={"bold"}>
+                {/* <Typography fontSize={"2.3rem"} fontWeight={"bold"}>
                   $0
-                </Typography>
+                </Typography> */}
               </Box>
               <Box mt={"20px"}>
+                <Box
+                  display={"flex"}
+                  mt={"15px"}
+                  alignItems={"center"}
+                  gap={"5px"}>
+                  <RiCheckFill size={"25"} color={theme.palette.active.main} />
+                  <Typography>
+                    {" "}
+                    Miễn phí 100 credit tương đương 100 từ khi tạo tài khoản mới
+                  </Typography>
+                </Box>
                 <Box
                   display={"flex"}
                   mt={"15px"}
@@ -106,9 +117,9 @@ const PricingPlansView = (props: Props) => {
                 <Typography fontSize={"1.6rem"} fontWeight={"500"}>
                   Cao cấp
                 </Typography>
-                <Typography fontSize={"2.3rem"} fontWeight={"bold"}>
+                {/* <Typography fontSize={"2.3rem"} fontWeight={"bold"}>
                   $8
-                </Typography>
+                </Typography> */}
                 <Typography fontSize={"1.3rem"} color='grey_500.main'>
                   <b style={{ color: theme.palette.active.main }}>200.000 </b>
                   tín dụng không hết hạn
@@ -121,9 +132,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>
-                    Tạo bài phát biểu từ văn bản lên đến 10.000 ký tự
-                  </Typography>
+                  <Typography>Nạp credit để sử dụng không giới hạn</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -131,9 +140,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>
-                    Thử lại không giới hạn lần với giá giảm một nửa
-                  </Typography>
+                  <Typography>10.000 VND tương đương 100 creadits</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -141,7 +148,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Sử dụng giọng nói HD</Typography>
+                  <Typography>Tạo bài phát biểu từ văn bản</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -149,23 +156,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Tài liệu thành giọng nói</Typography>
-                </Box>
-                <Box
-                  display={"flex"}
-                  mt={"15px"}
-                  alignItems={"center"}
-                  gap={"5px"}>
-                  <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Có thể tải xuống tệp âm thanh</Typography>
-                </Box>
-                <Box
-                  display={"flex"}
-                  mt={"15px"}
-                  alignItems={"center"}
-                  gap={"5px"}>
-                  <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Tạo giọng nói của tôi</Typography>
+                  <Typography> Có thể tải xuống tệp âm thanh</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -181,24 +172,9 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Tạo câu chuyện từ văn bản</Typography>
+                  <Typography>Lên đến 3000 từ mỗi văn bản</Typography>
                 </Box>
-                <Box
-                  display={"flex"}
-                  mt={"15px"}
-                  alignItems={"center"}
-                  gap={"5px"}>
-                  <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>A few Ads</Typography>
-                </Box>
-                <Box
-                  display={"flex"}
-                  mt={"15px"}
-                  alignItems={"center"}
-                  gap={"5px"}>
-                  <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Lên đến 200MB mỗi văn bản</Typography>
-                </Box>
+
                 <Box mt={"20px"}>
                   <Button
                     fullWidth
@@ -213,10 +189,6 @@ const PricingPlansView = (props: Props) => {
               </Box>
             </Box>
           </Box>
-          <Typography mt={"40px"} textAlign={"center"} color='grey_500.main'>
-            ※ 1.000 tín dụng = 1.000 ký tự với chất lượng âm thanh cao cấp (500
-            ký tự với chất lượng âm thanh HD)
-          </Typography>
         </Box>
       </Box>
       <Box

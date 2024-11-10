@@ -38,7 +38,7 @@ const LeftProfile = (props: Props) => {
               context.state.user.phone}
           </Typography>
         </Box>
-        <Box
+        {/* <Box
           mt={"20px"}
           display={"flex"}
           justifyContent={"space-between"}
@@ -54,7 +54,7 @@ const LeftProfile = (props: Props) => {
           <Box padding={"2px 8px"} borderRadius={"25px"} bgcolor={"#fdf6b2"}>
             <Typography fontWeight={"500"}>Miễn phí</Typography>
           </Box>
-        </Box>
+        </Box> */}
         <Box
           mt={"10px"}
           display={"flex"}
