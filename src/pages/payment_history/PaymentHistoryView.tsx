@@ -24,19 +24,20 @@ type Props = {
 const PaymentHistoryView = ({ history, loadingHistory }: Props) => {
   const theme: any = useTheme();
   return (
-    <Box padding={"2% 10%"}>
+    <Box padding={"2% 5%"}>
       <Box display={"flex"} justifyContent={"space-between"}>
         <LeftProfile />
         <Box
           sx={{ position: "relative" }}
           bgcolor={"white"}
-          padding={"10px"}
           minHeight={"80vh"}
           border={"1px solid #dddddd"}
-          p={"20px"}
           width={{ xs: "100%", md: "100%", lg: "62%" }}>
-          <Box borderBottom={"1px solid #dddddd"} pb={"20px"}>
-            <Typography variant='h6' fontWeight={"500"}>
+          <Box borderBottom={"1px solid #dddddd"} p={"10px"}>
+            <Typography
+              variant='h6'
+              fontSize={{ xs: "1rem", md: "1.2rem" }}
+              fontWeight={"500"}>
               Lịch sử thanh toán
             </Typography>
           </Box>
@@ -63,7 +64,8 @@ const PaymentHistoryView = ({ history, loadingHistory }: Props) => {
                         let date = item.date.split("T");
                         return (
                           <TimelineItem>
-                            <TimelineSeparator>
+                            <TimelineSeparator
+                              sx={{ display: { xs: "none", md: "flex" } }}>
                               <HighlightOffIcon />
                               <TimelineConnector sx={{ minHeight: "40px" }} />
                             </TimelineSeparator>
@@ -71,14 +73,20 @@ const PaymentHistoryView = ({ history, loadingHistory }: Props) => {
                               <Box
                                 display={"flex"}
                                 width={"100%"}
-                                padding={"0px 20px 30px"}
                                 justifyContent={"space-between"}>
                                 <Box
+                                  width={"100%"}
+                                  p={"5px"}
                                   display={"flex"}
                                   flexDirection={"column"}
-                                  gap={"10px"}>
+                                  borderBottom={"1px dashed #dddddd"}
+                                  gap={{ xs: "5px", md: "10px" }}>
                                   <Box
-                                    display={{ xs: "unset", md: "flex" }}
+                                    display={{ xs: "flex", md: "flex" }}
+                                    justifyContent={{
+                                      xs: "space-between",
+                                      md: "unset",
+                                    }}
                                     alignItems={"end"}
                                     gap={"10px"}>
                                     <Typography

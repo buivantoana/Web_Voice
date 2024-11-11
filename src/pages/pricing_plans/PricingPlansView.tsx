@@ -16,7 +16,7 @@ const PricingPlansView = (props: Props) => {
         display={"flex"}
         flexDirection={"column"}
         gap={"30px"}>
-        <Typography fontSize={{ xs: "2rem", md: "3rem" }} variant='h1'>
+        <Typography fontSize={{ xs: "1.8rem", md: "3rem" }} variant='h1'>
           Giá cả gói dịch vụ{" "}
         </Typography>
         <Typography
@@ -202,8 +202,12 @@ const PricingPlansView = (props: Props) => {
         <Typography fontSize={"1.2rem"} fontWeight={"500"} color='active.main'>
           Khám phá các tính năng của ttsopenai.com
         </Typography>
-        <Typography variant='h1'>Tính năng</Typography>
-        <Typography color='grey_500.main' fontSize={"1.3rem"}>
+        <Typography variant='h1' fontSize={{ xs: "2rem", md: "3rem" }}>
+          Tính năng
+        </Typography>
+        <Typography
+          color='grey_500.main'
+          fontSize={{ xs: "1rem", md: "1.3rem" }}>
           Dịch vụ của chúng tôi được thiết kế để mang lại trải nghiệm liền mạch
           và thuận tiện cho người dùng, cung cấp nhiều tính năng đa dạng để đáp
           ứng nhu cầu của bạn.

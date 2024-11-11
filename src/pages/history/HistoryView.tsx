@@ -54,10 +54,10 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
       <Box
         display={"flex"}
         justifyContent={"space-between"}
-        px={{ xs: "5px", md: "100px" }}
+        px={{ xs: "15px", md: "100px" }}
         alignItems={"center"}>
         <Typography
-          width={"50%"}
+          width={"60%"}
           fontSize={{ xs: "1rem", md: "1.2rem" }}
           color='grey_500.main'>
           Tất cả lịch sử sau 30 ngày sẽ bị xóa tự động.
@@ -88,7 +88,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
             padding: { xs: 0, md: "0" },
           },
           ".css-uxg07t-MuiTimeline-root": {
-            padding: { xs: 0 },
+            padding: { xs: "10px" },
           },
         }}>
         <Timeline
@@ -123,8 +123,8 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                         </TimelineSeparator> */}
                         <TimelineContent>
                           <Box
-                            width={{ xs: "97%", md: "100%" }}
-                            padding={{ xs: "10px 5px", md: "20px" }}
+                            width={{ xs: "95%", md: "100%" }}
+                            padding={{ xs: "10px 10px", md: "20px" }}
                             borderRadius={"10px"}
                             border={"1px solid #dddddd"}
                             bgcolor={"white"}>
@@ -154,13 +154,15 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                     borderRadius: "5px",
                                     padding: "2px 5px",
                                     backgroundColor: "rgb(222 247 236)", // Màu nền của nút
-                                    color: "black", // Màu chữ
+                                    color: "black",
+                                    // Màu chữ
                                     "&:hover": {
                                       backgroundColor: "rgb(222 247 236)", // Màu nền khi hover
                                     },
+                                    textTransform: "capitalize",
                                   }}
                                   variant='contained'>
-                                  Alloy
+                                  {item.voice}
                                 </Button>
                                 <Button
                                   sx={{

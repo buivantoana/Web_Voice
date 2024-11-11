@@ -80,8 +80,8 @@ const SignUpView = ({
         <Box
           sx={{
             position: "absolute",
-            top: "40px",
-            left: "40px",
+            top: { xs: "20px", md: "40px" },
+            left: { xs: "20px", md: "40px" },
             display: "flex",
             gap: "15px",
             alignItems: "center",
@@ -106,8 +106,13 @@ const SignUpView = ({
           justifyContent: "center",
           alignItems: "center",
         }}>
-        <Box>
+        <Box
+          display={"flex"}
+          width={"100%"}
+          flexDirection={"column"}
+          alignItems={"center"}>
           <Box
+            width={{ xs: "300px", md: "410px" }}
             sx={{
               display: "flex",
               gap: "10px",
@@ -115,13 +120,16 @@ const SignUpView = ({
               alignItems: "center",
             }}>
             <img width={50} src={logo} alt='' />
-            <Typography color='active.main' variant='h2'>
+            <Typography
+              color='active.main'
+              variant='h2'
+              fontSize={{ xs: "1.3rem", md: "2rem" }}>
               Text To Speech OpenAI
             </Typography>
           </Box>
           <Box
             mt={"20px"}
-            width={"340px"}
+            width={{ xs: "250px", md: "340px" }}
             sx={{
               borderRadius: "15px",
               padding: "30px 40px",
@@ -135,7 +143,10 @@ const SignUpView = ({
               alignItems={"center"}
               gap={"10px"}>
               <AccountCircleIcon sx={{ fontSize: "45px" }} />
-              <Typography variant='h5' fontWeight={"bold"}>
+              <Typography
+                variant='h5'
+                fontSize={{ xs: "15px", md: "25px" }}
+                fontWeight={"bold"}>
                 Tạo tài khoản
               </Typography>
               {/* <Typography

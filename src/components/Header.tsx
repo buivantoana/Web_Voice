@@ -70,8 +70,8 @@ const Header = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          width: "80%",
-          px: "10%",
+          width: { xs: "90%", md: "80%" },
+          px: { xs: "5%", md: "10%" },
           py: "5px",
         }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -181,8 +181,17 @@ const Header = () => {
             <Link to={"/signin"}>
               <Button
                 variant='contained'
-                sx={{ background: theme.palette.active.main }}
-                endIcon={<ArrowForwardIcon />}>
+                sx={{
+                  background: theme.palette.active.main,
+                  fontSize: { xs: "10px", md: "15px" },
+                  minWidth: { xs: "87px", md: "64px" },
+                  padding: { xs: "6px 8px", md: "6px 16px" },
+                }}
+                endIcon={
+                  <ArrowForwardIcon
+                    sx={{ fontSize: { xs: "15px !important", md: "25px" } }}
+                  />
+                }>
                 Đăng nhập
               </Button>
             </Link>

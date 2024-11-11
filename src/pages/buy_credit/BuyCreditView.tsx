@@ -40,14 +40,14 @@ const BuyCreditView = ({
     }
   };
   return (
-    <Box padding={"2% 10%"}>
+    <Box padding={"2% 5%"}>
       <Box display={"flex"} justifyContent={"space-between"}>
         <LeftProfile />
         <Box
           sx={{ position: "relative" }}
           bgcolor={"white"}
           padding={"10px"}
-          minHeight={{ xs: "121vh", sm: "102vh", md: "102vh" }}
+          minHeight={{ xs: "115vh", sm: "102vh", md: "102vh" }}
           border={"1px solid #dddddd"}
           width={{ xs: "100%", md: "100%", lg: "62%" }}>
           <Box
