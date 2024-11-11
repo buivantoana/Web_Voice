@@ -52,7 +52,7 @@ export async function getOtp(phone: any) {
   try {
     const response = await axios.post(`${url_auth}/api/v1/otp`, {
       phone_number: phone,
-      service_name: "register",
+      service_name: "KocRegister",
     });
     return response.data;
   } catch (error: any) {
@@ -75,9 +75,10 @@ export async function signup({ phone, otp, open_id }: any) {
   try {
     const response = await axios.post(`${url_auth}/api/v1/auth/register`, {
       phone_number: phone,
-      service_name: "register",
+      // service_name: "register",
       otp,
       tiktok_open_id: open_id,
+      utm_source:"tts"
     });
     return response.data;
   } catch (error: any) {
