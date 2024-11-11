@@ -115,15 +115,15 @@ const PricingPlansView = (props: Props) => {
                 flexDirection={"column"}
                 gap={"20px"}>
                 <Typography fontSize={"1.6rem"} fontWeight={"500"}>
-                  Cao cấp
+                  Trả phí
                 </Typography>
                 {/* <Typography fontSize={"2.3rem"} fontWeight={"bold"}>
                   $8
                 </Typography> */}
-                <Typography fontSize={"1.3rem"} color='grey_500.main'>
+                {/* <Typography fontSize={"1.3rem"} color='grey_500.main'>
                   <b style={{ color: theme.palette.active.main }}>200.000 </b>
                   tín dụng không hết hạn
-                </Typography>
+                </Typography> */}
               </Box>
               <Box mt={"20px"}>
                 <Box
@@ -132,7 +132,9 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Nạp credit để sử dụng không giới hạn</Typography>
+                  <Typography>
+                    Nạp tín dụng để sử dụng không giới hạn
+                  </Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -140,7 +142,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>10.000 VND tương đương 100 creadits</Typography>
+                  <Typography>10.000 VND tương đương 100 tín dụng</Typography>
                 </Box>
                 <Box
                   display={"flex"}

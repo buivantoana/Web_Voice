@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import VocalizeView from "./VocalizeView";
 import Loading from "../../components/Loading";
-import { createVoice, getVoicesOpenAi } from "../../service/voice";
+import { createVoice, getInfo, getVoicesOpenAi } from "../../service/voice";
 import { useCoursesContext } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -92,6 +92,16 @@ const VocalizeController = (props: Props) => {
         if (data.code == 0) {
           setBase64Voice(data.voice_base64);
           setIsOpen(true);
+          let infor = await getInfo({ user_id: context.state.user.phone });
+          if (infor.code == 0) {
+            context.dispatch({
+              type: "LOGIN",
+              payload: {
+                ...context.state,
+                user: { ...context.state.user, ...infor.data },
+              },
+            });
+          }
         } else {
           toast.warning(data.msg);
         }
@@ -104,6 +114,7 @@ const VocalizeController = (props: Props) => {
     }
     setLoading(false);
   };
+
   console.log("AAA context voice====", context);
   return (
     <>

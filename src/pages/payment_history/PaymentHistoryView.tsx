@@ -85,7 +85,7 @@ const PaymentHistoryView = ({ history, loadingHistory }: Props) => {
                                       variant='h5'
                                       fontWeight={"500"}
                                       fontSize={{ xs: "1.2rem", md: "1.3rem" }}>
-                                      {convertToVND(item.amount)} tín dụng
+                                      {convertToVND(item.amount)}
                                     </Typography>
                                     <Box display={"flex"} gap={"10px"}>
                                       <Button

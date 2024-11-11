@@ -15,9 +15,9 @@ import LeftProfile from "../../components/LeftProfile";
 const buy_amount = [
   { amount: 200, type: "K" },
   { amount: 400, type: "K" },
-  { amount: 1, type: "M" },
-  { amount: 1.4, type: "M" },
-  { amount: 2, type: "M" },
+  { amount: 1000, type: "M" },
+  { amount: 1400, type: "M" },
+  { amount: 2000, type: "M" },
   // { amount: 2.4, type: "M" },
   // { amount: 3, type: "M" },
   // { amount: 3.4, type: "M" },
@@ -29,13 +29,14 @@ const BuyCreditView = ({
   setAmount,
   handleClickOpenQr,
   handleCreatePayment,
+  credits,
 }: any) => {
   const theme: any = useTheme();
   const formatAmount = (value: any) => {
     if (value < 1) {
-      return `${(value * 1000).toFixed(0)}K`; // Nếu dưới 1, hiển thị K
+      return `${(value * 10000).toFixed(0)}`; // Nếu dưới 1, hiển thị K
     } else {
-      return `${value.toFixed(1)}M`; // Nếu từ 1 trở lên, hiển thị M
+      return `${(value * 10000).toFixed(0)}`; // Nếu từ 1 trở lên, hiển thị M
     }
   };
   return (
@@ -66,9 +67,8 @@ const BuyCreditView = ({
               px: "5%",
             }}>
             <Typography color='white' fontSize={"1.4rem"}>
-              Tín dụng có sẵn
+              Tín dụng có sẵn : {credits}
             </Typography>
-            <Typography color='white'>0 tín dụng hết hạn</Typography>
           </Box>
           <Box
             sx={{
@@ -138,13 +138,16 @@ const BuyCreditView = ({
                             textAlign={"center"}
                             variant='h6'
                             sx={{ color: "inherit" }}>
-                            + {`${_.amount}${_.type}`}
+                            +{" "}
+                            {`${_.amount >= 1000 ? _.amount / 1000 : _.amount}${
+                              _.type
+                            }`}
                           </Typography>
                           <Typography
                             fontSize={".8rem"}
                             textAlign={"center"}
                             sx={{ color: "inherit" }}>
-                            Tín dụng không <br /> hết hạn
+                            {_.amount * 10} Tín dụng
                           </Typography>
                           <ArrowDownwardIcon sx={{ color: "inherit" }} />
                         </Box>
@@ -195,12 +198,10 @@ const BuyCreditView = ({
                       <Typography
                         variant='h4'
                         fontSize={{ xs: "1.5rem", md: "2.5rem" }}>
-                        {formatAmount(amount)}
+                        +{formatAmount(amount)}
                       </Typography>
                     </Box>
-                    <Typography fontSize={".8rem"}>
-                      tín dụng không hết hạn
-                    </Typography>
+                    <Typography fontSize={".8rem"}>tín dụng</Typography>
                   </Box>
                   <Box
                     onClick={() => {
@@ -275,7 +276,7 @@ const BuyCreditView = ({
                     textAlign={"center"}
                     fontSize={{ xs: ".9rem", md: "1rem" }}>
                     ※ 1.000 tín dụng = 1.000 ký tự với chất lượng âm thanh cao
-                    cấp (500 ký tự với chất lượng âm thanh HD)
+                    cấp(100VND = 1 tín dụng)
                   </Typography>
                 </Box>
               </Box>

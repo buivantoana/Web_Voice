@@ -69,6 +69,11 @@ const BuyCreditController = () => {
         handleSliderChange={handleSliderChange}
         handleClickOpenQr={handleClickOpenQr}
         handleCreatePayment={handleCreatePayment}
+        credits={
+          Object.keys(context.state.user) && context.state.user.credits
+            ? context.state.user.credits
+            : 0
+        }
       />
       <Dialog
         maxWidth='xs' // sets a maximum width
@@ -82,38 +87,51 @@ const BuyCreditController = () => {
         </Box>
 
         <DialogContent>
-          <Typography textAlign={"center"} variant='h5'>
-            Quét mã QR để chuyển khoản{" "}
-          </Typography>
-          <img
-            src={`https://qr.limcorp.vn/qrcode.png?bank=970422&number=99192886868&amount=${
-              2000
-              // amount < 1 ? amount * 1000000 : amount * 1000000
-            }&content=${codePayment}`}
-            alt='QR Code'
-            width='100%'
-            height='100%'
-          />
-          <Typography textAlign={"center"} variant='h6'>
-            Số tiền: {convertToVND(amount * 1000000)}
-          </Typography>
-          <Typography textAlign={"center"} variant='h6'>
-            Số TK: 99192886868
-          </Typography>
-          <Box width={{}}>
-            <Button
-              onClick={handleConfirmPayment}
-              sx={{
-                width: "100%",
-                backgroundColor: "#4CAF50", // Màu nền của nút
-                color: "#fff", // Màu chữ
-                "&:hover": {
-                  backgroundColor: "#388E3C", // Màu nền khi hover
-                },
-              }}
-              variant='contained'>
-              Đã thanh toán
-            </Button>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}>
+            <Typography textAlign={"center"} variant='h6'>
+              Quét mã QR để chuyển khoản{" "}
+            </Typography>
+            <img
+              src={`https://qr.limcorp.vn/qrcode.png?bank=970422&number=99192886868&amount=${
+                2000
+                // amount < 1 ? amount * 1000000 : amount * 1000000
+              }&content=TTS ${codePayment}`}
+              alt='QR Code'
+              width='300px'
+              height='100%'
+            />
+            <Typography textAlign={"center"} fontSize={"1rem"}>
+              Số tiền: {convertToVND(amount * 1000000)}
+            </Typography>
+            <Typography textAlign={"center"} fontSize={"1rem"}>
+              Số TK: 99192886868
+            </Typography>
+            <Typography textAlign={"center"} fontSize={"1rem"}>
+              Chủ tài khoản: TRAN MANH TOAN
+            </Typography>
+            <Typography textAlign={"center"} fontSize={"1rem"}>
+              Ngân hàng: MB Bank
+            </Typography>
+            <Box mt={"5px"}>
+              <Button
+                onClick={handleConfirmPayment}
+                sx={{
+                  width: "100%",
+                  backgroundColor: "#4CAF50", // Màu nền của nút
+                  color: "#fff", // Màu chữ
+                  "&:hover": {
+                    backgroundColor: "#388E3C", // Màu nền khi hover
+                  },
+                }}
+                variant='contained'>
+                Đã thanh toán
+              </Button>
+            </Box>
           </Box>
         </DialogContent>
       </Dialog>

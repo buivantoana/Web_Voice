@@ -360,8 +360,8 @@ const VocalizeView = ({
                   width: "45px",
                 },
               }}>
-              <Typography fontSize={"1.2rem"} fontWeight={"bold"} color='white'>
-                Tạo tiếng nói
+              <Typography fontSize={".9rem"} fontWeight={"bold"} color='white'>
+                Tạo tiếng nói ( {textVoice.length} tín dụng )
               </Typography>
               <Box>
                 <svg
