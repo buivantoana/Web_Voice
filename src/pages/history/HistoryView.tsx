@@ -90,6 +90,12 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
           ".css-uxg07t-MuiTimeline-root": {
             padding: { xs: "10px" },
           },
+          ".css-4nz2w3": {
+            padding: "0px !important",
+          },
+          ".css-9ntwry": {
+            padding: "6px",
+          },
         }}>
         <Timeline
           sx={{
