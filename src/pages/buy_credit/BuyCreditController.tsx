@@ -44,7 +44,7 @@ const BuyCreditController = () => {
   };
   const handleConfirmPayment = async () => {
     try {
-      let data = await confirmPayment({ payment_id: codePayment });
+      let data = await confirmPayment({ payment_id: `TTS ${codePayment}` });
       if (data.code == 0) {
         context.dispatch({
           type: "PAYMENT",
