@@ -51,6 +51,21 @@ body::-webkit-scrollbar-thumb {
   background-color: transparent;
   border: 0px solid transparent;
 }
+.hidden-story::-webkit-scrollbar-track {
+  border: 0px solid transparent;
+  padding: 0;
+  background-color: transparent;
+}
+
+.hidden-story::-webkit-scrollbar {
+  width: 0px;
+}
+
+.hidden-story::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: transparent;
+  border: 0px solid transparent;
+}
 .list-scroll::-webkit-scrollbar-track {
   border: 0px solid transparent;
   padding: 0;

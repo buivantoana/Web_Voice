@@ -8,15 +8,29 @@ const Input = styled(TextField)`
   width: 62px;
 `;
 
-export default function InputSlider({ label, setValue, value }: any) {
+export default function InputSlider({
+  label,
+  setValue,
+  value,
+  center,
+  onChange,
+}: any) {
   const theme: any = useTheme();
 
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(event.target.value));
+    if (onChange) {
+      onChange(Number(event.target.value));
+    } else {
+      setValue(Number(event.target.value));
+    }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value === "" ? 0 : Number(event.target.value));
+    if (onChange) {
+      onChange(event.target.value === "" ? 0 : Number(event.target.value));
+    } else {
+      setValue(event.target.value === "" ? 0 : Number(event.target.value));
+    }
   };
 
   const handleBlur = () => {
@@ -30,7 +44,10 @@ export default function InputSlider({ label, setValue, value }: any) {
   return (
     <Box sx={{ width: "100%" }}>
       {label && (
-        <Typography fontWeight={"500"} ml={"35px"}>
+        <Typography
+          fontWeight={"500"}
+          color='grey_500.main'
+          ml={center ? "0px" : "35px"}>
           Tốc độ
         </Typography>
       )}
@@ -38,7 +55,10 @@ export default function InputSlider({ label, setValue, value }: any) {
         mt={"-7px"}
         direction={"row"}
         spacing={2}
-        sx={{ alignItems: "center", justifyContent: "center" }}>
+        sx={{
+          alignItems: "center",
+          justifyContent: center ? "unset" : "center",
+        }}>
         <Stack width={"55%"}>
           <input
             className='range_input'

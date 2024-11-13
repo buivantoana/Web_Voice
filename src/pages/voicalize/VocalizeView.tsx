@@ -10,7 +10,13 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { RiArrowDownSLine, RiCloseLine, RiHqLine } from "react-icons/ri";
+import {
+  RiArrowDownSLine,
+  RiCloseLine,
+  RiFileTextLine,
+  RiHqLine,
+  RiWechatFill,
+} from "react-icons/ri";
 
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import author from "../../images/user.png";
@@ -25,6 +31,8 @@ import fable from "../../images/fable.svg";
 import onyx from "../../images/onyx.svg";
 import nova from "../../images/nova.svg";
 import shimmer from "../../images/shimmer.svg";
+import StoryMakerController from "./StoryMakerController";
+import DocumentController from "./DocumentController";
 
 const images: any = {
   alloy: alloy,
@@ -85,7 +93,7 @@ const VocalizeView = ({
   limit,
 }: Props) => {
   const theme: any = useTheme();
-
+  const [tab, setTab] = useState("input_text");
   return (
     <Box p={"20px"}>
       <Stack
@@ -101,13 +109,26 @@ const VocalizeView = ({
           border={"1px solid #dddddd"}
           borderRadius={"8px"}>
           <Box sx={{ borderBottom: "1px solid rgb(226 232 240)" }}>
-            <Stack direction={"row"} padding={"0 20px"}>
+            <Stack
+              direction={"row"}
+              gap={"20px"}
+              padding={"0 20px"}
+              sx={{ cursor: "pointer" }}>
               <Box
                 display={"flex"}
                 alignItems={"center"}
+                onClick={() => {
+                  setTab("input_text");
+                }}
                 gap={"5px"}
                 padding={"9px 0"}
-                sx={{ borderBottom: `3px solid ${theme.palette.active.main}` }}>
+                sx={{
+                  borderBottom:
+                    tab == "input_text"
+                      ? `3px solid ${theme.palette.active.main}`
+                      : "unset",
+                  color: tab == "input_text" ? "black" : "grey_500.main",
+                }}>
                 <svg
                   data-v-fa4d36aa=''
                   xmlns='http://www.w3.org/2000/svg'
@@ -125,68 +146,114 @@ const VocalizeView = ({
                 </svg>
 
                 <Typography fontSize={".9rem"} fontWeight={"500"}>
-                  Input Text
+                  Văn bản nhập vào
+                </Typography>
+              </Box>
+              <Box
+                onClick={() => {
+                  setTab("story_maker");
+                }}
+                display={"flex"}
+                alignItems={"center"}
+                gap={"5px"}
+                padding={"9px 0"}
+                sx={{
+                  borderBottom:
+                    tab == "story_maker"
+                      ? `3px solid ${theme.palette.active.main}`
+                      : "unset",
+                  color: tab == "story_maker" ? "black" : "grey_500.main",
+                }}>
+                <RiWechatFill />
+
+                <Typography fontSize={".9rem"} fontWeight={"500"}>
+                  Câu chuyện
+                </Typography>
+              </Box>
+              <Box
+                onClick={() => {
+                  setTab("document");
+                }}
+                display={"flex"}
+                alignItems={"center"}
+                gap={"5px"}
+                padding={"9px 0"}
+                sx={{
+                  borderBottom:
+                    tab == "document"
+                      ? `3px solid ${theme.palette.active.main}`
+                      : "unset",
+                  color: tab == "document" ? "black" : "grey_500.main",
+                }}>
+                <RiFileTextLine />
+
+                <Typography fontSize={".9rem"} fontWeight={"500"}>
+                  Tài liệu
                 </Typography>
               </Box>
             </Stack>
           </Box>
-          <Box
-            width={"100%"}
-            height={"100%"}
-            position={"relative"}
-            sx={{
-              ".css-lh8pzc-MuiInputBase-root-MuiOutlinedInput-root": {
-                height: "83%",
-                border: "none",
-              },
-              ".css-15oluye-MuiFormControl-root-MuiTextField-root": {
-                height: "90%",
-              },
-            }}
-            boxSizing={"border-box"}>
-            <TextField
-              placeholder='Nhập văn bản bạn muốn chuyển đổi thành tiếng nói ở đây...'
-              multiline
-              value={textVoice}
-              onChange={(e) => {
-                if (e.target.value.length <= limit) {
-                  setTextVoice(e.target.value);
-                } else {
-                  if (!limit) {
-                    setTextVoice(e.target.value);
-                  }
-                }
-              }}
-              fullWidth
-              rows={4} // Số dòng hiển thị
-              variant='standard' // Loại bỏ border mặc định
-              InputProps={{
-                disableUnderline: true, // Bỏ underline của variant="standard"
-                sx: {
-                  backgroundColor: "white", // Nền trắng
-                  borderRadius: 2, // Đặt border-radius nếu cần
-                  padding: 1, // Khoảng cách padding
-                },
-              }}
+          {tab == "input_text" && (
+            <Box
+              width={"100%"}
+              height={"100%"}
+              position={"relative"}
               sx={{
-                "& .MuiInputBase-input": {
-                  height: "50vh !important", // Cài đặt chiều cao tự động
-                  minHeight: "100px", // Đặt chiều cao tối thiểu nếu cần
-                  resize: "none", // Bỏ resize của textarea
-                  overflow: "auto", // Để có thể cuộn
-                  scrollbarWidth: "none", // Ẩn thanh cuộn cho Firefox
-                  msOverflowStyle: "none", // Ẩn thanh cuộn cho Internet Explorer và Edge
+                ".css-lh8pzc-MuiInputBase-root-MuiOutlinedInput-root": {
+                  height: "83%",
+                  border: "none",
                 },
-                "& .MuiFormControl-root": {
-                  minHeight: "100px", // Đặt chiều cao tối thiểu cho TextField
-                },
-                // Ẩn thanh cuộn trong các trình duyệt WebKit
-                "&::-webkit-scrollbar": {
-                  display: "none", // Ẩn thanh cuộn
+                ".css-15oluye-MuiFormControl-root-MuiTextField-root": {
+                  height: "90%",
                 },
               }}
-            />
-          </Box>
+              boxSizing={"border-box"}>
+              <TextField
+                placeholder='Nhập văn bản bạn muốn chuyển đổi thành tiếng nói ở đây...'
+                multiline
+                value={textVoice}
+                onChange={(e) => {
+                  if (e.target.value.length <= limit) {
+                    setTextVoice(e.target.value);
+                  } else {
+                    if (!limit) {
+                      setTextVoice(e.target.value);
+                    }
+                  }
+                }}
+                fullWidth
+                rows={4} // Số dòng hiển thị
+                variant='standard' // Loại bỏ border mặc định
+                InputProps={{
+                  disableUnderline: true, // Bỏ underline của variant="standard"
+                  sx: {
+                    backgroundColor: "white", // Nền trắng
+                    borderRadius: 2, // Đặt border-radius nếu cần
+                    padding: 1, // Khoảng cách padding
+                  },
+                }}
+                sx={{
+                  "& .MuiInputBase-input": {
+                    height: "50vh !important", // Cài đặt chiều cao tự động
+                    minHeight: "100px", // Đặt chiều cao tối thiểu nếu cần
+                    resize: "none", // Bỏ resize của textarea
+                    overflow: "auto", // Để có thể cuộn
+                    scrollbarWidth: "none", // Ẩn thanh cuộn cho Firefox
+                    msOverflowStyle: "none", // Ẩn thanh cuộn cho Internet Explorer và Edge
+                  },
+                  "& .MuiFormControl-root": {
+                    minHeight: "100px", // Đặt chiều cao tối thiểu cho TextField
+                  },
+                  // Ẩn thanh cuộn trong các trình duyệt WebKit
+                  "&::-webkit-scrollbar": {
+                    display: "none", // Ẩn thanh cuộn
+                  },
+                }}
+              />
+            </Box>
+          )}
+          {tab == "story_maker" && <StoryMakerController />}
+          {tab == "document" && <DocumentController />}
           {textVoice.length > 0 && (
             <Box
               sx={{
