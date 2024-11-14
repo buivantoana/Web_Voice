@@ -313,7 +313,8 @@ const StoryMakerView = ({
                                 multiline
                                 value={item.text}
                                 onChange={(e) => {
-                                  suaVanBanVoice(item.id, e.target.value);
+                                  if (item.text.length <= 3000)
+                                    suaVanBanVoice(item.id, e.target.value);
                                 }}
                                 fullWidth
                                 variant='standard' // Loại bỏ border mặc định
@@ -351,7 +352,7 @@ const StoryMakerView = ({
                                 <Typography
                                   color='grey_500.main'
                                   fontSize={".7rem"}>
-                                  5/3000
+                                  {item.text.length}/3000
                                 </Typography>
                               </Box>
                             </Box>
