@@ -296,7 +296,7 @@ const VocalizeView = ({
           <Box
             mt={"10px"}
             display={"flex"}
-            justifyContent={"space-between"}
+            justifyContent={tab == "story_maker" ? "center" : "space-between"}
             alignItems={"center"}
             width={"100%"}
             sx={{ cursor: "pointer" }}
