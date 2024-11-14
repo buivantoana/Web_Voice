@@ -2,7 +2,12 @@ import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import VocalizeView from "./VocalizeView";
 import Loading from "../../components/Loading";
-import { createVoice, getInfo, getVoicesOpenAi } from "../../service/voice";
+import {
+  createStoryMaker,
+  createVoice,
+  getInfo,
+  getVoicesOpenAi,
+} from "../../service/voice";
 import { useCoursesContext } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -23,6 +28,7 @@ const VocalizeController = (props: Props) => {
   const [loadingVoices, setLoadingVoices] = useState(false);
   const [voices, setVoices] = useState<any>([]);
   const [voice, setVoice] = useState<any>({});
+  const [block, setBlock] = useState<any>([]);
   const context: any = useCoursesContext();
   const navigate: any = useNavigate();
   const toggleDrawer = (open: any) => () => {
@@ -114,8 +120,57 @@ const VocalizeController = (props: Props) => {
     }
     setLoading(false);
   };
+  const handleStoryMaker = async () => {
+    setLoading(true);
+    try {
+      if (
+        Object.keys(context.state.user).length > 0 &&
+        context.state.user.user_id
+      ) {
+        let body = {
+          user_id: context.state.user.user_id,
+          list_story: block.map((item: any) => {
+            return {
+              id: item.voice,
+              name: item.name,
+              text: item.text,
+              delay: Number(item.delay),
+              voice:
+                voices.filter((ix: any) => ix.id == item.voice)[0].gender ==
+                "Male"
+                  ? "en_us_male"
+                  : "en_us_female",
+              speed: Number(item.speed),
+            };
+          }),
+        };
+        let data = await createStoryMaker(body);
 
-  console.log("AAA context voice====", context);
+        if (data.code == 0) {
+          setBase64Voice(data.voice_base64);
+          setIsOpen(true);
+          let infor = await getInfo({ user_id: context.state.user.phone });
+          if (infor.code == 0) {
+            context.dispatch({
+              type: "LOGIN",
+              payload: {
+                ...context.state,
+                user: { ...context.state.user, ...infor.data },
+              },
+            });
+          }
+        } else {
+          toast.warning(data.msg);
+        }
+      } else {
+        toast.warning("Bạn cần đăng nhập để sử dụng.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+  console.log("AAA context voice====", block);
   return (
     <>
       {loading && <Loading />}
@@ -123,6 +178,8 @@ const VocalizeController = (props: Props) => {
         textVoice={textVoice}
         setSpeed={setSpeed}
         speed={speed}
+        setBlock={setBlock}
+        block={block}
         setTextVoice={setTextVoice}
         handleClickQuality={handleClickQuality}
         handleCloseQuality={handleCloseQuality}
@@ -142,6 +199,7 @@ const VocalizeController = (props: Props) => {
         voice={voice}
         setVoice={setVoice}
         loadingVoices={loadingVoices}
+        handleStoryMaker={handleStoryMaker}
         limit={
           Object.keys(context.state.user).length > 0 &&
           context.state.user.limit_txt

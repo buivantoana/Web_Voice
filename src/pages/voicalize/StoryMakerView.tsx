@@ -222,13 +222,13 @@ const StoryMakerView = ({
             className='hidden-story'
             sx={{ overflowY: "scroll", height: "92%" }}>
             {block.map((item: any) => {
-              return (
-                <Box
-                  borderBottom={"1px solid #dddddd"}
-                  sx={{ cursor: "pointer" }}
-                  pb={"10px"}>
-                  {item.open ? (
-                    <Box mt={"20px"} onClick={() => dongMoKhoi(item.id)}>
+              if (item.open) {
+                return (
+                  <Box
+                    borderBottom={"1px solid #dddddd"}
+                    sx={{ cursor: "pointer" }}
+                    pb={"10px"}>
+                    <Box mt={"20px"}>
                       <Box>
                         <Box
                           sx={{
@@ -492,21 +492,34 @@ const StoryMakerView = ({
                         </Box>
                       </Box>
                     </Box>
-                  ) : (
+                  </Box>
+                );
+              }
+              return (
+                <Box
+                  borderBottom={"1px solid #dddddd"}
+                  sx={{ cursor: "pointer" }}
+                  pb={"10px"}>
+                  <Box
+                    display={"flex"}
+                    alignItems={"center"}
+                    justifyContent={"space-evenly"}
+                    gap={"10px"}
+                    p={"15px 0"}>
+                    <Box position={"relative"} zIndex={1000}>
+                      <Checkbox
+                        checked={selectedItems.includes(item.id)}
+                        onChange={() => handleCheckboxChange(item.id)}
+                        defaultChecked
+                        color='success'
+                      />
+                    </Box>
                     <Box
+                      width={"90%"}
                       display={"flex"}
+                      justifyContent={"space-between"}
                       alignItems={"center"}
-                      justifyContent={"space-evenly"}
-                      gap={"10px"}
-                      p={"15px 0"}>
-                      <Box position={"relative"} zIndex={1000}>
-                        <Checkbox
-                          checked={selectedItems.includes(item.id)}
-                          onChange={() => handleCheckboxChange(item.id)}
-                          defaultChecked
-                          color='success'
-                        />
-                      </Box>
+                      px={"30px"}>
                       <Box
                         onClick={() => dongMoKhoi(item.id)}
                         display={"flex"}
@@ -578,7 +591,7 @@ const StoryMakerView = ({
                         </Box>
                       </Box>
                     </Box>
-                  )}
+                  </Box>
                 </Box>
               );
             })}

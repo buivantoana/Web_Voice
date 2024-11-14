@@ -96,3 +96,15 @@ export async function getInfo({ user_id }: any) {
     console.error("Error fetching data:", error.message);
   }
 }
+export async function createStoryMaker(body: any) {
+  try {
+    const response = await axios.post(`${url_voice}/voice/story`, body, {
+      headers: {
+        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}

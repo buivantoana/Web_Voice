@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import StoryMakerView from "./StoryMakerView";
 import { getVoicesOpenAi } from "../../service/voice";
 
-type Props = {};
+type Props = { setBlock: any; block: any };
 let arr: any = [];
-const StoryMakerController = ({}: Props) => {
+const StoryMakerController = ({ setBlock, block }: Props) => {
   const [hidden, setHidden] = useState(false);
-  const [block, setBlock] = useState<any>([]);
   const [openAuthor, setOpenAuthor] = React.useState(false);
   const [loadingVoices, setLoadingVoices] = useState(false);
   const [voices, setVoices] = useState<any>([]);
@@ -85,9 +84,9 @@ const StoryMakerController = ({}: Props) => {
     });
     setOpenEditAll(false);
   };
-  useEffect(() => {
-    setBlock(arr);
-  }, [arr]);
+  // useEffect(() => {
+  //   setBlock(arr);
+  // }, [arr]);
   function themKhoi() {
     arr.push({
       id: 1,

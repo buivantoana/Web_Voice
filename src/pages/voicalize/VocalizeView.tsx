@@ -66,6 +66,9 @@ type Props = {
   setVoice: any;
   loadingVoices: any;
   limit: any;
+  setBlock: any;
+  block: any;
+  handleStoryMaker: any;
 };
 const VocalizeView = ({
   textVoice,
@@ -91,9 +94,13 @@ const VocalizeView = ({
   voice,
   loadingVoices,
   limit,
+  setBlock,
+  block,
+  handleStoryMaker,
 }: Props) => {
   const theme: any = useTheme();
   const [tab, setTab] = useState("input_text");
+  console.log("voicee", block);
   return (
     <Box p={"20px"}>
       <Stack
@@ -252,7 +259,9 @@ const VocalizeView = ({
               />
             </Box>
           )}
-          {tab == "story_maker" && <StoryMakerController />}
+          {tab == "story_maker" && (
+            <StoryMakerController setBlock={setBlock} block={block} />
+          )}
           {tab == "document" && <DocumentController />}
           {textVoice.length > 0 && (
             <Box
@@ -292,24 +301,26 @@ const VocalizeView = ({
             width={"100%"}
             sx={{ cursor: "pointer" }}
             height={"45px"}>
-            <Box
-              height={"100%"}
-              width={"48%"}
-              border={"2px solid #dddddd"}
-              sx={{
-                borderTopLeftRadius: "25px",
-                borderBottomLeftRadius: "25px",
-                ".css-918vr5-MuiStack-root": {
-                  transform: "rotate(180deg)",
-                },
-                ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
-                  {},
-                ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
-                  width: "45px",
-                },
-              }}>
-              <InputSlider setValue={setSpeed} value={speed} label={true} />
-            </Box>
+            {tab == "input_text" && (
+              <Box
+                height={"100%"}
+                width={"48%"}
+                border={"2px solid #dddddd"}
+                sx={{
+                  borderTopLeftRadius: "25px",
+                  borderBottomLeftRadius: "25px",
+                  ".css-918vr5-MuiStack-root": {
+                    transform: "rotate(180deg)",
+                  },
+                  ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
+                    {},
+                  ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
+                    width: "45px",
+                  },
+                }}>
+                <InputSlider setValue={setSpeed} value={speed} label={true} />
+              </Box>
+            )}
             {/* <Box
               width={"31%"}
               height={"100%"}
@@ -400,55 +411,118 @@ const VocalizeView = ({
                 </Popover>
               </Box>
             </Box> */}
-            <Box
-              width={"48%"}
-              onClick={handleCreateVoice}
-              border={"2px solid #dddddd"}
-              bgcolor={theme.palette.active.main}
-              display={"flex"}
-              justifyContent={"center"}
-              alignItems={"center"}
-              gap={"20%"}
-              height={"100%"}
-              sx={{
-                pointerEvents: textVoice.length ? "auto" : "none",
-                opacity: textVoice.length ? "1" : ".5",
-                borderTopRightRadius: "25px",
-                borderBottomRightRadius: "25px",
-                cursor: "pointer",
-                ".css-918vr5-MuiStack-root": {
-                  transform: "rotate(180deg)",
-                },
-                ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
-                  {
-                    padding: "0 10px",
+            {tab == "input_text" && (
+              <Box
+                width={"48%"}
+                onClick={handleCreateVoice}
+                border={"2px solid #dddddd"}
+                bgcolor={theme.palette.active.main}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                gap={"20%"}
+                height={"100%"}
+                sx={{
+                  pointerEvents: textVoice.length ? "auto" : "none",
+                  opacity: textVoice.length ? "1" : ".5",
+                  borderTopRightRadius: "25px",
+                  borderBottomRightRadius: "25px",
+                  cursor: "pointer",
+                  ".css-918vr5-MuiStack-root": {
+                    transform: "rotate(180deg)",
                   },
-                ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
-                  width: "45px",
-                },
-              }}>
-              <Typography fontSize={".9rem"} fontWeight={"bold"} color='white'>
-                Tạo tiếng nói ( {textVoice.length} tín dụng )
-              </Typography>
-              <Box>
-                <svg
-                  data-v-fa4d36aa=''
-                  xmlns='http://www.w3.org/2000/svg'
-                  xmlnsXlink='http://www.w3.org/1999/xlink'
-                  aria-hidden='true'
-                  role='img'
-                  className='icon flex-shrink-0 w-14 h-14 md:w-6 md:h-6'
-                  width='1em'
-                  style={{ color: "white", fontSize: "30px", marginTop: "5px" }}
-                  height='1em'
-                  viewBox='0 0 24 24'>
-                  <path
-                    fill='currentColor'
-                    d='M4.929 19.071A9.97 9.97 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10H2zM11 6v12h2V6zM7 9v6h2V9zm8 0v6h2V9z'
-                  />
-                </svg>
+                  ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
+                    {
+                      padding: "0 10px",
+                    },
+                  ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
+                    width: "45px",
+                  },
+                }}>
+                <Typography
+                  fontSize={".9rem"}
+                  fontWeight={"bold"}
+                  color='white'>
+                  Tạo tiếng nói ( {textVoice.length} tín dụng )
+                </Typography>
+                <Box>
+                  <svg
+                    data-v-fa4d36aa=''
+                    xmlns='http://www.w3.org/2000/svg'
+                    xmlnsXlink='http://www.w3.org/1999/xlink'
+                    aria-hidden='true'
+                    role='img'
+                    className='icon flex-shrink-0 w-14 h-14 md:w-6 md:h-6'
+                    width='1em'
+                    style={{
+                      color: "white",
+                      fontSize: "30px",
+                      marginTop: "5px",
+                    }}
+                    height='1em'
+                    viewBox='0 0 24 24'>
+                    <path
+                      fill='currentColor'
+                      d='M4.929 19.071A9.97 9.97 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10H2zM11 6v12h2V6zM7 9v6h2V9zm8 0v6h2V9z'
+                    />
+                  </svg>
+                </Box>
               </Box>
-            </Box>
+            )}
+            {tab == "story_maker" && (
+              <Box
+                width={"48%"}
+                onClick={handleStoryMaker}
+                border={"2px solid #dddddd"}
+                bgcolor={theme.palette.active.main}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                gap={"20%"}
+                height={"100%"}
+                sx={{
+                  pointerEvents: block.length > 0 ? "auto" : "none",
+                  opacity: block.length > 0 ? "1" : ".5",
+                  borderRadius: "10px",
+                  cursor: "pointer",
+                  ".css-918vr5-MuiStack-root": {
+                    transform: "rotate(180deg)",
+                  },
+                  ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
+                    {
+                      padding: "0 10px",
+                    },
+                  ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
+                    width: "45px",
+                  },
+                }}>
+                <Typography fontSize={"1rem"} fontWeight={"bold"} color='white'>
+                  Tạo câu chuyện
+                </Typography>
+                <Box>
+                  <svg
+                    data-v-fa4d36aa=''
+                    xmlns='http://www.w3.org/2000/svg'
+                    xmlnsXlink='http://www.w3.org/1999/xlink'
+                    aria-hidden='true'
+                    role='img'
+                    className='icon flex-shrink-0 w-14 h-14 md:w-6 md:h-6'
+                    width='1em'
+                    style={{
+                      color: "white",
+                      fontSize: "30px",
+                      marginTop: "5px",
+                    }}
+                    height='1em'
+                    viewBox='0 0 24 24'>
+                    <path
+                      fill='currentColor'
+                      d='M4.929 19.071A9.97 9.97 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10H2zM11 6v12h2V6zM7 9v6h2V9zm8 0v6h2V9z'
+                    />
+                  </svg>
+                </Box>
+              </Box>
+            )}
           </Box>
         </Box>
       </Stack>
