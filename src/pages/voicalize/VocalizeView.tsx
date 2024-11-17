@@ -804,6 +804,8 @@ const VocalizeView = ({
               display={"flex"}
               justifyContent={"center"}
               alignItems={"center"}
+              gap={"5px"}
+              p={"5px"}
               sx={{
                 pointerEvents:
                   block.length > 0 && max_length.length <= 3000
@@ -818,13 +820,16 @@ const VocalizeView = ({
                 },
                 ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
                   {
-                    padding: "0 10px",
+                    padding: "10px 10px",
                   },
                 ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
                   width: "45px",
                 },
               }}>
-              <Typography fontSize={"1rem"} fontWeight={"bold"} color='white'>
+              <Typography
+                fontSize={{ xs: ".8rem", md: "1rem" }}
+                fontWeight={"bold"}
+                color='white'>
                 Tạo câu chuyện
               </Typography>
               <Box>
@@ -838,7 +843,7 @@ const VocalizeView = ({
                   width='1em'
                   style={{
                     color: "white",
-                    fontSize: "30px",
+                    fontSize: "15px",
                     marginTop: "5px",
                   }}
                   height='1em'
