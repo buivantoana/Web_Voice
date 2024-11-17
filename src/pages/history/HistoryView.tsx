@@ -114,6 +114,14 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                 <>
                   {voices.map((item: any, index: any) => {
                     let date = item.created.split("T");
+                    let text = "";
+                    if (item.voice == "story") {
+                      JSON.parse(item.text).map(
+                        (ix: any) => (text += " " + ix.text)
+                      );
+                    } else {
+                      text = item.text;
+                    }
                     return (
                       <TimelineItem sx={{ mt: "20px" }}>
                         {/* <TimelineSeparator
@@ -225,7 +233,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                 placeholder='Nhập văn bản bạn muốn chuyển đổi thành tiếng nói ở đây...'
                                 multiline
                                 disabled={true}
-                                value={item.text}
+                                value={text}
                                 onChange={(e) => {}}
                                 fullWidth
                                 variant='standard' // Loại bỏ border mặc định
@@ -282,63 +290,67 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                     voice_id={item.voice_id}
                                     content={item.text}
                                     speed={item.speed}
+                                    type={item.voice}
                                   />
                                 </Box>
                               </Box>
                             </Box>
-                            {/* <Box
-                              mt={"15px"}
-                              sx={{
-                                maxHeight:
-                                  accordion == index ? "500px" : "50px",
-                                overflow: "hidden",
-                                transition: ".3s",
-                              }}>
+                            {item.voice == "story" && (
                               <Box
-                                bgcolor={"rgb(248 250 252)"}
-                                border={"1px solid #dddddd"}
-                                padding={"8px 10px"}
-                                borderRadius={"25px"}>
+                                mt={"15px"}
+                                sx={{
+                                  maxHeight:
+                                    accordion == index ? "500px" : "50px",
+                                  overflow: "hidden",
+                                  transition: ".3s",
+                                }}>
                                 <Box
-                                  onClick={() => setAccordion(index)}
-                                  display={"flex"}
-                                  justifyContent={"space-between"}
-                                  alignItems={"center"}>
-                                  <Box display={"flex"} gap={"10px"}>
-                                    <Box
-                                      sx={{
-                                        borderRadius: "50%",
-                                        border: "2px solid black",
-                                        width: "20px",
-                                        height: "20px",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }}>
-                                      <MoreHorizIcon />
+                                  bgcolor={"rgb(248 250 252)"}
+                                  border={"1px solid #dddddd"}
+                                  padding={"8px 10px"}
+                                  borderRadius={"25px"}>
+                                  <Box
+                                    onClick={() => setAccordion(index)}
+                                    display={"flex"}
+                                    justifyContent={"space-between"}
+                                    alignItems={"center"}>
+                                    <Box display={"flex"} gap={"10px"}>
+                                      <Box
+                                        sx={{
+                                          borderRadius: "50%",
+                                          border: "2px solid black",
+                                          width: "20px",
+                                          height: "20px",
+                                          display: "flex",
+                                          alignItems: "center",
+                                          justifyContent: "center",
+                                        }}>
+                                        <MoreHorizIcon />
+                                      </Box>
+                                      <Typography fontWeight={"500"}>
+                                        Chi tiết mỗi khối
+                                      </Typography>
                                     </Box>
-                                    <Typography fontWeight={"500"}>
-                                      Chi tiết mỗi khối
-                                    </Typography>
-                                  </Box>
 
-                                  <KeyboardArrowDownIcon
-                                    sx={{
-                                      transform:
-                                        accordion == index
-                                          ? "rotate(180deg)"
-                                          : "rotate(0deg)",
-                                      transition: ".3s",
-                                    }}
+                                    <KeyboardArrowDownIcon
+                                      sx={{
+                                        transform:
+                                          accordion == index
+                                            ? "rotate(180deg)"
+                                            : "rotate(0deg)",
+                                        transition: ".3s",
+                                      }}
+                                    />
+                                  </Box>
+                                </Box>
+                                <Box>
+                                  <EnhancedTable
+                                    data={JSON.parse(item.text)}
+                                    handleClickOpen={handleClickOpen}
                                   />
                                 </Box>
                               </Box>
-                              <Box>
-                                <EnhancedTable
-                                  handleClickOpen={handleClickOpen}
-                                />
-                              </Box>
-                            </Box> */}
+                            )}
                           </Box>
                         </TimelineContent>
                       </TimelineItem>
@@ -383,7 +395,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
 };
 
 export default HistoryView;
-function AudioPlayer({ width, voice_id, content, speed }: any) {
+function AudioPlayer({ width, voice_id, content, speed, type }: any) {
   const [mp3, setMp3] = useState<string>("");
   const audioRef = useRef<HTMLAudioElement>(null);
   const navigate: any = useNavigate();
@@ -452,7 +464,26 @@ function AudioPlayer({ width, voice_id, content, speed }: any) {
                 type: "HISTORY",
                 payload: {
                   ...context.state,
-                  history: { content: content, speed: speed },
+                  history: {
+                    content:
+                      type == "story"
+                        ? JSON.parse(content).map(
+                            (item: any, index: number) => {
+                              return {
+                                id: index + 1,
+                                name: item.name,
+                                text: item.text,
+                                delay: item.delay,
+                                voice: item.id,
+                                speed: item.speed,
+                                open: false,
+                              };
+                            }
+                          )
+                        : content,
+                    speed: speed,
+                    type,
+                  },
                 },
               });
               navigate(`/`);
@@ -582,20 +613,20 @@ const headCells: readonly HeadCell[] = [
     id: "protein",
     numeric: true,
     disablePadding: false,
-    label: "Tín dụng",
+    label: "Trạng thái",
   },
-  {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "trạng thái",
-  },
-  {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Âm thanh",
-  },
+  // {
+  //   id: "protein",
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: "trạng thái",
+  // },
+  // {
+  //   id: "protein",
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: "Âm thanh",
+  // },
 ];
 
 interface EnhancedTableProps {
@@ -691,6 +722,7 @@ function EnhancedTable(props: any) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rows, setRows] = React.useState<any>(props.data);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -703,7 +735,7 @@ function EnhancedTable(props: any) {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
+      const newSelected = rows.map((n: any) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -810,11 +842,11 @@ function EnhancedTable(props: any) {
                       padding='none'>
                       {row.name}
                     </TableCell>
-                    <TableCell align='center'>{row.calories}</TableCell>
-                    <TableCell align='center'>{row.fat}</TableCell>
-                    <TableCell align='center'>{row.carbs}</TableCell>
-                    <TableCell align='center'>{row.protein}</TableCell>
-                    <TableCell align='center'>{row.protein}</TableCell>
+                    <TableCell align='center'>{row.text}</TableCell>
+                    <TableCell align='center'>{row.id}</TableCell>
+                    <TableCell align='center'>{row.speed}</TableCell>
+                    <TableCell align='center'>{row.delay}</TableCell>
+                    {/* <TableCell align='center'>{row.protein}</TableCell> */}
                     <TableCell align='center'>
                       {" "}
                       <Button
@@ -831,7 +863,7 @@ function EnhancedTable(props: any) {
                         Hoàn thành
                       </Button>
                     </TableCell>
-                    <TableCell align='center'>
+                    {/* <TableCell align='center'>
                       <Box
                         display={"flex"}
                         gap={"5px"}
@@ -861,7 +893,7 @@ function EnhancedTable(props: any) {
                           }}
                         />
                       </Box>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 );
               })}

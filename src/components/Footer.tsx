@@ -19,7 +19,7 @@ const Footer = () => {
         Liên hệ với chúng tôi:{" "}
         <span style={{ color: theme.palette.active.main, fontWeight: "bold" }}>
           {" "}
-          contact@ttsopenai.com
+          support@gmv.vn
         </span>
       </Typography>
     </Box>

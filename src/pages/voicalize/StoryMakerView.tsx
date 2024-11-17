@@ -133,6 +133,10 @@ const StoryMakerView = ({
   const theme: any = useTheme();
 
   let close = block.filter((item: any) => item.open == true)[0];
+  let max_length = "";
+  block.map((item: any) => {
+    return (max_length += " " + item.text);
+  });
   return (
     <Box
       width={"100%"}
@@ -665,7 +669,11 @@ const StoryMakerView = ({
                 </Box>
               )}
             </Box>
-            <Box p={"5px"}>
+            <Box p={"5px"} display={"flex"} alignItems={"center"} gap={"20px"}>
+              <Typography color={max_length.length > 3000 ? "red" : "black"}>
+                {" "}
+                {max_length.length}/3000
+              </Typography>
               <Box
                 onClick={() => xoaTatCa()}
                 padding={"8px"}

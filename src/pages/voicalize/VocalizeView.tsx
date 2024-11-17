@@ -69,6 +69,11 @@ type Props = {
   setBlock: any;
   block: any;
   handleStoryMaker: any;
+  tab: any;
+  setTab: any;
+  setHidden: any;
+  hidden: any;
+  arr: any;
 };
 const VocalizeView = ({
   textVoice,
@@ -97,9 +102,17 @@ const VocalizeView = ({
   setBlock,
   block,
   handleStoryMaker,
+  tab,
+  setTab,
+  setHidden,
+  hidden,
+  arr,
 }: Props) => {
   const theme: any = useTheme();
-  const [tab, setTab] = useState("input_text");
+  let max_length = "";
+  block.map((item: any) => {
+    return (max_length += " " + item.text);
+  });
   console.log("voicee", block);
   return (
     <Box p={"20px"}>
@@ -158,6 +171,7 @@ const VocalizeView = ({
               </Box>
               <Box
                 onClick={() => {
+                  setBlock([]);
                   setTab("story_maker");
                 }}
                 display={"flex"}
@@ -260,7 +274,12 @@ const VocalizeView = ({
             </Box>
           )}
           {tab == "story_maker" && (
-            <StoryMakerController setBlock={setBlock} block={block} />
+            <StoryMakerController
+              setBlock={setBlock}
+              block={block}
+              hidden={hidden}
+              setHidden={setHidden}
+            />
           )}
           {tab == "document" && <DocumentController />}
           {textVoice.length > 0 && (
@@ -481,8 +500,12 @@ const VocalizeView = ({
                 gap={"20%"}
                 height={"100%"}
                 sx={{
-                  pointerEvents: block.length > 0 ? "auto" : "none",
-                  opacity: block.length > 0 ? "1" : ".5",
+                  pointerEvents:
+                    block.length > 0 && max_length.length <= 3000
+                      ? "auto"
+                      : "none",
+                  opacity:
+                    block.length > 0 && max_length.length <= 3000 ? "1" : ".5",
                   borderRadius: "10px",
                   cursor: "pointer",
                   ".css-918vr5-MuiStack-root": {

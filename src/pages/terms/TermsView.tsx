@@ -75,22 +75,21 @@ const TermsView = (props: Props) => {
           fontSize={{ xs: "1rem", md: "1.2rem" }}>
           <b>Tài sản trí tuệ: </b> Tất cả nội dung và tài liệu có thể truy cập
           thông qua dịch vụ của chúng tôi, bao gồm văn bản, đồ họa, logo và phần
-          mềm, là tài sản của ttsopenai.com và được bảo vệ bởi luật sở hữu trí
-          tuệ. Việc sao chép, sửa đổi, phân phối hoặc tạo ra các tác phẩm phái
-          sinh từ nội dung mà không có sự đồng ý bằng văn bản trước đó là bị
-          cấm.
+          mềm, là tài sản của ai.gmv.vn và được bảo vệ bởi luật sở hữu trí tuệ.
+          Việc sao chép, sửa đổi, phân phối hoặc tạo ra các tác phẩm phái sinh
+          từ nội dung mà không có sự đồng ý bằng văn bản trước đó là bị cấm.
         </Typography>
       </Box>
       <Box display={"flex"} mt={"20px"}>
         <Typography
           color='grey_500.main'
           fontSize={{ xs: "1rem", md: "1.2rem" }}>
-          <b>Hạn chế Trách nhiệm: </b>ttsopenai.com sẽ không chịu trách nhiệm về
-          bất kỳ thiệt hại trực tiếp, gián tiếp, ngẫu nhiên, đặc biệt hoặc hậu
-          quả nào phát sinh từ việc sử dụng dịch vụ của chúng tôi. Chúng tôi
-          không bảo đảm về tính chính xác, đầy đủ hoặc sẵn có của dịch vụ và bác
-          bỏ tất cả các bảo hành, có hay ngụ ý, liên quan đến việc sử dụng hoặc
-          kết quả của chúng.
+          <b>Hạn chế Trách nhiệm: </b>ai.gmv.vn sẽ không chịu trách nhiệm về bất
+          kỳ thiệt hại trực tiếp, gián tiếp, ngẫu nhiên, đặc biệt hoặc hậu quả
+          nào phát sinh từ việc sử dụng dịch vụ của chúng tôi. Chúng tôi không
+          bảo đảm về tính chính xác, đầy đủ hoặc sẵn có của dịch vụ và bác bỏ
+          tất cả các bảo hành, có hay ngụ ý, liên quan đến việc sử dụng hoặc kết
+          quả của chúng.
         </Typography>
       </Box>
       <Box display={"flex"} mt={"20px"}>
@@ -120,15 +119,15 @@ const TermsView = (props: Props) => {
         <Typography
           color='grey_500.main'
           fontSize={{ xs: "1rem", md: "1.2rem" }}>
-          <b>Làm rõ về việc liên kết với OpenAI: </b> ttsopenai.com là một đơn
-          vị độc lập và không liên kết với OpenAI. Dịch vụ text-to-speech của
-          chúng tôi sử dụng API của OpenAI để chuyển đổi văn bản thành giọng
-          nói, nhưng chúng tôi hoạt động độc lập với OpenAI. Điều này được làm
-          rõ để ngăn chặn bất kỳ sự nhầm lẫn hoặc hiểu lầm nào về mối quan hệ
-          giữa ttsopenai.com và OpenAI. Người dùng nên nhận thức rằng trong khi
-          chúng tôi sử dụng công nghệ của OpenAI để cung cấp dịch vụ của mình,
-          ttsopenai.com hoàn toàn chịu trách nhiệm về việc hoạt động của dịch vụ
-          và tuân thủ các Điều khoản Dịch vụ này.
+          <b>Làm rõ về việc liên kết với OpenAI: </b> ai.gmv.vn là một đơn vị
+          độc lập và không liên kết với OpenAI. Dịch vụ text-to-speech của chúng
+          tôi sử dụng API của OpenAI để chuyển đổi văn bản thành giọng nói,
+          nhưng chúng tôi hoạt động độc lập với OpenAI. Điều này được làm rõ để
+          ngăn chặn bất kỳ sự nhầm lẫn hoặc hiểu lầm nào về mối quan hệ giữa
+          ai.gmv.vn và OpenAI. Người dùng nên nhận thức rằng trong khi chúng tôi
+          sử dụng công nghệ của OpenAI để cung cấp dịch vụ của mình, ai.gmv.vn
+          hoàn toàn chịu trách nhiệm về việc hoạt động của dịch vụ và tuân thủ
+          các Điều khoản Dịch vụ này.
         </Typography>
       </Box>
     </Box>

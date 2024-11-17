@@ -37,7 +37,7 @@ const PrivacyView = (props: Props) => {
           và đảm bảo an toàn thông tin cá nhân của bạn. Chính sách bảo mật này
           mô tả cách chúng tôi thu thập, sử dụng và bảo vệ thông tin mà bạn cung
           cấp khi sử dụng dịch vụ tạo lời nói của chúng tôi. Bằng cách truy cập
-          và sử dụng trang web của chúng tôi (ttsopenai.com), bạn đồng ý với các
+          và sử dụng trang web của chúng tôi (ai.gmv.vn), bạn đồng ý với các
           hành động mà chúng tôi mô tả trong chính sách này.
         </Typography>
       </Box>

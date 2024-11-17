@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import StoryMakerView from "./StoryMakerView";
 import { getVoicesOpenAi } from "../../service/voice";
+import { useCoursesContext } from "../../App";
 
-type Props = { setBlock: any; block: any };
+type Props = { setBlock: any; block: any; setHidden: any; hidden: any };
 let arr: any = [];
-const StoryMakerController = ({ setBlock, block }: Props) => {
-  const [hidden, setHidden] = useState(false);
+const StoryMakerController = ({
+  setBlock,
+  block,
+  setHidden,
+  hidden,
+}: Props) => {
   const [openAuthor, setOpenAuthor] = React.useState(false);
   const [loadingVoices, setLoadingVoices] = useState(false);
   const [voices, setVoices] = useState<any>([]);
@@ -14,6 +19,7 @@ const StoryMakerController = ({ setBlock, block }: Props) => {
   const [selectedItems, setSelectedItems] = useState<any>([]);
   const [openEditAll, setOpenEditAll] = React.useState(false);
   const [isEditAll, setIsEditAll] = React.useState(false);
+  const context: any = useCoursesContext();
   const [dataEditAll, setDataEditAll] = React.useState({
     name: "",
     delay: 0,
@@ -27,6 +33,15 @@ const StoryMakerController = ({ setBlock, block }: Props) => {
         : [...prev, id]
     );
   };
+  useEffect(() => {
+    if (Object.keys(context.state.history).length > 0) {
+      if (context.state.history.content) {
+        if (context.state.history.type == "story") {
+          arr = context.state.history.content;
+        }
+      }
+    }
+  }, []);
   useEffect(() => {
     loadVoicesOpenai();
   }, []);

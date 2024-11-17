@@ -200,7 +200,7 @@ const PricingPlansView = (props: Props) => {
         mt={"150px"}
         gap={"30px"}>
         <Typography fontSize={"1.2rem"} fontWeight={"500"} color='active.main'>
-          Khám phá các tính năng của ttsopenai.com
+          Khám phá các tính năng của ai.gmv.vn
         </Typography>
         <Typography variant='h1' fontSize={{ xs: "2rem", md: "3rem" }}>
           Tính năng
@@ -566,7 +566,7 @@ const PricingPlansView = (props: Props) => {
           Nếu bạn không tìm thấy câu trả lời mà bạn đang tìm ở đây, vui lòng
           liên hệ với chúng tôi:{" "}
           <span style={{ color: theme.palette.active.main, fontWeight: "500" }}>
-            contact@ttsopenai.com
+            contact@ai.gmv.vn
           </span>
         </Typography>
       </Box>
@@ -605,10 +605,10 @@ const PricingPlansView = (props: Props) => {
           padding={"20px"}
           width={{ xs: "85%", md: "30%" }}>
           <Typography color='grey_500.main'>
-            Tôi đã sử dụng ttsopenai.com trong một thời gian và tôi rất hài lòng
-            với chất lượng của các giọng đọc và sự dễ sử dụng. Tôi mạnh mẽ
-            khuyên dùng dịch vụ này cho bất kỳ ai đang tìm kiếm một công cụ
-            chuyển văn bản thành giọng nói đáng tin cậy.
+            Tôi đã sử dụng ai.gmv.vn trong một thời gian và tôi rất hài lòng với
+            chất lượng của các giọng đọc và sự dễ sử dụng. Tôi mạnh mẽ khuyên
+            dùng dịch vụ này cho bất kỳ ai đang tìm kiếm một công cụ chuyển văn
+            bản thành giọng nói đáng tin cậy.
           </Typography>
           <Box display={"flex"} alignItems={"center"} gap={"15px"}>
             <img
@@ -628,10 +628,10 @@ const PricingPlansView = (props: Props) => {
           padding={"20px"}
           width={{ xs: "85%", md: "30%" }}>
           <Typography color='grey_500.main'>
-            Tôi đã sử dụng ttsopenai.com trong một thời gian và tôi rất hài lòng
-            với chất lượng của các giọng đọc và sự dễ sử dụng. Tôi mạnh mẽ
-            khuyên dùng dịch vụ này cho bất kỳ ai đang tìm kiếm một công cụ
-            chuyển văn bản thành giọng nói đáng tin cậy.
+            Tôi đã sử dụng ai.gmv.vn trong một thời gian và tôi rất hài lòng với
+            chất lượng của các giọng đọc và sự dễ sử dụng. Tôi mạnh mẽ khuyên
+            dùng dịch vụ này cho bất kỳ ai đang tìm kiếm một công cụ chuyển văn
+            bản thành giọng nói đáng tin cậy.
           </Typography>
           <Box display={"flex"} alignItems={"center"} gap={"15px"}>
             <img
@@ -651,10 +651,10 @@ const PricingPlansView = (props: Props) => {
           padding={"20px"}
           width={{ xs: "85%", md: "30%" }}>
           <Typography color='grey_500.main'>
-            Tôi đã sử dụng ttsopenai.com trong một thời gian và tôi rất hài lòng
-            với chất lượng của các giọng đọc và sự dễ sử dụng. Tôi mạnh mẽ
-            khuyên dùng dịch vụ này cho bất kỳ ai đang tìm kiếm một công cụ
-            chuyển văn bản thành giọng nói đáng tin cậy.
+            Tôi đã sử dụng ai.gmv.vn trong một thời gian và tôi rất hài lòng với
+            chất lượng của các giọng đọc và sự dễ sử dụng. Tôi mạnh mẽ khuyên
+            dùng dịch vụ này cho bất kỳ ai đang tìm kiếm một công cụ chuyển văn
+            bản thành giọng nói đáng tin cậy.
           </Typography>
           <Box display={"flex"} alignItems={"center"} gap={"15px"}>
             <img
@@ -684,8 +684,8 @@ const PricingPlansView = (props: Props) => {
           <Typography
             color='grey_500.main'
             fontSize={{ xs: "1rem", md: "1.3rem" }}>
-            Tham gia ttsopenai.com ngày hôm nay và trải nghiệm sự tiện lợi và
-            chất lượng của dịch vụ chuyển văn bản thành giọng nói của chúng tôi.
+            Tham gia ai.gmv.vn ngày hôm nay và trải nghiệm sự tiện lợi và chất
+            lượng của dịch vụ chuyển văn bản thành giọng nói của chúng tôi.
           </Typography>
           <Button
             variant='contained'
@@ -713,28 +713,27 @@ import Fade from "@mui/material/Fade";
 
 const data = [
   {
-    title: "Tại sao chọn ttsopenai.com hơn các công cụ TTS khác?",
+    title: "Tại sao chọn ai.gmv.vn hơn các công cụ TTS khác?",
     description:
-      "ttsopenai.com sử dụng TTS API của OpenAI, cung cấp giọng nói tự nhiên và chất lượng cao với chi phí thấp hơn so với nhiều công cụ khác trên thị trường. Ngoài ra, chúng tôi hỗ trợ chuyển đổi định dạng tài liệu đa dạng, từ văn bản thô đến PDF, DOCX và sách điện tử.",
+      "ai.gmv.vn sử dụng TTS API của OpenAI, cung cấp giọng nói tự nhiên và chất lượng cao với chi phí thấp hơn so với nhiều công cụ khác trên thị trường. Ngoài ra, chúng tôi hỗ trợ chuyển đổi định dạng tài liệu đa dạng, từ văn bản thô đến PDF, DOCX và sách điện tử.",
   },
   {
-    title: "Làm thế nào để sử dụng dịch vụ ttsopenai.com?",
+    title: "Làm thế nào để sử dụng dịch vụ ai.gmv.vn?",
     description:
       "Dịch vụ của chúng tôi được thiết kế để dễ sử dụng. Bạn chỉ cần tải tài liệu lên và chọn giọng đọc mong muốn; hệ thống sẽ tự động chuyển đổi tài liệu của bạn thành giọng nói hoặc audiobook.",
   },
   {
-    title: "Có cần kiến thức lập trình để sử dụng ttsopenai.com không?",
+    title: "Có cần kiến thức lập trình để sử dụng ai.gmv.vn không?",
     description:
       "Không, bạn không cần kiến thức lập trình. Chúng tôi đã tích hợp API TTS của OpenAI vào trang web, giúp quá trình chuyển đổi văn bản thành giọng nói trở nên đơn giản và thuận tiện cho mọi người.",
   },
   {
-    title:
-      "Loại tài liệu nào có thể chuyển đổi thành lời nói trên ttsopenai.com?",
+    title: "Loại tài liệu nào có thể chuyển đổi thành lời nói trên ai.gmv.vn?",
     description:
       "Chúng tôi hỗ trợ nhiều định dạng tài liệu bao gồm văn bản đơn giản (txt), PDF, DOCX, và các định dạng tệp ebook.",
   },
   {
-    title: "Chi phí sử dụng ttsopenai.com là bao nhiêu?",
+    title: "Chi phí sử dụng ai.gmv.vn là bao nhiêu?",
     description:
       "Chúng tôi đưa ra giá dựa trên giá cả của OpenAI, đảm bảo chi phí thấp hơn nhiều công cụ chuyển đổi văn bản thành âm thanh khác trên thị trường.",
   },
@@ -749,12 +748,12 @@ const data = [
       "Chúng tôi cung cấp các gói dịch vụ khác nhau để phù hợp với nhu cầu của mỗi người dùng. Vui lòng tham khảo trực tiếp trên trang web để biết thông tin chi tiết.",
   },
   {
-    title: "Có thể tôi sử dụng ttsopenai.com cho mục đích thương mại không?",
+    title: "Có thể tôi sử dụng ai.gmv.vn cho mục đích thương mại không?",
     description:
       "Có, dịch vụ của chúng tôi hỗ trợ cả mục đích cá nhân và thương mại. Tuy nhiên, vui lòng đảm bảo tuân thủ các điều khoản sử dụng của chúng tôi.",
   },
   {
-    title: "Chất lượng của giọng điện tử trên ttsopenai.com là như thế nào?",
+    title: "Chất lượng của giọng điện tử trên ai.gmv.vn là như thế nào?",
     description:
       "Có, dịch vụ của chúng tôi hỗ trợ cả mục đích cá nhân và thương mại. Tuy nhiên, vui lòng đảm bảo tuân thủ các điều khoản sử dụng của chúng tôi.Chất lượng giọng nói của chúng tôi rất cao, với giọng đọc tự nhiên và dễ nghe, nhờ công nghệ TTS tiên tiến từ OpenAI.",
   },
@@ -791,13 +790,13 @@ const data = [
   },
   {
     title:
-      "Làm thế nào để bảo vệ sự riêng tư và dữ liệu của tôi trên ttsopenai.com?",
+      "Làm thế nào để bảo vệ sự riêng tư và dữ liệu của tôi trên ai.gmv.vn?",
     description:
       "An ninh và quyền riêng tư của người dùng là ưu tiên hàng đầu của chúng tôi. Chúng tôi sử dụng các biện pháp an ninh tiên tiến để bảo vệ dữ liệu của bạn và không chia sẻ thông tin với bất kỳ bên thứ ba nào mà không có sự đồng ý của bạn.",
   },
   {
     title:
-      "Có thể tôi sử dụng ttsopenai.com để tạo nội dung cho trang web hoặc blog của mình không?",
+      "Có thể tôi sử dụng ai.gmv.vn để tạo nội dung cho trang web hoặc blog của mình không?",
     description:
       "Có, bạn có thể sử dụng dịch vụ của chúng tôi để tạo nội dung âm thanh cho trang web, blog, hoặc các nền tảng truyền thông xã hội của bạn, làm phong phú cách bạn truyền đạt thông tin đến đọc giả hoặc khách hàng của mình.",
   },
@@ -813,7 +812,7 @@ const data = [
   },
   {
     title:
-      "Có thể tôi sử dụng dịch vụ ttsopenai.com trên điện thoại di động của tôi không?",
+      "Có thể tôi sử dụng dịch vụ ai.gmv.vn trên điện thoại di động của tôi không?",
     description:
       "Có, trang web của chúng tôi được thiết kế để tương thích với cả máy tính và thiết bị di động, cho phép bạn dễ dàng truy cập và sử dụng dịch vụ của chúng tôi bất kỳ lúc nào, bất kỳ đâu.",
   },

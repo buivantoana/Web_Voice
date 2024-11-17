@@ -13,7 +13,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 type Props = {};
-
+let arr: any = [];
 const VocalizeController = (props: Props) => {
   const [textVoice, setTextVoice] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,8 +29,10 @@ const VocalizeController = (props: Props) => {
   const [voices, setVoices] = useState<any>([]);
   const [voice, setVoice] = useState<any>({});
   const [block, setBlock] = useState<any>([]);
+  const [hidden, setHidden] = useState(false);
   const context: any = useCoursesContext();
   const navigate: any = useNavigate();
+  const [tab, setTab] = useState("input_text");
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
   };
@@ -38,10 +40,15 @@ const VocalizeController = (props: Props) => {
   useEffect(() => {
     if (Object.keys(context.state.history).length > 0) {
       if (context.state.history.content) {
-        setTextVoice(context.state.history.content);
-      }
-      if (context.state.history.speed) {
-        setSpeed(context.state.history.speed);
+        if (context.state.history.type == "story") {
+          setBlock(context.state.history.content);
+          arr = context.state.history.content;
+          setTab("story_maker");
+          setHidden(true);
+        } else {
+          setTextVoice(context.state.history.content);
+          setSpeed(context.state.history.speed);
+        }
       }
     }
     if (context.state.tts_text) {
@@ -206,6 +213,11 @@ const VocalizeController = (props: Props) => {
             ? context.state.user.limit_txt
             : 0
         }
+        setTab={setTab}
+        tab={tab}
+        setHidden={setHidden}
+        hidden={hidden}
+        arr={arr}
       />
     </>
   );
