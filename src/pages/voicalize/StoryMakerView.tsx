@@ -166,16 +166,21 @@ const StoryMakerView = ({
             display={"flex"}
             alignItems={"center"}
             justifyContent={"center"}
-            width={"120px"}
-            height={"120px"}
+            width={{ xs: "90px", md: "120px" }}
+            height={{ xs: "90px", md: "120px" }}
             borderRadius={"50%"}
             bgcolor={"grey_700.main"}>
             <RiChatVoiceFill size={60} color='rgb(148 163 184)' />
           </Box>
-          <Typography color='rgb(148 163 184)' fontSize={"1.4rem"}>
+          <Typography
+            color='rgb(148 163 184)'
+            fontSize={{ xs: "1rem", md: "1.4rem" }}>
             Tạo câu chuyện đầu tiên của bạn
           </Typography>
-          <Typography color='rgb(148 163 184)' fontSize={"1rem"}>
+          <Typography
+            color='rgb(148 163 184)'
+            textAlign={"center"}
+            fontSize={{ xs: ".7rem", md: "1rem" }}>
             Bạn có thể tạo thủ công trên giao diện người dùng hoặc nhập từ một
             tập tin
           </Typography>
@@ -224,7 +229,7 @@ const StoryMakerView = ({
         <>
           <Box
             className='hidden-story'
-            sx={{ overflowY: "scroll", height: "92%" }}>
+            sx={{ overflowY: "scroll", height: { xs: "88%", md: "92%" } }}>
             {block.map((item: any) => {
               if (item.open) {
                 return (
@@ -503,14 +508,24 @@ const StoryMakerView = ({
               return (
                 <Box
                   borderBottom={"1px solid #dddddd"}
-                  sx={{ cursor: "pointer" }}
+                  sx={{
+                    cursor: "pointer",
+                  }}
                   pb={"10px"}>
+                  <Typography
+                    sx={{ display: { xs: "block", md: "none" } }}
+                    fontSize={".8rem"}
+                    mt={"5px"}
+                    color='grey_500.main'
+                    fontWeight={"500"}>
+                    {item.name}
+                  </Typography>
                   <Box
                     display={"flex"}
                     alignItems={"center"}
                     justifyContent={"space-evenly"}
                     gap={"10px"}
-                    p={"15px 0"}>
+                    p={{ xs: "0", md: "15px 0" }}>
                     <Box position={"relative"} zIndex={1000}>
                       <Checkbox
                         checked={selectedItems.includes(item.id)}
@@ -519,80 +534,86 @@ const StoryMakerView = ({
                         color='success'
                       />
                     </Box>
-                    <Box
-                      width={"90%"}
-                      display={"flex"}
-                      justifyContent={"space-between"}
-                      alignItems={"center"}
-                      px={"30px"}>
+                    <Box onClick={() => dongMoKhoi(item.id)}>
                       <Box
-                        onClick={() => dongMoKhoi(item.id)}
+                        width={"90%"}
                         display={"flex"}
+                        justifyContent={{ xs: "start", md: "space-between" }}
                         alignItems={"center"}
-                        gap={"10px"}>
-                        <Box>
-                          <Typography
-                            fontSize={"1rem"}
-                            color='grey_500.main'
-                            fontWeight={"500"}>
-                            {item.name}
-                          </Typography>
-                          <Typography fontSize={".9rem"} color='grey_500.main'>
-                            Nhấp chuột để chỉnh sửa văn bản
-                          </Typography>
-                        </Box>
-                      </Box>
-                      <Box display={"flex"} alignItems={"center"} gap={"10px"}>
+                        px={{ xs: "5px", md: "30px" }}>
                         <Box
-                          borderRadius={"16px"}
                           display={"flex"}
                           alignItems={"center"}
-                          p={"8px"}
-                          width={"max-content"}
-                          border={"1px solid #dddddd"}>
-                          <RiVolumeMuteLine />
-                        </Box>
-                        <Box
-                          borderRadius={"16px"}
-                          display={"flex"}
-                          alignItems={"center"}
-                          p={"3px 5px"}
-                          width={"max-content"}
-                          border={"1px solid #dddddd"}>
-                          <Box
-                            bgcolor={"white"}
-                            display={"flex"}
-                            alignItems={"center"}
-                            gap={"8px"}>
-                            <img
-                              src={images[item.voice]}
-                              width={18}
-                              style={{ borderRadius: "50%" }}
-                              height={18}
-                            />
-                            <Typography sx={{ textTransform: "capitalize" }}>
-                              {item.voice}
+                          gap={"10px"}>
+                          <Box sx={{ display: { xs: "none", md: "block" } }}>
+                            <Typography
+                              fontSize={"1rem"}
+                              color='grey_500.main'
+                              fontWeight={"500"}>
+                              {item.name}
+                            </Typography>
+                            <Typography
+                              fontSize={".9rem"}
+                              color='grey_500.main'>
+                              Nhấp chuột để chỉnh sửa văn bản
                             </Typography>
                           </Box>
                         </Box>
                         <Box
-                          borderRadius={"16px"}
                           display={"flex"}
                           alignItems={"center"}
-                          p={"8px"}
-                          width={"max-content"}
-                          border={"1px solid #dddddd"}>
-                          <RiSpeedUpLine />
-                        </Box>
-                        <Box>
-                          <RiFileCopyLine
-                            onClick={() => themKhoiSau(item.id)}
-                            size={"20"}
-                          />
-                          <RiDeleteBin6Line
-                            onClick={() => xoaKhoi(item.id)}
-                            size={"20"}
-                          />
+                          gap={"10px"}>
+                          <Box
+                            borderRadius={"16px"}
+                            display={"flex"}
+                            alignItems={"center"}
+                            p={"8px"}
+                            width={"max-content"}
+                            border={"1px solid #dddddd"}>
+                            <RiVolumeMuteLine />
+                          </Box>
+                          <Box
+                            borderRadius={"16px"}
+                            display={"flex"}
+                            alignItems={"center"}
+                            p={"3px 5px"}
+                            width={"max-content"}
+                            border={"1px solid #dddddd"}>
+                            <Box
+                              bgcolor={"white"}
+                              display={"flex"}
+                              alignItems={"center"}
+                              gap={"8px"}>
+                              <img
+                                src={images[item.voice]}
+                                width={18}
+                                style={{ borderRadius: "50%" }}
+                                height={18}
+                              />
+                              <Typography sx={{ textTransform: "capitalize" }}>
+                                {item.voice}
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <Box
+                            borderRadius={"16px"}
+                            display={"flex"}
+                            alignItems={"center"}
+                            p={"8px"}
+                            width={"max-content"}
+                            border={"1px solid #dddddd"}>
+                            <RiSpeedUpLine />
+                          </Box>
+                          <Box display={"flex"} gap={"5px"}>
+                            <RiFileCopyLine
+                              onClick={() => themKhoiSau(item.id)}
+                              size={"20"}
+                            />
+                            <RiDeleteBin6Line
+                              onClick={() => xoaKhoi(item.id)}
+                              size={"20"}
+                            />
+                          </Box>
                         </Box>
                       </Box>
                     </Box>
@@ -614,8 +635,9 @@ const StoryMakerView = ({
               display: "flex",
               justifyContent: "space-between",
               cursor: "pointer",
+              overflowX: { xs: "scroll", md: "unset" },
             }}>
-            <Box p={"5px"} display={"flex"} gap={"15px"}>
+            <Box p={"5px"} display={"flex"} gap={{ xs: "8px", md: "15px" }}>
               <Box
                 onClick={() => chonTatCa()}
                 padding={"8px"}
@@ -725,8 +747,8 @@ const StoryMakerView = ({
         maxWidth='md' // Đặt maxWidth lớn nhất để có thể sử dụng toàn bộ chiều rộng
         PaperProps={{
           sx: {
-            width: "50%", // Chiều rộng 100%
-            maxWidth: "50%",
+            width: { xs: "100%", md: "50%" }, // Chiều rộng 100%
+            maxWidth: { xs: "100%", md: "50%" },
             ".css-kw13he-MuiDialogContent-root": {
               padding: { xs: "0" },
             },

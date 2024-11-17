@@ -165,7 +165,9 @@ const VocalizeView = ({
                   />
                 </svg>
 
-                <Typography fontSize={".9rem"} fontWeight={"500"}>
+                <Typography
+                  fontSize={{ xs: ".7rem", md: ".9rem" }}
+                  fontWeight={"500"}>
                   Văn bản nhập vào
                 </Typography>
               </Box>
@@ -187,7 +189,9 @@ const VocalizeView = ({
                 }}>
                 <RiWechatFill />
 
-                <Typography fontSize={".9rem"} fontWeight={"500"}>
+                <Typography
+                  fontSize={{ xs: ".7rem", md: ".9rem" }}
+                  fontWeight={"500"}>
                   Câu chuyện
                 </Typography>
               </Box>
@@ -208,7 +212,9 @@ const VocalizeView = ({
                 }}>
                 <RiFileTextLine />
 
-                <Typography fontSize={".9rem"} fontWeight={"500"}>
+                <Typography
+                  fontSize={{ xs: ".7rem", md: ".9rem" }}
+                  fontWeight={"500"}>
                   Tài liệu
                 </Typography>
               </Box>
