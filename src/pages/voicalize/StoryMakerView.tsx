@@ -197,7 +197,7 @@ const StoryMakerView = ({
               variant='outlined'
               color='success'
               sx={{
-                fontSize: { xs: "10px", md: "15px" },
+                fontSize: { xs: "13px", md: "15px" },
                 minWidth: { xs: "87px", md: "64px" },
                 padding: { xs: "6px 8px", md: "6px 16px" },
                 borderColor: theme.palette.active.main,
