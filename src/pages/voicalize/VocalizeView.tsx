@@ -638,33 +638,35 @@ const VocalizeView = ({
         sx={{
           display: { xs: "block", md: "none" },
           position: "fixed",
-          bottom: "-20px",
+          bottom: tab == "story_maker" ? "10%" : "-20px",
           left: "0px",
           width: "100%",
         }}>
-        <Box display={"flex"} bgcolor={"white"} sx={{ px: "20px" }}>
-          <Box
-            width={"50%"}
-            sx={{ borderTopLeftRadius: "25px" }}
-            border={"1px solid #dddddd"}>
-            <Box
-              padding={"5px 0px"}
-              width={"100%"}
-              sx={{
-                ".css-918vr5-MuiStack-root": {
-                  transform: "rotate(180deg)",
-                },
-                ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
-                  {
-                    padding: "0 10px !important",
-                  },
-                ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
-                  width: "45px",
-                },
-              }}>
-              <InputSlider setValue={setSpeed} value={speed} label={true} />
-            </Box>
-            {/* <Box width={"100%"} sx={{ border: "2px solid #dddddd" }}>
+        {tab == "input_text" && (
+          <Box>
+            <Box display={"flex"} bgcolor={"white"} sx={{ px: "20px" }}>
+              <Box
+                width={"50%"}
+                sx={{ borderTopLeftRadius: "25px" }}
+                border={"1px solid #dddddd"}>
+                <Box
+                  padding={"5px 0px"}
+                  width={"100%"}
+                  sx={{
+                    ".css-918vr5-MuiStack-root": {
+                      transform: "rotate(180deg)",
+                    },
+                    ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
+                      {
+                        padding: "0 10px !important",
+                      },
+                    ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
+                      width: "45px",
+                    },
+                  }}>
+                  <InputSlider setValue={setSpeed} value={speed} label={true} />
+                </Box>
+                {/* <Box width={"100%"} sx={{ border: "2px solid #dddddd" }}>
               <Box
                 sx={{
                   "MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-kvalmi-MuiPaper-root-MuiPopover-paper":
@@ -711,82 +713,145 @@ const VocalizeView = ({
                 </Popover>
               </Box>
             </Box> */}
-          </Box>
-          <Box
-            width={"47%"}
-            border={"1px solid #dddddd"}
-            onClick={handleClickOpenAuthor}
-            padding={"5px"}
-            sx={{
-              borderBottomRightRadius: "25px",
-            }}>
+              </Box>
+              <Box
+                width={"47%"}
+                border={"1px solid #dddddd"}
+                onClick={handleClickOpenAuthor}
+                padding={"5px"}
+                sx={{
+                  borderBottomRightRadius: "25px",
+                }}>
+                <Box
+                  display={"flex"}
+                  justifyContent={"end"}
+                  height={"100%"}
+                  alignItems={"center"}>
+                  <Box>
+                    <Typography fontWeight={"500"}>{voice.name}</Typography>
+                    <Typography fontSize={".9rem"}>Chất lượng cao</Typography>
+                  </Box>
+                  <img
+                    src={images[voice.id]}
+                    width={40}
+                    style={{ borderRadius: "50%" }}
+                    alt=''
+                  />
+                </Box>
+              </Box>
+            </Box>
             <Box
               display={"flex"}
-              justifyContent={"end"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              gap={"20%"}
+              width={"100%"}
               height={"100%"}
-              alignItems={"center"}>
-              <Box>
-                <Typography fontWeight={"500"}>{voice.name}</Typography>
-                <Typography fontSize={".9rem"}>Chất lượng cao</Typography>
-              </Box>
-              <img
-                src={images[voice.id]}
-                width={40}
-                style={{ borderRadius: "50%" }}
-                alt=''
-              />
-            </Box>
-          </Box>
-        </Box>
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          gap={"20%"}
-          width={"100%"}
-          height={"100%"}
-          sx={{
-            ".css-918vr5-MuiStack-root": {
-              transform: "rotate(180deg)",
-            },
-
-            ".css-lp854l-MuiFormControl-root-MuiTextField-root": {},
-            position: "relative",
-            top: "-90px",
-            left: "0",
-            borderRadius: "50%",
-          }}>
-          <Box display={"flex"} justifyContent={"center"}>
-            <Box
-              width={"max-content"}
-              onClick={handleCreateVoice}
               sx={{
-                p: "2px 5px",
+                ".css-918vr5-MuiStack-root": {
+                  transform: "rotate(180deg)",
+                },
+
+                ".css-lp854l-MuiFormControl-root-MuiTextField-root": {},
+                position: "relative",
+                top: "-90px",
+                left: "0",
                 borderRadius: "50%",
-                pointerEvents: textVoice.length ? "auto" : "none",
-                opacity: textVoice.length ? "1" : ".5",
-              }}
-              bgcolor={theme.palette.active.main}
-              border={"2px solid #dddddd"}>
-              <svg
-                data-v-fa4d36aa=''
-                xmlns='http://www.w3.org/2000/svg'
-                xmlnsXlink='http://www.w3.org/1999/xlink'
-                aria-hidden='true'
-                role='img'
-                className='icon flex-shrink-0 w-14 h-14 md:w-6 md:h-6'
-                width='1em'
-                style={{ color: "white", fontSize: "40px", marginTop: "5px" }}
-                height='1em'
-                viewBox='0 0 24 24'>
-                <path
-                  fill='currentColor'
-                  d='M4.929 19.071A9.97 9.97 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10H2zM11 6v12h2V6zM7 9v6h2V9zm8 0v6h2V9z'
-                />
-              </svg>
+              }}>
+              <Box display={"flex"} justifyContent={"center"}>
+                <Box
+                  width={"max-content"}
+                  onClick={handleCreateVoice}
+                  sx={{
+                    p: "2px 5px",
+                    borderRadius: "50%",
+                    pointerEvents: textVoice.length ? "auto" : "none",
+                    opacity: textVoice.length ? "1" : ".5",
+                  }}
+                  bgcolor={theme.palette.active.main}
+                  border={"2px solid #dddddd"}>
+                  <svg
+                    data-v-fa4d36aa=''
+                    xmlns='http://www.w3.org/2000/svg'
+                    xmlnsXlink='http://www.w3.org/1999/xlink'
+                    aria-hidden='true'
+                    role='img'
+                    className='icon flex-shrink-0 w-14 h-14 md:w-6 md:h-6'
+                    width='1em'
+                    style={{
+                      color: "white",
+                      fontSize: "40px",
+                      marginTop: "5px",
+                    }}
+                    height='1em'
+                    viewBox='0 0 24 24'>
+                    <path
+                      fill='currentColor'
+                      d='M4.929 19.071A9.97 9.97 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10H2zM11 6v12h2V6zM7 9v6h2V9zm8 0v6h2V9z'
+                    />
+                  </svg>
+                </Box>
+              </Box>
             </Box>
           </Box>
-        </Box>
+        )}
+        {tab == "story_maker" && (
+          <Box px={"20px"}>
+            <Box
+              onClick={handleStoryMaker}
+              border={"2px solid #dddddd"}
+              bgcolor={theme.palette.active.main}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              sx={{
+                pointerEvents:
+                  block.length > 0 && max_length.length <= 3000
+                    ? "auto"
+                    : "none",
+                opacity:
+                  block.length > 0 && max_length.length <= 3000 ? "1" : ".5",
+                borderRadius: "10px",
+                cursor: "pointer",
+                ".css-918vr5-MuiStack-root": {
+                  transform: "rotate(180deg)",
+                },
+                ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
+                  {
+                    padding: "0 10px",
+                  },
+                ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
+                  width: "45px",
+                },
+              }}>
+              <Typography fontSize={"1rem"} fontWeight={"bold"} color='white'>
+                Tạo câu chuyện
+              </Typography>
+              <Box>
+                <svg
+                  data-v-fa4d36aa=''
+                  xmlns='http://www.w3.org/2000/svg'
+                  xmlnsXlink='http://www.w3.org/1999/xlink'
+                  aria-hidden='true'
+                  role='img'
+                  className='icon flex-shrink-0 w-14 h-14 md:w-6 md:h-6'
+                  width='1em'
+                  style={{
+                    color: "white",
+                    fontSize: "30px",
+                    marginTop: "5px",
+                  }}
+                  height='1em'
+                  viewBox='0 0 24 24'>
+                  <path
+                    fill='currentColor'
+                    d='M4.929 19.071A9.97 9.97 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10H2zM11 6v12h2V6zM7 9v6h2V9zm8 0v6h2V9z'
+                  />
+                </svg>
+              </Box>
+            </Box>
+          </Box>
+        )}
       </Box>
 
       <Dialog
