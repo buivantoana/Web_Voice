@@ -58,13 +58,26 @@ const SignUpController = (props: Props) => {
           );
           localStorage.setItem("user", JSON.stringify(data.data.user));
           let tts_text = localStorage.getItem("tts_text");
-          context.dispatch({
-            type: "TTS_TEXT",
-            payload: {
-              ...context.state,
-              tts_text: tts_text,
-            },
-          });
+          let tts_story = localStorage.getItem("tts_story");
+          if (tts_text) {
+            context.dispatch({
+              type: "TTS_TEXT",
+              payload: {
+                ...context.state,
+                tts_text: tts_text,
+              },
+            });
+          }
+          if (tts_story) {
+            context.dispatch({
+              type: "TTS_STORY",
+              payload: {
+                ...context.state,
+                tts_story: JSON.parse(tts_story),
+              },
+            });
+          }
+
           context.dispatch({
             type: "LOGIN",
             payload: {
@@ -74,6 +87,7 @@ const SignUpController = (props: Props) => {
           });
           setTimeout(() => {
             localStorage.removeItem("tts_text");
+            localStorage.removeItem("tts_story");
             navigate("/");
             setLoading(false);
           }, 1000);

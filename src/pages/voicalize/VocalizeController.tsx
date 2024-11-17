@@ -54,6 +54,12 @@ const VocalizeController = (props: Props) => {
     if (context.state.tts_text) {
       setTextVoice(context.state.tts_text);
     }
+    if (context.state.tts_story) {
+      setBlock(context.state.tts_story);
+      setTab("story_maker");
+      arr = context.state.tts_story;
+      setHidden(true);
+    }
     loadVoicesOpenai();
   }, []);
   const loadVoicesOpenai = async () => {
@@ -170,7 +176,8 @@ const VocalizeController = (props: Props) => {
           toast.warning(data.msg);
         }
       } else {
-        toast.warning("Bạn cần đăng nhập để sử dụng.");
+        localStorage.setItem("tts_story", JSON.stringify(block));
+        navigate("/signin");
       }
     } catch (error) {
       console.log(error);
