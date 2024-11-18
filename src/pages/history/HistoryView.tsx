@@ -252,7 +252,6 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                     overflow: "auto", // Để có thể cuộn
                                     scrollbarWidth: "none", // Ẩn thanh cuộn cho Firefox
                                     msOverflowStyle: "none", // Ẩn thanh cuộn cho Internet Explorer và Edge
-                                    height: "35px !important",
                                   },
                                   "& .MuiFormControl-root": {
                                     // Đặt chiều cao tối thiểu cho TextField

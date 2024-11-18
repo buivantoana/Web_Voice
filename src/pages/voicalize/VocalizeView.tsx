@@ -328,16 +328,12 @@ const VocalizeView = ({
           <Box
             mt={"10px"}
             display={"flex"}
-            justifyContent={
-              tab == "story_maker" || tab == "document"
-                ? "center"
-                : "space-between"
-            }
+            justifyContent={tab == "story_maker" ? "center" : "space-between"}
             alignItems={"center"}
             width={"100%"}
             sx={{ cursor: "pointer" }}
             height={"45px"}>
-            {tab == "input_text" && (
+            {(tab == "input_text" || tab == "document") && (
               <Box
                 height={"100%"}
                 width={"48%"}
@@ -577,7 +573,8 @@ const VocalizeView = ({
                 sx={{
                   pointerEvents: file ? "auto" : "none",
                   opacity: file ? "1" : ".5",
-                  borderRadius: "8px",
+                  borderTopRightRadius: "25px",
+                  borderBottomRightRadius: "25px",
                   cursor: "pointer",
                   ".css-918vr5-MuiStack-root": {
                     transform: "rotate(180deg)",

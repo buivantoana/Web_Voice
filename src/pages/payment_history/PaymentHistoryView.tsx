@@ -48,6 +48,8 @@ const PaymentHistoryView = ({ history, loadingHistory }: Props) => {
                 padding: 0,
               },
               position: "relation",
+              maxHeight: "65vh",
+              overflowY: "scroll",
             }}>
             {!loadingHistory ? (
               <>

@@ -91,14 +91,6 @@ const DocumentView = ({ file, handleFileChange, handleFileRemove }: Props) => {
         <Box ml={"5%"}>
           <ul>
             <li>
-              <Typography
-                fontSize={{ xs: ".8rem", md: "1rem" }}
-                sx={{ listStyle: "outside" }}>
-                Bạn sẽ nhận được một email với một liên kết để tải xuống tệp
-                tin.
-              </Typography>
-            </li>
-            <li>
               <Typography fontSize={{ xs: ".8rem", md: "1rem" }}>
                 Hoặc bạn có thể tải tệp trực tiếp từ Lịch sử.
               </Typography>
