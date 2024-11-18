@@ -198,12 +198,7 @@ const VocalizeController = (props: Props) => {
         formData.append("voice", voice.id); // Thêm voice
         formData.append("speed", speed); // Thêm speed
         formData.append("file", file);
-        let data = await createVoice({
-          user_id: context.state.user.user_id,
-          txt: textVoice,
-          speed: speed,
-          voice: voice.id,
-        });
+        let data = await createVoice(formData);
         if (data.code == 0) {
           setBase64Voice(data.voice_base64);
           setIsOpen(true);
