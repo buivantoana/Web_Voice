@@ -1,13 +1,23 @@
 import axios from "axios";
 import { url_voice } from "../config";
 
-export async function createVoice(body: any) {
+export async function createVoice(body: any, isFormData: boolean = false) {
   try {
-    const response = await axios.post(`${url_voice}/voice/process`, body, {
-      headers: {
-        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-      },
-    });
+    const headers = {
+      Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+    };
+    const response = await axios.post(
+      `${url_voice}/voice/process`,
+      body,
+      isFormData
+        ? { headers } // FormData không cần Content-Type, Axios tự thêm
+        : {
+            headers: {
+              ...headers,
+              "Content-Type": "application/json", // JSON body cần Content-Type
+            },
+          }
+    );
     return response.data;
   } catch (error: any) {
     console.error("Error fetching data:", error.message);
