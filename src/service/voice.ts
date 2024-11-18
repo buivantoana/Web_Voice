@@ -1,12 +1,7 @@
 import axios from "axios";
 import { url_voice } from "../config";
 
-export async function createVoice(body: {
-  user_id: string;
-  txt: string;
-  voice: string;
-  speed: number;
-}) {
+export async function createVoice(body: any) {
   try {
     const response = await axios.post(`${url_voice}/voice/process`, body, {
       headers: {

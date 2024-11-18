@@ -74,6 +74,9 @@ type Props = {
   setHidden: any;
   hidden: any;
   arr: any;
+  handleCreateVoiceDocument: any;
+  setFile: any;
+  file: any;
 };
 const VocalizeView = ({
   textVoice,
@@ -106,7 +109,9 @@ const VocalizeView = ({
   setTab,
   setHidden,
   hidden,
-  arr,
+  handleCreateVoiceDocument,
+  file,
+  setFile,
 }: Props) => {
   const theme: any = useTheme();
   let max_length = "";
@@ -287,7 +292,9 @@ const VocalizeView = ({
               setHidden={setHidden}
             />
           )}
-          {tab == "document" && <DocumentController />}
+          {tab == "document" && (
+            <DocumentController setFile={setFile} file={file} />
+          )}
           {textVoice.length > 0 && (
             <Box
               sx={{
@@ -321,7 +328,11 @@ const VocalizeView = ({
           <Box
             mt={"10px"}
             display={"flex"}
-            justifyContent={tab == "story_maker" ? "center" : "space-between"}
+            justifyContent={
+              tab == "story_maker" || tab == "document"
+                ? "center"
+                : "space-between"
+            }
             alignItems={"center"}
             width={"100%"}
             sx={{ cursor: "pointer" }}
@@ -527,6 +538,63 @@ const VocalizeView = ({
                 }}>
                 <Typography fontSize={"1rem"} fontWeight={"bold"} color='white'>
                   Tạo câu chuyện
+                </Typography>
+                <Box>
+                  <svg
+                    data-v-fa4d36aa=''
+                    xmlns='http://www.w3.org/2000/svg'
+                    xmlnsXlink='http://www.w3.org/1999/xlink'
+                    aria-hidden='true'
+                    role='img'
+                    className='icon flex-shrink-0 w-14 h-14 md:w-6 md:h-6'
+                    width='1em'
+                    style={{
+                      color: "white",
+                      fontSize: "30px",
+                      marginTop: "5px",
+                    }}
+                    height='1em'
+                    viewBox='0 0 24 24'>
+                    <path
+                      fill='currentColor'
+                      d='M4.929 19.071A9.97 9.97 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10H2zM11 6v12h2V6zM7 9v6h2V9zm8 0v6h2V9z'
+                    />
+                  </svg>
+                </Box>
+              </Box>
+            )}
+            {tab == "document" && (
+              <Box
+                width={"48%"}
+                onClick={handleCreateVoiceDocument}
+                border={"2px solid #dddddd"}
+                bgcolor={theme.palette.active.main}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                gap={"20%"}
+                height={"100%"}
+                sx={{
+                  pointerEvents: file ? "auto" : "none",
+                  opacity: file ? "1" : ".5",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  ".css-918vr5-MuiStack-root": {
+                    transform: "rotate(180deg)",
+                  },
+                  ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
+                    {
+                      padding: "0 10px",
+                    },
+                  ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
+                    width: "45px",
+                  },
+                }}>
+                <Typography
+                  fontSize={".9rem"}
+                  fontWeight={"bold"}
+                  color='white'>
+                  Tạo tiếng nói
                 </Typography>
                 <Box>
                   <svg
@@ -853,6 +921,159 @@ const VocalizeView = ({
                     d='M4.929 19.071A9.97 9.97 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10H2zM11 6v12h2V6zM7 9v6h2V9zm8 0v6h2V9z'
                   />
                 </svg>
+              </Box>
+            </Box>
+          </Box>
+        )}
+        {tab == "document" && (
+          <Box>
+            <Box display={"flex"} bgcolor={"white"} sx={{ px: "20px" }}>
+              <Box
+                width={"50%"}
+                sx={{ borderTopLeftRadius: "25px" }}
+                border={"1px solid #dddddd"}>
+                <Box
+                  padding={"5px 0px"}
+                  width={"100%"}
+                  sx={{
+                    ".css-918vr5-MuiStack-root": {
+                      transform: "rotate(180deg)",
+                    },
+                    ".css-lp854l-MuiFormControl-root-MuiTextField-root input[type=number]":
+                      {
+                        padding: "0 10px !important",
+                      },
+                    ".css-lp854l-MuiFormControl-root-MuiTextField-root": {
+                      width: "45px",
+                    },
+                  }}>
+                  <InputSlider setValue={setSpeed} value={speed} label={true} />
+                </Box>
+                {/* <Box width={"100%"} sx={{ border: "2px solid #dddddd" }}>
+              <Box
+                sx={{
+                  "MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-kvalmi-MuiPaper-root-MuiPopover-paper":
+                    {
+                      padding: "5px",
+                    },
+                  height: "100%",
+                }}>
+                <Box
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "10px",
+                  }}
+                  aria-describedby={idQuality}
+                  onClick={handleClickQuality}>
+                  <RiHqLine size={20} />
+                  <Typography fontSize={"1rem"}>Chất lượng cao</Typography>
+                  <RiArrowDownSLine size={20} />
+                </Box>
+
+                <Popover
+                  id={idQuality}
+                  open={openQuality}
+                  anchorEl={anchorElQuality}
+                  onClose={handleCloseQuality}
+                  sx={{ p: "5px" }}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}>
+                  <Typography sx={{ padding: "10px 8px", width: "180px" }}>
+                    Chất lượng cao
+                  </Typography>
+                  <Typography sx={{ padding: "10px 8px", width: "180px" }}>
+                    Chất lượng HD
+                  </Typography>
+                </Popover>
+              </Box>
+            </Box> */}
+              </Box>
+              <Box
+                width={"47%"}
+                border={"1px solid #dddddd"}
+                onClick={handleClickOpenAuthor}
+                padding={"5px"}
+                sx={{
+                  borderBottomRightRadius: "25px",
+                }}>
+                <Box
+                  display={"flex"}
+                  justifyContent={"end"}
+                  height={"100%"}
+                  alignItems={"center"}>
+                  <Box>
+                    <Typography fontWeight={"500"}>{voice.name}</Typography>
+                    <Typography fontSize={".9rem"}>Chất lượng cao</Typography>
+                  </Box>
+                  <img
+                    src={images[voice.id]}
+                    width={40}
+                    style={{ borderRadius: "50%" }}
+                    alt=''
+                  />
+                </Box>
+              </Box>
+            </Box>
+            <Box
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              gap={"20%"}
+              width={"100%"}
+              height={"100%"}
+              sx={{
+                ".css-918vr5-MuiStack-root": {
+                  transform: "rotate(180deg)",
+                },
+
+                ".css-lp854l-MuiFormControl-root-MuiTextField-root": {},
+                position: "relative",
+                top: "-90px",
+                left: "0",
+                borderRadius: "50%",
+              }}>
+              <Box display={"flex"} justifyContent={"center"}>
+                <Box
+                  width={"max-content"}
+                  onClick={handleCreateVoiceDocument}
+                  sx={{
+                    p: "2px 5px",
+                    borderRadius: "50%",
+                    pointerEvents: file ? "auto" : "none",
+                    opacity: file ? "1" : ".5",
+                  }}
+                  bgcolor={theme.palette.active.main}
+                  border={"2px solid #dddddd"}>
+                  <svg
+                    data-v-fa4d36aa=''
+                    xmlns='http://www.w3.org/2000/svg'
+                    xmlnsXlink='http://www.w3.org/1999/xlink'
+                    aria-hidden='true'
+                    role='img'
+                    className='icon flex-shrink-0 w-14 h-14 md:w-6 md:h-6'
+                    width='1em'
+                    style={{
+                      color: "white",
+                      fontSize: "40px",
+                      marginTop: "5px",
+                    }}
+                    height='1em'
+                    viewBox='0 0 24 24'>
+                    <path
+                      fill='currentColor'
+                      d='M4.929 19.071A9.97 9.97 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10H2zM11 6v12h2V6zM7 9v6h2V9zm8 0v6h2V9z'
+                    />
+                  </svg>
+                </Box>
               </Box>
             </Box>
           </Box>

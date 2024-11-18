@@ -17,7 +17,7 @@ let arr: any = [];
 const VocalizeController = (props: Props) => {
   const [textVoice, setTextVoice] = useState("");
   const [loading, setLoading] = useState(false);
-  const [speed, setSpeed] = useState(2);
+  const [speed, setSpeed] = useState<any>(2);
   const [selectedQuality, setSelectedQuality] = useState("Chất lượng cao");
   const [anchorElQuality, setAnchorElQuality] = useState(null);
   const [base64Voice, setBase64Voice] = useState("");
@@ -32,6 +32,7 @@ const VocalizeController = (props: Props) => {
   const [hidden, setHidden] = useState(false);
   const context: any = useCoursesContext();
   const navigate: any = useNavigate();
+  const [file, setFile] = useState<any>(null);
   const [tab, setTab] = useState("input_text");
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
@@ -185,6 +186,48 @@ const VocalizeController = (props: Props) => {
     setLoading(false);
   };
   console.log("AAA context voice====", block);
+  const handleCreateVoiceDocument = async () => {
+    setLoading(true);
+    try {
+      if (
+        Object.keys(context.state.user).length > 0 &&
+        context.state.user.user_id
+      ) {
+        const formData = new FormData();
+        formData.append("user_id", context.state.user.user_id); // Thêm user_id
+        formData.append("voice", voice.id); // Thêm voice
+        formData.append("speed", speed); // Thêm speed
+        formData.append("file", file);
+        let data = await createVoice({
+          user_id: context.state.user.user_id,
+          txt: textVoice,
+          speed: speed,
+          voice: voice.id,
+        });
+        if (data.code == 0) {
+          setBase64Voice(data.voice_base64);
+          setIsOpen(true);
+          let infor = await getInfo({ user_id: context.state.user.phone });
+          if (infor.code == 0) {
+            context.dispatch({
+              type: "LOGIN",
+              payload: {
+                ...context.state,
+                user: { ...context.state.user, ...infor.data },
+              },
+            });
+          }
+        } else {
+          toast.warning(data.msg);
+        }
+      } else {
+        toast.warning("Bạn vui lòng đăng nhập để sử dụng.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
   return (
     <>
       {loading && <Loading />}
@@ -225,6 +268,9 @@ const VocalizeController = (props: Props) => {
         setHidden={setHidden}
         hidden={hidden}
         arr={arr}
+        handleCreateVoiceDocument={handleCreateVoiceDocument}
+        setFile={setFile}
+        file={file}
       />
     </>
   );
