@@ -219,7 +219,12 @@ const SignUpView = ({
               onChange={handleChangeOtp}
               numInputs={4}
               renderInput={(props: any) => (
-                <input className='hidden-plus' {...props} type='number' />
+                <input
+                  className='hidden-plus'
+                  {...props}
+                  type='number'
+                  inputMode='numeric'
+                />
               )}
             />
             <Button
