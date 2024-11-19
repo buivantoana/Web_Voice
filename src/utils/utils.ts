@@ -1,4 +1,4 @@
-import { parseISO, format } from "date-fns";
+
 import CryptoJS from "crypto-js";
 
 // Hàm sắp xếp object theo thứ tự key tăng dần
@@ -25,12 +25,6 @@ export function createSimpleHash(body: any) {
   return hash;
 }
 
-export function formatDate(isoString: any) {
-  // Chuyển đổi ISO string thành đối tượng Date
-  const date = parseISO(isoString);
-  // Định dạng lại ngày theo định dạng mong muốn, ví dụ: dd/MM/yyyy HH:mm:ss
-  return format(date, "dd/MM/yyyy HH:mm:ss");
-}
 export function limitDescription(description: any, maxLength: any) {
   if (description.length <= maxLength) {
     return description;

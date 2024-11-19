@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SignUpView from "./SignUpView";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getOtp, signIn, signup, signupWebHook } from "../../service/auth";
+import { getOtp, signIn, signup, signupWebHook, verify } from "../../service/auth";
 import Loading from "../../components/Loading";
 import { toast } from "react-toastify";
 import { useLocalStorage } from "../../hooks/useStorage";
@@ -94,7 +94,7 @@ const SignUpController = (props: Props) => {
         }
       }
       if (data.code == 1004) {
-        toast.warning(data.message);
+        toast.warning("Cập nhật thông tin tài khoản.");
         setLoading(false);
       }
       if (data.code == 1004) {
@@ -108,9 +108,15 @@ const SignUpController = (props: Props) => {
     console.log(data);
     setLoading(true);
     try {
-      let data = await getOtp(phone);
-      if (data.code == 0) {
-        handleClickOpenOtp();
+      let verify_phone = await verify({phone:phone})
+      if(verify_phone.code == 0){
+        let data = await getOtp(phone);
+        if (data.code == 0) {
+          handleClickOpenOtp();
+        }
+      }
+      if(verify_phone.code == 1000){
+        toast.warning("Số điện thoại đã được sử dụng hoặc không hợp lệ.")
       }
     } catch (error) {
       console.log(error);

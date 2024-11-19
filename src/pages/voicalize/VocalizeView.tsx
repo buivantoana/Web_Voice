@@ -315,7 +315,9 @@ const VocalizeView = ({
           )}
         </Box>
         <Box
-          display={{ xs: "none", md: "unset" }}
+          display={{ xs: "none", md: "flex" }}
+          flexDirection={"column"}
+          justifyContent={"space-between"}
           height={{ xs: "50vh", md: "75vh" }}
           width={{ xs: "100%", md: "49%" }}>
           <Box height={"90%"} sx={{ position: "relative" }}>

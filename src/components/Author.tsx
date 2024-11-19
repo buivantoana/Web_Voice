@@ -190,13 +190,13 @@ const Author = ({ data, setVoice, voice }: Props) => {
   };
   console.log(SelectedGender);
   return (
-    <div>
+   
       <Box
         border={"1px solid #dddddd"}
         sx={{ cursor: "pointer" }}
         height={"100%"}
         borderRadius={"8px"}>
-        <Box p={"5px 10px"}>
+        <Box  p={"5px 10px"}>
           <Box
             sx={{
               padding: "4px",
@@ -549,7 +549,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
             Open voice
           </Typography>
         </Box>
-        <Box height={"50vh"}>
+        <Box height={"53vh"}>
           <Box
             sx={{ overflowY: "scroll" }}
             className='list-scroll'
@@ -702,7 +702,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
           </Box>
         </Box>
       </Box>
-    </div>
+    
   );
 };
 
