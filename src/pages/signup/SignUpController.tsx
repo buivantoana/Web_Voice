@@ -105,20 +105,22 @@ const SignUpController = (props: Props) => {
     }
   };
   const handleOTP = async (data: any) => {
-    console.log(data);
-    setLoading(true);
-    try {
-      let data = await getOtp(phone);
-      if (data.code == 0) {
-        handleClickOpenOtp();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
+    handleClickOpenOtp();
+    // console.log(data);
+    // setLoading(true);
+    // try {
+    //   let data = await getOtp(phone);
+    //   if (data.code == 0) {
+    //     handleClickOpenOtp();
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // setLoading(false);
   };
 
   const handleChangeOtp = (otpValue: any) => {
+    console.log(otpValue);
     setOtp(otpValue);
   };
   const handleRegister = async () => {
