@@ -100,7 +100,7 @@ const BuyCreditController = () => {
               src={`https://qr.limcorp.vn/qrcode.png?bank=970422&number=99192886868&amount=${
                 2000
                 // amount < 1 ? amount * 1000000 : amount * 1000000
-              }&content=TTS ${codePayment}`}
+                }&content=TTS ${codePayment}`}
               alt='QR Code'
               width='300px'
               height='100%'
