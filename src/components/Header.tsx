@@ -193,7 +193,7 @@ const Header = () => {
           sx={{ cursor: "pointer" }}>
           <Box>
             <Box aria-describedby={id} onClick={handleClick}>
-              {i18n.language === "vi" && (
+              {(i18n.language === "vi" || i18n.language === "vi-VN") && (
                 <img
                   src={vn}
                   width={25}

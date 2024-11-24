@@ -1,6 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" },
-    { "source": "/locales/:path*", "destination": "/locales/:path*" }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
