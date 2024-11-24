@@ -8,12 +8,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
 import CustomTextField from "../../components/CustomTextField";
+import { useTranslation } from "react-i18next";
 type Props = {
   handleTikTokAuthorizeLink: any;
 };
 
 const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
   const theme: any = useTheme();
+  const { t, i18n } = useTranslation();
   return (
     <Box
       sx={{
@@ -61,7 +63,7 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
           <RiArrowLeftLine />
 
           <Typography color='black' fontWeight={"500"}>
-            Quay về trang chủ
+            {t("back_to_home")}
           </Typography>
         </Box>
       </Link>
@@ -118,7 +120,7 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
                 variant='h5'
                 fontSize={{ xs: "15px", md: "25px" }}
                 fontWeight={"bold"}>
-                Chào mừng quay trở lại
+                {t("welcome_back")}
               </Typography>
               {/* <Typography
                 sx={{ display: "flex", gap: "5px" }}
@@ -151,25 +153,48 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
                   width: "100%",
                 }}
                 startIcon={<RiTiktokFill />}>
-                Đăng nhập với tiktok
+                {t("sign_up")} với tiktok
               </Button>
-              <Typography
-                my={"10px"}
-                fontSize={".9rem"}
-                color='rgb(100 116 139)'
-                textAlign={"center"}>
-                Bằng cách đăng ký, bạn đồng ý với{" "}
-                <Link to={"/terms"}>
-                  <span
-                    style={{
-                      color: theme.palette.active.main,
-                      fontWeight: "bold",
-                    }}>
-                    Điều khoản Dịch vụ
-                  </span>{" "}
-                </Link>
-                của chúng tôi.
-              </Typography>
+
+              {i18n.language === "vi" && (
+                <Typography
+                  my={"10px"}
+                  fontSize={".9rem"}
+                  color='rgb(100 116 139)'
+                  textAlign={"center"}>
+                  Bằng cách đăng ký, bạn đồng ý với{" "}
+                  <Link to={"/terms"}>
+                    <span
+                      style={{
+                        color: theme.palette.active.main,
+                        fontWeight: "bold",
+                      }}>
+                      Điều khoản Dịch vụ
+                    </span>{" "}
+                  </Link>
+                  của chúng tôi.
+                </Typography>
+              )}
+
+              {i18n.language === "us" && (
+                <Typography
+                  my={"10px"}
+                  fontSize={".9rem"}
+                  color='rgb(100 116 139)'
+                  textAlign={"center"}>
+                  By signing in, you agree to our
+                  <Link to={"/terms"}>
+                    <span
+                      style={{
+                        color: theme.palette.active.main,
+                        fontWeight: "bold",
+                      }}>
+                      Terms of Service
+                    </span>
+                    .
+                  </Link>
+                </Typography>
+              )}
             </Box>
           </Box>
         </Box>

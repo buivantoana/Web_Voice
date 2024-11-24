@@ -16,6 +16,7 @@ import { RiPaypalFill } from "react-icons/ri";
 import LeftProfile from "../../components/LeftProfile";
 import Loading from "../../components/Loading";
 import { convertToVND } from "../../utils/utils";
+import { useTranslation } from "react-i18next";
 type Props = {
   history: any;
   loadingHistory: any;
@@ -23,6 +24,7 @@ type Props = {
 
 const PaymentHistoryView = ({ history, loadingHistory }: Props) => {
   const theme: any = useTheme();
+  const { t } = useTranslation();
   return (
     <Box padding={"2% 5%"}>
       <Box display={"flex"} justifyContent={"space-between"}>
@@ -38,7 +40,7 @@ const PaymentHistoryView = ({ history, loadingHistory }: Props) => {
               variant='h6'
               fontSize={{ xs: "1rem", md: "1.2rem" }}
               fontWeight={"500"}>
-              Lịch sử thanh toán
+              {t("history_pay")}
             </Typography>
           </Box>
           <Box
@@ -143,7 +145,7 @@ const PaymentHistoryView = ({ history, loadingHistory }: Props) => {
                     </>
                   ) : (
                     <Typography textAlign={"center"} color='grey_500.main'>
-                      Không tìm thấy lịch sử
+                      {t("no_history")}
                     </Typography>
                   )}
                 </Timeline>

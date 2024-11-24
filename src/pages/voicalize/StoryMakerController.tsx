@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import StoryMakerView from "./StoryMakerView";
 import { getVoicesOpenAi } from "../../service/voice";
 import { useCoursesContext } from "../../App";
+import { useTranslation } from "react-i18next";
 
 type Props = { setBlock: any; block: any; setHidden: any; hidden: any };
 let arr: any = [];
@@ -20,6 +21,7 @@ const StoryMakerController = ({
   const [openEditAll, setOpenEditAll] = React.useState(false);
   const [isEditAll, setIsEditAll] = React.useState(false);
   const context: any = useCoursesContext();
+ 
   const [dataEditAll, setDataEditAll] = React.useState({
     name: "",
     delay: 0,

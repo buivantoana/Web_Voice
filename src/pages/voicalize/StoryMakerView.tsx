@@ -36,6 +36,7 @@ import Author from "../../components/Author";
 import Loading from "../../components/Loading";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { useTranslation } from "react-i18next";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -137,6 +138,7 @@ const StoryMakerView = ({
   block.map((item: any) => {
     return (max_length += " " + item.text);
   });
+   const { t } = useTranslation();
   return (
     <Box
       width={"100%"}
@@ -175,14 +177,13 @@ const StoryMakerView = ({
           <Typography
             color='rgb(148 163 184)'
             fontSize={{ xs: "1rem", md: "1.4rem" }}>
-            Tạo câu chuyện đầu tiên của bạn
+            {t("story_title")}
           </Typography>
           <Typography
             color='rgb(148 163 184)'
             textAlign={"center"}
             fontSize={{ xs: ".7rem", md: "1rem" }}>
-            Bạn có thể tạo thủ công trên giao diện người dùng hoặc nhập từ một
-            tập tin
+            {t("story_desc")}
           </Typography>
           <Box
             width={"250px"}
@@ -204,7 +205,7 @@ const StoryMakerView = ({
                 color: theme.palette.active.main,
               }}
               startIcon={<RiAddFill />}>
-              Thêm cuộc trò chuyện
+              {t("add_conversation")}
             </Button>
             <Button
               component='label'
@@ -214,7 +215,7 @@ const StoryMakerView = ({
                 border: "1px solid #dddddd",
               }}
               startIcon={<CloudUploadIcon />}>
-              Nhập từ srt
+              {t("import_srt")}
               <VisuallyHiddenInput
                 type='file'
                 accept='.srt' // Chỉ chấp nhận file .srt
@@ -259,7 +260,10 @@ const StoryMakerView = ({
                             justifyContent={"space-between"}
                             color={"grey_500.main"}
                             alignItems={"center"}>
-                            <Typography fontWeight={"500"}>Tên khối</Typography>
+                            <Typography fontWeight={"500"}>
+                              {" "}
+                              {t("block")}
+                            </Typography>
                             <RiQuestionFill />
                           </Box>
                           <TextField
@@ -311,14 +315,17 @@ const StoryMakerView = ({
                             justifyContent={"space-between"}
                             color={"grey_500.main"}
                             alignItems={"center"}>
-                            <Typography fontWeight={"500"}>Văn bản</Typography>
+                            <Typography fontWeight={"500"}>
+                              {" "}
+                              {t("text")}
+                            </Typography>
                           </Box>
                           <Box
                             border={"1px solid #dddddd"}
                             borderRadius={"10px"}>
                             <Box position={"relative"}>
                               <TextField
-                                placeholder='Nhập văn bản bạn muốn chuyển đổi thành tiếng nói ở đây...'
+                                placeholder={t("input_text_desc")}
                                 multiline
                                 value={item.text}
                                 onChange={(e) => {
@@ -379,7 +386,7 @@ const StoryMakerView = ({
                                   <Typography
                                     fontWeight={"500"}
                                     color={"grey_500.main"}>
-                                    Trước im lặng
+                                    {t("silence_before")}
                                   </Typography>
                                   <TextField
                                     className='search-input'
@@ -440,7 +447,7 @@ const StoryMakerView = ({
                                   <Typography
                                     fontWeight={"500"}
                                     color={"grey_500.main"}>
-                                    Giọng nói
+                                    {t("voice")}
                                   </Typography>
                                   <Box
                                     bgcolor={"white"}
@@ -555,7 +562,7 @@ const StoryMakerView = ({
                             <Typography
                               fontSize={".9rem"}
                               color='grey_500.main'>
-                              Nhấp chuột để chỉnh sửa văn bản
+                              {t("edit_text")}
                             </Typography>
                           </Box>
                         </Box>
@@ -707,7 +714,7 @@ const StoryMakerView = ({
                 borderRadius={"5px"}
                 border={"1px solid #dddddd"}>
                 <RiDeleteBin6Line color='red' size={"20"} />
-                <Typography>Xóa tất cả</Typography>
+                <Typography> {t("delete_all")}</Typography>
               </Box>
             </Box>
           </Box>
@@ -763,7 +770,7 @@ const StoryMakerView = ({
             display={"flex"}
             onClick={handleCloseEditAll}
             justifyContent={"space-between"}>
-            <Typography variant='h6'>Cập nhật hàng loạt</Typography>
+            <Typography variant='h6'> {t("batch_update")}</Typography>
             <RiCloseLine size={25} />
           </Box>
         </DialogTitle>
@@ -790,7 +797,7 @@ const StoryMakerView = ({
                 justifyContent={"space-between"}
                 color={"grey_500.main"}
                 alignItems={"center"}>
-                <Typography fontWeight={"500"}>Tên khối</Typography>
+                <Typography fontWeight={"500"}> {t("block")}</Typography>
                 <RiQuestionFill />
               </Box>
               <TextField
@@ -845,7 +852,7 @@ const StoryMakerView = ({
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <Box width={"49%"}>
                       <Typography fontWeight={"500"} color={"grey_500.main"}>
-                        Trước im lặng
+                        {t("silence_before")}
                       </Typography>
                       <TextField
                         className='search-input'
@@ -905,7 +912,7 @@ const StoryMakerView = ({
                         // setIdVoice(item.id);
                       }}>
                       <Typography fontWeight={"500"} color={"grey_500.main"}>
-                        Giọng nói
+                        {t("voice")}
                       </Typography>
                       <Box
                         bgcolor={"white"}
@@ -950,14 +957,14 @@ const StoryMakerView = ({
             onClick={handleCloseEditAll}
             variant='contained'
             sx={{ background: "white", color: "black" }}>
-            Hủy bỏ
+            {t("cancle")}
           </Button>
 
           <Button
             onClick={suaTatCa}
             variant='contained'
             sx={{ background: theme.palette.active.main }}>
-            Cập nhật
+            {t("update")}
           </Button>
         </DialogActions>
       </Dialog>

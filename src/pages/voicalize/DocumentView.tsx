@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography, Button, IconButton } from "@mui/material";
 import { RiUploadCloudFill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   file: any;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 const DocumentView = ({ file, handleFileChange, handleFileRemove }: Props) => {
+  const { t } = useTranslation();
   return (
     <Box p={"20px"}>
       <Box sx={{ width: "100%" }}>
@@ -30,7 +32,7 @@ const DocumentView = ({ file, handleFileChange, handleFileRemove }: Props) => {
               <Typography
                 fontSize={{ xs: ".9rem", md: "1rem" }}
                 color='active.main'>
-                File đã chọn: {file.name}
+                {t("selected_file")}: {file.name}
               </Typography>
               <IconButton color='error' onClick={handleFileRemove}>
                 <MdDelete size={24} />
@@ -60,7 +62,7 @@ const DocumentView = ({ file, handleFileChange, handleFileRemove }: Props) => {
                 className='preview'>
                 <RiUploadCloudFill color={"rgb(148 163 184)"} size={"37px"} />
                 <Typography mt={"5px"} color='grey_500.main' fontSize={"16px"}>
-                  Nhấp để tải lên
+                  {t("click_to_upload")}
                 </Typography>
                 <Typography
                   textAlign={"center"}
@@ -85,14 +87,13 @@ const DocumentView = ({ file, handleFileChange, handleFileRemove }: Props) => {
 
       <Box mt={"20px"}>
         <Typography fontSize={{ xs: ".8rem", md: "1rem" }} color='active.main'>
-          Sau khi tệp được tải lên, chúng tôi sẽ bắt đầu tạo bài phát biểu của
-          bạn. Điều này có thể mất vài phút.
+          {t("document_des")}
         </Typography>
         <Box ml={"5%"}>
           <ul>
             <li>
               <Typography fontSize={{ xs: ".8rem", md: "1rem" }}>
-                Hoặc bạn có thể tải tệp trực tiếp từ Lịch sử.
+                {t("document_des_2")}
               </Typography>
             </li>
           </ul>

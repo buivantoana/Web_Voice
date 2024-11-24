@@ -111,29 +111,26 @@ const SignUpController = (props: Props) => {
     }
   };
   const handleOTP = async (data: any) => {
-    handleClickOpenOtp();
-
-    // console.log(data);
-    // setLoading(true);
-    // try {
-    //   let verify_phone = await verify({phone:phone})
-    //   if(verify_phone.code == 0){
-    //     let data = await getOtp(phone);
-    //     if (data.code == 0) {
-    //       handleClickOpenOtp();
-    //     }
-    //   }
-    //   if(verify_phone.code == 1000){
-    //     toast.warning("Số điện thoại đã được sử dụng hoặc không hợp lệ.")
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // setLoading(false);
+    console.log(data);
+    setLoading(true);
+    try {
+      let verify_phone = await verify({ phone: phone });
+      if (verify_phone.code == 0) {
+        let data = await getOtp(phone);
+        if (data.code == 0) {
+          handleClickOpenOtp();
+        }
+      }
+      if (verify_phone.code == 1000) {
+        toast.warning("Số điện thoại đã được sử dụng hoặc không hợp lệ.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   };
 
   const handleChangeOtp = (otpValue: any) => {
-    console.log(otpValue);
     setOtp(otpValue);
   };
   const handleRegister = async () => {
@@ -143,7 +140,48 @@ const SignUpController = (props: Props) => {
       let data = await signup({ phone, otp, open_id: openId });
       console.log(data);
       if (data.code == 0) {
-        login();
+        let webhook = await signupWebHook({ user_id: data.data.user.phone });
+        if (webhook.code == 0) {
+          localStorage.setItem(
+            "access_token",
+            JSON.stringify(data.data.access_token)
+          );
+          localStorage.setItem("user", JSON.stringify(data.data.user));
+          let tts_text = localStorage.getItem("tts_text");
+          let tts_story = localStorage.getItem("tts_story");
+          if (tts_text) {
+            context.dispatch({
+              type: "TTS_TEXT",
+              payload: {
+                ...context.state,
+                tts_text: tts_text,
+              },
+            });
+          }
+          if (tts_story) {
+            context.dispatch({
+              type: "TTS_STORY",
+              payload: {
+                ...context.state,
+                tts_story: JSON.parse(tts_story),
+              },
+            });
+          }
+
+          context.dispatch({
+            type: "LOGIN",
+            payload: {
+              ...context.state,
+              user: { ...data.data.user },
+            },
+          });
+          setTimeout(() => {
+            localStorage.removeItem("tts_text");
+            localStorage.removeItem("tts_story");
+            navigate("/");
+            setLoading(false);
+          }, 1000);
+        }
       }
       if (data.code == 1000) {
         Object.keys(data.data).map((key) => toast.warning(data.data[key][0]));

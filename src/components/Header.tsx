@@ -8,6 +8,8 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import LockClockOutlinedIcon from "@mui/icons-material/LockClockOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
+import vn from "../images/vn.png";
+import us from "../images/us.png";
 import {
   Box,
   Button,
@@ -19,6 +21,7 @@ import {
   Typography,
   useTheme,
   Hidden,
+  Popover,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import {
@@ -35,11 +38,15 @@ import logo from "../images/loading-lines-6747317-5601928.webp";
 
 import profile from "../images/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg";
 import { useCoursesContext } from "../App";
+import { useTranslation } from "react-i18next";
 const Header = () => {
   const theme: any = useTheme();
   const context: any = useCoursesContext();
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const { t, i18n } = useTranslation();
+
+  // Hàm đổi ngôn ngữ
 
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
@@ -54,6 +61,23 @@ const Header = () => {
       setUser(context.state.user);
     }
   }, [context.state.user]);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+  const changeLanguage = (lng: any) => {
+    i18n.changeLanguage(lng);
+    handleClose();
+  };
+  console.log(i18n);
   return (
     <Box
       sx={{
@@ -108,7 +132,7 @@ const Header = () => {
                     fontSize={".9rem"}
                     color={"grey_500.main"}
                     fontWeight={"500"}>
-                    Phát âm
+                    {t("vocalize")}
                   </Typography>
                 </Box>
               </NavLink>
@@ -118,7 +142,7 @@ const Header = () => {
                     fontSize={".9rem"}
                     fontWeight={"500"}
                     color={"grey_500.main"}>
-                    Lịch sử
+                    {t("history")}
                   </Typography>
                 </Box>
               </NavLink>
@@ -128,7 +152,7 @@ const Header = () => {
                     fontSize={".9rem"}
                     fontWeight={"500"}
                     color={"grey_500.main"}>
-                    Giá cả dịch vụ
+                    {t("pricing_plans")}
                   </Typography>
                 </Box>
               </NavLink>
@@ -138,7 +162,7 @@ const Header = () => {
                     fontSize={".9rem"}
                     fontWeight={"500"}
                     color={"grey_500.main"}>
-                    Chính sách bảo mật
+                    {t("privacy_policy")}
                   </Typography>
                 </Box>
               </NavLink>
@@ -148,7 +172,7 @@ const Header = () => {
                     fontSize={".9rem"}
                     fontWeight={"500"}
                     color={"grey_500.main"}>
-                    Điều khoản dịch vụ
+                    {t("terms")}
                   </Typography>
                 </Box>
               </NavLink>
@@ -162,41 +186,117 @@ const Header = () => {
             </Typography>
           </Box>
         </Hidden>
-        {user && Object.keys(user).length > 0 ? (
-          <Box
-            onClick={toggleDrawer(true)}
-            display={"flex"}
-            gap={"20px"}
-            alignItems={"center"}>
-            {/* <RiNotification2Line size={20} /> */}
-            <img
-              src={profile}
-              style={{ borderRadius: "50%" }}
-              width={50}
-              alt=''
-            />
-          </Box>
-        ) : (
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          gap={"40px"}
+          sx={{ cursor: "pointer" }}>
           <Box>
-            <Link to={"/signin"}>
-              <Button
-                variant='contained'
-                sx={{
-                  background: theme.palette.active.main,
-                  fontSize: { xs: "10px", md: "15px" },
-                  minWidth: { xs: "87px", md: "64px" },
-                  padding: { xs: "6px 8px", md: "6px 16px" },
-                }}
-                endIcon={
-                  <ArrowForwardIcon
-                    sx={{ fontSize: { xs: "15px !important", md: "25px" } }}
+            <Box aria-describedby={id} onClick={handleClick}>
+              {i18n.language === "vi" && (
+                <img
+                  src={vn}
+                  width={25}
+                  height={25}
+                  style={{ borderRadius: "50%", objectFit: "cover" }}
+                  alt=''
+                />
+              )}
+              {i18n.language === "us" && (
+                <img
+                  src={us}
+                  width={25}
+                  height={25}
+                  style={{ borderRadius: "50%", objectFit: "cover" }}
+                  alt=''
+                />
+              )}
+            </Box>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}>
+              <Box
+                sx={{ cursor: "pointer" }}
+                display={"flex"}
+                flexDirection={"column"}
+                gap={"8px"}>
+                <Box
+                  display={"flex"}
+                  onClick={() => changeLanguage("vi")}
+                  alignItems={"center"}
+                  gap={"15px"}>
+                  <img
+                    src={vn}
+                    width={30}
+                    height={20}
+                    style={{ borderRadius: "3px", objectFit: "cover" }}
+                    alt=''
                   />
-                }>
-                Đăng nhập
-              </Button>
-            </Link>
+                  <Typography>Việt Nam </Typography>
+                </Box>
+                <Box
+                  display={"flex"}
+                  onClick={() => changeLanguage("us")}
+                  alignItems={"center"}
+                  gap={"15px"}>
+                  <img
+                    src={us}
+                    width={30}
+                    height={20}
+                    style={{ borderRadius: "3px", objectFit: "cover" }}
+                    alt=''
+                  />
+                  <Typography>English</Typography>
+                </Box>
+              </Box>
+            </Popover>
           </Box>
-        )}
+          {user && Object.keys(user).length > 0 ? (
+            <Box
+              onClick={toggleDrawer(true)}
+              display={"flex"}
+              gap={"20px"}
+              alignItems={"center"}>
+              {/* <RiNotification2Line size={20} /> */}
+              <img
+                src={profile}
+                style={{ borderRadius: "50%" }}
+                width={50}
+                alt=''
+              />
+            </Box>
+          ) : (
+            <Box>
+              <Link to={"/signin"}>
+                <Button
+                  variant='contained'
+                  sx={{
+                    background: theme.palette.active.main,
+                    fontSize: { xs: "10px", md: "15px" },
+                    minWidth: { xs: "87px", md: "64px" },
+                    padding: { xs: "6px 8px", md: "6px 16px" },
+                  }}
+                  endIcon={
+                    <ArrowForwardIcon
+                      sx={{ fontSize: { xs: "15px !important", md: "25px" } }}
+                    />
+                  }>
+                  {t("sign_up")}
+                </Button>
+              </Link>
+            </Box>
+          )}
+        </Box>
 
         <Drawer
           anchor='right' // Đảm bảo anchor là "right"
@@ -270,7 +370,7 @@ const Header = () => {
                 alignItems={"center"}>
                 <StarOutlineOutlinedIcon />
 
-                <Typography>Tín dụng có sẵn</Typography>
+                <Typography>{t("available_credit")}</Typography>
               </Box>
               <Box
                 padding={"3px 10px"}
@@ -329,7 +429,7 @@ const Header = () => {
                 width={"calc(100%-30px)"}>
                 <Box display={"flex"} alignItems={"center"} gap={"10px"}>
                   <AddShoppingCartIcon />
-                  <Typography> Mua tín dụng</Typography>
+                  <Typography>{t("buy_credit")}</Typography>
                 </Box>
               </Box>
             </Link>
@@ -353,7 +453,7 @@ const Header = () => {
                 width={"calc(100%-30px)"}>
                 <Box display={"flex"} alignItems={"center"} gap={"10px"}>
                   <DescriptionIcon />
-                  <Typography> Lịch sử thanh toán</Typography>
+                  <Typography>{t("payment_history")}</Typography>
                 </Box>
               </Box>
             </Link>
@@ -413,7 +513,7 @@ const Header = () => {
               width={"calc(100%-30px)"}>
               <Box display={"flex"} alignItems={"center"} gap={"10px"}>
                 <LogoutIcon />
-                <Typography>Đăng xuất </Typography>
+                <Typography>{t("sign_out")}</Typography>
               </Box>
             </Box>
           </Box>
@@ -436,7 +536,7 @@ const Header = () => {
             </Box>
             <Box>
               <Typography fontWeight={"500"} fontSize={"1.2rem"}>
-                Điều hướng
+                {t("goto")}
               </Typography>
             </Box>
             <Link onClick={toggleDrawerMenu(false)} to={"/"}>
@@ -473,7 +573,7 @@ const Header = () => {
                       d='m11.9 22l4.55-12h2.1l4.55 12H21l-1.075-3.05h-4.85L14 22zM4 19l-1.4-1.4l5.05-5.05q-.875-.875-1.588-2T4.75 8h2.1q.5.975 1 1.7t1.2 1.45q.825-.825 1.713-2.313T12.1 6H1V4h7V2h2v2h7v2h-2.9q-.525 1.8-1.575 3.7t-2.075 2.9l2.4 2.45l-.75 2.05l-3.05-3.125zm11.7-1.8h3.6l-1.8-5.1z'
                     />
                   </svg>
-                  <Typography>Phát âm</Typography>
+                  <Typography> {t("vocalize")}</Typography>
                 </Box>
               </Box>
             </Link>
@@ -497,7 +597,7 @@ const Header = () => {
                 width={"calc(100%-30px)"}>
                 <Box display={"flex"} alignItems={"center"} gap={"10px"}>
                   <RiHistoryLine />
-                  <Typography>Lịch sử</Typography>
+                  <Typography> {t("history")}</Typography>
                 </Box>
               </Box>
             </Link>
@@ -521,7 +621,7 @@ const Header = () => {
                 width={"calc(100%-30px)"}>
                 <Box display={"flex"} alignItems={"center"} gap={"10px"}>
                   <RiPriceTag2Line />
-                  <Typography> Giá cả dịch vụ</Typography>
+                  <Typography> {t("pricing_plans")}</Typography>
                 </Box>
               </Box>
             </Link>
@@ -545,7 +645,7 @@ const Header = () => {
                 width={"calc(100%-30px)"}>
                 <Box display={"flex"} alignItems={"center"} gap={"10px"}>
                   <RiShieldKeyholeLine />
-                  <Typography>Chính sách bảo mật</Typography>
+                  <Typography> {t("privacy_policy")}</Typography>
                 </Box>
               </Box>
             </Link>
@@ -569,7 +669,7 @@ const Header = () => {
                 width={"calc(100%-30px)"}>
                 <Box display={"flex"} alignItems={"center"} gap={"10px"}>
                   <RiFileList3Line />
-                  <Typography>Điều khoản dịch vụ</Typography>
+                  <Typography> {t("terms")}</Typography>
                 </Box>
               </Box>
             </Link>

@@ -10,12 +10,14 @@ import { Box, Hidden, styled, Tooltip, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import user from "../images/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg";
 import { useCoursesContext } from "../App";
+import { useTranslation } from "react-i18next";
 
 type Props = {};
 
 const LeftProfile = (props: Props) => {
   const context: any = useCoursesContext();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <Hidden mdDown>
       <Box sx={{ width: "33%", p: 2, cursor: "pointer" }}>
@@ -67,7 +69,7 @@ const LeftProfile = (props: Props) => {
             alignItems={"center"}>
             <StarOutlineOutlinedIcon />
 
-            <Typography>Tín dụng có sẵn</Typography>
+            <Typography>{t("available_credit")}</Typography>
           </Box>
           <Box
             padding={"3px 10px"}
@@ -126,7 +128,7 @@ const LeftProfile = (props: Props) => {
             width={"calc(100%-30px)"}>
             <Box display={"flex"} alignItems={"center"} gap={"10px"}>
               <AddShoppingCartIcon />
-              <Typography> Mua tín dụng</Typography>
+              <Typography> {t("buy_credit")}</Typography>
             </Box>
           </Box>
         </Link>
@@ -150,7 +152,7 @@ const LeftProfile = (props: Props) => {
             width={"calc(100%-30px)"}>
             <Box display={"flex"} alignItems={"center"} gap={"10px"}>
               <DescriptionIcon />
-              <Typography> Lịch sử thanh toán</Typography>
+              <Typography>{t("payment_history")}</Typography>
             </Box>
           </Box>
         </Link>
@@ -214,7 +216,7 @@ const LeftProfile = (props: Props) => {
             alignItems={"center"}
             gap={"10px"}>
             <LogoutIcon />
-            <Typography>Đăng xuất </Typography>
+            <Typography>{t("sign_out")} </Typography>
           </Box>
         </Box>
       </Box>

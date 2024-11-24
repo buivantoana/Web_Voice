@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import { styled, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 
 const Input = styled(TextField)`
   width: 62px;
@@ -16,7 +17,7 @@ export default function InputSlider({
   onChange,
 }: any) {
   const theme: any = useTheme();
-
+  const { t } = useTranslation();
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
       onChange(Number(event.target.value));
@@ -48,7 +49,7 @@ export default function InputSlider({
           fontWeight={"500"}
           color='grey_500.main'
           ml={center ? "0px" : "35px"}>
-          Tốc độ
+          {t("speed")}
         </Typography>
       )}
       <Stack

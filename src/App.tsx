@@ -7,7 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@mui/material";
 import theme from "./theme";
 import { getInfo } from "./service/voice";
-import { useLocalStorage } from "./hooks/useStorage";
+import { I18nextProvider } from "react-i18next";
+import i18n from "./translation/i18n";
 const queryClient = new QueryClient();
 export const coursesContext = createContext({});
 
@@ -75,14 +76,16 @@ const App = () => {
   console.log("AAAA state ====", state);
   return (
     <div>
-      <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          <coursesContext.Provider value={{ dispatch, state }}>
-            <Router />
-          </coursesContext.Provider>
-        </QueryClientProvider>
-      </ThemeProvider>
-      <ToastContainer />
+      <I18nextProvider i18n={i18n}>
+        <ThemeProvider theme={theme}>
+          <QueryClientProvider client={queryClient}>
+            <coursesContext.Provider value={{ dispatch, state }}>
+              <Router />
+            </coursesContext.Provider>
+          </QueryClientProvider>
+        </ThemeProvider>
+        <ToastContainer />
+      </I18nextProvider>
     </div>
   );
 };

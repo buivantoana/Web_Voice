@@ -8,6 +8,7 @@ type Props = {};
 
 const PricingPlansView = (props: Props) => {
   const theme: any = useTheme();
+  const { t } = useTranslation();
   return (
     <Box p={{ xs: "30px 10px", md: "30px 10%" }}>
       <Box
@@ -17,13 +18,12 @@ const PricingPlansView = (props: Props) => {
         flexDirection={"column"}
         gap={"30px"}>
         <Typography fontSize={{ xs: "1.8rem", md: "3rem" }} variant='h1'>
-          Giá cả gói dịch vụ{" "}
+          {t("pricing_plans_title")}
         </Typography>
         <Typography
           fontSize={{ xs: "1rem", md: "1.2rem" }}
           color='grey_500.main'>
-          Kế hoạch của chúng tôi được thiết kế để đáp ứng yêu cầu của cả người
-          mới bắt đầu và người chơi. Chọn kế hoạch phù hợp với bạn
+          {t("pricing_plans_des")}
         </Typography>
       </Box>
       <Box display={"flex"} justifyContent={"center"}>
@@ -53,7 +53,7 @@ const PricingPlansView = (props: Props) => {
                 flexDirection={"column"}
                 gap={"20px"}>
                 <Typography fontSize={"1.6rem"} fontWeight={"500"}>
-                  Miễn phí
+                  {t("free")}
                 </Typography>
                 {/* <Typography fontSize={"2.3rem"} fontWeight={"bold"}>
                   $0
@@ -66,10 +66,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>
-                    {" "}
-                    Miễn phí 100 credit tương đương 100 từ khi tạo tài khoản mới
-                  </Typography>
+                  <Typography> {t("free_des_1")}</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -77,7 +74,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Tạo bài phát biểu từ văn bản</Typography>
+                  <Typography> {t("free_des_2")}</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -85,7 +82,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Có thể tải xuống tệp âm thanh</Typography>
+                  <Typography> {t("free_des_3")}</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -93,7 +90,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Truy cập vào thư viện giọng nói</Typography>
+                  <Typography> {t("free_des_4")}</Typography>
                 </Box>
               </Box>
             </Box>
@@ -115,7 +112,7 @@ const PricingPlansView = (props: Props) => {
                 flexDirection={"column"}
                 gap={"20px"}>
                 <Typography fontSize={"1.6rem"} fontWeight={"500"}>
-                  Trả phí
+                  {t("pay_fee")}
                 </Typography>
                 {/* <Typography fontSize={"2.3rem"} fontWeight={"bold"}>
                   $8
@@ -132,9 +129,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>
-                    Nạp tín dụng để sử dụng không giới hạn
-                  </Typography>
+                  <Typography>{t("pay_fee_des_1")}</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -142,7 +137,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>10.000 VND tương đương 100 tín dụng</Typography>
+                  <Typography>{t("pay_fee_des_2")}</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -150,7 +145,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Tạo bài phát biểu từ văn bản</Typography>
+                  <Typography>{t("pay_fee_des_3")}</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -158,7 +153,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography> Có thể tải xuống tệp âm thanh</Typography>
+                  <Typography>{t("pay_fee_des_4")}</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -166,7 +161,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Truy cập vào thư viện giọng nói</Typography>
+                  <Typography>{t("pay_fee_des_5")}</Typography>
                 </Box>
                 <Box
                   display={"flex"}
@@ -174,7 +169,7 @@ const PricingPlansView = (props: Props) => {
                   alignItems={"center"}
                   gap={"5px"}>
                   <RiCheckFill size={"25"} color={theme.palette.active.main} />
-                  <Typography>Lên đến 3000 từ mỗi văn bản</Typography>
+                  <Typography>{t("pay_fee_des_6")}</Typography>
                 </Box>
 
                 <Box mt={"20px"}>
@@ -185,7 +180,7 @@ const PricingPlansView = (props: Props) => {
                       background: theme.palette.active.main,
                       color: "white",
                     }}>
-                    Bắt đầu
+                    {t("start")}
                   </Button>
                 </Box>
               </Box>
@@ -200,17 +195,15 @@ const PricingPlansView = (props: Props) => {
         mt={"150px"}
         gap={"30px"}>
         <Typography fontSize={"1.2rem"} fontWeight={"500"} color='active.main'>
-          Khám phá các tính năng của ai.gmv.vn
+          {t("features_top")} ai.gmv.vn
         </Typography>
         <Typography variant='h1' fontSize={{ xs: "2rem", md: "3rem" }}>
-          Tính năng
+          {t("features")}
         </Typography>
         <Typography
           color='grey_500.main'
           fontSize={{ xs: "1rem", md: "1.3rem" }}>
-          Dịch vụ của chúng tôi được thiết kế để mang lại trải nghiệm liền mạch
-          và thuận tiện cho người dùng, cung cấp nhiều tính năng đa dạng để đáp
-          ứng nhu cầu của bạn.
+          {t("features_des")}
         </Typography>
       </Box>
       <Box
@@ -249,11 +242,10 @@ const PricingPlansView = (props: Props) => {
             </svg>
           </Box>
           <Typography my={"5px"} fontSize={"1.2rem"} fontWeight={"500"}>
-            Chất lượng cao
+            {t("features_block1_title")}
           </Typography>
           <Typography color='grey_500.main'>
-            Chúng tôi cung cấp một loạt các giọng nói chất lượng cao và đa dạng,
-            bao gồm cả cả hai giới tính và nhiều tông điệu khác nhau.
+            {t("features_block1_des")}
           </Typography>
         </Box>
         <Box
@@ -293,11 +285,10 @@ const PricingPlansView = (props: Props) => {
             </svg>
           </Box>
           <Typography my={"5px"} fontSize={"1.2rem"} fontWeight={"500"}>
-            Nhiều ngôn ngữ
+            {t("features_block2_title")}
           </Typography>
           <Typography color='grey_500.main'>
-            Dịch vụ của chúng tôi hỗ trợ nhiều ngôn ngữ, cho phép bạn chuyển đổi
-            tài liệu thành giọng nói bằng nhiều ngôn ngữ khác nhau.
+            {t("features_block2_des")}
           </Typography>
         </Box>
         <Box
@@ -325,11 +316,10 @@ const PricingPlansView = (props: Props) => {
             </svg>
           </Box>
           <Typography my={"5px"} fontSize={"1.2rem"} fontWeight={"500"}>
-            Cài đặt có thể tùy chỉnh
+            {t("features_block3_title")}
           </Typography>
           <Typography color='grey_500.main'>
-            Bạn có thể tùy chỉnh các thiết lập khác nhau như tốc độ đọc và ngữ
-            điệu trước khi chuyển đổi tài liệu của bạn thành tiếng nói.
+            {t("features_block3_des")}
           </Typography>
         </Box>
       </Box>
@@ -367,11 +357,10 @@ const PricingPlansView = (props: Props) => {
             </svg>
           </Box>
           <Typography my={"5px"} fontSize={"1.2rem"} fontWeight={"500"}>
-            Hỗ trợ cho các định dạng tài liệu đa dạng
+            {t("features_block4_title")}
           </Typography>
           <Typography color='grey_500.main'>
-            Chúng tôi hỗ trợ nhiều định dạng tài liệu, bao gồm văn bản thông
-            thường, PDF, DOCX và ebooks.
+            {t("features_block4_des")}
           </Typography>
         </Box>
         <Box
@@ -402,11 +391,10 @@ const PricingPlansView = (props: Props) => {
             </svg>
           </Box>
           <Typography my={"5px"} fontSize={"1.2rem"} fontWeight={"500"}>
-            Sử dụng thương mại
+            {t("features_block5_title")}
           </Typography>
           <Typography color='grey_500.main'>
-            Dịch vụ của chúng tôi hỗ trợ cả mục đích cá nhân và thương mại, mang
-            đến sự linh hoạt cho người dùng.
+            {t("features_block5_des")}
           </Typography>
         </Box>
         <Box
@@ -434,12 +422,10 @@ const PricingPlansView = (props: Props) => {
             </svg>
           </Box>
           <Typography my={"5px"} fontSize={"1.2rem"} fontWeight={"500"}>
-            Giao diện thân thiện với người dùng
+            {t("features_block6_title")}
           </Typography>
           <Typography color='grey_500.main'>
-            Trang web của chúng tôi được thiết kế để dễ sử dụng, giúp quá trình
-            chuyển đổi văn bản thành giọng nói trở nên đơn giản và thuận tiện
-            cho mọi người.
+            {t("features_block6_des")}
           </Typography>
         </Box>
       </Box>
@@ -475,12 +461,10 @@ const PricingPlansView = (props: Props) => {
             </svg>
           </Box>
           <Typography my={"5px"} fontSize={"1.2rem"} fontWeight={"500"}>
-            Sự riêng tư và an ninh
+            {t("features_block7_title")}
           </Typography>
           <Typography color='grey_500.main'>
-            Chúng tôi áp dụng biện pháp an ninh tiên tiến để bảo vệ dữ liệu của
-            bạn và không chia sẻ thông tin với bất kỳ bên thứ ba nào nếu không
-            có sự đồng ý của bạn.
+            {t("features_block7_des")}
           </Typography>
         </Box>
         <Box
@@ -510,12 +494,10 @@ const PricingPlansView = (props: Props) => {
             </svg>
           </Box>
           <Typography my={"5px"} fontSize={"1.2rem"} fontWeight={"500"}>
-            Tương thích di động
+            {t("features_block8_title")}
           </Typography>
           <Typography color='grey_500.main'>
-            Trang web của chúng tôi được thiết kế để tương thích với cả máy tính
-            và thiết bị di động, cho phép bạn dễ dàng truy cập và sử dụng dịch
-            vụ của chúng tôi bất kỳ lúc nào, bất kỳ nơi đâu.
+            {t("features_block8_des")}
           </Typography>
         </Box>
         <Box
@@ -543,11 +525,10 @@ const PricingPlansView = (props: Props) => {
             </svg>
           </Box>
           <Typography my={"5px"} fontSize={"1.2rem"} fontWeight={"500"}>
-            Hỗ trợ khách hàng
+            {t("features_block9_title")}
           </Typography>
           <Typography color='grey_500.main'>
-            Chúng tôi cung cấp hỗ trợ qua email. Đội ngũ hỗ trợ của chúng tôi
-            luôn sẵn lòng trả lời mọi câu hỏi và hỗ trợ bạn bất cứ khi nào cần.
+            {t("features_block9_des")}
           </Typography>
         </Box>
       </Box>
@@ -558,13 +539,12 @@ const PricingPlansView = (props: Props) => {
         mt={"150px"}
         gap={"30px"}>
         <Typography variant='h1' fontSize={{ xs: "2rem", md: "3rem" }}>
-          Câu hỏi thường gặp
+          {t("questions")}
         </Typography>
         <Typography
           color='grey_500.main'
           fontSize={{ xs: "1rem", md: "1.3rem" }}>
-          Nếu bạn không tìm thấy câu trả lời mà bạn đang tìm ở đây, vui lòng
-          liên hệ với chúng tôi:{" "}
+          {t("questions_des")}{" "}
           <span style={{ color: theme.palette.active.main, fontWeight: "500" }}>
             contact@ai.gmv.vn
           </span>
@@ -580,16 +560,15 @@ const PricingPlansView = (props: Props) => {
         mt={"150px"}
         gap={"30px"}>
         <Typography fontSize={"1.2rem"} fontWeight={"500"} color='active.main'>
-          Các người dùng của chúng tôi nói gì
+          {t("feedback_top")}
         </Typography>
         <Typography variant='h1' fontSize={{ xs: "2rem", md: "3rem" }}>
-          Đánh giá
+          {t("feedback")}
         </Typography>
         <Typography
           color='grey_500.main'
           fontSize={{ xs: "1rem", md: "1.3rem" }}>
-          Dịch vụ của chúng tôi đã nhận được phản hồi tích cực từ nhiều người
-          dùng. Dưới đây là một số lời chứng thực chúng tôi đã nhận được.
+          {t("feedback_des")}
         </Typography>
       </Box>
       <Box
@@ -696,7 +675,7 @@ const PricingPlansView = (props: Props) => {
               borderRadius: "40px",
             }}
             endIcon={<ArrowForwardIcon />}>
-            Bắt đầu
+            {t("start")}
           </Button>
         </Box>
       </Box>
@@ -710,6 +689,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Fade from "@mui/material/Fade";
+import { useTranslation } from "react-i18next";
 
 const data = [
   {
@@ -821,7 +801,7 @@ const data = [
 
 function AccordionTransition() {
   const [expandedIndices, setExpandedIndices] = React.useState<number[]>([]);
-
+  const { t } = useTranslation();
   const handleExpansion = (index: any) => {
     setExpandedIndices((prevIndices: any) =>
       prevIndices.includes(index)
@@ -829,7 +809,120 @@ function AccordionTransition() {
         : [...prevIndices, index]
     );
   };
-
+  let data = [];
+  for (let i = 0; i < 20; i++) {
+    data.push({
+      title: t(`questions_block${i + 1}_title`),
+      description: t(`questions_block${i + 1}_des`),
+    });
+  }
+  //   const data = [
+  //   {
+  //     title: "Tại sao chọn ai.gmv.vn hơn các công cụ TTS khác?",
+  //     description:
+  //       "ai.gmv.vn sử dụng TTS API của OpenAI, cung cấp giọng nói tự nhiên và chất lượng cao với chi phí thấp hơn so với nhiều công cụ khác trên thị trường. Ngoài ra, chúng tôi hỗ trợ chuyển đổi định dạng tài liệu đa dạng, từ văn bản thô đến PDF, DOCX và sách điện tử.",
+  //   },
+  //   {
+  //     title: "Làm thế nào để sử dụng dịch vụ ai.gmv.vn?",
+  //     description:
+  //       "Dịch vụ của chúng tôi được thiết kế để dễ sử dụng. Bạn chỉ cần tải tài liệu lên và chọn giọng đọc mong muốn; hệ thống sẽ tự động chuyển đổi tài liệu của bạn thành giọng nói hoặc audiobook.",
+  //   },
+  //   {
+  //     title: "Có cần kiến thức lập trình để sử dụng ai.gmv.vn không?",
+  //     description:
+  //       "Không, bạn không cần kiến thức lập trình. Chúng tôi đã tích hợp API TTS của OpenAI vào trang web, giúp quá trình chuyển đổi văn bản thành giọng nói trở nên đơn giản và thuận tiện cho mọi người.",
+  //   },
+  //   {
+  //     title: "Loại tài liệu nào có thể chuyển đổi thành lời nói trên ai.gmv.vn?",
+  //     description:
+  //       "Chúng tôi hỗ trợ nhiều định dạng tài liệu bao gồm văn bản đơn giản (txt), PDF, DOCX, và các định dạng tệp ebook.",
+  //   },
+  //   {
+  //     title: "Chi phí sử dụng ai.gmv.vn là bao nhiêu?",
+  //     description:
+  //       "Chúng tôi đưa ra giá dựa trên giá cả của OpenAI, đảm bảo chi phí thấp hơn nhiều công cụ chuyển đổi văn bản thành âm thanh khác trên thị trường.",
+  //   },
+  //   {
+  //     title: "Có thể tùy chỉnh giọng nói không?",
+  //     description:
+  //       "Có, chúng tôi cung cấp các tùy chọn giọng nói khác nhau, cho phép bạn tùy chỉnh giọng nói theo sở thích cụ thể của bạn.",
+  //   },
+  //   {
+  //     title: "Có giới hạn về số lượng tài liệu mà tôi có thể chuyển đổi không?",
+  //     description:
+  //       "Chúng tôi cung cấp các gói dịch vụ khác nhau để phù hợp với nhu cầu của mỗi người dùng. Vui lòng tham khảo trực tiếp trên trang web để biết thông tin chi tiết.",
+  //   },
+  //   {
+  //     title: "Có thể tôi sử dụng ai.gmv.vn cho mục đích thương mại không?",
+  //     description:
+  //       "Có, dịch vụ của chúng tôi hỗ trợ cả mục đích cá nhân và thương mại. Tuy nhiên, vui lòng đảm bảo tuân thủ các điều khoản sử dụng của chúng tôi.",
+  //   },
+  //   {
+  //     title: "Chất lượng của giọng điện tử trên ai.gmv.vn là như thế nào?",
+  //     description:
+  //       "Có, dịch vụ của chúng tôi hỗ trợ cả mục đích cá nhân và thương mại. Tuy nhiên, vui lòng đảm bảo tuân thủ các điều khoản sử dụng của chúng tôi.Chất lượng giọng nói của chúng tôi rất cao, với giọng đọc tự nhiên và dễ nghe, nhờ công nghệ TTS tiên tiến từ OpenAI.",
+  //   },
+  //   {
+  //     title:
+  //       "Bạn có thể liên hệ với bộ phận hỗ trợ kỹ thuật ở đâu nếu gặp vấn đề khi sử dụng dịch vụ?",
+  //     description:
+  //       "Chúng tôi cung cấp hỗ trợ qua email và trò chuyện trực tuyến trên trang web. Đội ngũ hỗ trợ của chúng tôi luôn sẵn sàng trả lời mọi câu hỏi và hỗ trợ bạn bất cứ khi nào cần.",
+  //   },
+  //   {
+  //     title: "Loại tệp đầu ra của bài phát biểu là gì?",
+  //     description:
+  //       "Định dạng tệp đầu ra chính là MP3, đảm bảo tương thích với hầu hết các thiết bị và phần mềm phát nhạc.",
+  //   },
+  //   {
+  //     title: "Có thể chuyển đổi các tài liệu có kích thước lớn không?",
+  //     description:
+  //       "Có, chúng tôi hỗ trợ chuyển đổi tài liệu có kích thước lớn. Tuy nhiên, thời gian xử lý có thể tăng tùy thuộc vào kích thước của tài liệu. Để đảm bảo trải nghiệm tốt nhất, chúng tôi khuyến nghị chia nhỏ tài liệu lớn thành các phần nhỏ nếu có thể.",
+  //   },
+  //   {
+  //     title: "Làm sao tôi biết giọng đọc nào phù hợp cho tài liệu của tôi?",
+  //     description:
+  //       "Chúng tôi cung cấp một lựa chọn đa dạng các giọng điệu, bao gồm cả giọng nam và giọng nữ với nhiều âm sắc và ngôn ngữ khác nhau. Bạn có thể nghe mẫu giọng trước khi quyết định xem giọng nào phù hợp nhất với nội dung của tài liệu của bạn.",
+  //   },
+  //   {
+  //     title: "Có hỗ trợ ngôn ngữ nào khác ngoài tiếng Anh không?",
+  //     description:
+  //       "Có, chúng tôi hỗ trợ nhiều ngôn ngữ thông qua công nghệ TTS của OpenAI, giúp bạn dễ dàng chuyển đổi tài liệu thành giọng nói tự nhiên trong nhiều ngôn ngữ khác nhau.",
+  //   },
+  //   {
+  //     title: "Tôi có thể chỉnh sửa hoặc tùy chỉnh âm thanh đầu ra không?",
+  //     description:
+  //       "Trong khi chúng tôi không cung cấp chức năng chỉnh sửa trực tiếp trên nền tảng, bạn có thể tùy chỉnh một số cài đặt như tốc độ đọc và âm điệu trước khi chuyển đổi. Điều này cho phép bạn kiểm soát tốt hơn cảm giác và âm thanh cuối cùng của tệp đầu ra.",
+  //   },
+  //   {
+  //     title:
+  //       "Làm thế nào để bảo vệ sự riêng tư và dữ liệu của tôi trên ai.gmv.vn?",
+  //     description:
+  //       "An ninh và quyền riêng tư của người dùng là ưu tiên hàng đầu của chúng tôi. Chúng tôi sử dụng các biện pháp an ninh tiên tiến để bảo vệ dữ liệu của bạn và không chia sẻ thông tin với bất kỳ bên thứ ba nào mà không có sự đồng ý của bạn.",
+  //   },
+  //   {
+  //     title:
+  //       "Có thể tôi sử dụng ai.gmv.vn để tạo nội dung cho trang web hoặc blog của mình không?",
+  //     description:
+  //       "Có, bạn có thể sử dụng dịch vụ của chúng tôi để tạo nội dung âm thanh cho trang web, blog, hoặc các nền tảng truyền thông xã hội của bạn, làm phong phú cách bạn truyền đạt thông tin đến đọc giả hoặc khách hàng của mình.",
+  //   },
+  //   {
+  //     title: "Có cần tạo tài khoản để sử dụng dịch vụ không?",
+  //     description:
+  //       "Có, việc tạo tài khoản giúp bạn quản lý tài liệu đã chuyển đổi một cách dễ dàng và truy cập vào các tính năng tiên tiến và dịch vụ hỗ trợ khách hàng tốt hơn.",
+  //   },
+  //   {
+  //     title: "Có thể tôi yêu cầu thêm giọng nói hoặc ngôn ngữ mới không?",
+  //     description:
+  //       "Chúng tôi luôn lắng nghe phản hồi từ người dùng và cố gắng mở rộng dịch vụ của chúng tôi. Nếu bạn có yêu cầu cụ thể về một giọng điệu hay ngôn ngữ cụ thể, vui lòng gửi chúng cho hệ thống hỗ trợ của chúng tôi.",
+  //   },
+  //   {
+  //     title:
+  //       "Có thể tôi sử dụng dịch vụ ai.gmv.vn trên điện thoại di động của tôi không?",
+  //     description:
+  //       "Có, trang web của chúng tôi được thiết kế để tương thích với cả máy tính và thiết bị di động, cho phép bạn dễ dàng truy cập và sử dụng dịch vụ của chúng tôi bất kỳ lúc nào, bất kỳ đâu.",
+  //   },
+  //   // Add more items as needed
+  // ];
   return (
     <div>
       {data.map((item, index): any => {

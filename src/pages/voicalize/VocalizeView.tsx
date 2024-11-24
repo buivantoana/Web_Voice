@@ -33,6 +33,7 @@ import nova from "../../images/nova.svg";
 import shimmer from "../../images/shimmer.svg";
 import StoryMakerController from "./StoryMakerController";
 import DocumentController from "./DocumentController";
+import { useTranslation } from "react-i18next";
 
 const images: any = {
   alloy: alloy,
@@ -118,7 +119,7 @@ const VocalizeView = ({
   block.map((item: any) => {
     return (max_length += " " + item.text);
   });
-  console.log("voicee", block);
+  const { t } = useTranslation();
   return (
     <Box p={"20px"}>
       <Stack
@@ -173,7 +174,7 @@ const VocalizeView = ({
                 <Typography
                   fontSize={{ xs: ".7rem", md: ".9rem" }}
                   fontWeight={"500"}>
-                  Văn bản nhập vào
+                  {t("input_text")}
                 </Typography>
               </Box>
               <Box
@@ -197,7 +198,7 @@ const VocalizeView = ({
                 <Typography
                   fontSize={{ xs: ".7rem", md: ".9rem" }}
                   fontWeight={"500"}>
-                  Câu chuyện
+                  {t("story")}
                 </Typography>
               </Box>
               <Box
@@ -220,7 +221,7 @@ const VocalizeView = ({
                 <Typography
                   fontSize={{ xs: ".7rem", md: ".9rem" }}
                   fontWeight={"500"}>
-                  Tài liệu
+                  {t("document")}
                 </Typography>
               </Box>
             </Stack>
@@ -241,7 +242,7 @@ const VocalizeView = ({
               }}
               boxSizing={"border-box"}>
               <TextField
-                placeholder='Nhập văn bản bạn muốn chuyển đổi thành tiếng nói ở đây...'
+                placeholder={t("input_text_desc")}
                 multiline
                 value={textVoice}
                 onChange={(e) => {
@@ -295,23 +296,27 @@ const VocalizeView = ({
           {tab == "document" && (
             <DocumentController setFile={setFile} file={file} />
           )}
-          {textVoice.length > 0 && (
-            <Box
-              sx={{
-                position: "absolute",
-                bottom: { xs: 10, md: 15 },
-                right: 10,
-                display: "flex",
-                gap: "15px",
-                cursor: "pointer",
-              }}>
-              <Typography>
-                {textVoice.length}/{limit}
-              </Typography>
-              <Box onClick={() => setTextVoice("")}>
-                <Typography color='red'>Xóa văn bản</Typography>
-              </Box>
-            </Box>
+          {tab == "input_text" && (
+            <>
+              {textVoice.length > 0 && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    bottom: { xs: 10, md: 15 },
+                    right: 10,
+                    display: "flex",
+                    gap: "15px",
+                    cursor: "pointer",
+                  }}>
+                  <Typography>
+                    {textVoice.length}/{limit}
+                  </Typography>
+                  <Box onClick={() => setTextVoice("")}>
+                    <Typography color='red'>{t("clear_text")}</Typography>
+                  </Box>
+                </Box>
+              )}
+            </>
           )}
         </Box>
         <Box
@@ -477,7 +482,7 @@ const VocalizeView = ({
                   fontSize={".9rem"}
                   fontWeight={"bold"}
                   color='white'>
-                  Tạo tiếng nói ( {textVoice.length} tín dụng )
+                  {t("create_speech")} ( {textVoice.length} {t("credits")} )
                 </Typography>
                 <Box>
                   <svg
@@ -535,7 +540,7 @@ const VocalizeView = ({
                   },
                 }}>
                 <Typography fontSize={"1rem"} fontWeight={"bold"} color='white'>
-                  Tạo câu chuyện
+                  {t("create_story")}
                 </Typography>
                 <Box>
                   <svg
@@ -593,7 +598,7 @@ const VocalizeView = ({
                   fontSize={".9rem"}
                   fontWeight={"bold"}
                   color='white'>
-                  Tạo tiếng nói
+                  {t("create_speech")}
                 </Typography>
                 <Box>
                   <svg

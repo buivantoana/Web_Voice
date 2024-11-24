@@ -7,6 +7,7 @@ import { useCoursesContext } from "../../App";
 import Loading from "../../components/Loading";
 import { convertToVND } from "../../utils/utils";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const BuyCreditController = () => {
   const [amount, setAmount] = useState(0.2);
@@ -14,6 +15,7 @@ const BuyCreditController = () => {
   const [codePayment, setCodePayment] = useState("");
   const [loading, setLoading] = useState(false);
   const context: any = useCoursesContext();
+  const { t } = useTranslation();
   const handleSliderChange = (event: any, newValue: any) => {
     // Cập nhật giá trị của Slider
     setAmount(newValue);
@@ -94,13 +96,13 @@ const BuyCreditController = () => {
               alignItems: "center",
             }}>
             <Typography textAlign={"center"} variant='h6'>
-              Quét mã QR để chuyển khoản{" "}
+              {t("qr")}
             </Typography>
             <img
               src={`https://qr.limcorp.vn/qrcode.png?bank=970422&number=99192886868&amount=${
                 2000
                 // amount < 1 ? amount * 1000000 : amount * 1000000
-                }&content=TTS ${codePayment}`}
+              }&content=TTS ${codePayment}`}
               alt='QR Code'
               width='300px'
               height='100%'
@@ -129,7 +131,7 @@ const BuyCreditController = () => {
                   },
                 }}
                 variant='contained'>
-                Đã thanh toán
+                {t("paid")}
               </Button>
             </Box>
           </Box>

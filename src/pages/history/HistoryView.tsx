@@ -32,7 +32,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
   const theme: any = useTheme();
   const [accordion, setAccordion] = useState(null);
   const [open, setOpen] = React.useState(false);
-
+  const { t } = useTranslation();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -60,7 +60,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
           width={"60%"}
           fontSize={{ xs: "1rem", md: "1.2rem" }}
           color='grey_500.main'>
-          Tất cả lịch sử sau 30 ngày sẽ bị xóa tự động.
+          {t("history_des")}
         </Typography>
         <Button
           startIcon={<DeleteOutlineIcon sx={{ color: "red" }} />}
@@ -74,7 +74,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
             },
           }}
           variant='contained'>
-          Xóa tất cả
+          {t("delete_all")}
         </Button>
       </Box>
       <Box
@@ -189,7 +189,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                     },
                                   }}
                                   variant='contained'>
-                                  {item.credit} tín dụng
+                                  {item.credit} {t("credits")}
                                 </Button>
                                 {/* <Button
                                   sx={{
@@ -327,7 +327,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                         <MoreHorizIcon />
                                       </Box>
                                       <Typography fontWeight={"500"}>
-                                        Chi tiết mỗi khối
+                                        {t("detail_block")}
                                       </Typography>
                                     </Box>
 
@@ -358,7 +358,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                 </>
               ) : (
                 <Typography textAlign={"center"} color='grey_500.main'>
-                  Không tìm thấy lịch sử
+                  {t("no_history")}
                 </Typography>
               )}
             </>
@@ -577,57 +577,6 @@ interface HeadCell {
   numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
-  {
-    id: "name",
-    numeric: false,
-    disablePadding: true,
-    label: "Tên khối ",
-  },
-  {
-    id: "calories",
-    numeric: true,
-    disablePadding: false,
-    label: "Văn bản",
-  },
-  {
-    id: "fat",
-    numeric: true,
-    disablePadding: false,
-    label: "Giọng nói",
-  },
-  {
-    id: "carbs",
-    numeric: true,
-    disablePadding: false,
-    label: "Tốc độ",
-  },
-  {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Thời lượng",
-  },
-  {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Trạng thái",
-  },
-  // {
-  //   id: "protein",
-  //   numeric: true,
-  //   disablePadding: false,
-  //   label: "trạng thái",
-  // },
-  // {
-  //   id: "protein",
-  //   numeric: true,
-  //   disablePadding: false,
-  //   label: "Âm thanh",
-  // },
-];
-
 interface EnhancedTableProps {
   numSelected: number;
   onRequestSort: (
@@ -646,7 +595,45 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     rowCount,
     onRequestSort,
   } = props;
-
+  const { t } = useTranslation();
+  const headCells: readonly HeadCell[] = [
+    {
+      id: "name",
+      numeric: false,
+      disablePadding: true,
+      label: t("block"),
+    },
+    {
+      id: "calories",
+      numeric: true,
+      disablePadding: false,
+      label: t("text"),
+    },
+    {
+      id: "fat",
+      numeric: true,
+      disablePadding: false,
+      label: t("voice"),
+    },
+    {
+      id: "carbs",
+      numeric: true,
+      disablePadding: false,
+      label: t("speed"),
+    },
+    {
+      id: "protein",
+      numeric: true,
+      disablePadding: false,
+      label: t("duration"),
+    },
+    {
+      id: "protein",
+      numeric: true,
+      disablePadding: false,
+      label: t("status"),
+    },
+  ];
   return (
     <TableHead>
       <TableRow>
@@ -661,7 +648,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
+        {headCells.map((headCell: any) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "center" : "left"}
@@ -722,6 +709,7 @@ function EnhancedTable(props: any) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState<any>(props.data);
+  const { t } = useTranslation();
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -859,7 +847,7 @@ function EnhancedTable(props: any) {
                           },
                         }}
                         variant='contained'>
-                        Hoàn thành
+                        {t("complete")}
                       </Button>
                     </TableCell>
                     {/* <TableCell align='center'>
@@ -932,6 +920,7 @@ import Author from "../../components/Author";
 import { getPlayVoice } from "../../service/voice";
 import { useNavigate } from "react-router-dom";
 import { useCoursesContext } from "../../App";
+import { useTranslation } from "react-i18next";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {

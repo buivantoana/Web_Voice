@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { RiPaypalFill } from "react-icons/ri";
 import LeftProfile from "../../components/LeftProfile";
+import { useTranslation } from "react-i18next";
 const buy_amount = [
   { amount: 200, type: "K" },
   { amount: 400, type: "K" },
@@ -32,6 +33,7 @@ const BuyCreditView = ({
   credits,
 }: any) => {
   const theme: any = useTheme();
+  const { t } = useTranslation();
   const formatAmount = (value: any) => {
     if (value < 1) {
       return `${(value * 10000).toFixed(0)}`; // Nếu dưới 1, hiển thị K
@@ -67,7 +69,7 @@ const BuyCreditView = ({
               px: "5%",
             }}>
             <Typography color='white' fontSize={"1.4rem"}>
-              Tín dụng có sẵn : {credits}
+              {t("available_credit")} : {credits}
             </Typography>
           </Box>
           <Box
@@ -81,7 +83,7 @@ const BuyCreditView = ({
               cursor: "pointer",
             }}>
             <Box width={"100%"} padding={"20px 10px"}>
-              <Typography fontSize={"1.1rem"}>Nạp tiền nhanh</Typography>
+              <Typography fontSize={"1.1rem"}>{t("quick_top_up")}</Typography>
               <Box overflow={"hidden"}>
                 <Box
                   mt={"20px"}
@@ -147,7 +149,7 @@ const BuyCreditView = ({
                             fontSize={".8rem"}
                             textAlign={"center"}
                             sx={{ color: "inherit" }}>
-                            {_.amount * 10} Tín dụng
+                            {_.amount * 10} {t("credits")}
                           </Typography>
                           <ArrowDownwardIcon sx={{ color: "inherit" }} />
                         </Box>
@@ -157,7 +159,7 @@ const BuyCreditView = ({
                 </Box>
               </Box>
               <Typography my={"20px"} fontSize={"1.1rem"}>
-                Nạp tiền tuỳ chỉnh
+                {t("custom_top_up")}
               </Typography>
               <Box
                 width={{ xs: "97%", md: "100%" }}
@@ -201,7 +203,7 @@ const BuyCreditView = ({
                         +{formatAmount(amount)}
                       </Typography>
                     </Box>
-                    <Typography fontSize={".8rem"}>tín dụng</Typography>
+                    <Typography fontSize={".8rem"}>{t("credits")}</Typography>
                   </Box>
                   <Box
                     onClick={() => {
@@ -268,15 +270,15 @@ const BuyCreditView = ({
                       },
                     }}
                     variant='contained'>
-                    Nạp ngay bây giờ
+                    {t("top_up_now")}
                   </Button>
                 </Box>
                 <Box width={"50%"}>
                   <Typography
                     textAlign={"center"}
                     fontSize={{ xs: ".9rem", md: "1rem" }}>
-                    ※ 1.000 tín dụng = 1.000 ký tự với chất lượng âm thanh cao
-                    cấp(100VND = 1 tín dụng)
+                    ※ 1.000 {t("credits")} = 1.000 {t("top_up_now_des")}(100VND
+                    = 1 {t("credits")})
                   </Typography>
                 </Box>
               </Box>

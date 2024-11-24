@@ -14,6 +14,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CustomTextField from "../../components/CustomTextField";
 import { Link } from "react-router-dom";
 import OTPInput from "react-otp-input";
+import { useTranslation } from "react-i18next";
 type Props = {
   setOtp: any;
   otp: any;
@@ -44,6 +45,7 @@ const SignUpView = ({
   register,
 }: Props) => {
   const theme: any = useTheme();
+  const { t, i18n } = useTranslation();
   return (
     <Box
       sx={{
@@ -90,7 +92,7 @@ const SignUpView = ({
           <RiArrowLeftLine />
 
           <Typography color='black' fontWeight={"500"}>
-            Quay về trang chủ
+            {t("back_to_home")}
           </Typography>
         </Box>
       </Link>
@@ -147,7 +149,7 @@ const SignUpView = ({
                 variant='h5'
                 fontSize={{ xs: "15px", md: "25px" }}
                 fontWeight={"bold"}>
-                Tạo tài khoản
+                {t("create_account")}
               </Typography>
               {/* <Typography
                 sx={{ display: "flex", gap: "5px" }}
@@ -167,7 +169,7 @@ const SignUpView = ({
                   errors={errors}
                   setValue={setPhone}
                   value={phone}
-                  label={"Nhập số điện thoại"}
+                  label={t("enter_phone_number")}
                 />
                 <Button
                   type='submit'
@@ -177,26 +179,48 @@ const SignUpView = ({
                     mt: "15px",
                     width: "100%",
                   }}>
-                  Xác thực OTP
+                  {t("authentication")} OTP
                 </Button>
               </form>
-              <Typography
-                my={"10px"}
-                fontSize={".9rem"}
-                color='rgb(100 116 139)'
-                textAlign={"center"}>
-                Bằng cách đăng ký, bạn đồng ý với{" "}
-                <Link to={"/terms"}>
-                  <span
-                    style={{
-                      color: theme.palette.active.main,
-                      fontWeight: "bold",
-                    }}>
-                    Điều khoản Dịch vụ
-                  </span>{" "}
-                </Link>
-                của chúng tôi.
-              </Typography>
+              {i18n.language === "vi" && (
+                <Typography
+                  my={"10px"}
+                  fontSize={".9rem"}
+                  color='rgb(100 116 139)'
+                  textAlign={"center"}>
+                  Bằng cách đăng ký, bạn đồng ý với{" "}
+                  <Link to={"/terms"}>
+                    <span
+                      style={{
+                        color: theme.palette.active.main,
+                        fontWeight: "bold",
+                      }}>
+                      Điều khoản Dịch vụ
+                    </span>{" "}
+                  </Link>
+                  của chúng tôi.
+                </Typography>
+              )}
+
+              {i18n.language === "us" && (
+                <Typography
+                  my={"10px"}
+                  fontSize={".9rem"}
+                  color='rgb(100 116 139)'
+                  textAlign={"center"}>
+                  By signing in, you agree to our
+                  <Link to={"/terms"}>
+                    <span
+                      style={{
+                        color: theme.palette.active.main,
+                        fontWeight: "bold",
+                      }}>
+                      Terms of Service
+                    </span>
+                    .
+                  </Link>
+                </Typography>
+              )}
             </Box>
           </Box>
         </Box>
@@ -211,7 +235,7 @@ const SignUpView = ({
         <DialogContent>
           <Box textAlign={"center"} sx={{ div: { justifyContent: "center" } }}>
             <Typography my={"20px"} variant='h6' fontWeight={"500"}>
-              Xác thực OTP
+              {t("authentication")} OTP
             </Typography>
             <OTPInput
               inputStyle='inputStyle'
@@ -219,12 +243,7 @@ const SignUpView = ({
               onChange={handleChangeOtp}
               numInputs={4}
               renderInput={(props: any) => (
-                <input
-                  className='hidden-plus'
-                  {...props}
-                  type='number'
-                  inputMode='numeric'
-                />
+                <input {...props} type='number' inputMode='numeric' />
               )}
             />
             <Button
@@ -234,7 +253,7 @@ const SignUpView = ({
                 background: theme.palette.active.main,
                 mt: "25px",
               }}>
-              Xác thực OTP
+              {t("authentication")} OTP
             </Button>
           </Box>
         </DialogContent>
