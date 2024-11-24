@@ -28,7 +28,7 @@
   "clear_text": "Xóa văn bản",
   "delete_all": "Xóa tất cả",
   "contact_us": "Liên hệ với chúng tôi",
-  "voice_open_ai": "Giọng Openai",
+  "voice_openai": "Giọng Openai",
   "gender": "Giới tính",
   "male": "Nam",
   "female": "Nữ",
@@ -198,8 +198,8 @@
   "sign_up": "Đăng nhập",
   "welcome_back": "Chào mừng quay trở lại",
 
-  "create_account":"Tạo tài khoản",
-  "authentication":"Xác thực",
+  "create_account": "Tạo tài khoản",
+  "authentication": "Xác thực",
 
-  "enter_phone_number":"Nhập số điện thoại"
+  "enter_phone_number": "Nhập số điện thoại"
 }
