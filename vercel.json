@@ -1,7 +1,6 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
-  "routes": [
-    { "src": "/locales/(.*)", "dest": "/locales/$1" },
-    { "src": "/(.*)", "dest": "/" }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" },
+    { "source": "/locales/:path*", "destination": "/locales/:path*" }
   ]
 }
