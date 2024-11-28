@@ -200,5 +200,8 @@
   "create_account": "Create account",
   "authentication": "Authentication",
 
-  "enter_phone_number": "Enter phone number"
+  "enter_phone_number": "Enter phone number",
+  "system_voices": "System Voices",
+  "favorite": "Favorite Voices",
+  "love": "Favorite"
 }

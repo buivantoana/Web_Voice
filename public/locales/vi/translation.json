@@ -201,5 +201,8 @@
   "create_account": "Tạo tài khoản",
   "authentication": "Xác thực",
 
-  "enter_phone_number": "Nhập số điện thoại"
+  "enter_phone_number": "Nhập số điện thoại",
+  "system_voices": "Giọng hệ thống",
+  "favorite":"Âm nhạc yêu thích",
+  "love":"Yêu thích"
 }

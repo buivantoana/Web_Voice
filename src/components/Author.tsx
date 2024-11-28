@@ -13,9 +13,11 @@ import {
   useTheme,
 } from "@mui/material";
 import {
+  RiHeartFill,
   RiOpenaiFill,
   RiPauseCircleLine,
   RiPlayCircleLine,
+  RiVoiceprintFill,
 } from "react-icons/ri";
 import alloy from "../images/alloy.svg";
 import echo from "../images/echo.svg";
@@ -26,6 +28,7 @@ import shimmer from "../images/shimmer.svg";
 import { useEffect, useRef, useState } from "react";
 import { country } from "../utils/acent";
 import { useTranslation } from "react-i18next";
+import vn from "../images/vn.png";
 
 const images: any = {
   alloy: alloy,
@@ -44,12 +47,16 @@ type Props = {
 
 const Author = ({ data, setVoice, voice }: Props) => {
   const theme: any = useTheme();
-  const [voices, setVoices] = useState(data);
+  const [voices, setVoices] = useState(
+    data.filter((item: any) => item.type == "openai")
+  );
   const [anchorElGender, setAnchorElGender] = useState(null);
+  const [typeVoice, setTypeVoice] = useState("openai");
   const { t } = useTranslation();
   const handleClickGender = (event: any) => {
     setAnchorElGender(event.currentTarget);
   };
+
   const gender: any = {
     Male: t("male"),
     Female: t("female"),
@@ -182,8 +189,8 @@ const Author = ({ data, setVoice, voice }: Props) => {
         (item: any) => item.gender == SelectedAcent
       );
     }
-    console.log(data_filter);
-    setVoices(data_filter);
+
+    setVoices(data_filter.filter((item: any) => item.type == typeVoice));
   };
   const handleReset = () => {
     setSelectedAcent(null);
@@ -191,7 +198,7 @@ const Author = ({ data, setVoice, voice }: Props) => {
     setSelectedGender(null);
     setSearch("");
   };
-  console.log(SelectedGender);
+
   return (
     <Box
       border={"1px solid #dddddd"}
@@ -200,6 +207,8 @@ const Author = ({ data, setVoice, voice }: Props) => {
       borderRadius={"8px"}>
       <Box p={"5px 10px"}>
         <Box
+          display={"flex"}
+          gap={"15px"}
           sx={{
             padding: "4px",
             borderRadius: "5px",
@@ -209,13 +218,53 @@ const Author = ({ data, setVoice, voice }: Props) => {
             display={"flex"}
             alignItems={"center"}
             width={{ xs: "50%", md: "25%" }}
-            bgcolor={"white"}
+            bgcolor={typeVoice == "openai" ? "white" : undefined}
+            onClick={() => {
+              setTypeVoice("openai");
+              setVoice(data.filter((item: any) => item.type == "openai")[0]);
+              setVoices(data.filter((item: any) => item.type == "openai"));
+            }}
             borderRadius={"5px"}
             justifyContent={"center"}
             gap={"5px"}>
             <RiOpenaiFill fontWeight={"500"} />
             <Typography fontSize={".9rem"} fontWeight={"500"}>
               {t("voice_openai")}
+            </Typography>
+          </Box>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            width={{ xs: "50%", md: "25%" }}
+            bgcolor={typeVoice == "system" ? "white" : undefined}
+            onClick={() => {
+              setTypeVoice("system");
+              setVoice(data.filter((item: any) => item.type == "system")[0]);
+              setVoices(data.filter((item: any) => item.type == "system"));
+            }}
+            borderRadius={"5px"}
+            justifyContent={"center"}
+            gap={"5px"}>
+            <RiVoiceprintFill fontWeight={"500"} />
+            <Typography fontSize={".9rem"} fontWeight={"500"}>
+              {t("system_voices")}
+            </Typography>
+          </Box>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            width={{ xs: "50%", md: "25%" }}
+            bgcolor={typeVoice == "favorite" ? "white" : undefined}
+            onClick={() => {
+              setTypeVoice("favorite");
+              setVoices([]);
+            }}
+            borderRadius={"5px"}
+            justifyContent={"center"}
+            gap={"5px"}>
+            <RiHeartFill fontWeight={"500"} />
+            <Typography fontSize={".9rem"} fontWeight={"500"}>
+              {t("favorite")}
             </Typography>
           </Box>
         </Box>
@@ -611,17 +660,22 @@ const Author = ({ data, setVoice, voice }: Props) => {
                         </Box>
                         <Box>
                           <img
-                            src={images[item.name.toLowerCase()]}
+                            src={
+                              typeVoice == "system"
+                                ? vn
+                                : images[item.name.toLowerCase()]
+                            }
                             alt=''
                             width={"40px"}
-                            style={{ borderRadius: "50%" }}
+                            height={"40px"}
+                            style={{ borderRadius: "50%", objectFit: "cover" }}
                           />
                         </Box>
                       </Stack>
                       <Stack mt={"30px"} direction={"row"}>
                         <Box
                           padding={"8px"}
-                          width={"100%"}
+                          width={"50%"}
                           display={"flex"}
                           alignItems={"center"}
                           gap={"5px"}
@@ -644,33 +698,35 @@ const Author = ({ data, setVoice, voice }: Props) => {
                           />
                         </Box>
 
-                        {/* <Box
-                            width={"50%"}
-                            display={"flex"}
-                            alignItems={"center"}
-                            gap={"5px"}
-                            borderTop={"1px solid rgb(226 232 240)"}
-                            justifyContent={"center"}>
-                            <svg
-                              data-v-fa4d36aa=''
-                              xmlns='http://www.w3.org/2000/svg'
-                              xmlnsXlink='http://www.w3.org/1999/xlink'
-                              aria-hidden='true'
-                              role='img'
-                              className='icon text-lg'
-                              width='1em'
-                              height='1em'
-                              viewBox='0 0 24 24'>
-                              <path
-                                fill='currentColor'
-                                d='m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825'
-                              />
-                            </svg>
+                        <Box
+                          padding={"8px"}
+                          width={"50%"}
+                          display={"flex"}
+                          alignItems={"center"}
+                          gap={"5px"}
+                          borderTop={"1px solid rgb(226 232 240)"}
+                          justifyContent={"center"}>
+                          <svg
+                            data-v-fa4d36aa=''
+                            xmlns='http://www.w3.org/2000/svg'
+                            xmlnsXlink='http://www.w3.org/1999/xlink'
+                            aria-hidden='true'
+                            role='img'
+                            className='icon text-lg'
+                            width='1em'
+                            height='1em'
+                            viewBox='0 0 24 24'>
+                            <path
+                              fill='currentColor'
+                              d='m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825'
+                            />
+                          </svg>
 
-                            <Typography fontSize={".85rem"}>
-                              Yêu thích
-                            </Typography>
-                          </Box> */}
+                          <Typography fontSize={".85rem"}>
+                            {" "}
+                            {t("love")}
+                          </Typography>
+                        </Box>
                       </Stack>
                     </Box>
                   );
