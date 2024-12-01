@@ -229,6 +229,9 @@ const Author = ({
           data.voices = data.voices.filter(
             (item: any) => item.favorite == true
           );
+          if (typeVoice == "favorite") {
+            setVoices(voices.filter((ix: any) => ix.id != item.id));
+          }
           setVoicesFavorite(data.voices.map((item: any) => item.id));
         }
       } else {
