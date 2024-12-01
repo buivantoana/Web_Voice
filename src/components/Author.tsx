@@ -717,7 +717,9 @@ const Author = ({
                         <Box>
                           <img
                             src={
-                              typeVoice == "system" || typeVoice == "favorite"
+                              typeVoice == "system" ||
+                              (typeVoice == "favorite" &&
+                                !images[item.name.toLowerCase()])
                                 ? vn
                                 : images[item.name.toLowerCase()]
                             }
