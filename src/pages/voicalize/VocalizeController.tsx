@@ -18,7 +18,7 @@ let arr: any = [];
 const VocalizeController = (props: Props) => {
   const [textVoice, setTextVoice] = useState("");
   const [loading, setLoading] = useState(false);
-  const [speed, setSpeed] = useState<any>(2);
+  const [speed, setSpeed] = useState<any>(1);
   const [selectedQuality, setSelectedQuality] = useState("Chất lượng cao");
   const [anchorElQuality, setAnchorElQuality] = useState(null);
   const [base64Voice, setBase64Voice] = useState("");

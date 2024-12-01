@@ -37,6 +37,7 @@ import Loading from "../../components/Loading";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useTranslation } from "react-i18next";
+import vn from "../../images/vn.png";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -463,7 +464,11 @@ const StoryMakerView = ({
                                     borderRadius={"16px"}
                                     border={`1px solid ${theme.palette.grey_500.main}`}>
                                     <img
-                                      src={images[item.voice]}
+                                      src={
+                                        images[item.voice]
+                                          ? images[item.voice]
+                                          : vn
+                                      }
                                       width={22}
                                       style={{ borderRadius: "50%" }}
                                       height={22}
