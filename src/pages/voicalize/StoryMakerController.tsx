@@ -4,13 +4,20 @@ import { getVoicesOpenAi } from "../../service/voice";
 import { useCoursesContext } from "../../App";
 import { useTranslation } from "react-i18next";
 
-type Props = { setBlock: any; block: any; setHidden: any; hidden: any };
+type Props = {
+  setBlock: any;
+  block: any;
+  setHidden: any;
+  hidden: any;
+  voicesFavorite: any;
+};
 let arr: any = [];
 const StoryMakerController = ({
   setBlock,
   block,
   setHidden,
   hidden,
+  voicesFavorite,
 }: Props) => {
   const [openAuthor, setOpenAuthor] = React.useState(false);
   const [loadingVoices, setLoadingVoices] = useState(false);
@@ -21,7 +28,7 @@ const StoryMakerController = ({
   const [openEditAll, setOpenEditAll] = React.useState(false);
   const [isEditAll, setIsEditAll] = React.useState(false);
   const context: any = useCoursesContext();
- 
+
   const [dataEditAll, setDataEditAll] = React.useState({
     name: "",
     delay: 0,
@@ -323,6 +330,7 @@ const StoryMakerController = ({
       dataEditAll={dataEditAll}
       suaTatCa={suaTatCa}
       handleChangeSrt={handleChangeSrt}
+      voicesFavorite={voicesFavorite}
     />
   );
 };

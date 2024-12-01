@@ -94,6 +94,7 @@ type Props = {
   dataEditAll: any;
   suaTatCa: any;
   handleChangeSrt: any;
+  voicesFavorite: any;
 };
 
 const StoryMakerView = ({
@@ -130,6 +131,7 @@ const StoryMakerView = ({
   setDataEditAll,
   dataEditAll,
   suaTatCa,
+  voicesFavorite,
 }: Props) => {
   const theme: any = useTheme();
 
@@ -138,7 +140,7 @@ const StoryMakerView = ({
   block.map((item: any) => {
     return (max_length += " " + item.text);
   });
-   const { t } = useTranslation();
+  const { t } = useTranslation();
   return (
     <Box
       width={"100%"}
@@ -744,7 +746,13 @@ const StoryMakerView = ({
         </Box>
         <DialogContent>
           {!loadingVoices ? (
-            <Author setVoice={setVoice} voice={voice} data={voices} />
+            <Author
+              setVoice={setVoice}
+              voice={voice}
+              data={voices}
+              type={"story"}
+              voicesFavorite={voicesFavorite}
+            />
           ) : (
             <Loading height={"100%"} />
           )}

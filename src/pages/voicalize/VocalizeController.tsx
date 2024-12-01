@@ -6,6 +6,7 @@ import {
   createStoryMaker,
   createVoice,
   getInfo,
+  getVoicesFavorite,
   getVoicesOpenAi,
 } from "../../service/voice";
 import { useCoursesContext } from "../../App";
@@ -25,6 +26,7 @@ const VocalizeController = (props: Props) => {
   const idQuality = openQuality ? "simple-popover" : undefined;
   const [isOpen, setIsOpen] = useState(false);
   const [openAuthor, setOpenAuthor] = React.useState(false);
+  const [voicesFavorite, setVoicesFavorite] = React.useState(null);
   const [loadingVoices, setLoadingVoices] = useState(false);
   const [voices, setVoices] = useState<any>([]);
   const [voice, setVoice] = useState<any>({});
@@ -63,6 +65,27 @@ const VocalizeController = (props: Props) => {
     }
     loadVoicesOpenai();
   }, []);
+  useEffect(() => {
+    loadVoicesFavorite();
+  }, [context.state.user]);
+  const loadVoicesFavorite = async () => {
+    try {
+      if (
+        Object.keys(context.state.user).length > 0 &&
+        context.state.user.user_id
+      ) {
+        let data = await getVoicesFavorite({
+          user_id: context.state.user.user_id,
+        });
+        console.log("AAAA data", data);
+        if (data.voices && data.voices.length > 0) {
+          setVoicesFavorite(data.voices.map((item: any) => item.id));
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const loadVoicesOpenai = async () => {
     setLoadingVoices(true);
     try {
@@ -108,6 +131,7 @@ const VocalizeController = (props: Props) => {
             txt: textVoice,
             speed: speed,
             voice: voice.id,
+            voice_type: voice.type,
           },
           false
         );
@@ -158,9 +182,12 @@ const VocalizeController = (props: Props) => {
                   ? "en_us_male"
                   : "en_us_female",
               speed: Number(item.speed),
+              voice_type: voices.filter((ix: any) => ix.id == item.voice)[0]
+                .type,
             };
           }),
         };
+
         let data = await createStoryMaker(body);
 
         if (data.code == 0) {
@@ -201,6 +228,7 @@ const VocalizeController = (props: Props) => {
         formData.append("voice", voice.id); // Thêm voice
         formData.append("speed", speed); // Thêm speed
         formData.append("file", file);
+        formData.append("voice_type", voice.type);
         let data = await createVoice(formData, true);
         if (data.code == 0) {
           setBase64Voice(data.voice_base64);
@@ -269,6 +297,7 @@ const VocalizeController = (props: Props) => {
         handleCreateVoiceDocument={handleCreateVoiceDocument}
         setFile={setFile}
         file={file}
+        voicesFavorite={voicesFavorite}
       />
     </>
   );

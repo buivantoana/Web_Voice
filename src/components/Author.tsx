@@ -43,9 +43,11 @@ type Props = {
   data?: any;
   voice?: any;
   setVoice?: any;
+  type: any;
+  voicesFavorite: any;
 };
 
-const Author = ({ data, setVoice, voice }: Props) => {
+const Author = ({ data, setVoice, voice, type, voicesFavorite }: Props) => {
   const theme: any = useTheme();
   const [voices, setVoices] = useState(
     data.filter((item: any) => item.type == "openai")
@@ -221,7 +223,9 @@ const Author = ({ data, setVoice, voice }: Props) => {
             bgcolor={typeVoice == "openai" ? "white" : undefined}
             onClick={() => {
               setTypeVoice("openai");
-              setVoice(data.filter((item: any) => item.type == "openai")[0]);
+              if (type !== "story") {
+                setVoice(data.filter((item: any) => item.type == "openai")[0]);
+              }
               setVoices(data.filter((item: any) => item.type == "openai"));
             }}
             borderRadius={"5px"}
@@ -239,7 +243,9 @@ const Author = ({ data, setVoice, voice }: Props) => {
             bgcolor={typeVoice == "system" ? "white" : undefined}
             onClick={() => {
               setTypeVoice("system");
-              setVoice(data.filter((item: any) => item.type == "system")[0]);
+              if (type !== "story") {
+                setVoice(data.filter((item: any) => item.type == "system")[0]);
+              }
               setVoices(data.filter((item: any) => item.type == "system"));
             }}
             borderRadius={"5px"}
@@ -257,7 +263,13 @@ const Author = ({ data, setVoice, voice }: Props) => {
             bgcolor={typeVoice == "favorite" ? "white" : undefined}
             onClick={() => {
               setTypeVoice("favorite");
-              setVoices([]);
+              if (voicesFavorite && voicesFavorite.length > 0) {
+                setVoices(
+                  data.filter((item: any) => voicesFavorite.includes(item.id))
+                );
+              } else {
+                setVoices([]);
+              }
             }}
             borderRadius={"5px"}
             justifyContent={"center"}

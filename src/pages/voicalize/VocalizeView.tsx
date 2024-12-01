@@ -78,6 +78,7 @@ type Props = {
   handleCreateVoiceDocument: any;
   setFile: any;
   file: any;
+  voicesFavorite: any;
 };
 const VocalizeView = ({
   textVoice,
@@ -113,6 +114,7 @@ const VocalizeView = ({
   handleCreateVoiceDocument,
   file,
   setFile,
+  voicesFavorite,
 }: Props) => {
   const theme: any = useTheme();
   let max_length = "";
@@ -291,6 +293,7 @@ const VocalizeView = ({
               block={block}
               hidden={hidden}
               setHidden={setHidden}
+              voicesFavorite={voicesFavorite}
             />
           )}
           {tab == "document" && (
@@ -327,7 +330,13 @@ const VocalizeView = ({
           width={{ xs: "100%", md: "49%" }}>
           <Box height={"90%"} sx={{ position: "relative" }}>
             {!loadingVoices ? (
-              <Author setVoice={setVoice} voice={voice} data={voices} />
+              <Author
+                setVoice={setVoice}
+                voice={voice}
+                data={voices}
+                type={""}
+                voicesFavorite={voicesFavorite}
+              />
             ) : (
               <Loading height={"100%"} />
             )}
@@ -1108,7 +1117,13 @@ const VocalizeView = ({
         </Box>
         <DialogContent>
           {!loadingVoices ? (
-            <Author setVoice={setVoice} voice={voice} data={voices} />
+            <Author
+              setVoice={setVoice}
+              voice={voice}
+              data={voices}
+              type={""}
+              voicesFavorite={voicesFavorite}
+            />
           ) : (
             <Loading height={"100%"} />
           )}

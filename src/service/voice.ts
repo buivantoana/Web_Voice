@@ -36,6 +36,32 @@ export async function getVoicesOpenAi() {
     console.error("Error fetching data:", error.message);
   }
 }
+export async function getVoicesFavorite({ user_id }: any) {
+  try {
+    const response = await axios.get(`${url_voice}/voice/voices/${user_id}`, {
+      headers: {
+        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+      },
+    });
+    console.error("AAAA data:====", response.data);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+export async function addVoicesFavorite(body: any) {
+  try {
+    const response = await axios.post(`${url_voice}/voice/favourite`, body, {
+      headers: {
+        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+      },
+    });
+    console.error("AAAA data:====", response.data);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
 export async function getHistoryVoices({ user_id }: any) {
   try {
     const response = await axios.get(`${url_voice}/voice/history/${user_id}`, {
