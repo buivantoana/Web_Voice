@@ -51,7 +51,7 @@ export async function getVoicesFavorite({ user_id }: any) {
 }
 export async function addVoicesFavorite(body: any) {
   try {
-    const response = await axios.post(`${url_voice}/voice/favourite`, body, {
+    const response = await axios.post(`${url_voice}/voice/favorite`, body, {
       headers: {
         Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
       },

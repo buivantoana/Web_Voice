@@ -10,6 +10,7 @@ type Props = {
   setHidden: any;
   hidden: any;
   voicesFavorite: any;
+  setVoicesFavorite: any;
 };
 let arr: any = [];
 const StoryMakerController = ({
@@ -18,6 +19,7 @@ const StoryMakerController = ({
   setHidden,
   hidden,
   voicesFavorite,
+  setVoicesFavorite,
 }: Props) => {
   const [openAuthor, setOpenAuthor] = React.useState(false);
   const [loadingVoices, setLoadingVoices] = useState(false);
@@ -331,6 +333,7 @@ const StoryMakerController = ({
       suaTatCa={suaTatCa}
       handleChangeSrt={handleChangeSrt}
       voicesFavorite={voicesFavorite}
+      setVoicesFavorite={setVoicesFavorite}
     />
   );
 };

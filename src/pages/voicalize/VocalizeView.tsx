@@ -79,6 +79,7 @@ type Props = {
   setFile: any;
   file: any;
   voicesFavorite: any;
+  setVoicesFavorite: any;
 };
 const VocalizeView = ({
   textVoice,
@@ -115,6 +116,7 @@ const VocalizeView = ({
   file,
   setFile,
   voicesFavorite,
+  setVoicesFavorite,
 }: Props) => {
   const theme: any = useTheme();
   let max_length = "";
@@ -294,6 +296,7 @@ const VocalizeView = ({
               hidden={hidden}
               setHidden={setHidden}
               voicesFavorite={voicesFavorite}
+              setVoicesFavorite={setVoicesFavorite}
             />
           )}
           {tab == "document" && (
@@ -336,6 +339,7 @@ const VocalizeView = ({
                 data={voices}
                 type={""}
                 voicesFavorite={voicesFavorite}
+                setVoicesFavorite={setVoicesFavorite}
               />
             ) : (
               <Loading height={"100%"} />
@@ -1123,6 +1127,7 @@ const VocalizeView = ({
               data={voices}
               type={""}
               voicesFavorite={voicesFavorite}
+              setVoicesFavorite={setVoicesFavorite}
             />
           ) : (
             <Loading height={"100%"} />

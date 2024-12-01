@@ -95,6 +95,7 @@ type Props = {
   suaTatCa: any;
   handleChangeSrt: any;
   voicesFavorite: any;
+  setVoicesFavorite: any;
 };
 
 const StoryMakerView = ({
@@ -132,6 +133,7 @@ const StoryMakerView = ({
   dataEditAll,
   suaTatCa,
   voicesFavorite,
+  setVoicesFavorite,
 }: Props) => {
   const theme: any = useTheme();
 
@@ -752,6 +754,7 @@ const StoryMakerView = ({
               data={voices}
               type={"story"}
               voicesFavorite={voicesFavorite}
+              setVoicesFavorite={setVoicesFavorite}
             />
           ) : (
             <Loading height={"100%"} />

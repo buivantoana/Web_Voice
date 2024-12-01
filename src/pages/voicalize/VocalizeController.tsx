@@ -79,6 +79,9 @@ const VocalizeController = (props: Props) => {
         });
         console.log("AAAA data", data);
         if (data.voices && data.voices.length > 0) {
+          data.voices = data.voices.filter(
+            (item: any) => item.favorite == true
+          );
           setVoicesFavorite(data.voices.map((item: any) => item.id));
         }
       }
@@ -298,6 +301,7 @@ const VocalizeController = (props: Props) => {
         setFile={setFile}
         file={file}
         voicesFavorite={voicesFavorite}
+        setVoicesFavorite={setVoicesFavorite}
       />
     </>
   );
