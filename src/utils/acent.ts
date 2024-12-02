@@ -668,7 +668,7 @@ export const country = [
     flag: "https://flagcdn.com/w320/tl.png",
   },
   {
-    name: "Vietnam",
+    name: "Vietnamese",
     flag: "https://flagcdn.com/w320/vn.png",
   },
   {
@@ -812,7 +812,7 @@ export const country = [
     flag: "https://flagcdn.com/w320/cl.png",
   },
   {
-    name: "United States",
+    name: "English",
     flag: "https://flagcdn.com/w320/us.png",
   },
   {

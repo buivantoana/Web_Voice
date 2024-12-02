@@ -215,7 +215,7 @@ const Author = ({
     }
     if (SelectedAcent) {
       data_filter = data_filter.filter(
-        (item: any) => item.gender == SelectedAcent
+        (item: any) => item.accent == SelectedAcent
       );
     }
     if (typeVoice != "favorite") {
@@ -282,6 +282,7 @@ const Author = ({
                 setVoice(data.filter((item: any) => item.type == "openai")[0]);
               }
               setVoices(data.filter((item: any) => item.type == "openai"));
+              handleReset();
             }}
             borderRadius={"5px"}
             justifyContent={"center"}
@@ -302,6 +303,7 @@ const Author = ({
                 setVoice(data.filter((item: any) => item.type == "system")[0]);
               }
               setVoices(data.filter((item: any) => item.type == "system"));
+              handleReset();
             }}
             borderRadius={"5px"}
             justifyContent={"center"}
@@ -328,6 +330,7 @@ const Author = ({
               } else {
                 setVoices([]);
               }
+              handleReset();
             }}
             borderRadius={"5px"}
             justifyContent={"center"}
@@ -451,6 +454,7 @@ const Author = ({
                   sx={{
                     padding: "3px 10px",
                     width: "80px",
+                    fontSize: ".8rem",
                     background:
                       SelectedGender == "Male"
                         ? theme.palette.active.main
@@ -464,6 +468,7 @@ const Author = ({
                   sx={{
                     padding: "3px 10px",
                     width: "80px",
+                    fontSize: ".8rem",
                     background:
                       SelectedGender == "Female"
                         ? theme.palette.active.main
@@ -498,7 +503,7 @@ const Author = ({
                   },
                 }}
                 size='small'>
-                Tuổi
+                {t("age")}
               </Button>
 
               <Popover
@@ -518,7 +523,8 @@ const Author = ({
                 <Typography
                   onClick={() => handleSelectAge("Young")}
                   sx={{
-                    padding: "3px 10px",
+                    padding: "3px 6px",
+                    fontSize: ".8rem",
                     width: "80px",
                     background:
                       SelectedAge == "Young"
@@ -526,12 +532,13 @@ const Author = ({
                         : "unset",
                     color: SelectedAge == "Young" ? "white" : "black",
                   }}>
-                  Trẻ
+                  {t("young")}
                 </Typography>
                 <Typography
                   onClick={() => handleSelectAge("Middle Aged")}
                   sx={{
-                    padding: "3px 10px",
+                    padding: "3px 6px",
+                    fontSize: ".8rem",
                     width: "80px",
                     background:
                       SelectedAge == "Middle Aged"
@@ -539,12 +546,13 @@ const Author = ({
                         : "unset",
                     color: SelectedAge == "Middle Aged" ? "white" : "black",
                   }}>
-                  Trung liên
+                  {t("middle_aged")}
                 </Typography>
                 <Typography
                   onClick={() => handleSelectAge("Old")}
                   sx={{
-                    padding: "3px 10px",
+                    padding: "3px 6px",
+                    fontSize: ".8rem",
                     width: "80px",
                     background:
                       SelectedAge == "Old"
@@ -552,7 +560,7 @@ const Author = ({
                         : "unset",
                     color: SelectedAge == "Old" ? "white" : "black",
                   }}>
-                  Lớn tuổi
+                  {t("old")}
                 </Typography>
               </Popover>
             </Box>
@@ -580,7 +588,7 @@ const Author = ({
                   },
                 }}
                 size='small'>
-                Phát âm
+                {t("accent")}
               </Button>
 
               <Popover

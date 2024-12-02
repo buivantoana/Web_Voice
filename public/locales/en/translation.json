@@ -203,5 +203,7 @@
   "enter_phone_number": "Enter phone number",
   "system_voices": "System Voices",
   "favorite": "Favorite Voices",
-  "love": "Favorite"
+  "love": "Favorite",
+  "age": "Age",
+  "accent": "Accent"
 }
