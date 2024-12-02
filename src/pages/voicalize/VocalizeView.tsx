@@ -1104,8 +1104,12 @@ const VocalizeView = ({
           sx: {
             width: "100%", // Chiều rộng 100%
             maxWidth: "100%",
+            padding: "5px",
             ".css-kw13he-MuiDialogContent-root": {
               padding: { xs: "0" },
+            },
+            ".css-1m664ff-MuiPaper-root-MuiDialog-paper": {
+              padding: "5px",
             },
           },
         }}
@@ -1119,7 +1123,7 @@ const VocalizeView = ({
           justifyContent={"end"}>
           <RiCloseLine size={25} />
         </Box>
-        <DialogContent>
+        <Box>
           {!loadingVoices ? (
             <Author
               setVoice={setVoice}
@@ -1132,7 +1136,7 @@ const VocalizeView = ({
           ) : (
             <Loading height={"100%"} />
           )}
-        </DialogContent>
+        </Box>
       </Dialog>
     </Box>
   );
