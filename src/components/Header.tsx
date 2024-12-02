@@ -202,7 +202,7 @@ const Header = () => {
                   alt=''
                 />
               )}
-              {i18n.language === "us" && (
+              {(i18n.language === "us" || i18n.language === "en-US") && (
                 <img
                   src={us}
                   width={25}
