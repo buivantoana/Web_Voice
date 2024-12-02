@@ -95,7 +95,10 @@ const VocalizeController = (props: Props) => {
       let data = await getVoicesOpenAi();
       console.log("AAAA data", data);
       if (data.voices && data.voices.length > 0) {
-        setVoice(data.voices[0]);
+        if (!(Object.keys(context.state.history).length > 0)) {
+          setVoice(data.voices[0]);
+        }
+
         setVoices(data.voices);
       }
     } catch (error) {

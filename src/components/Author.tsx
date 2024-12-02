@@ -104,6 +104,20 @@ const Author = ({
     setAnchorElAcent(null);
   };
 
+  useEffect(() => {
+    if (data.length > 0) {
+      if (Object.keys(context.state.history).length > 0) {
+        let data_new = data.filter(
+          (item: any) => item.id == context.state.history.type
+        )[0];
+        console.log(data_new);
+        console.log(data.filter((item: any) => item.type == data_new.type));
+        setVoice(data_new);
+        setVoices(data.filter((item: any) => item.type == data_new.type));
+        setTypeVoice(data_new.type);
+      }
+    }
+  }, [data]);
   const openAcent = Boolean(anchorElAcent);
   const idAcent = openAcent ? "simple-popover" : undefined;
 
@@ -187,7 +201,7 @@ const Author = ({
   };
   useEffect(() => {
     filterVoices();
-  }, [SelectedAcent, SelectedAge, SelectedGender]);
+  }, [SelectedAcent, SelectedAge, SelectedGender, typeVoice]);
   const filterVoices = () => {
     let data_filter = data;
     console.log(data_filter);
@@ -204,8 +218,9 @@ const Author = ({
         (item: any) => item.gender == SelectedAcent
       );
     }
-
-    setVoices(data_filter.filter((item: any) => item.type == typeVoice));
+    if (typeVoice != "favorite") {
+      setVoices(data_filter.filter((item: any) => item.type == typeVoice));
+    }
   };
   const handleReset = () => {
     setSelectedAcent(null);
@@ -304,6 +319,9 @@ const Author = ({
             onClick={() => {
               setTypeVoice("favorite");
               if (voicesFavorite && voicesFavorite.length > 0) {
+                console.log(
+                  data.filter((item: any) => voicesFavorite.includes(item.id))
+                );
                 setVoices(
                   data.filter((item: any) => voicesFavorite.includes(item.id))
                 );
@@ -332,35 +350,26 @@ const Author = ({
         gap={"20px"}
         padding={"10px 10px"}>
         <Box
-          sx={{
-            ".search-input input": {
-              padding: "3px 7px !important",
-              width: "130px",
-            },
-            ".css-51focn-MuiFormControl-root-MuiTextField-root": {
-              background: "white",
-              borderRadius: "16px",
-            },
-          }}>
-          <Button
-            aria-describedby={idGender}
-            onClick={handleClickGender}
-            variant='outlined'
-            endIcon={<ExpandMoreIcon />}
+          display={"flex"}
+          className='scroll-filter'
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          flexWrap={{ xs: "wrap", md: "unset" }}
+          gap={"5px"}
+          sx={{ overflowX: "auto" }}
+          width={"100%"}>
+          <Box
             sx={{
-              borderColor: theme.palette.grey_500.main,
-              background: "white",
-              color: "black",
-              "&:hover": {
-                borderColor: "unset",
-                color: "unset",
-                background: "white",
+              ".search-input input": {
+                padding: "3px 7px !important",
+                width: "130px",
               },
-            }}
-            size='small'>
-            {t("gender")}
-          </Button>
-          {/* <TextField
+              ".css-51focn-MuiFormControl-root-MuiTextField-root": {
+                background: "white",
+                borderRadius: "16px",
+              },
+            }}>
+            <TextField
               className='search-input'
               placeholder='Tìm kiếm...'
               id='demo-helper-text-aligned'
@@ -394,66 +403,85 @@ const Author = ({
                   />
                 ),
               }}
-            /> */}
-        </Box>
-        <Box display={"flex"} gap={"3px"}>
-          <Box
-            sx={{
-              "MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-kvalmi-MuiPaper-root-MuiPopover-paper":
-                {
-                  padding: "5px",
-                },
-            }}>
-            <Popover
-              id={idGender}
-              open={openGender}
-              anchorEl={anchorElGender}
-              onClose={handleCloseGender}
-              sx={{ p: "5px", zIndex: 1301 }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}>
-              <Typography
-                onClick={() => handleSelectGender("Male")}
-                sx={{
-                  padding: "3px 10px",
-                  width: "80px",
-                  background:
-                    SelectedGender == "Male"
-                      ? theme.palette.active.main
-                      : "unset",
-                  color: SelectedGender == "Male" ? "white" : "black",
-                }}>
-                {t("male")}
-              </Typography>
-              <Typography
-                onClick={() => handleSelectGender("Female")}
-                sx={{
-                  padding: "3px 10px",
-                  width: "80px",
-                  background:
-                    SelectedGender == "Female"
-                      ? theme.palette.active.main
-                      : "unset",
-                  color: SelectedGender == "Female" ? "white" : "black",
-                }}>
-                {t("female")}
-              </Typography>
-            </Popover>
+            />
           </Box>
-          <Box
-            sx={{
-              "MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-kvalmi-MuiPaper-root-MuiPopover-paper":
-                {
-                  padding: "5px",
+          <Box display={"flex"} gap={"3px"}>
+            <Button
+              aria-describedby={idGender}
+              onClick={handleClickGender}
+              variant='outlined'
+              endIcon={<ExpandMoreIcon />}
+              sx={{
+                borderColor: theme.palette.grey_500.main,
+                background: "white",
+                color: "black",
+                width: "95px",
+                "&:hover": {
+                  borderColor: "unset",
+                  color: "unset",
+                  background: "white",
                 },
-            }}>
-            {/* <Button
+              }}
+              size='small'>
+              {t("gender")}
+            </Button>
+            <Box
+              sx={{
+                "MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-kvalmi-MuiPaper-root-MuiPopover-paper":
+                  {
+                    padding: "5px",
+                  },
+              }}>
+              <Popover
+                id={idGender}
+                open={openGender}
+                anchorEl={anchorElGender}
+                onClose={handleCloseGender}
+                sx={{ p: "5px", zIndex: 1301 }}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}>
+                <Typography
+                  onClick={() => handleSelectGender("Male")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedGender == "Male"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedGender == "Male" ? "white" : "black",
+                  }}>
+                  {t("male")}
+                </Typography>
+                <Typography
+                  onClick={() => handleSelectGender("Female")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedGender == "Female"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedGender == "Female" ? "white" : "black",
+                  }}>
+                  {t("female")}
+                </Typography>
+              </Popover>
+            </Box>
+            <Box
+              sx={{
+                "MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-kvalmi-MuiPaper-root-MuiPopover-paper":
+                  {
+                    padding: "5px",
+                  },
+              }}>
+              <Button
                 aria-describedby={idAge}
                 onClick={handleClickAge}
                 variant='outlined'
@@ -462,6 +490,7 @@ const Author = ({
                   borderColor: theme.palette.grey_500.main,
                   background: "white",
                   color: "black",
+                  width: "95px",
                   "&:hover": {
                     borderColor: "unset",
                     color: "unset",
@@ -470,69 +499,71 @@ const Author = ({
                 }}
                 size='small'>
                 Tuổi
-              </Button> */}
+              </Button>
 
-            <Popover
-              id={idAge}
-              open={openAge}
-              anchorEl={anchorElAge}
-              onClose={handleCloseAge}
-              sx={{ p: "5px", zIndex: 1301 }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
+              <Popover
+                id={idAge}
+                open={openAge}
+                anchorEl={anchorElAge}
+                onClose={handleCloseAge}
+                sx={{ p: "5px", zIndex: 1301 }}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}>
+                <Typography
+                  onClick={() => handleSelectAge("Young")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedAge == "Young"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedAge == "Young" ? "white" : "black",
+                  }}>
+                  Trẻ
+                </Typography>
+                <Typography
+                  onClick={() => handleSelectAge("Middle Aged")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedAge == "Middle Aged"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedAge == "Middle Aged" ? "white" : "black",
+                  }}>
+                  Trung liên
+                </Typography>
+                <Typography
+                  onClick={() => handleSelectAge("Old")}
+                  sx={{
+                    padding: "3px 10px",
+                    width: "80px",
+                    background:
+                      SelectedAge == "Old"
+                        ? theme.palette.active.main
+                        : "unset",
+                    color: SelectedAge == "Old" ? "white" : "black",
+                  }}>
+                  Lớn tuổi
+                </Typography>
+              </Popover>
+            </Box>
+            <Box
+              sx={{
+                "MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-kvalmi-MuiPaper-root-MuiPopover-paper":
+                  {
+                    padding: "5px",
+                  },
               }}>
-              <Typography
-                onClick={() => handleSelectAge("Young")}
-                sx={{
-                  padding: "3px 10px",
-                  width: "80px",
-                  background:
-                    SelectedAge == "Young"
-                      ? theme.palette.active.main
-                      : "unset",
-                  color: SelectedAge == "Young" ? "white" : "black",
-                }}>
-                Trẻ
-              </Typography>
-              <Typography
-                onClick={() => handleSelectAge("Middle Aged")}
-                sx={{
-                  padding: "3px 10px",
-                  width: "80px",
-                  background:
-                    SelectedAge == "Middle Aged"
-                      ? theme.palette.active.main
-                      : "unset",
-                  color: SelectedAge == "Middle Aged" ? "white" : "black",
-                }}>
-                Trung liên
-              </Typography>
-              <Typography
-                onClick={() => handleSelectAge("Old")}
-                sx={{
-                  padding: "3px 10px",
-                  width: "80px",
-                  background:
-                    SelectedAge == "Old" ? theme.palette.active.main : "unset",
-                  color: SelectedAge == "Old" ? "white" : "black",
-                }}>
-                Lớn tuổi
-              </Typography>
-            </Popover>
-          </Box>
-          <Box
-            sx={{
-              "MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-kvalmi-MuiPaper-root-MuiPopover-paper":
-                {
-                  padding: "5px",
-                },
-            }}>
-            {/* <Button
+              <Button
                 aria-describedby={idAcent}
                 onClick={handleClickAcent}
                 variant='outlined'
@@ -541,6 +572,7 @@ const Author = ({
                   borderColor: theme.palette.grey_500.main,
                   background: "white",
                   color: "black",
+                  width: "95px",
                   "&:hover": {
                     borderColor: "unset",
                     color: "unset",
@@ -549,90 +581,90 @@ const Author = ({
                 }}
                 size='small'>
                 Phát âm
-              </Button> */}
+              </Button>
 
-            <Popover
-              id={idAcent}
-              open={openAcent}
-              anchorEl={anchorElAcent}
-              onClose={handleCloseAcent}
-              sx={{ p: "5px", zIndex: 1301 }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}>
-              <Box
-                sx={{
-                  height: "300px",
-                  overflowY: "scroll",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "5px",
+              <Popover
+                id={idAcent}
+                open={openAcent}
+                anchorEl={anchorElAcent}
+                onClose={handleCloseAcent}
+                sx={{ p: "5px", zIndex: 1301 }}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
                 }}>
-                {country.map((item) => {
-                  return (
-                    <Box
-                      display={"flex"}
-                      onClick={() => handleSelectAcent(item.name)}
-                      alignItems={"center"}
-                      sx={{
-                        background:
-                          SelectedAcent == item.name
-                            ? theme.palette.active.main
-                            : "unset",
-                        color: SelectedAcent == item.name ? "white" : "black",
-                      }}
-                      gap={"8px"}>
-                      <img
-                        src={item.flag}
-                        width={30}
-                        height={30}
-                        style={{ borderRadius: "50%", objectFit: "cover" }}
-                        alt=''
-                      />
-                      <Typography
+                <Box
+                  sx={{
+                    height: "300px",
+                    overflowY: "scroll",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "5px",
+                  }}>
+                  {country.map((item) => {
+                    return (
+                      <Box
+                        display={"flex"}
+                        onClick={() => handleSelectAcent(item.name)}
+                        alignItems={"center"}
                         sx={{
-                          padding: "3px 10px",
-                          width: "100px",
-                          fontSize: ".8rem",
-                        }}>
-                        {item.name}
-                      </Typography>
-                    </Box>
-                  );
-                })}
-              </Box>
-            </Popover>
+                          background:
+                            SelectedAcent == item.name
+                              ? theme.palette.active.main
+                              : "unset",
+                          color: SelectedAcent == item.name ? "white" : "black",
+                        }}
+                        gap={"8px"}>
+                        <img
+                          src={item.flag}
+                          width={30}
+                          height={30}
+                          style={{ borderRadius: "50%", objectFit: "cover" }}
+                          alt=''
+                        />
+                        <Typography
+                          sx={{
+                            padding: "3px 10px",
+                            width: "100px",
+                            fontSize: ".8rem",
+                          }}>
+                          {item.name}
+                        </Typography>
+                      </Box>
+                    );
+                  })}
+                </Box>
+              </Popover>
+            </Box>
           </Box>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-
-            gap: "10px",
-          }}>
-          <Button
-            variant='outlined'
-            onClick={handleReset}
-            startIcon={<FilterAltOffIcon />}
+          <Box
             sx={{
-              borderColor: theme.palette.grey_500.main,
-              color: "black",
+              display: "flex",
 
-              "&:hover": {
-                borderColor: "unset",
-                color: "unset",
-              },
-            }}
-            size='small'>
-            {t("reset")}
-          </Button>
+              gap: "10px",
+            }}>
+            <Button
+              variant='outlined'
+              onClick={handleReset}
+              startIcon={<FilterAltOffIcon />}
+              sx={{
+                borderColor: theme.palette.grey_500.main,
+                color: "black",
+                width: "95px",
+                "&:hover": {
+                  borderColor: "unset",
+                  color: "unset",
+                },
+              }}
+              size='small'>
+              {t("reset")}
+            </Button>
 
-          {/* <RestartAltIcon
+            {/* <RestartAltIcon
               sx={{
                 border: `1px solid ${theme.palette.grey_500.main}`,
                 borderRadius: "50%",
@@ -640,6 +672,7 @@ const Author = ({
                 background: "white",
               }}
             /> */}
+          </Box>
         </Box>
       </Box>
       <Box

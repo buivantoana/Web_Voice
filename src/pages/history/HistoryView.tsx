@@ -482,6 +482,7 @@ function AudioPlayer({ width, voice_id, content, speed, type }: any) {
                         : content,
                     speed: speed,
                     type,
+                    voice_id,
                   },
                 },
               });
