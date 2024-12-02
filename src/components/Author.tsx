@@ -374,7 +374,7 @@ const Author = ({
             }}>
             <TextField
               className='search-input'
-              placeholder='Tìm kiếm...'
+              placeholder={`${t("search")}...`}
               id='demo-helper-text-aligned'
               value={search}
               onChange={handleSearch}
