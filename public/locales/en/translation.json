@@ -206,5 +206,13 @@
   "love": "Favorite",
   "age": "Age",
   "accent": "Accent",
-  "search": "Search"
+  "search": "Search",
+  "my_voices":"My voices",
+  "create_new_voice":"Create a new voice",
+  "update_new": "The feature is being updated.",
+  "delete":"Delete",
+  "confirm_myvoice":"Do you want to delete?",
+  "confirm_desc_myvoice":"Once deleted, it cannot be restored.",
+  "yes":"Yes",
+  "no":"No"
 }

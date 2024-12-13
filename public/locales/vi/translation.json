@@ -207,5 +207,13 @@
   "love": "Yêu thích",
   "age": "Tuổi",
   "accent": "Phát âm",
-  "search":"Tìm kiếm"
+  "search":"Tìm kiếm",
+  "my_voices":"Giọng của tôi",
+  "create_new_voice":"Tạo một giọng điệu mới",
+  "update_new":"Tính năng đang được cập nhật.",
+  "delete":"Xóa",
+  "confirm_myvoice":"Bạn có muốn xóa không?",
+  "confirm_desc_myvoice":"Không thể khôi phục khi đã xóa.",
+  "yes":"Có",
+  "no":"Không"
 }

@@ -35,6 +35,21 @@ a {
 body {
   margin: 0px;
 }
+.hidden-add-voice::-webkit-scrollbar-track {
+  border: 0px solid transparent;
+  padding: 0;
+  background-color: transparent;
+}
+
+.hidden-add-voice::-webkit-scrollbar {
+  width: 0px;
+}
+
+.hidden-add-voice::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: transparent;
+  border: 0px solid transparent;
+}
 
 body::-webkit-scrollbar-track {
   border: 0px solid transparent;

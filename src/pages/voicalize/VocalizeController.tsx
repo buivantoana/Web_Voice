@@ -6,16 +6,19 @@ import {
   createStoryMaker,
   createVoice,
   getInfo,
+  getMyVoices,
   getVoicesFavorite,
   getVoicesOpenAi,
 } from "../../service/voice";
 import { useCoursesContext } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import AddMyVoiceController from "./AddMyVoiceController";
 
 type Props = {};
 let arr: any = [];
 const VocalizeController = (props: Props) => {
+  const [typeVoice, setTypeVoice] = useState("openai");
   const [textVoice, setTextVoice] = useState("");
   const [loading, setLoading] = useState(false);
   const [speed, setSpeed] = useState<any>(1);
@@ -26,6 +29,7 @@ const VocalizeController = (props: Props) => {
   const idQuality = openQuality ? "simple-popover" : undefined;
   const [isOpen, setIsOpen] = useState(false);
   const [openAuthor, setOpenAuthor] = React.useState(false);
+  const [openAddMyVoice, setOpenAddMyVoice] = React.useState(false);
   const [voicesFavorite, setVoicesFavorite] = React.useState(null);
   const [loadingVoices, setLoadingVoices] = useState(false);
   const [voices, setVoices] = useState<any>([]);
@@ -36,6 +40,8 @@ const VocalizeController = (props: Props) => {
   const navigate: any = useNavigate();
   const [file, setFile] = useState<any>(null);
   const [tab, setTab] = useState("input_text");
+  const [myVoices, setMyVoices] = useState<any>([]);
+
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
   };
@@ -64,8 +70,10 @@ const VocalizeController = (props: Props) => {
       setHidden(true);
     }
     loadVoicesOpenai();
+    
   }, []);
   useEffect(() => {
+    loadMyVoices()
     loadVoicesFavorite();
   }, [context.state.user]);
   const loadVoicesFavorite = async () => {
@@ -88,6 +96,30 @@ const VocalizeController = (props: Props) => {
     } catch (error) {
       console.log(error);
     }
+  };
+  const loadMyVoices = async (check_type=false) => {
+    setLoadingVoices(true);
+    try {
+      if (
+        Object.keys(context.state.user).length > 0 &&
+        context.state.user.user_id
+      ) {
+      let data = await getMyVoices(context.state.user.user_id);
+      console.log("AAAA data", data);
+      if (data.my_voices && data.my_voices.length > 0) {
+        setMyVoices(data.my_voices)
+      }
+      if(check_type){
+        setTypeVoice("my_voices")
+        if(data.my_voices.length ==0){
+          setMyVoices([])
+        }
+      }
+    }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoadingVoices(false);
   };
   const loadVoicesOpenai = async () => {
     setLoadingVoices(true);
@@ -112,6 +144,13 @@ const VocalizeController = (props: Props) => {
 
   const handleCloseAuthor = () => {
     setOpenAuthor(false);
+  };
+  const handleClickOpenAddMyVoice = () => {
+    setOpenAddMyVoice(true);
+  };
+
+  const handleCloseAddMyVoice = () => {
+    setOpenAddMyVoice(false);
   };
   const handleSelectQuality = (quality: any) => {
     setSelectedQuality(quality);
@@ -305,6 +344,20 @@ const VocalizeController = (props: Props) => {
         file={file}
         voicesFavorite={voicesFavorite}
         setVoicesFavorite={setVoicesFavorite}
+        handleClickOpenAddMyVoice={handleClickOpenAddMyVoice}
+        myVoices={myVoices}
+        loadMyVoices={loadMyVoices}
+        setLoading={setLoading}
+        setTypeVoice={setTypeVoice}
+        typeVoice={typeVoice}
+      />
+      <AddMyVoiceController
+        handleClickOpenAddMyVoice={handleClickOpenAddMyVoice}
+        handleCloseAddMyVoice={handleCloseAddMyVoice}
+        openAddMyVoice={openAddMyVoice}
+        setLoading={setLoading}
+        loadMyVoices={loadMyVoices}
+        
       />
     </>
   );

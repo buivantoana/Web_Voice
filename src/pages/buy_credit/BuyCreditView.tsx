@@ -14,15 +14,11 @@ import { RiPaypalFill } from "react-icons/ri";
 import LeftProfile from "../../components/LeftProfile";
 import { useTranslation } from "react-i18next";
 const buy_amount = [
-  { amount: 200, type: "K" },
-  { amount: 400, type: "K" },
-  { amount: 1000, type: "M" },
-  { amount: 1400, type: "M" },
-  { amount: 2000, type: "M" },
-  // { amount: 2.4, type: "M" },
-  // { amount: 3, type: "M" },
-  // { amount: 3.4, type: "M" },
-  // { amount: 4, type: "M" },
+  { amount: 200, type: "K", credits: 100000 },
+  { amount: 400, type: "K", credits: 200000 },
+  { amount: 1000, type: "M", credits: 500000 },
+  { amount: 1400, type: "M", credits: 700000 },
+  { amount: 2000, type: "M", credits: 1000000 },
 ];
 const BuyCreditView = ({
   amount,
@@ -36,9 +32,9 @@ const BuyCreditView = ({
   const { t } = useTranslation();
   const formatAmount = (value: any) => {
     if (value < 1) {
-      return `${(value * 10000).toFixed(0)}`; // Nếu dưới 1, hiển thị K
+      return `${(value * 500000).toFixed(0)}`; // Nếu dưới 1, hiển thị K
     } else {
-      return `${(value * 10000).toFixed(0)}`; // Nếu từ 1 trở lên, hiển thị M
+      return `${(value * 500000).toFixed(0)}`; // Nếu từ 1 trở lên, hiển thị M
     }
   };
   return (
@@ -149,7 +145,7 @@ const BuyCreditView = ({
                             fontSize={".8rem"}
                             textAlign={"center"}
                             sx={{ color: "inherit" }}>
-                            {_.amount * 10} {t("credits")}
+                            {_.credits} {t("credits")}
                           </Typography>
                           <ArrowDownwardIcon sx={{ color: "inherit" }} />
                         </Box>
@@ -278,7 +274,7 @@ const BuyCreditView = ({
                     textAlign={"center"}
                     fontSize={{ xs: ".9rem", md: "1rem" }}>
                     ※ 1.000 {t("credits")} = 1.000 {t("top_up_now_des")}(100VND
-                    = 1 {t("credits")})
+                    = 50 {t("credits")})
                   </Typography>
                 </Box>
               </Box>

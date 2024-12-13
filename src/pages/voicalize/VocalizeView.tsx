@@ -80,6 +80,12 @@ type Props = {
   file: any;
   voicesFavorite: any;
   setVoicesFavorite: any;
+  handleClickOpenAddMyVoice: any;
+  myVoices:any;
+  loadMyVoices:any;
+  setLoading:any;
+  setTypeVoice:any;
+        typeVoice:any;
 };
 const VocalizeView = ({
   textVoice,
@@ -117,6 +123,12 @@ const VocalizeView = ({
   setFile,
   voicesFavorite,
   setVoicesFavorite,
+  handleClickOpenAddMyVoice,
+  myVoices,
+  loadMyVoices,
+  setLoading,
+  setTypeVoice,
+  typeVoice
 }: Props) => {
   const theme: any = useTheme();
   let max_length = "";
@@ -340,6 +352,12 @@ const VocalizeView = ({
                 type={""}
                 voicesFavorite={voicesFavorite}
                 setVoicesFavorite={setVoicesFavorite}
+                handleClickOpenAddMyVoice={handleClickOpenAddMyVoice}
+                myVoices={myVoices}
+                loadMyVoices={loadMyVoices}
+                setLoading={setLoading}
+                setTypeVoice={setTypeVoice}
+        typeVoice={typeVoice}
               />
             ) : (
               <Loading height={"100%"} />
@@ -1132,6 +1150,12 @@ const VocalizeView = ({
               type={""}
               voicesFavorite={voicesFavorite}
               setVoicesFavorite={setVoicesFavorite}
+              handleClickOpenAddMyVoice={handleClickOpenAddMyVoice}
+              myVoices={myVoices}
+              loadMyVoices={loadMyVoices}
+              setLoading={setLoading}
+              setTypeVoice={setTypeVoice}
+        typeVoice={typeVoice}
             />
           ) : (
             <Loading height={"100%"} />

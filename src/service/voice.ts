@@ -23,6 +23,45 @@ export async function createVoice(body: any, isFormData: boolean = false) {
     console.error("Error fetching data:", error.message);
   }
 }
+export async function addMyVoice(body: any) {
+  try {
+    const headers = {
+      Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+    };
+    const response = await axios.post(`${url_voice}/voice/addvoice`, body, {
+      headers,
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+export async function getMyVoices(user_id:any) {
+  try {
+    const response = await axios.get(`${url_voice}/voice/myvoice/${user_id}`, {
+      headers: {
+        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+      },
+    });
+    console.error("AAAA data:====", response.data);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+export async function deleteMyVoices(idDelete:any) {
+  try {
+    const response = await axios.delete(`${url_voice}/voice/delete_my_voice/${idDelete}`, {
+      headers: {
+        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+      },
+    });
+    console.error("AAAA data:====", response.data);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
 export async function getVoicesOpenAi() {
   try {
     const response = await axios.get(`${url_voice}/voice/voices`, {
