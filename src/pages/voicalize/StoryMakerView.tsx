@@ -97,6 +97,7 @@ type Props = {
   handleChangeSrt: any;
   voicesFavorite: any;
   setVoicesFavorite: any;
+  myVoices:any;
 };
 
 const StoryMakerView = ({
@@ -135,9 +136,10 @@ const StoryMakerView = ({
   suaTatCa,
   voicesFavorite,
   setVoicesFavorite,
+  myVoices
 }: Props) => {
   const theme: any = useTheme();
-
+  const [typeVoice, setTypeVoice] = useState("openai");
   let close = block.filter((item: any) => item.open == true)[0];
   let max_length = "";
   block.map((item: any) => {
@@ -475,7 +477,7 @@ const StoryMakerView = ({
                                     />
                                     <Typography
                                       sx={{ textTransform: "capitalize" }}>
-                                      {item.voice}
+                                     {truncateString(item.voice,15)}
                                     </Typography>
                                   </Box>
                                 </Box>
@@ -601,13 +603,13 @@ const StoryMakerView = ({
                               alignItems={"center"}
                               gap={"8px"}>
                               <img
-                                src={images[item.voice]}
+                                src={images[item.voice]?images[item.voice]:vn}
                                 width={18}
                                 style={{ borderRadius: "50%" }}
                                 height={18}
                               />
                               <Typography sx={{ textTransform: "capitalize" }}>
-                                {item.voice}
+                                {truncateString(item.voice,15)}
                               </Typography>
                             </Box>
                           </Box>
@@ -760,6 +762,9 @@ const StoryMakerView = ({
               type={"story"}
               voicesFavorite={voicesFavorite}
               setVoicesFavorite={setVoicesFavorite}
+              myVoices={myVoices}
+              typeVoice={typeVoice}
+              setTypeVoice={setTypeVoice}
             />
           ) : (
             <Loading height={"100%"} />
@@ -989,3 +994,9 @@ const StoryMakerView = ({
 };
 
 export default StoryMakerView;
+function truncateString(str:any, length:any) {
+  if (str.length > length) {
+      return str.substring(0, length) + '...';
+  }
+  return str;
+}

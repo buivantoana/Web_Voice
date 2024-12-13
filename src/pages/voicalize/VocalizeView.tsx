@@ -309,6 +309,7 @@ const VocalizeView = ({
               setHidden={setHidden}
               voicesFavorite={voicesFavorite}
               setVoicesFavorite={setVoicesFavorite}
+              myVoices={myVoices}
             />
           )}
           {tab == "document" && (

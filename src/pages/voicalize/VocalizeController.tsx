@@ -107,7 +107,16 @@ const VocalizeController = (props: Props) => {
       let data = await getMyVoices(context.state.user.user_id);
       console.log("AAAA data", data);
       if (data.my_voices && data.my_voices.length > 0) {
-        setMyVoices(data.my_voices)
+        setMyVoices(data.my_voices.map((item:any)=>{
+          return {
+            ...item,
+            type:"my_voice",
+            id:item.voice_id,
+            name:item.voice_name,
+            description:item.voice_desc,
+            voice:item.voice_name
+          }
+        }))
       }
       if(check_type){
         setTypeVoice("my_voices")
@@ -222,17 +231,18 @@ const VocalizeController = (props: Props) => {
               text: item.text,
               delay: Number(item.delay),
               voice:
-                voices.filter((ix: any) => ix.id == item.voice)[0].gender ==
-                "Male"
-                  ? "en_us_male"
-                  : "en_us_female",
+                voices.filter((ix: any) => ix.id == item.voice)[0]? voices.filter((ix: any) => ix.id == item.voice)[0].gender ==
+                  "Male"
+                    ? "en_us_male"
+                    : "en_us_female" :"",
               speed: Number(item.speed),
               voice_type: voices.filter((ix: any) => ix.id == item.voice)[0]
-                .type,
+                ?voices.filter((ix: any) => ix.id == item.voice)[0]
+                .type:"my_voice",
             };
           }),
         };
-
+        console.log(body)
         let data = await createStoryMaker(body);
 
         if (data.code == 0) {
@@ -260,7 +270,7 @@ const VocalizeController = (props: Props) => {
     }
     setLoading(false);
   };
-  console.log("AAA context voice====", block);
+  console.log("AAA context voice====", myVoices);
   const handleCreateVoiceDocument = async () => {
     setLoading(true);
     try {

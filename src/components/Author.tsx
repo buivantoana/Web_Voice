@@ -59,10 +59,10 @@ type Props = {
   type: any;
   voicesFavorite: any;
   setVoicesFavorite: any;
-  handleClickOpenAddMyVoice: any;
+  handleClickOpenAddMyVoice?: any;
   myVoices:any;
-  loadMyVoices:any;
-  setLoading:any;
+  loadMyVoices?:any;
+  setLoading?:any;
   setTypeVoice:any;
   typeVoice:any;
 };
@@ -253,7 +253,14 @@ const Author = ({
     if (typeVoice != "favorite") {
       setVoices(data_filter.filter((item: any) => item.type == typeVoice));
     }
+    if(typeVoice == "my_voices" && type !== "story"){
+      if(myVoices.length > 0){
+        setVoice(myVoices[0])
+      }
+      
+    }
   };
+  console.log(voice)
   const handleReset = () => {
     setSelectedAcent(null);
     setSelectedAge(null);
@@ -390,6 +397,10 @@ const Author = ({
                 setVoices(
                   data.filter((item: any) => voicesFavorite.includes(item.id))
                 );
+                if(type !== "story"){
+                  setVoice(data.filter((item: any) => voicesFavorite.includes(item.id))[0])
+                }
+
               } else {
                 setVoices([]);
               }
@@ -489,9 +500,14 @@ const Author = ({
                   console.log(
                     data.filter((item: any) => voicesFavorite.includes(item.id))
                   );
-                  setVoices(
-                    data.filter((item: any) => voicesFavorite.includes(item.id))
-                  );
+                    setVoices(
+                      data.filter((item: any) => voicesFavorite.includes(item.id))
+                    );
+                    if(type !== "story"){
+                      setVoice(
+                        data.filter((item: any) => voicesFavorite.includes(item.id))[0]
+                      );
+                    }
                 } else {
                   setVoices([]);
                 }
@@ -872,7 +888,7 @@ const Author = ({
                     borderRadius: "8px",
                     // flexGrow: 1,
                     border:
-                      voice.id == item.id
+                      voice.voice_id == item.voice_id
                         ? `2px solid ${theme.palette.active.main}`
                         : "2px solid rgb(226 232 240)",
                     width: { xs: "100%", md: "48%" },
