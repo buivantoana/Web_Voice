@@ -60,11 +60,11 @@ type Props = {
   voicesFavorite: any;
   setVoicesFavorite: any;
   handleClickOpenAddMyVoice?: any;
-  myVoices:any;
-  loadMyVoices?:any;
-  setLoading?:any;
-  setTypeVoice:any;
-  typeVoice:any;
+  myVoices: any;
+  loadMyVoices?: any;
+  setLoading?: any;
+  setTypeVoice: any;
+  typeVoice: any;
 };
 
 const Author = ({
@@ -79,7 +79,7 @@ const Author = ({
   setLoading,
   loadMyVoices,
   setTypeVoice,
-  typeVoice
+  typeVoice,
 }: Props) => {
   const theme: any = useTheme();
   const [voices, setVoices] = useState(
@@ -253,14 +253,13 @@ const Author = ({
     if (typeVoice != "favorite") {
       setVoices(data_filter.filter((item: any) => item.type == typeVoice));
     }
-    if(typeVoice == "my_voices" && type !== "story"){
-      if(myVoices.length > 0){
-        setVoice(myVoices[0])
+    if (typeVoice == "my_voices" && type !== "story") {
+      if (myVoices.length > 0) {
+        setVoice(myVoices[0]);
       }
-      
     }
   };
-  console.log(voice)
+  console.log(voice);
   const handleReset = () => {
     setSelectedAcent(null);
     setSelectedAge(null);
@@ -295,20 +294,20 @@ const Author = ({
       console.log(error);
     }
   };
-  const handleDeleteMyVoice = async ()=>{
-    setLoading(true)
+  const handleDeleteMyVoice = async () => {
+    setLoading(true);
     try {
-      let result = await deleteMyVoices(idDelete)
-      if(typeof result.my_voices  == "object"){
-        handleClose()
-        loadMyVoices(true)
-        toast.success("Xóa thành công")
+      let result = await deleteMyVoices(idDelete);
+      if (typeof result.my_voices == "object") {
+        handleClose();
+        loadMyVoices(true);
+        toast.success("Xóa thành công");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
   return (
     <Box
       border={"1px solid #dddddd"}
@@ -397,10 +396,13 @@ const Author = ({
                 setVoices(
                   data.filter((item: any) => voicesFavorite.includes(item.id))
                 );
-                if(type !== "story"){
-                  setVoice(data.filter((item: any) => voicesFavorite.includes(item.id))[0])
+                if (type !== "story") {
+                  setVoice(
+                    data.filter((item: any) =>
+                      voicesFavorite.includes(item.id)
+                    )[0]
+                  );
                 }
-
               } else {
                 setVoices([]);
               }
@@ -500,14 +502,16 @@ const Author = ({
                   console.log(
                     data.filter((item: any) => voicesFavorite.includes(item.id))
                   );
-                    setVoices(
-                      data.filter((item: any) => voicesFavorite.includes(item.id))
+                  setVoices(
+                    data.filter((item: any) => voicesFavorite.includes(item.id))
+                  );
+                  if (type !== "story") {
+                    setVoice(
+                      data.filter((item: any) =>
+                        voicesFavorite.includes(item.id)
+                      )[0]
                     );
-                    if(type !== "story"){
-                      setVoice(
-                        data.filter((item: any) => voicesFavorite.includes(item.id))[0]
-                      );
-                    }
+                  }
                 } else {
                   setVoices([]);
                 }
@@ -881,167 +885,172 @@ const Author = ({
           <Box display={"flex"} flexWrap={"wrap"} gap={"10px"} padding={"10px"}>
             {typeVoice == "my_voices" ? (
               <>
-                {myVoices && myVoices.length>0 && myVoices.map((item:any,index:any)=>{
-                  return <Box
-                  onClick={() => setVoice(item)}
-                  sx={{
-                    borderRadius: "8px",
-                    // flexGrow: 1,
-                    border:
-                      voice.voice_id == item.voice_id
-                        ? `2px solid ${theme.palette.active.main}`
-                        : "2px solid rgb(226 232 240)",
-                    width: { xs: "100%", md: "48%" },
-                    height:"18vh"
-                    // flexBasis: "200",
-                  }}>
-                  <Stack
-                    direction={"row"}
-                    sx={{ padding: "6px" }}
-                    justifyContent={"space-between"}>
-                    <Typography fontSize={".9rem"} fontWeight={"500"}>
-                      {item.voice_name}
-                    </Typography>
-                    <Typography fontSize={".85rem"} fontWeight={"500"}>
-                      QA00{index + 1}
-                    </Typography>
-                  </Stack>
-                  <Stack
-                    sx={{ padding: "6px" }}
-                    direction={"row"}
-                    justifyContent={"space-between"}>
-                    <Box>
-                      <Typography
-                        mb={"7px"}
-                        ml={"8px"}
-                        fontSize={".85rem"}>
-                        {item.voice_desc}
-                      </Typography>
-                      <Box display={"flex"} gap={"5px"}>
-                        <Box
-                          border={"2px solid rgb(226 232 240)"}
-                          p={"0px 8px"}
-                          bgcolor={"rgb(248 250 252)"}
-                          borderRadius={"5px"}
-                          width={"max-content"}>
-                          <Typography>{age[item.age]}</Typography>
-                        </Box>
-                        <Box
-                          border={"2px solid rgb(226 232 240)"}
-                          p={"0px 8px"}
-                          bgcolor={"rgb(248 250 252)"}
-                          borderRadius={"5px"}
-                          width={"max-content"}>
-                          <Typography>{gender[item.gender]}</Typography>
-                        </Box>
-                      </Box>
-                    </Box>
-                    <Box>
-                      <img
-                        src={vn}
-                        alt=''
-                        width={"40px"}
-                        height={"40px"}
-                        style={{
-                          borderRadius: "50%",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </Box>
-                  </Stack>
-                  <Stack mt={"50px"} direction={"row"}>
-                   
+                {myVoices &&
+                  myVoices.length > 0 &&
+                  myVoices.map((item: any, index: any) => {
+                    return (
+                      <Box
+                        onClick={() => setVoice(item)}
+                        sx={{
+                          borderRadius: "8px",
+                          // flexGrow: 1,
+                          border:
+                            voice.voice_id == item.voice_id
+                              ? `2px solid ${theme.palette.active.main}`
+                              : "2px solid rgb(226 232 240)",
+                          width: { xs: "100%", md: "48%" },
 
-                    <Box
-                      onClick={() => handleFavorite(item)}
-                      padding={"8px"}
-                      width={"50%"}
-                      display={"flex"}
-                      position={"relative"}
-                      zIndex={2}
-                      alignItems={"center"}
-                      gap={"5px"}
-                      borderTop={"1px solid rgb(226 232 240)"}
-                      borderRight={"1px solid rgb(226 232 240)"}
-                      justifyContent={"center"}>
-                      {/* {favorite ? (
+                          // flexBasis: "200",
+                        }}>
+                        <Stack
+                          direction={"row"}
+                          sx={{ padding: "6px" }}
+                          justifyContent={"space-between"}>
+                          <Typography fontSize={".9rem"} fontWeight={"500"}>
+                            {item.voice_name}
+                          </Typography>
+                          <Typography fontSize={".85rem"} fontWeight={"500"}>
+                            QA00{index + 1}
+                          </Typography>
+                        </Stack>
+                        <Stack
+                          sx={{ padding: "6px" }}
+                          direction={"row"}
+                          justifyContent={"space-between"}>
+                          <Box>
+                            <Typography
+                              mb={"7px"}
+                              ml={"8px"}
+                              fontSize={".85rem"}>
+                              {item.voice_desc}
+                            </Typography>
+                            <Box display={"flex"} gap={"5px"}>
+                              <Box
+                                border={"2px solid rgb(226 232 240)"}
+                                p={"0px 8px"}
+                                bgcolor={"rgb(248 250 252)"}
+                                borderRadius={"5px"}
+                                width={"max-content"}>
+                                <Typography>{age[item.age]}</Typography>
+                              </Box>
+                              <Box
+                                border={"2px solid rgb(226 232 240)"}
+                                p={"0px 8px"}
+                                bgcolor={"rgb(248 250 252)"}
+                                borderRadius={"5px"}
+                                width={"max-content"}>
+                                <Typography>{gender[item.gender]}</Typography>
+                              </Box>
+                            </Box>
+                          </Box>
+                          <Box>
+                            <img
+                              src={vn}
+                              alt=''
+                              width={"40px"}
+                              height={"40px"}
+                              style={{
+                                borderRadius: "50%",
+                                objectFit: "cover",
+                              }}
+                            />
+                          </Box>
+                        </Stack>
+                        <Stack mt={"30px"} direction={"row"}>
+                          <Box
+                            onClick={() => handleFavorite(item)}
+                            padding={"8px"}
+                            width={"50%"}
+                            display={"flex"}
+                            position={"relative"}
+                            zIndex={2}
+                            alignItems={"center"}
+                            gap={"5px"}
+                            borderTop={"1px solid rgb(226 232 240)"}
+                            borderRight={"1px solid rgb(226 232 240)"}
+                            justifyContent={"center"}>
+                            {/* {favorite ? (
                         <RiHeartFill color='rgb(5, 122, 85)' />
                        ) : ( */}
-                        <svg
-                          data-v-fa4d36aa=''
-                          xmlns='http://www.w3.org/2000/svg'
-                          xmlnsXlink='http://www.w3.org/1999/xlink'
-                          aria-hidden='true'
-                          role='img'
-                          className='icon text-lg'
-                          width='1em'
-                          height='1em'
-                          viewBox='0 0 24 24'>
-                          <path
-                            fill='currentColor'
-                            d='m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825'
-                          />
-                        </svg>
-                      {/* )} } */}
+                            <svg
+                              data-v-fa4d36aa=''
+                              xmlns='http://www.w3.org/2000/svg'
+                              xmlnsXlink='http://www.w3.org/1999/xlink'
+                              aria-hidden='true'
+                              role='img'
+                              className='icon text-lg'
+                              width='1em'
+                              height='1em'
+                              viewBox='0 0 24 24'>
+                              <path
+                                fill='currentColor'
+                                d='m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825'
+                              />
+                            </svg>
+                            {/* )} } */}
 
-                      <Typography fontSize={".85rem"}>
-                        {" "}
-                        {t("love")}
-                      </Typography>
-                    </Box>
-                      <Box
-                      padding={"8px"}
-                      width={"50%"}
-                      display={"flex"}
-                      alignItems={"center"}
-                      gap={"5px"}
-                      borderTop={"1px solid rgb(226 232 240)"}
-                      borderRight={"1px solid rgb(226 232 240)"}
-                      onClick={() => {
-                        setIdDelete(item.voice_id)
-                        handleClickOpen()
-                        }}
-                      justifyContent={"center"}>
-                        <RiDeleteBin2Fill />
-                      <Typography fontSize={".85rem"}>
-                        {t("delete")}
-                      </Typography>
-                      {/* <audio
+                            <Typography fontSize={".85rem"}>
+                              {" "}
+                              {t("love")}
+                            </Typography>
+                          </Box>
+                          {type != "story" && (
+                            <Box
+                              padding={"8px"}
+                              width={"50%"}
+                              display={"flex"}
+                              alignItems={"center"}
+                              gap={"5px"}
+                              borderTop={"1px solid rgb(226 232 240)"}
+                              borderRight={"1px solid rgb(226 232 240)"}
+                              onClick={() => {
+                                setIdDelete(item.voice_id);
+                                handleClickOpen();
+                              }}
+                              justifyContent={"center"}>
+                              <RiDeleteBin2Fill />
+                              <Typography fontSize={".85rem"}>
+                                {t("delete")}
+                              </Typography>
+                              {/* <audio
                         ref={(el) => (audioRefs.current[index] = el)}
                         src={item.sample_audio_path}
                         onEnded={handleAudioEnded}
                       /> */}
-                    </Box>
-                  </Stack>
-                </Box>
-                })}
-                {myVoices.length!=2&&
-              <Box
-                onClick={() => {
-                  //  toast.warning(t("update_new"))
-                  handleClickOpenAddMyVoice();
-                }}
-                sx={{
-                  borderRadius: "8px",
-                  // flexGrow: 1,
-                  border: "2px solid rgb(226 232 240)",
-                  width: { xs: "100%", md: "48%" },
-                  height: "18vh",
-                  // flexBasis: "200",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  gap: "15px",
-                }}>
-                <RiAddCircleLine
-                  size={45}
-                  style={{ color: theme.palette.grey_500.main }}
-                />
-                <Typography variant='h6' color='grey_500.main'>
-                  {t("create_new_voice")}
-                </Typography>
-              </Box>}
+                            </Box>
+                          )}
+                        </Stack>
+                      </Box>
+                    );
+                  })}
+                {myVoices.length != 2 && type != "story" && (
+                  <Box
+                    onClick={() => {
+                      //  toast.warning(t("update_new"))
+                      handleClickOpenAddMyVoice();
+                    }}
+                    sx={{
+                      borderRadius: "8px",
+                      // flexGrow: 1,
+                      border: "2px solid rgb(226 232 240)",
+                      width: { xs: "100%", md: "48%" },
+                      padding: "20px 0px",
+                      // flexBasis: "200",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      gap: "15px",
+                    }}>
+                    <RiAddCircleLine
+                      size={45}
+                      style={{ color: theme.palette.grey_500.main }}
+                    />
+                    <Typography variant='h6' color='grey_500.main'>
+                      {t("create_new_voice")}
+                    </Typography>
+                  </Box>
+                )}
               </>
             ) : (
               <>
@@ -1217,23 +1226,22 @@ const Author = ({
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'>
+        <DialogTitle id='alert-dialog-title'>
           {t("confirm_myvoice")}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-          {t("confirm_desc_myvoice")}
+          <DialogContentText id='alert-dialog-description'>
+            {t("confirm_desc_myvoice")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Button
+          <Button
             onClick={handleClose}
             variant='contained'
             sx={{ background: "white", color: "black", borderRadius: "8px" }}>
-           {t("no")}
+            {t("no")}
           </Button>
 
           <Button

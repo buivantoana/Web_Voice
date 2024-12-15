@@ -70,10 +70,9 @@ const VocalizeController = (props: Props) => {
       setHidden(true);
     }
     loadVoicesOpenai();
-    
   }, []);
   useEffect(() => {
-    loadMyVoices()
+    loadMyVoices();
     loadVoicesFavorite();
   }, [context.state.user]);
   const loadVoicesFavorite = async () => {
@@ -97,34 +96,36 @@ const VocalizeController = (props: Props) => {
       console.log(error);
     }
   };
-  const loadMyVoices = async (check_type=false) => {
+  const loadMyVoices = async (check_type = false) => {
     setLoadingVoices(true);
     try {
       if (
         Object.keys(context.state.user).length > 0 &&
         context.state.user.user_id
       ) {
-      let data = await getMyVoices(context.state.user.user_id);
-      console.log("AAAA data", data);
-      if (data.my_voices && data.my_voices.length > 0) {
-        setMyVoices(data.my_voices.map((item:any)=>{
-          return {
-            ...item,
-            type:"my_voice",
-            id:item.voice_id,
-            name:item.voice_name,
-            description:item.voice_desc,
-            voice:item.voice_name
+        let data = await getMyVoices(context.state.user.user_id);
+        console.log("AAAA data", data);
+        if (data.my_voices && data.my_voices.length > 0) {
+          setMyVoices(
+            data.my_voices.map((item: any) => {
+              return {
+                ...item,
+                type: "my_voice",
+                id: item.voice_id,
+                name: item.voice_name,
+                description: item.voice_desc,
+                voice: item.voice_name,
+              };
+            })
+          );
+        }
+        if (check_type) {
+          setTypeVoice("my_voices");
+          if (data.my_voices.length == 0) {
+            setMyVoices([]);
           }
-        }))
-      }
-      if(check_type){
-        setTypeVoice("my_voices")
-        if(data.my_voices.length ==0){
-          setMyVoices([])
         }
       }
-    }
     } catch (error) {
       console.log(error);
     }
@@ -230,19 +231,20 @@ const VocalizeController = (props: Props) => {
               name: item.name,
               text: item.text,
               delay: Number(item.delay),
-              voice:
-                voices.filter((ix: any) => ix.id == item.voice)[0]? voices.filter((ix: any) => ix.id == item.voice)[0].gender ==
+              voice: voices.filter((ix: any) => ix.id == item.voice)[0]
+                ? voices.filter((ix: any) => ix.id == item.voice)[0].gender ==
                   "Male"
-                    ? "en_us_male"
-                    : "en_us_female" :"",
+                  ? "en_us_male"
+                  : "en_us_female"
+                : item.voice,
               speed: Number(item.speed),
               voice_type: voices.filter((ix: any) => ix.id == item.voice)[0]
-                ?voices.filter((ix: any) => ix.id == item.voice)[0]
-                .type:"my_voice",
+                ? voices.filter((ix: any) => ix.id == item.voice)[0].type
+                : "my_voice",
             };
           }),
         };
-        console.log(body)
+        console.log(body);
         let data = await createStoryMaker(body);
 
         if (data.code == 0) {
@@ -367,7 +369,6 @@ const VocalizeController = (props: Props) => {
         openAddMyVoice={openAddMyVoice}
         setLoading={setLoading}
         loadMyVoices={loadMyVoices}
-        
       />
     </>
   );
