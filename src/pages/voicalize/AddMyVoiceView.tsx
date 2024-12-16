@@ -82,7 +82,7 @@ const AddMyVoiceView = ({
         }
 
         let result = await addMyVoice(formData);
-        if (result.my_voices.length > 0) {
+        if (result.my_voices && result.my_voices.length > 0) {
           handleCloseAddMyVoice();
           loadMyVoices(true);
           setSamples([]);
