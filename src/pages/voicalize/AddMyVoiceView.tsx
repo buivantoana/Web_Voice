@@ -90,9 +90,6 @@ const AddMyVoiceView = ({
           setDesc("");
           toast.success("Success");
         } else {
-          toast.error("Error");
-        }
-        if (result.code == 1) {
           toast.warning(result.msg);
         }
       }
