@@ -277,6 +277,7 @@ const Author = ({
           user_id: context.state.user.user_id,
           voice_id: item.id,
           voice_type: item.type,
+          type_voice: typeVoice == "my_voices" ? "my_voice" : null,
         });
         if (data.voices && data.voices.length > 0) {
           data.voices = data.voices.filter(
@@ -308,6 +309,7 @@ const Author = ({
     }
     setLoading(false);
   };
+  console.log(voicesFavorite);
   return (
     <Box
       border={"1px solid #dddddd"}
