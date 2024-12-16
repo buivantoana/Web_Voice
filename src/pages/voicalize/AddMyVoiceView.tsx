@@ -36,7 +36,7 @@ const AddMyVoiceView = ({
   handleCloseAddMyVoice,
   openAddMyVoice,
   setLoading,
-  loadMyVoices
+  loadMyVoices,
 }: Props) => {
   const theme: any = useTheme();
   const [samples, setSamples]: any = useState([]); // Danh sách bản ghi và file upload
@@ -84,13 +84,16 @@ const AddMyVoiceView = ({
         let result = await addMyVoice(formData);
         if (result.my_voices.length > 0) {
           handleCloseAddMyVoice();
-          loadMyVoices(true)
+          loadMyVoices(true);
           setSamples([]);
           setName("");
           setDesc("");
           toast.success("Success");
         } else {
           toast.error("Error");
+        }
+        if (result.code == 1) {
+          toast.warning(result.msg);
         }
       }
     } catch (error) {
