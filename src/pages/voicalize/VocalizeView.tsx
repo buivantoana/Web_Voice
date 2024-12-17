@@ -81,11 +81,11 @@ type Props = {
   voicesFavorite: any;
   setVoicesFavorite: any;
   handleClickOpenAddMyVoice: any;
-  myVoices:any;
-  loadMyVoices:any;
-  setLoading:any;
-  setTypeVoice:any;
-        typeVoice:any;
+  myVoices: any;
+  loadMyVoices: any;
+  setLoading: any;
+  setTypeVoice: any;
+  typeVoice: any;
 };
 const VocalizeView = ({
   textVoice,
@@ -128,7 +128,7 @@ const VocalizeView = ({
   loadMyVoices,
   setLoading,
   setTypeVoice,
-  typeVoice
+  typeVoice,
 }: Props) => {
   const theme: any = useTheme();
   let max_length = "";
@@ -358,7 +358,7 @@ const VocalizeView = ({
                 loadMyVoices={loadMyVoices}
                 setLoading={setLoading}
                 setTypeVoice={setTypeVoice}
-        typeVoice={typeVoice}
+                typeVoice={typeVoice}
               />
             ) : (
               <Loading height={"100%"} />
@@ -690,7 +690,6 @@ const VocalizeView = ({
             sx={{
               border: "1px solid #dddddd",
               borderRadius: "50%",
-              width: "100px",
               p: "5px",
               display: "flex",
               justifyContent: "center",
@@ -701,9 +700,12 @@ const VocalizeView = ({
               background: "white",
             }}>
             <img
-              src={voice && voice.id && images[voice.id]?images[voice.id]:vn}
+              src={
+                voice && voice.id && images[voice.id] ? images[voice.id] : vn
+              }
               width={90}
-              style={{ borderRadius: "50%" }}
+              height={90}
+              style={{ borderRadius: "50%", objectFit: "cover" }}
               alt=''
             />
           </Box>
@@ -832,11 +834,17 @@ const VocalizeView = ({
                   height={"100%"}
                   alignItems={"center"}>
                   <Box>
-                    <Typography fontWeight={"500"}>{voice && voice.name}</Typography>
+                    <Typography fontWeight={"500"}>
+                      {voice && voice.name}
+                    </Typography>
                     <Typography fontSize={".9rem"}>Chất lượng cao</Typography>
                   </Box>
                   <img
-                    src={voice && voice.id&& images[voice.id]?images[voice.id]:vn}
+                    src={
+                      voice && voice.id && images[voice.id]
+                        ? images[voice.id]
+                        : vn
+                    }
                     width={40}
                     style={{ borderRadius: "50%" }}
                     alt=''
@@ -1156,7 +1164,7 @@ const VocalizeView = ({
               loadMyVoices={loadMyVoices}
               setLoading={setLoading}
               setTypeVoice={setTypeVoice}
-        typeVoice={typeVoice}
+              typeVoice={typeVoice}
             />
           ) : (
             <Loading height={"100%"} />
