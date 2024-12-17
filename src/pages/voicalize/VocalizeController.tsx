@@ -165,7 +165,14 @@ const VocalizeController = (props: Props) => {
     setOpenAuthor(false);
   };
   const handleClickOpenAddMyVoice = () => {
+    if (
+      Object.keys(context.state.user).length > 0 &&
+      context.state.user.user_id
+    ) {
     setOpenAddMyVoice(true);
+    }else{
+      toast.warning("Bạn cần đăng nhập để sử dụng tính năng này.")
+    }
   };
 
   const handleCloseAddMyVoice = () => {
