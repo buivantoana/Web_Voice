@@ -97,7 +97,7 @@ type Props = {
   handleChangeSrt: any;
   voicesFavorite: any;
   setVoicesFavorite: any;
-  myVoices:any;
+  myVoices: any;
 };
 
 const StoryMakerView = ({
@@ -136,7 +136,7 @@ const StoryMakerView = ({
   suaTatCa,
   voicesFavorite,
   setVoicesFavorite,
-  myVoices
+  myVoices,
 }: Props) => {
   const theme: any = useTheme();
   const [typeVoice, setTypeVoice] = useState("openai");
@@ -239,6 +239,7 @@ const StoryMakerView = ({
             className='hidden-story'
             sx={{ overflowY: "scroll", height: { xs: "88%", md: "92%" } }}>
             {block.map((item: any) => {
+              console.log(item);
               if (item.open) {
                 return (
                   <Box
@@ -477,7 +478,9 @@ const StoryMakerView = ({
                                     />
                                     <Typography
                                       sx={{ textTransform: "capitalize" }}>
-                                     {truncateString(item.voice,15)}
+                                      {item.title
+                                        ? item.title
+                                        : truncateString(item.voice, 15)}
                                     </Typography>
                                   </Box>
                                 </Box>
@@ -603,13 +606,17 @@ const StoryMakerView = ({
                               alignItems={"center"}
                               gap={"8px"}>
                               <img
-                                src={images[item.voice]?images[item.voice]:vn}
+                                src={
+                                  images[item.voice] ? images[item.voice] : vn
+                                }
                                 width={18}
                                 style={{ borderRadius: "50%" }}
                                 height={18}
                               />
                               <Typography sx={{ textTransform: "capitalize" }}>
-                                {truncateString(item.voice,15)}
+                                {item.title
+                                  ? item.title
+                                  : truncateString(item.voice, 15)}
                               </Typography>
                             </Box>
                           </Box>
@@ -994,9 +1001,9 @@ const StoryMakerView = ({
 };
 
 export default StoryMakerView;
-function truncateString(str:any, length:any) {
+function truncateString(str: any, length: any) {
   if (str.length > length) {
-      return str.substring(0, length) + '...';
+    return str.substring(0, length) + "...";
   }
   return str;
 }

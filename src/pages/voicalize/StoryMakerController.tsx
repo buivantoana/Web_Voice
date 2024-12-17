@@ -11,7 +11,7 @@ type Props = {
   hidden: any;
   voicesFavorite: any;
   setVoicesFavorite: any;
-  myVoices:any
+  myVoices: any;
 };
 let arr: any = [];
 const StoryMakerController = ({
@@ -21,7 +21,7 @@ const StoryMakerController = ({
   hidden,
   voicesFavorite,
   setVoicesFavorite,
-  myVoices
+  myVoices,
 }: Props) => {
   const [openAuthor, setOpenAuthor] = React.useState(false);
   const [loadingVoices, setLoadingVoices] = useState(false);
@@ -61,7 +61,9 @@ const StoryMakerController = ({
   useEffect(() => {
     if (idVoice && Object.keys(voice).length > 0) {
       arr = arr.map((item: any) =>
-        item.id === idVoice ? { ...item, voice: voice.id, open: true } : item
+        item.id === idVoice
+          ? { ...item, voice: voice.id, open: true, title: voice.name }
+          : item
       );
       setBlock(arr);
       setTimeout(() => {
