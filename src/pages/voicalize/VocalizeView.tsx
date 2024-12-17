@@ -34,7 +34,7 @@ import shimmer from "../../images/shimmer.svg";
 import StoryMakerController from "./StoryMakerController";
 import DocumentController from "./DocumentController";
 import { useTranslation } from "react-i18next";
-
+import vn from "../../images/vn.png";
 const images: any = {
   alloy: alloy,
   echo: echo,
@@ -701,7 +701,7 @@ const VocalizeView = ({
               background: "white",
             }}>
             <img
-              src={images[voice.id]}
+              src={voice && voice.id && images[voice.id]?images[voice.id]:vn}
               width={90}
               style={{ borderRadius: "50%" }}
               alt=''
@@ -727,7 +727,7 @@ const VocalizeView = ({
           <Box mt={"30px"} width={"calc(100%-20px)"} px={"10px"}>
             <Typography variant='h5' mb={"20px"} fontWeight={"500"}>
               {" "}
-              {voice.name}
+              {voice && voice.name}
             </Typography>
             <Box>
               <Box width={"98%"}>
@@ -832,11 +832,11 @@ const VocalizeView = ({
                   height={"100%"}
                   alignItems={"center"}>
                   <Box>
-                    <Typography fontWeight={"500"}>{voice.name}</Typography>
+                    <Typography fontWeight={"500"}>{voice && voice.name}</Typography>
                     <Typography fontSize={".9rem"}>Chất lượng cao</Typography>
                   </Box>
                   <img
-                    src={images[voice.id]}
+                    src={voice && voice.id&& images[voice.id]?images[voice.id]:vn}
                     width={40}
                     style={{ borderRadius: "50%" }}
                     alt=''

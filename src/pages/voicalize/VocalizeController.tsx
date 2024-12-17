@@ -30,7 +30,7 @@ const VocalizeController = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openAuthor, setOpenAuthor] = React.useState(false);
   const [openAddMyVoice, setOpenAddMyVoice] = React.useState(false);
-  const [voicesFavorite, setVoicesFavorite] = React.useState(null);
+  const [voicesFavorite, setVoicesFavorite]:any = useState([]);
   const [loadingVoices, setLoadingVoices] = useState(false);
   const [voices, setVoices] = useState<any>([]);
   const [voice, setVoice] = useState<any>({});
@@ -75,7 +75,13 @@ const VocalizeController = (props: Props) => {
     loadMyVoices();
     loadVoicesFavorite();
   }, [context.state.user]);
+  useEffect(()=>{
+    if(myVoices.length>0){
+      setVoicesFavorite([...voicesFavorite,...myVoices.filter((item:any)=>item.favorite==true).map((item:any)=>item.voice_id)])
+    }
+  },[myVoices])
   const loadVoicesFavorite = async () => {
+    setLoadingVoices(true);
     try {
       if (
         Object.keys(context.state.user).length > 0 &&
@@ -89,15 +95,17 @@ const VocalizeController = (props: Props) => {
           data.voices = data.voices.filter(
             (item: any) => item.favorite == true
           );
+          console.log(data.voices.map((item: any) => item.id))
           setVoicesFavorite(data.voices.map((item: any) => item.id));
         }
       }
     } catch (error) {
       console.log(error);
     }
+    setLoadingVoices(false);
   };
   const loadMyVoices = async (check_type = false) => {
-    setLoadingVoices(true);
+   
     try {
       if (
         Object.keys(context.state.user).length > 0 &&
@@ -129,8 +137,9 @@ const VocalizeController = (props: Props) => {
     } catch (error) {
       console.log(error);
     }
-    setLoadingVoices(false);
+   
   };
+  console.log(voicesFavorite)
   const loadVoicesOpenai = async () => {
     setLoadingVoices(true);
     try {
