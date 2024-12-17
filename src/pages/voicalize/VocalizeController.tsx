@@ -30,7 +30,7 @@ const VocalizeController = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openAuthor, setOpenAuthor] = React.useState(false);
   const [openAddMyVoice, setOpenAddMyVoice] = React.useState(false);
-  const [voicesFavorite, setVoicesFavorite]:any = useState([]);
+  const [voicesFavorite, setVoicesFavorite]: any = useState([]);
   const [loadingVoices, setLoadingVoices] = useState(false);
   const [voices, setVoices] = useState<any>([]);
   const [voice, setVoice] = useState<any>({});
@@ -70,21 +70,25 @@ const VocalizeController = (props: Props) => {
       arr = context.state.tts_story;
       setHidden(true);
     }
-    
   }, []);
   useEffect(() => {
     loadMyVoices();
     loadVoicesFavorite();
-    if(Object.keys(context.state.user).length == 0){
-      setVoicesFavorite([])
-      setMyVoices([])
+    if (Object.keys(context.state.user).length == 0) {
+      setVoicesFavorite([]);
+      setMyVoices([]);
     }
   }, [context.state.user]);
-  useEffect(()=>{
-    if(myVoices.length>0){
-      setVoicesFavorite([...voicesFavorite,...myVoices.filter((item:any)=>item.favorite==true).map((item:any)=>item.voice_id)])
+  useEffect(() => {
+    if (myVoices.length > 0) {
+      setVoicesFavorite([
+        ...voicesFavorite,
+        ...myVoices
+          .filter((item: any) => item.favorite == true)
+          .map((item: any) => item.voice_id),
+      ]);
     }
-  },[myVoices])
+  }, [myVoices]);
   const loadVoicesFavorite = async () => {
     setLoadingVoices(true);
     try {
@@ -100,7 +104,7 @@ const VocalizeController = (props: Props) => {
           data.voices = data.voices.filter(
             (item: any) => item.favorite == true
           );
-          console.log(data.voices.map((item: any) => item.id))
+          console.log(data.voices.map((item: any) => item.id));
           setVoicesFavorite(data.voices.map((item: any) => item.id));
         }
       }
@@ -110,7 +114,6 @@ const VocalizeController = (props: Props) => {
     setLoadingVoices(false);
   };
   const loadMyVoices = async (check_type = false) => {
-   
     try {
       if (
         Object.keys(context.state.user).length > 0 &&
@@ -142,10 +145,9 @@ const VocalizeController = (props: Props) => {
     } catch (error) {
       console.log(error);
     }
-   
   };
-  console.log(voicesFavorite)
-  console.log(voices)
+  console.log(voicesFavorite);
+  console.log(voices);
   const loadVoicesOpenai = async () => {
     setLoadingVoices(true);
     try {
@@ -175,9 +177,9 @@ const VocalizeController = (props: Props) => {
       Object.keys(context.state.user).length > 0 &&
       context.state.user.user_id
     ) {
-    setOpenAddMyVoice(true);
-    }else{
-      toast.warning("Bạn cần đăng nhập để sử dụng tính năng này.")
+      setOpenAddMyVoice(true);
+    } else {
+      toast.warning("Bạn cần đăng nhập để sử dụng tính năng này.");
     }
   };
 
@@ -209,6 +211,7 @@ const VocalizeController = (props: Props) => {
             speed: speed,
             voice: voice.id,
             voice_type: voice.type,
+            voice_name: voice.name,
           },
           false
         );
@@ -263,6 +266,7 @@ const VocalizeController = (props: Props) => {
               voice_type: voices.filter((ix: any) => ix.id == item.voice)[0]
                 ? voices.filter((ix: any) => ix.id == item.voice)[0].type
                 : "my_voice",
+              voice_name: item.title ? item.title : item.voice,
             };
           }),
         };
@@ -305,6 +309,7 @@ const VocalizeController = (props: Props) => {
         const formData = new FormData();
         formData.append("user_id", context.state.user.user_id); // Thêm user_id
         formData.append("voice", voice.id); // Thêm voice
+        formData.append("voice_name", voice.name);
         formData.append("speed", speed); // Thêm speed
         formData.append("file", file);
         formData.append("voice_type", voice.type);

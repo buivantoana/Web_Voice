@@ -116,6 +116,7 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                     let date = item.created.split("T");
                     let text = "";
                     if (item.voice == "story") {
+                      console.log(item.text);
                       JSON.parse(item.text).map(
                         (ix: any) => (text += " " + ix.text)
                       );
@@ -176,7 +177,9 @@ const HistoryView = ({ voices, loadingVoices, deleteVoice }: any) => {
                                     textTransform: "capitalize",
                                   }}
                                   variant='contained'>
-                                  {item.voice}
+                                  {item.voice_name
+                                    ? item.voice_name
+                                    : item.voice}
                                 </Button>
                                 <Button
                                   sx={{
@@ -831,7 +834,9 @@ function EnhancedTable(props: any) {
                       {row.name}
                     </TableCell>
                     <TableCell align='center'>{row.text}</TableCell>
-                    <TableCell align='center'>{row.id}</TableCell>
+                    <TableCell align='center'>
+                      {row.voice_name ? row.voice_name : row.id}
+                    </TableCell>
                     <TableCell align='center'>{row.speed}</TableCell>
                     <TableCell align='center'>{row.delay}</TableCell>
                     {/* <TableCell align='center'>{row.protein}</TableCell> */}
