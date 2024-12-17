@@ -47,6 +47,7 @@ const VocalizeController = (props: Props) => {
   };
 
   useEffect(() => {
+    loadVoicesOpenai();
     if (Object.keys(context.state.history).length > 0) {
       if (context.state.history.content) {
         if (context.state.history.type == "story") {
@@ -69,11 +70,15 @@ const VocalizeController = (props: Props) => {
       arr = context.state.tts_story;
       setHidden(true);
     }
-    loadVoicesOpenai();
+    
   }, []);
   useEffect(() => {
     loadMyVoices();
     loadVoicesFavorite();
+    if(Object.keys(context.state.user).length == 0){
+      setVoicesFavorite([])
+      setMyVoices([])
+    }
   }, [context.state.user]);
   useEffect(()=>{
     if(myVoices.length>0){
@@ -140,6 +145,7 @@ const VocalizeController = (props: Props) => {
    
   };
   console.log(voicesFavorite)
+  console.log(voices)
   const loadVoicesOpenai = async () => {
     setLoadingVoices(true);
     try {

@@ -85,6 +85,7 @@ const Author = ({
   const [voices, setVoices] = useState(
     data.filter((item: any) => item.type == "openai")
   );
+  
   const [anchorElGender, setAnchorElGender] = useState(null);
   const [idDelete, setIdDelete] = useState(null);
   const { t } = useTranslation();
@@ -233,7 +234,7 @@ const Author = ({
   };
   useEffect(() => {
     filterVoices();
-  }, [SelectedAcent, SelectedAge, SelectedGender, typeVoice]);
+  }, [SelectedAcent, SelectedAge, SelectedGender, typeVoice,data]);
   const filterVoices = () => {
     let data_filter = data;
     console.log(data_filter);
@@ -250,6 +251,7 @@ const Author = ({
         (item: any) => item.accent == SelectedAcent
       );
     }
+    
     if (typeVoice != "favorite") {
       setVoices(data_filter.filter((item: any) => item.type == typeVoice));
     }
