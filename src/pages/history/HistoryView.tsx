@@ -479,6 +479,7 @@ function AudioPlayer({ width, voice_id, content, speed, type }: any) {
                                 voice: item.id,
                                 speed: item.speed,
                                 open: false,
+                                title:item.voice_name?item.voice_name:""
                               };
                             }
                           )

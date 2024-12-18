@@ -140,14 +140,25 @@ const Author = ({
   useEffect(() => {
     if (data.length > 0) {
       if (Object.keys(context.state.history).length > 0) {
-        let data_new = data.filter(
-          (item: any) => item.id == context.state.history.type
-        )[0];
-        console.log(data_new);
-        console.log(data.filter((item: any) => item.type == data_new.type));
-        setVoice(data_new);
-        setVoices(data.filter((item: any) => item.type == data_new.type));
-        setTypeVoice(data_new.type);
+        console.log(context.state.history.type)
+        if(context.state.history.type != "story"){
+          let data_new:any
+           data_new = data.filter(
+            (item: any) => item.id == context.state.history.type
+          )[0];
+          if(data_new){
+            console.log(data_new);
+            console.log(data.filter((item: any) => item.type == data_new.type));
+            setVoice(data_new);
+            setVoices(data.filter((item: any) => item.type == data_new.type));
+            setTypeVoice(data_new.type);
+          }else{
+            console.log(myVoices.filter((item:any)=>item.voice_id == context.state.history.type)[0])
+            setVoice(myVoices.filter((item:any)=>item.voice_id == context.state.history.type)[0]);
+            setVoices(myVoices);
+            setTypeVoice("my_voices");
+          }
+        }
       }
     }
   }, [data]);
