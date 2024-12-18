@@ -13,6 +13,7 @@ import SignInController from "../pages/signin/SignInController";
 import SignUpController from "../pages/signup/SignUpController";
 import PrivateRouter from "../components/PrivateRouter";
 import NotFound from "../components/NotFound";
+import MaterialVideoController from "../pages/material_video/MaterialVideoController";
 
 const Router = () => {
   const context: any = useCoursesContext();
@@ -41,6 +42,7 @@ const Router = () => {
           <Route path='history' element={<HistoryController />} />
           <Route path='privacy' element={<PrivacyController />} />
           <Route path='terms' element={<TermsController />} />
+          <Route path='material-video' element={<MaterialVideoController />} />
           <Route path='pricing-plans' element={<PricingPlansController />} />
           <Route
             path='payment-history'
