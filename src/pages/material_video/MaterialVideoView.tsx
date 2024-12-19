@@ -75,7 +75,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
             ".css-gspymc-MuiInputBase-root-MuiOutlinedInput-root": {
               paddingRight: 0,
             },
-            ".css-cxhsvb-MuiInputBase-root-MuiOutlinedInput-root": {
+            ".material-video div": {
               p: "5px 5px 5px 10px",
             },
             mt: "10px",
@@ -83,11 +83,11 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
           }}>
           {" "}
           <TextField
-            className='search-input'
+            className='material-video'
             id='demo-helper-text-aligned'
             size='small'
             value={link}
-            onChange={(e) => {
+            onChange={(e: any) => {
               setLink(e.target.value);
             }}
             onFocus={() => setIsFocused(true)} // Xử lý sự kiện focus
@@ -135,7 +135,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
               htmlFor='demo-helper-text-aligned'
               style={{
                 position: "absolute",
-                top: "20%",
+                top: "28%",
                 left: "5%",
                 width: "max-content",
                 overflow: "hidden",
