@@ -65,8 +65,12 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
   };
 
   return (
-    <Box py={"30px"} px={{ xs: "2%", md: "17%" }}>
-      <Box>
+    <Box sx={{ marginTop: "20px" }} px={{ xs: "2%", md: "17%" }}>
+      <Box
+        height={"72vh"}
+        py={"5px"}
+        className='scroll-filter'
+        sx={{ overflowY: "scroll" }}>
         <Typography fontWeight={"bold"} fontSize={"1.2rem"}>
           Import Materials
         </Typography>
@@ -870,18 +874,19 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
             </Box>
           </Box>
         </Box>
-        <Box
-          mt={"20px"}
-          borderTop={"1px solid #ccc"}
-          padding={"10px"}
-          sx={{
-            ".MuiNativeSelect-select": {
-              p: "7px",
-            },
-            display: "flex",
-            gap: "10px",
-          }}
-          bgcolor={"rgb(147 147 147 / 10%)"}>
+      </Box>
+      <Box
+        borderTop={"1px solid #ccc"}
+        padding={"10px"}
+        sx={{
+          ".MuiNativeSelect-select": {
+            p: "7px",
+          },
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+        bgcolor={"rgb(147 147 147 / 10%)"}>
+        <Box display={"flex"} gap={"10px"}>
           <FormControl sx={{ minWidth: 120 }}>
             <Select
               sx={{ background: "white" }}
@@ -966,7 +971,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
               </option>
             </Select>
           </FormControl>
-          <FormControl sx={{ width: "150px"  }}>
+          <FormControl sx={{ width: "150px" }}>
             <Select
               sx={{ background: "white" }}
               native
@@ -1025,31 +1030,32 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
             <RiImage2Line style={{ marginRight: "10px" }} />
             Avatar
           </Button>
-          <Button
-            variant='contained'
-            onClick={() => setTabDes(1)}
-            sx={{
-              width: "200px",
-              background: theme.palette.active.main,
-              fontSize: { xs: "10px", md: "15px" },
-              borderRadius: "8px",
-              color: "white",
-            }}>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='1em'
-              height='1em'
-              fill='none'
-              viewBox='0 0 17 21'
-              focusable='false'
-              className='chakra-icon css-1uib6s7'>
-              <path
-                fill='#fff'
-                d='M9.05 8.2a.474.474 0 0 1 .901 0l.847 2.542a3.8 3.8 0 0 0 2.4 2.399l2.541.846a.474.474 0 0 1 0 .9l-2.542.847a3.8 3.8 0 0 0-2.4 2.4l-.846 2.542a.474.474 0 0 1-.9 0l-.847-2.542a3.8 3.8 0 0 0-2.399-2.4l-2.542-.846a.474.474 0 0 1 0-.9l2.542-.847a3.8 3.8 0 0 0 2.4-2.4zM3.98 1.506a.285.285 0 0 1 .541 0l.508 1.525c.227.68.76 1.213 1.44 1.44l1.525.508a.285.285 0 0 1 0 .54l-1.525.508a2.27 2.27 0 0 0-1.44 1.44l-.508 1.525a.285.285 0 0 1-.54 0l-.508-1.525a2.27 2.27 0 0 0-1.44-1.44L.508 5.52a.285.285 0 0 1 0-.54l1.525-.508a2.27 2.27 0 0 0 1.44-1.44zM13.26.13a.19.19 0 0 1 .36 0l.338 1.016c.15.454.507.81.96.96l1.017.34a.19.19 0 0 1 0 .359l-1.016.338a1.52 1.52 0 0 0-.961.961l-.339 1.016a.19.19 0 0 1-.36 0l-.338-1.016a1.52 1.52 0 0 0-.96-.96l-1.015-.34a.19.19 0 0 1 0-.359l1.016-.338c.454-.151.81-.507.96-.961z'></path>
-            </svg>
-            Generate
-          </Button>
         </Box>
+
+        <Button
+          variant='contained'
+          onClick={() => setTabDes(1)}
+          sx={{
+            width: "200px",
+            background: theme.palette.active.main,
+            fontSize: { xs: "10px", md: "15px" },
+            borderRadius: "8px",
+            color: "white",
+          }}>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='1em'
+            height='1em'
+            fill='none'
+            viewBox='0 0 17 21'
+            focusable='false'
+            className='chakra-icon css-1uib6s7'>
+            <path
+              fill='#fff'
+              d='M9.05 8.2a.474.474 0 0 1 .901 0l.847 2.542a3.8 3.8 0 0 0 2.4 2.399l2.541.846a.474.474 0 0 1 0 .9l-2.542.847a3.8 3.8 0 0 0-2.4 2.4l-.846 2.542a.474.474 0 0 1-.9 0l-.847-2.542a3.8 3.8 0 0 0-2.399-2.4l-2.542-.846a.474.474 0 0 1 0-.9l2.542-.847a3.8 3.8 0 0 0 2.4-2.4zM3.98 1.506a.285.285 0 0 1 .541 0l.508 1.525c.227.68.76 1.213 1.44 1.44l1.525.508a.285.285 0 0 1 0 .54l-1.525.508a2.27 2.27 0 0 0-1.44 1.44l-.508 1.525a.285.285 0 0 1-.54 0l-.508-1.525a2.27 2.27 0 0 0-1.44-1.44L.508 5.52a.285.285 0 0 1 0-.54l1.525-.508a2.27 2.27 0 0 0 1.44-1.44zM13.26.13a.19.19 0 0 1 .36 0l.338 1.016c.15.454.507.81.96.96l1.017.34a.19.19 0 0 1 0 .359l-1.016.338a1.52 1.52 0 0 0-.961.961l-.339 1.016a.19.19 0 0 1-.36 0l-.338-1.016a1.52 1.52 0 0 0-.96-.96l-1.015-.34a.19.19 0 0 1 0-.359l1.016-.338c.454-.151.81-.507.96-.961z'></path>
+          </svg>
+          Generate
+        </Button>
       </Box>
       <Dialog
         sx={{ cursor: "pointer" }}
