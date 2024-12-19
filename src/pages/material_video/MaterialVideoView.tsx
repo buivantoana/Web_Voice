@@ -135,7 +135,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
               htmlFor='demo-helper-text-aligned'
               style={{
                 position: "absolute",
-                top: "28%",
+                top: "26%",
                 left: "5%",
                 width: "max-content",
                 overflow: "hidden",
@@ -888,7 +888,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
               sx={{ background: "white" }}
               native
               defaultValue=''
-              id='grouped-native-select'>
+              className='grouped-native-select'>
               <option
                 value={20}
                 style={{
@@ -972,7 +972,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
               sx={{ background: "white" }}
               native
               defaultValue=''
-              id='grouped-native-select'>
+              className='grouped-native-select'>
               {country.map((item: any) => {
                 return (
                   <option
@@ -1281,7 +1281,7 @@ import { LinearProgress } from "@mui/material";
 const ImageUploadPreview = () => {
   const [file, setFile] = useState<File | null>(null); // Lưu file ảnh đã chọn
   const [progress, setProgress] = useState<number>(0); // Thanh tiến trình tải file
-
+  const theme = useTheme();
   // Giả lập process tải ảnh
   const simulateUploadProgress = () => {
     let uploaded = 0;
@@ -1320,7 +1320,7 @@ const ImageUploadPreview = () => {
         position: "relative",
         overflow: "hidden",
         cursor: "pointer",
-        backgroundColor: "#222",
+        backgroundColor: "white",
       }}>
       {/* Input file */}
       <input
@@ -1360,8 +1360,8 @@ const ImageUploadPreview = () => {
         </>
       ) : (
         // Hiển thị icon tải lên ban đầu
-        <Box textAlign='center' sx={{ color: "#fff" }}>
-          <RiUploadCloudLine size={40} />
+        <Box textAlign='center' sx={{ color: theme.palette.active.main }}>
+          <RiUploadCloudLine size={40} color={theme.palette.active.main} />
           <Typography sx={{ fontSize: "14px", fontWeight: "500" }}>
             png, jpg, jpeg
           </Typography>
