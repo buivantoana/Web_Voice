@@ -875,10 +875,9 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
           borderTop={"1px solid #ccc"}
           padding={"10px"}
           sx={{
-            ".css-1p7e2od-MuiNativeSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-              {
-                p: "7px",
-              },
+            ".MuiNativeSelect-select": {
+              p: "7px",
+            },
             display: "flex",
             gap: "10px",
           }}
@@ -967,7 +966,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
               </option>
             </Select>
           </FormControl>
-          <FormControl sx={{ width: "150px" }}>
+          <FormControl sx={{ width: "150px"  }}>
             <Select
               sx={{ background: "white" }}
               native

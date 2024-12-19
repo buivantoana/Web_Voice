@@ -155,6 +155,9 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }
-#grouped-native-select {
+.grouped-native-select {
   padding: 7px;
+}
+.MuiNativeSelect-select {
+  padding: 7px !important;
 }
