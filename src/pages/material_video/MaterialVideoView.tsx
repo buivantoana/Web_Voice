@@ -687,7 +687,18 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
                   id='demo-simple-select'
                   className='more-select'
                   defaultValue={10}
-                  sx={{ background: "white" }}>
+                  sx={{
+                    background: "white", // Màu nền mặc định
+                    "&:focus": {
+                      borderColor: theme.palette.active.main, // Màu viền khi focus
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "gray", // Màu viền mặc định
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: theme.palette.active.main, // Màu viền khi được focus
+                    },
+                  }}>
                   <MenuItem value={10}>Auto (30s-50s)</MenuItem>
                   <MenuItem value={20}>(15s-30s)</MenuItem>
                   <MenuItem value={30}>(30s-45s)</MenuItem>
@@ -709,7 +720,17 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
               <Box display={"flex"} gap={"20px"}>
                 <Box>
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
+                    control={
+                      <Checkbox
+                        sx={{
+                          color: "gray", // Màu mặc định
+                          "&.Mui-checked": {
+                            color: theme.palette.active.main, // Màu khi được chọn
+                          },
+                        }}
+                        defaultChecked
+                      />
+                    }
                     label='Endcard'
                   />
                   <ImageUploadPreview />
@@ -735,7 +756,33 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
                       className='more-select'
                       id='demo-simple-select'
                       defaultValue={10}
-                      sx={{ background: "white" }}>
+                      MenuProps={{
+                        anchorOrigin: {
+                          vertical: "top",
+                          horizontal: "center",
+                        },
+                        transformOrigin: {
+                          vertical: "bottom",
+                          horizontal: "center",
+                        },
+                        PaperProps: {
+                          sx: {
+                            overflowY: "auto", // Cuộn nếu quá dài
+                          },
+                        },
+                      }}
+                      sx={{
+                        background: "white", // Màu nền mặc định
+                        "&:focus": {
+                          borderColor: theme.palette.active.main, // Màu viền khi focus
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "gray", // Màu viền mặc định
+                        },
+                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: theme.palette.active.main, // Màu viền khi được focus
+                        },
+                      }}>
                       <MenuItem value={10}>For All Size</MenuItem>
                       <MenuItem
                         value={20}
@@ -828,7 +875,35 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
                     <Select
                       id='demo-simple-select'
                       defaultValue={10}
-                      sx={{ background: "white", mt: "30px" }}>
+                      MenuProps={{
+                        anchorOrigin: {
+                          vertical: "top",
+                          horizontal: "center",
+                        },
+                        transformOrigin: {
+                          vertical: "bottom",
+                          horizontal: "center",
+                        },
+                        PaperProps: {
+                          sx: {
+                            maxHeight: 200, // Giới hạn chiều cao dropdown
+                            overflowY: "auto", // Cuộn nếu quá dài
+                          },
+                        },
+                      }}
+                      sx={{
+                        mt: "30px",
+                        background: "white", // Màu nền mặc định
+                        "&:focus": {
+                          borderColor: theme.palette.active.main, // Màu viền khi focus
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "gray", // Màu viền mặc định
+                        },
+                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: theme.palette.active.main, // Màu viền khi được focus
+                        },
+                      }}>
                       <MenuItem
                         value={10}
                         sx={{
@@ -867,7 +942,17 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
                 </Box>
                 <Box>
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
+                    control={
+                      <Checkbox
+                        sx={{
+                          color: "gray", // Màu mặc định
+                          "&.Mui-checked": {
+                            color: theme.palette.active.main, // Màu khi được chọn
+                          },
+                        }}
+                        defaultChecked
+                      />
+                    }
                     label='Watermark'
                   />
                   <ImageUploadPreview />
@@ -889,99 +974,128 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
         }}
         bgcolor={"rgb(147 147 147 / 10%)"}>
         <Box display={"flex"} gap={"10px"}>
-          <FormControl sx={{ minWidth: 120 }}>
+          <FormControl
+            sx={{
+              width: "150px",
+              ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
+                {
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                },
+            }}>
             <Select
-              sx={{ background: "white" }}
-              native
-              defaultValue=''
-              className='grouped-native-select'>
-              <option
+              className='more-select'
+              id='demo-simple-select'
+              MenuProps={{
+                anchorOrigin: {
+                  vertical: "top",
+                  horizontal: "center",
+                },
+                transformOrigin: {
+                  vertical: "bottom",
+                  horizontal: "center",
+                },
+                PaperProps: {
+                  sx: {
+                    overflowY: "auto", // Cuộn nếu quá dài
+                  },
+                },
+              }}
+              sx={{
+                background: "white", // Màu nền mặc định
+                "&:focus": {
+                  borderColor: theme.palette.active.main, // Màu viền khi focus
+                },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "gray", // Màu viền mặc định
+                },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: theme.palette.active.main, // Màu viền khi được focus
+                },
+              }}>
+              <MenuItem
                 value={20}
-                style={{
+                sx={{
                   display: "flex",
                   alignItems: "center",
                   gap: "15px",
                 }}>
-                <Typography width={"60px"}>For 9:16</Typography>
-
-                <Box
-                  width={"9px"}
-                  height={"16px"}
-                  bgcolor={"#ccc"}
-                  border={"1px solid #ddd"}
-                  borderRadius={"3px"}></Box>
-              </option>
-              <option
+                <Typography width={"60px"}> 9:16</Typography>
+              </MenuItem>
+              <MenuItem
                 value={20}
-                style={{
+                sx={{
                   display: "flex",
                   alignItems: "center",
                   gap: "15px",
                 }}>
-                <Typography width={"60px"}> For 3:4</Typography>{" "}
-                <Box
-                  width={"12px"}
-                  height={"16px"}
-                  bgcolor={"#ccc"}
-                  border={"1px solid #ddd"}
-                  borderRadius={"3px"}></Box>
-              </option>
-              <option
+                <Typography width={"60px"}> 3:4</Typography>{" "}
+              </MenuItem>
+              <MenuItem
                 value={20}
-                style={{
+                sx={{
                   display: "flex",
                   alignItems: "center",
                   gap: "15px",
                 }}>
-                <Typography width={"60px"}> For 1:1</Typography>{" "}
-                <Box
-                  width={"16px"}
-                  height={"16px"}
-                  bgcolor={"#ccc"}
-                  border={"1px solid #ddd"}
-                  borderRadius={"3px"}></Box>
-              </option>
-              <option
+                <Typography width={"60px"}> 1:1</Typography>{" "}
+              </MenuItem>
+              <MenuItem
                 value={20}
-                style={{
+                sx={{
                   display: "flex",
                   alignItems: "center",
                   gap: "15px",
                 }}>
-                <Typography width={"60px"}> For 4:3</Typography>
-                <Box
-                  width={"16px"}
-                  height={"12px"}
-                  bgcolor={"#ccc"}
-                  border={"1px solid #ddd"}
-                  borderRadius={"3px"}></Box>
-              </option>
-              <option
+                <Typography width={"60px"}> 4:3</Typography>
+              </MenuItem>
+              <MenuItem
                 value={20}
-                style={{
+                sx={{
                   display: "flex",
                   alignItems: "center",
                   gap: "15px",
                 }}>
-                <Typography width={"60px"}> For 16:9</Typography>{" "}
-                <Box
-                  width={"16px"}
-                  height={"9px"}
-                  bgcolor={"#ccc"}
-                  border={"1px solid #ddd"}
-                  borderRadius={"3px"}></Box>
-              </option>
+                <Typography width={"60px"}> 16:9</Typography>{" "}
+              </MenuItem>
             </Select>
           </FormControl>
           <FormControl sx={{ width: "150px" }}>
             <Select
-              sx={{ background: "white" }}
-              native
-              defaultValue=''
-              className='grouped-native-select'>
+              className='more-select'
+              id='demo-simple-select'
+              MenuProps={{
+                anchorOrigin: {
+                  vertical: "top",
+                  horizontal: "center",
+                },
+                transformOrigin: {
+                  vertical: "bottom",
+                  horizontal: "center",
+                },
+                PaperProps: {
+                  sx: {
+                    overflowY: "auto", // Cuộn nếu quá dài
+                    maxHeight: "250px",
+                  },
+                },
+              }}
+              sx={{
+                background: "white", // Màu nền mặc định
+                "&:focus": {
+                  borderColor: theme.palette.active.main, // Màu viền khi focus
+                },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "gray", // Màu viền mặc định
+                },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: theme.palette.active.main, // Màu viền khi được focus
+                },
+              }}>
               {country.map((item: any) => {
                 return (
-                  <option
+                  <MenuItem
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -1002,7 +1116,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
                       }}>
                       {item.name}
                     </Typography>
-                  </option>
+                  </MenuItem>
                 );
               })}
             </Select>
