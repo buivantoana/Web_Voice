@@ -685,6 +685,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
               <FormControl fullWidth>
                 <Select
                   id='demo-simple-select'
+                  className='more-select'
                   defaultValue={10}
                   sx={{ background: "white" }}>
                   <MenuItem value={10}>Auto (30s-50s)</MenuItem>
@@ -731,6 +732,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
                         },
                     }}>
                     <Select
+                      className='more-select'
                       id='demo-simple-select'
                       defaultValue={10}
                       sx={{ background: "white" }}>

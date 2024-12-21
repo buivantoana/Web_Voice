@@ -161,3 +161,6 @@ input[type="number"] {
 .MuiNativeSelect-select {
   padding: 8px !important;
 }
+.more-select div {
+  padding: 10px !important;
+}
