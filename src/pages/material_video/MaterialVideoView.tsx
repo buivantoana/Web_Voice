@@ -37,10 +37,34 @@ import ban from "../../images/ban.svg";
 import cover from "../../images/cover.jpg";
 import cover1 from "../../images/cover1.webp";
 
-type Props = { handleClickOpenAuthor: any };
+type Props = {
+  handleClickOpenAuthor: any;
+  productName: any;
+  productUrl: any;
+  productDesc: any;
+  setProductUrl: any;
+  fileList: any;
+  setFileList: any;
+  progress: any;
+  setProgress: any;
+  simulateUpload: any;
+  handleAddLinkAsFile: any;
+};
 
-const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
-  const theme = useTheme();
+const MaterialVideoView = ({
+  handleClickOpenAuthor,
+  productName,
+  productDesc,
+  productUrl,
+  setProductUrl,
+  fileList,
+  setFileList,
+  progress,
+  setProgress,
+  simulateUpload,
+  handleAddLinkAsFile,
+}: Props) => {
+  const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
   const [link, setLink] = useState("");
   const [open, setOpen] = useState(false);
@@ -90,9 +114,9 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
             className='material-video'
             id='demo-helper-text-aligned'
             size='small'
-            value={link}
+            value={productUrl}
             onChange={(e: any) => {
-              setLink(e.target.value);
+              setProductUrl(e.target.value);
             }}
             onFocus={() => setIsFocused(true)} // Xử lý sự kiện focus
             onBlur={() => setIsFocused(false)} // Xử lý sự kiện blur
@@ -134,7 +158,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
               ),
             }}
           />
-          {!isFocused && !link && (
+          {!isFocused && !productUrl && (
             <label
               htmlFor='demo-helper-text-aligned'
               style={{
@@ -465,7 +489,14 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
           )}
         </Box>
         <Box mt={"20px"}>
-          <FileUploader />
+          <FileUploader
+            fileList={fileList}
+            setFileList={setFileList}
+            progress={progress}
+            setProgress={setProgress}
+            simulateUpload={simulateUpload}
+            handleAddLinkAsFile={handleAddLinkAsFile}
+          />
         </Box>
         <Box mt={"20px"}>
           <Typography mb={"5px"} fontWeight={"500"}>
@@ -475,6 +506,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
             className='search-input'
             placeholder='Your product name or video topic'
             id='demo-helper-text-aligned'
+            value={productName}
             size='small'
             sx={{
               width: "100%",
@@ -544,6 +576,7 @@ const MaterialVideoView = ({ handleClickOpenAuthor }: Props) => {
           <TextField
             placeholder='Describe the features of your product/service/application.'
             multiline
+            value={productDesc}
             fullWidth
             variant='standard' // Loại bỏ border mặc định
             InputProps={{
@@ -1495,9 +1528,14 @@ const ImageUploadPreview = () => {
 import { IconButton } from "@mui/material";
 import { country } from "../../utils/acent";
 
-const FileUploader = () => {
-  const [fileList, setFileList] = useState<File[]>([]);
-  const [progress, setProgress] = useState<number[]>([]);
+const FileUploader = ({
+  fileList,
+  setFileList,
+  progress,
+  setProgress,
+  simulateUpload,
+  handleAddLinkAsFile,
+}: any) => {
   const theme = useTheme();
   // Hàm xử lý tải file
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -1521,37 +1559,24 @@ const FileUploader = () => {
       });
 
       // Cập nhật danh sách file và phần trăm tải về
-      setFileList((prev) => [...prev, ...validFiles]);
-      setProgress((prev) => [...prev, ...validFiles.map(() => 0)]);
+      setFileList((prev: any) => [...prev, ...validFiles]);
+      setProgress((prev: any) => [...prev, ...validFiles.map(() => 0)]);
 
       // Giả lập tiến trình upload
       validFiles.forEach((_, index) => simulateUpload(index + fileList.length));
     }
   };
 
-  // Giả lập tiến trình upload
-  const simulateUpload = (index: number) => {
-    let uploadProgress = 0;
-    const interval = setInterval(() => {
-      uploadProgress += Math.random() * 10;
-      setProgress((prev) => {
-        const newProgress = [...prev];
-        newProgress[index] = Math.min(100, uploadProgress);
-        return newProgress;
-      });
-      if (uploadProgress >= 100) clearInterval(interval);
-    }, 500);
-  };
-
   // Hàm xóa file
   const handleRemoveFile = (index: number) => {
-    setFileList((prev) => prev.filter((_, i) => i !== index));
-    setProgress((prev) => prev.filter((_, i) => i !== index));
+    setFileList((prev: any) => prev.filter((_: any, i: any) => i !== index));
+    setProgress((prev: any) => prev.filter((_: any, i: any) => i !== index));
   };
 
   return (
     <Box mt={"20px"}>
       {/* Khu vực tải lên */}
+
       <Box
         padding={"20px 0"}
         sx={{

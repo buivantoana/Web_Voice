@@ -112,6 +112,21 @@ body::-webkit-scrollbar-thumb {
   background-color: transparent;
   border: 0px solid transparent;
 }
+.css-kw13he-MuiDialogContent-root::-webkit-scrollbar-track {
+  border: 0px solid transparent;
+  padding: 0;
+  background-color: transparent;
+}
+
+.css-kw13he-MuiDialogContent-root::-webkit-scrollbar {
+  width: 0px;
+}
+
+.css-kw13he-MuiDialogContent-root::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: transparent;
+  border: 0px solid transparent;
+}
 .loader::after,
 .loader::before {
   content: "";
