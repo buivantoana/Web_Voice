@@ -10,18 +10,24 @@ import {
   getVoicesOpenAi,
 } from "../../service/voice";
 import { useCoursesContext } from "../../App";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 type Props = {};
 
 const MaterialVideoController = (props: Props) => {
+  const [searchParams] = useSearchParams();
+  const productId = searchParams.get("product_id");
   const [typeVoice, setTypeVoice] = useState("openai");
   const [openAuthor, setOpenAuthor] = React.useState(false);
   const [voicesFavorite, setVoicesFavorite]: any = useState([]);
   const [loadingVoices, setLoadingVoices] = useState(false);
   const [voices, setVoices] = useState<any>([]);
   const [voice, setVoice] = useState<any>({});
-
+  const [productName, setProductName] = useState("");
+  const [productUrl, setProductUrl] = useState("");
+  const [productDesc, setProductDesc] = useState("");
+  const [productImage, setProductImage]: any = useState([]);
   const context: any = useCoursesContext();
 
   const [myVoices, setMyVoices] = useState<any>([]);
@@ -32,7 +38,53 @@ const MaterialVideoController = (props: Props) => {
   const handleCloseAuthor = () => {
     setOpenAuthor(false);
   };
-
+  useEffect(() => {
+    if (productId) {
+      if (Object.keys(context.state.user).length > 0) {
+        (async () => {
+          try {
+            let data = await fetch(
+              "https://vp.zeezoo.mobi:8089/product/get/info",
+              {
+                method: "POST",
+                headers: {
+                  "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                  user_id: context.state.user && context.state.user.user_id,
+                  product_id: productId,
+                }),
+              }
+            );
+            let result = await data.json();
+            if (Object.keys(result.product).length > 0) {
+              if (result.product.summary) {
+                setProductDesc(result.product.summary);
+              }
+              if (result.product.product_url) {
+                setProductUrl(result.product.product_url);
+              }
+              if (result.product.title) {
+                setProductName(result.product.title);
+              }
+              if (result.product.images) {
+                console.log(result.product.images);
+                console.log(result.product.videos);
+                setProductImage([
+                  ...result.product.images,
+                  ...result.product.videos,
+                ]);
+              }
+            } else {
+              toast.warning("Error");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        })();
+      }
+    }
+  }, [productId]);
   useEffect(() => {
     loadVoicesOpenai();
   }, []);
