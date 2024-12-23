@@ -19,7 +19,9 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
-
+import { IconButton } from "@mui/material";
+import { country } from "../../utils/acent";
+import axios from "axios";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {
   RiArrowRightSLine,
@@ -49,6 +51,9 @@ type Props = {
   setProgress: any;
   simulateUpload: any;
   handleAddLinkAsFile: any;
+  productUrlOld: any;
+  setOpenUrlImage: any;
+  productVideo: any;
 };
 
 const MaterialVideoView = ({
@@ -63,6 +68,9 @@ const MaterialVideoView = ({
   setProgress,
   simulateUpload,
   handleAddLinkAsFile,
+  productUrlOld,
+  setOpenUrlImage,
+  productVideo,
 }: Props) => {
   const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -70,7 +78,7 @@ const MaterialVideoView = ({
   const [open, setOpen] = useState(false);
   const [openAvatar, setOpenAvatar] = useState(false);
   const [tabDes, setTabDes] = useState(0);
-  const [tabMore, setTabMore] = useState(0);
+
   const [viewMore, setViewMore] = useState(false);
 
   const handleClickOpenAvatar = () => {
@@ -80,8 +88,19 @@ const MaterialVideoView = ({
   const handleCloseAvatar = () => {
     setOpenAvatar(false);
   };
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = async () => {
+    if (productUrlOld == productUrl) {
+      setOpenUrlImage(true);
+    } else {
+      if (
+        productUrl.startsWith("http://") ||
+        productUrl.startsWith("https://")
+      ) {
+        setOpen(true);
+      } else {
+        toast.warning("Link không đúng định dạng.");
+      }
+    }
   };
 
   const handleClose = () => {
@@ -143,6 +162,7 @@ const MaterialVideoView = ({
               endAdornment: (
                 <Button
                   variant='contained'
+                  disabled={!productUrl}
                   onClick={handleClickOpen}
                   sx={{
                     width: "200px",
@@ -573,38 +593,73 @@ const MaterialVideoView = ({
               </Button>
             </Box>
           </Box>
-          <TextField
-            placeholder='Describe the features of your product/service/application.'
-            multiline
-            value={productDesc}
-            fullWidth
-            variant='standard' // Loại bỏ border mặc định
-            InputProps={{
-              disableUnderline: true, // Bỏ underline của variant="standard"
-              sx: {
-                backgroundColor: "white", // Nền trắng
-                borderRadius: 2, // Đặt border-radius nếu cần
-                padding: 2, // Khoảng cách padding
-                border: "1px solid black",
-              },
-            }}
-            sx={{
-              "& .MuiInputBase-input": {
-                minHeight: "150px !important", // Đặt chiều cao tối thiểu nếu cần
-                resize: "none", // Bỏ resize của textarea
-                overflow: "auto", // Để có thể cuộn
-                scrollbarWidth: "none", // Ẩn thanh cuộn cho Firefox
-                msOverflowStyle: "none", // Ẩn thanh cuộn cho Internet Explorer và Edge
-              },
-              "& .MuiFormControl-root": {
-                // Đặt chiều cao tối thiểu cho TextField
-              },
-              // Ẩn thanh cuộn trong các trình duyệt WebKit
-              "&::-webkit-scrollbar": {
-                display: "none", // Ẩn thanh cuộn
-              },
-            }}
-          />
+          {tabDes == 0 && (
+            <TextField
+              placeholder='Describe the features of your product/service/application.'
+              multiline
+              value={productDesc}
+              fullWidth
+              variant='standard' // Loại bỏ border mặc định
+              InputProps={{
+                disableUnderline: true, // Bỏ underline của variant="standard"
+                sx: {
+                  backgroundColor: "white", // Nền trắng
+                  borderRadius: 2, // Đặt border-radius nếu cần
+                  padding: 2, // Khoảng cách padding
+                  border: "1px solid black",
+                },
+              }}
+              sx={{
+                "& .MuiInputBase-input": {
+                  minHeight: "150px !important", // Đặt chiều cao tối thiểu nếu cần
+                  resize: "none", // Bỏ resize của textarea
+                  overflow: "auto", // Để có thể cuộn
+                  scrollbarWidth: "none", // Ẩn thanh cuộn cho Firefox
+                  msOverflowStyle: "none", // Ẩn thanh cuộn cho Internet Explorer và Edge
+                },
+                "& .MuiFormControl-root": {
+                  // Đặt chiều cao tối thiểu cho TextField
+                },
+                // Ẩn thanh cuộn trong các trình duyệt WebKit
+                "&::-webkit-scrollbar": {
+                  display: "none", // Ẩn thanh cuộn
+                },
+              }}
+            />
+          )}
+          {tabDes == 1 && (
+            <TextField
+              placeholder='Describe the features of your product/service/application.'
+              multiline
+              fullWidth
+              variant='standard' // Loại bỏ border mặc định
+              InputProps={{
+                disableUnderline: true, // Bỏ underline của variant="standard"
+                sx: {
+                  backgroundColor: "white", // Nền trắng
+                  borderRadius: 2, // Đặt border-radius nếu cần
+                  padding: 2, // Khoảng cách padding
+                  border: "1px solid black",
+                },
+              }}
+              sx={{
+                "& .MuiInputBase-input": {
+                  minHeight: "150px !important", // Đặt chiều cao tối thiểu nếu cần
+                  resize: "none", // Bỏ resize của textarea
+                  overflow: "auto", // Để có thể cuộn
+                  scrollbarWidth: "none", // Ẩn thanh cuộn cho Firefox
+                  msOverflowStyle: "none", // Ẩn thanh cuộn cho Internet Explorer và Edge
+                },
+                "& .MuiFormControl-root": {
+                  // Đặt chiều cao tối thiểu cho TextField
+                },
+                // Ẩn thanh cuộn trong các trình duyệt WebKit
+                "&::-webkit-scrollbar": {
+                  display: "none", // Ẩn thanh cuộn
+                },
+              }}
+            />
+          )}
         </Box>
         <Box
           mt={"20px"}
@@ -1336,91 +1391,19 @@ const MaterialVideoView = ({
               bgcolor={"#dddddd"}>
               <img src={ban} width={60} height={60} alt='' />
             </Box>
-
-            <img
-              src={cover}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover1}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover1}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover1}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover1}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover1}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
-            <img
-              src={cover1}
-              width={"13.5%"}
-              height={"250px"}
-              style={{ borderRadius: "20px", objectFit: "cover" }}
-              alt=''
-            />
+            {productVideo &&
+              productVideo.length > 0 &&
+              productVideo.map((item: any) => {
+                return (
+                  <img
+                    src={item.thumb}
+                    width={"13.5%"}
+                    height={"250px"}
+                    style={{ borderRadius: "20px", objectFit: "cover" }}
+                    alt=''
+                  />
+                );
+              })}
           </Box>
         </DialogContent>
       </Dialog>
@@ -1431,6 +1414,7 @@ const MaterialVideoView = ({
 export default MaterialVideoView;
 
 import { LinearProgress } from "@mui/material";
+import { toast } from "react-toastify";
 
 const ImageUploadPreview = () => {
   const [file, setFile] = useState<File | null>(null); // Lưu file ảnh đã chọn
@@ -1524,9 +1508,6 @@ const ImageUploadPreview = () => {
     </Box>
   );
 };
-
-import { IconButton } from "@mui/material";
-import { country } from "../../utils/acent";
 
 const FileUploader = ({
   fileList,

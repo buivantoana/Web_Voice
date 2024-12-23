@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MaterialVideoView from "./MaterialVideoView";
+import MaterialVideoRegenerateView from "./MaterialVideoRegenerateView";
 import {
   Box,
   Button,
@@ -22,11 +22,10 @@ import {
 import { useCoursesContext } from "../../App";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import MaterialVideoRegenerateController from "./MaterialVideoRegenerateController";
 
 type Props = {};
 
-const MaterialVideoController = (props: Props) => {
+const MaterialVideoRegenerateController = (props: Props) => {
   const [searchParams] = useSearchParams();
   const productId = searchParams.get("product_id");
   const [typeVoice, setTypeVoice] = useState("openai");
@@ -286,7 +285,7 @@ const MaterialVideoController = (props: Props) => {
   console.log(fileList);
   return (
     <>
-      {/* <MaterialVideoView
+      <MaterialVideoRegenerateView
         handleClickOpenAuthor={handleClickOpenAuthor}
         productName={productName}
         productUrl={productUrl}
@@ -301,8 +300,8 @@ const MaterialVideoController = (props: Props) => {
         productUrlOld={productUrlOld}
         setOpenUrlImage={setOpenUrlImage}
         productVideo={productVideo}
-      /> */}
-      <MaterialVideoRegenerateController />;
+      />
+      ;
       <Dialog
         fullWidth
         maxWidth='xl' // Đặt maxWidth lớn nhất để có thể sử dụng toàn bộ chiều rộng
@@ -343,87 +342,9 @@ const MaterialVideoController = (props: Props) => {
           )}
         </DialogContent>
       </Dialog>
-      <Dialog
-        sx={{ cursor: "pointer" }}
-        maxWidth={"md"}
-        fullWidth={true}
-        open={openUrlImage}
-        onClose={() => setOpenUrlImage(false)}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'>
-        <DialogTitle id='alert-dialog-title'>
-          <Box
-            width={"100%"}
-            display={"flex"}
-            onClick={() => setOpenUrlImage(false)}
-            justifyContent={"end"}>
-            <RiCloseCircleFill size={25} />
-          </Box>
-        </DialogTitle>
-        <DialogContent>
-          <Box textAlign={"center"} mb={"20px"}>
-            <Typography fontWeight={"bold"} fontSize={"1.6rem"}>
-              Select the materials to use
-            </Typography>
-            <Typography fontSize={".8rem"}>
-              More materials mean a better video, but also longer processing
-              time.
-            </Typography>
-          </Box>
-          <Box display={"flex"} flexWrap={"wrap"} gap={"25px"}>
-            {productImage.map((item: any, index: number) => {
-              return (
-                <Box
-                  key={index}
-                  position='relative'
-                  display='flex'
-                  flexDirection='column'
-                  justifyContent={"center"}
-                  width={"150px"}
-                  height={"150px"}
-                  bgcolor={"rgba(0,0,0,.1)"}
-                  sx={{
-                    border: "1px solid #ccc",
-                    borderRadius: "8px",
-                  }}
-                  alignItems='center'>
-                  <img
-                    src={item}
-                    width={"100px"}
-                    height={"100px"}
-                    style={{ borderRadius: "20px", objectFit: "contain" }}
-                    alt=''
-                  />
-                  <Checkbox
-                    checked={selectedUrls.includes(item)}
-                    onChange={() => handleCheckboxChange(item)}
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      color: "black",
-                      "&.Mui-checked": {
-                        color: "green",
-                      },
-                    }}
-                  />
-                </Box>
-              );
-            })}
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={handleSelectImage}
-            disabled={!selectedUrls.length > 0}
-            variant='contained'
-            sx={{ background: theme.palette.active.main, borderRadius: "8px" }}>
-            Continue
-          </Button>
-        </DialogActions>
-      </Dialog>
+    
     </>
   );
 };
 
-export default MaterialVideoController;
+export default MaterialVideoRegenerateController;
