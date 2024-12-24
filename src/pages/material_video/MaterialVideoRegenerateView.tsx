@@ -3,6 +3,7 @@ import {
   Button,
   Checkbox,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -31,6 +32,7 @@ import {
   RiImage2Line,
   RiLinksFill,
   RiUploadCloudLine,
+  RiUserVoiceLine,
   RiVoiceprintFill,
 } from "react-icons/ri";
 import ex1 from "../../images/extension_1.png";
@@ -77,6 +79,7 @@ const MaterialVideoRegenerateView = ({
   const [isFocused, setIsFocused] = useState(false);
   const [link, setLink] = useState("");
   const [open, setOpen] = useState(false);
+  const [resize, setResize] = useState(0);
   const [openAvatar, setOpenAvatar] = useState(false);
   const [tabDes, setTabDes] = useState(0);
 
@@ -112,9 +115,9 @@ const MaterialVideoRegenerateView = ({
     <Box
       sx={{ marginTop: "10px" }}
       display={"flex"}
-      gap={"5%"}
+      gap={"2%"}
       px={{ xs: "2%", md: "5%" }}>
-      <Box width={"25%"}>
+      <Box borderRadius={"10px"} px={"20px"} bgcolor={"white"} width={"28%"}>
         <Box
           height={"72vh"}
           py={"5px"}
@@ -242,7 +245,7 @@ const MaterialVideoRegenerateView = ({
       <Box
         width={"70%"}
         bgcolor={"white"}
-        height={"80vh"}
+        height={"82vh"}
         borderRadius={"10px"}>
         <Box width={"100%"} height={"100%"} p={"15px"}>
           <Box>
@@ -254,35 +257,69 @@ const MaterialVideoRegenerateView = ({
                 width={"68%"}
                 borderRadius={"10px"}
                 py={"10px"}
-                height={"max-content"}
+                display={"flex"}
+                flexDirection={"column"}
+                justifyContent={"space-between"}
                 border={"1px solid #ccc"}>
-                <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                  Ever feel overwhelmed by home messes? We've all been there.
-                </Typography>
-                <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                  Ever feel overwhelmed by home messes? We've all been there.
-                </Typography>
-                <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                  Ever feel overwhelmed by home messes? We've all been there.
-                </Typography>
-                <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                  Ever feel overwhelmed by home messes? We've all been there.
-                </Typography>
-                <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                  Ever feel overwhelmed by home messes? We've all been there.
-                </Typography>
-                <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                  Ever feel overwhelmed by home messes? We've all been there.
-                </Typography>
+                <Box mt={"30px"}>
+                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
+                    Ever feel overwhelmed by home messes? We've all been there.
+                  </Typography>
+                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
+                    Ever feel overwhelmed by home messes? We've all been there.
+                  </Typography>
+                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
+                    Ever feel overwhelmed by home messes? We've all been there.
+                  </Typography>
+                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
+                    Ever feel overwhelmed by home messes? We've all been there.
+                  </Typography>
+                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
+                    Ever feel overwhelmed by home messes? We've all been there.
+                  </Typography>
+                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
+                    Ever feel overwhelmed by home messes? We've all been there.
+                  </Typography>
+                </Box>
+
                 <Box
                   mt={"10px"}
                   px={"10px"}
                   display={"flex"}
                   justifyContent={"space-between"}
                   alignItems={"center"}>
+                  <Box display={"flex"} gap={"10px"}>
+                    <Button
+                      variant='contained'
+                      onClick={() => setTabDes(1)}
+                      sx={{
+                        width: "200px",
+                        background: theme.palette.active.main,
+                        fontSize: { xs: "10px", md: "15px" },
+                        borderRadius: "8px",
+                        color: "white",
+                      }}>
+                      {" "}
+                      <RiVoiceprintFill style={{ marginRight: "10px" }} /> Voice
+                    </Button>
+                    <Button
+                      variant='contained'
+                      onClick={() => setTabDes(1)}
+                      sx={{
+                        width: "50px",
+                        background: theme.palette.active.main,
+                        fontSize: { xs: "10px", md: "15px" },
+                        borderRadius: "8px",
+                        color: "white",
+                      }}>
+                      {" "}
+                      <RiUserVoiceLine />
+                    </Button>
+                  </Box>
+
                   <Button
                     variant='contained'
-                    onClick={() => setTabDes(1)}
+                    onClick={() => handleClickOpenAvatar()}
                     sx={{
                       width: "200px",
                       background: theme.palette.active.main,
@@ -291,129 +328,33 @@ const MaterialVideoRegenerateView = ({
                       color: "white",
                     }}>
                     {" "}
-                    <RiVoiceprintFill style={{ marginRight: "10px" }} /> Voice
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      width='1.2em'
+                      height='1.2em'
+                      style={{ marginRight: "3px" }}
+                      fill='none'
+                      viewBox='0 0 20 20'
+                      focusable='false'
+                      className='chakra-icon css-1cv0b1u'>
+                      <path
+                        stroke='#fff'
+                        stroke-linecap='round'
+                        stroke-width='1.5'
+                        d='M12 3.5v-.3A1.2 1.2 0 0 0 10.8 2H3.2A1.2 1.2 0 0 0 2 3.2v9.6A1.2 1.2 0 0 0 3.2 14h2.3'></path>
+                      <path
+                        stroke='#fff'
+                        stroke-width='1.5'
+                        d='M8 7.2A1.2 1.2 0 0 1 9.2 6h7.6A1.2 1.2 0 0 1 18 7.2v9.6a1.2 1.2 0 0 1-1.2 1.2H9.2A1.2 1.2 0 0 1 8 16.8z'></path>
+                      <path
+                        stroke='#fff'
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        stroke-width='1.5'
+                        d='M11 12h4m-2-2v4'></path>
+                    </svg>
+                    Duplicate & Resize
                   </Button>
-
-                  <FormControl
-                    sx={{
-                      width: "200px",
-                      ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                        {
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                        },
-                    }}>
-                    <Select
-                      className='more-select'
-                      id='demo-simple-select'
-                      defaultValue={10}
-                      MenuProps={{
-                        anchorOrigin: {
-                          vertical: "top",
-                          horizontal: "center",
-                        },
-                        transformOrigin: {
-                          vertical: "bottom",
-                          horizontal: "center",
-                        },
-                        PaperProps: {
-                          sx: {
-                            overflowY: "auto", // Cuộn nếu quá dài
-                          },
-                        },
-                      }}
-                      sx={{
-                        background: "white", // Màu nền mặc định
-                        "&:focus": {
-                          borderColor: theme.palette.active.main, // Màu viền khi focus
-                        },
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "gray", // Màu viền mặc định
-                        },
-                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                          borderColor: theme.palette.active.main, // Màu viền khi được focus
-                        },
-                      }}>
-                      <MenuItem value={10}>For All Size</MenuItem>
-                      <MenuItem
-                        value={20}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "15px",
-                        }}>
-                        <Typography width={"60px"}>For 9:16</Typography>
-
-                        <Box
-                          width={"9px"}
-                          height={"16px"}
-                          bgcolor={"#ccc"}
-                          border={"1px solid #ddd"}
-                          borderRadius={"3px"}></Box>
-                      </MenuItem>
-                      <MenuItem
-                        value={20}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "15px",
-                        }}>
-                        <Typography width={"60px"}> For 3:4</Typography>{" "}
-                        <Box
-                          width={"12px"}
-                          height={"16px"}
-                          bgcolor={"#ccc"}
-                          border={"1px solid #ddd"}
-                          borderRadius={"3px"}></Box>
-                      </MenuItem>
-                      <MenuItem
-                        value={20}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "15px",
-                        }}>
-                        <Typography width={"60px"}> For 1:1</Typography>{" "}
-                        <Box
-                          width={"16px"}
-                          height={"16px"}
-                          bgcolor={"#ccc"}
-                          border={"1px solid #ddd"}
-                          borderRadius={"3px"}></Box>
-                      </MenuItem>
-                      <MenuItem
-                        value={20}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "15px",
-                        }}>
-                        <Typography width={"60px"}> For 4:3</Typography>
-                        <Box
-                          width={"16px"}
-                          height={"12px"}
-                          bgcolor={"#ccc"}
-                          border={"1px solid #ddd"}
-                          borderRadius={"3px"}></Box>
-                      </MenuItem>
-                      <MenuItem
-                        value={20}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "15px",
-                        }}>
-                        <Typography width={"60px"}> For 16:9</Typography>{" "}
-                        <Box
-                          width={"16px"}
-                          height={"9px"}
-                          bgcolor={"#ccc"}
-                          border={"1px solid #ddd"}
-                          borderRadius={"3px"}></Box>
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
                 </Box>
               </Box>
               <Box
@@ -553,7 +494,7 @@ const MaterialVideoRegenerateView = ({
       </Dialog>
       <Dialog
         sx={{ cursor: "pointer" }}
-        maxWidth={"lg"}
+        maxWidth={"xs"}
         fullWidth={true}
         open={openAvatar}
         onClose={handleCloseAvatar}
@@ -569,32 +510,152 @@ const MaterialVideoRegenerateView = ({
           </Box>
         </DialogTitle>
         <DialogContent>
-          <Box display={"flex"} flexWrap={"wrap"} gap={"10px"}>
+          <Typography
+            textAlign={"center"}
+            fontSize={"1.4rem"}
+            fontWeight={"500"}>
+            Duplicate and resize to
+          </Typography>
+          <Box
+            display={"flex"}
+            mt={"30px"}
+            justifyContent={"space-between"}
+            gap={"10px"}>
             <Box
-              width={"13.5%"}
-              height={"250px"}
+              onClick={() => setResize(0)}
+              border={
+                resize == 0
+                  ? `1px solid ${theme.palette.active.main}`
+                  : "1px solid #ccc"
+              }
+              width={"65px"}
+              height={"65px"}
+              borderRadius={"8px"}
+              bgcolor={"rgba(0,0,0,.05)"}
               display={"flex"}
+              flexDirection={"column"}
               justifyContent={"center"}
               alignItems={"center"}
-              borderRadius={"20px"}
-              bgcolor={"#dddddd"}>
-              <img src={ban} width={60} height={60} alt='' />
+              gap={"4px"}>
+              <Box
+                width={"12px"}
+                height={"20px"}
+                border={`1px solid ${theme.palette.active.main}`}
+                borderRadius={"2px"}
+                bgcolor={"white"}></Box>
+              <Typography fontSize={".9rem"}>Origin</Typography>
             </Box>
-            {productVideo &&
-              productVideo.length > 0 &&
-              productVideo.map((item: any) => {
-                return (
-                  <img
-                    src={item.thumb}
-                    width={"13.5%"}
-                    height={"250px"}
-                    style={{ borderRadius: "20px", objectFit: "cover" }}
-                    alt=''
-                  />
-                );
-              })}
+            <Box
+              width={"65px"}
+              height={"65px"}
+              borderRadius={"8px"}
+              onClick={() => setResize(1)}
+              border={
+                resize == 1
+                  ? `1px solid ${theme.palette.active.main}`
+                  : "1px solid #ccc"
+              }
+              bgcolor={"rgba(0,0,0,.05)"}
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              gap={"4px"}>
+              <Box
+                width={"15px"}
+                height={"20px"}
+                border={`1px solid ${theme.palette.active.main}`}
+                borderRadius={"2px"}
+                bgcolor={"white"}></Box>
+              <Typography fontSize={".9rem"}>3:4</Typography>
+            </Box>
+            <Box
+              width={"65px"}
+              height={"65px"}
+              borderRadius={"8px"}
+              onClick={() => setResize(2)}
+              border={
+                resize == 2
+                  ? `1px solid ${theme.palette.active.main}`
+                  : "1px solid #ccc"
+              }
+              bgcolor={"rgba(0,0,0,.05)"}
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              gap={"4px"}>
+              <Box
+                width={"20px"}
+                height={"20px"}
+                border={`1px solid ${theme.palette.active.main}`}
+                borderRadius={"2px"}
+                bgcolor={"white"}></Box>
+              <Typography fontSize={".9rem"}>1:1</Typography>
+            </Box>
+            <Box
+              width={"65px"}
+              height={"65px"}
+              borderRadius={"8px"}
+              onClick={() => setResize(3)}
+              border={
+                resize == 3
+                  ? `1px solid ${theme.palette.active.main}`
+                  : "1px solid #ccc"
+              }
+              bgcolor={"rgba(0,0,0,.05)"}
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              gap={"4px"}>
+              <Box
+                width={"20px"}
+                height={"15px"}
+                border={`1px solid ${theme.palette.active.main}`}
+                borderRadius={"2px"}
+                bgcolor={"white"}></Box>
+              <Typography fontSize={".9rem"}>4:3</Typography>
+            </Box>
+            <Box
+              width={"65px"}
+              height={"65px"}
+              borderRadius={"8px"}
+              onClick={() => setResize(4)}
+              border={
+                resize == 4
+                  ? `1px solid ${theme.palette.active.main}`
+                  : "1px solid #ccc"
+              }
+              bgcolor={"rgba(0,0,0,.05)"}
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              gap={"4px"}>
+              <Box
+                width={"20px"}
+                height={"12px"}
+                border={`1px solid ${theme.palette.active.main}`}
+                borderRadius={"2px"}
+                bgcolor={"white"}></Box>
+              <Typography fontSize={".9rem"}>16:9</Typography>
+            </Box>
           </Box>
         </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleCloseAvatar}
+            variant='contained'
+            sx={{ borderRadius: "8px", background: "white", color: "black" }}>
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            sx={{ background: theme.palette.active.main, borderRadius: "8px" }}>
+            OK
+          </Button>
+        </DialogActions>
       </Dialog>
     </Box>
   );

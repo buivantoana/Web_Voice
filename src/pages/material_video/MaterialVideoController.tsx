@@ -42,6 +42,7 @@ const MaterialVideoController = (props: Props) => {
   const [productDesc, setProductDesc] = useState("");
   const [productImage, setProductImage]: any = useState([]);
   const [productVideo, setProductVideo]: any = useState([]);
+  const [productVideoUrl, setProductVideoUrl]: any = useState([]);
   const context: any = useCoursesContext();
   const theme: any = useTheme();
   const [myVoices, setMyVoices] = useState<any>([]);
@@ -101,10 +102,12 @@ const MaterialVideoController = (props: Props) => {
                 ...JSON.parse(result.product.images[0]).filter(
                   (item: any) => item != ""
                 ),
-                ...JSON.parse(result.product.videos[0]).filter(
-                  (item: any) => item != ""
-                ),
               ]);
+              setProductVideoUrl(
+                JSON.parse(result.product.videos[0]).filter(
+                  (item: any) => item != ""
+                )
+              );
             }
           } else {
             toast.warning("Error");
@@ -393,6 +396,45 @@ const MaterialVideoController = (props: Props) => {
                     height={"100px"}
                     style={{ borderRadius: "20px", objectFit: "contain" }}
                     alt=''
+                  />
+                  <Checkbox
+                    checked={selectedUrls.includes(item)}
+                    onChange={() => handleCheckboxChange(item)}
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      color: "black",
+                      "&.Mui-checked": {
+                        color: "green",
+                      },
+                    }}
+                  />
+                </Box>
+              );
+            })}
+            {productVideoUrl.map((item: any, index: number) => {
+              return (
+                <Box
+                  key={index}
+                  position='relative'
+                  display='flex'
+                  flexDirection='column'
+                  justifyContent={"center"}
+                  width={"150px"}
+                  height={"150px"}
+                  bgcolor={"rgba(0,0,0,.1)"}
+                  sx={{
+                    border: "1px solid #ccc",
+                    borderRadius: "8px",
+                  }}
+                  alignItems='center'>
+                  <video
+                    src={item}
+                    width='100'
+                    height='100'
+                    style={{ borderRadius: "20px", objectFit: "contain" }}
+                    controls
                   />
                   <Checkbox
                     checked={selectedUrls.includes(item)}
