@@ -301,7 +301,7 @@ const MaterialVideoRegenerateController = (props: Props) => {
         setOpenUrlImage={setOpenUrlImage}
         productVideo={productVideo}
       />
-      ;
+
       <Dialog
         fullWidth
         maxWidth='xl' // Đặt maxWidth lớn nhất để có thể sử dụng toàn bộ chiều rộng
@@ -342,7 +342,6 @@ const MaterialVideoRegenerateController = (props: Props) => {
           )}
         </DialogContent>
       </Dialog>
-    
     </>
   );
 };

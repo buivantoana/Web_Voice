@@ -78,7 +78,7 @@ const MaterialVideoView = ({
   const [open, setOpen] = useState(false);
   const [openAvatar, setOpenAvatar] = useState(false);
   const [tabDes, setTabDes] = useState(0);
-
+  const { t } = useTranslation();
   const [viewMore, setViewMore] = useState(false);
 
   const handleClickOpenAvatar = () => {
@@ -115,7 +115,7 @@ const MaterialVideoView = ({
         className='scroll-filter'
         sx={{ overflowY: "scroll" }}>
         <Typography fontWeight={"bold"} fontSize={"1.2rem"}>
-          Import Materials
+          {t("import_materials")}
         </Typography>
         <Box
           sx={{
@@ -170,7 +170,7 @@ const MaterialVideoView = ({
                     fontSize: { xs: "10px", md: "15px" },
                     borderRadius: "8px",
                   }}>
-                  Import from Link
+                  {t("import_from_link")}
                 </Button>
               ),
               startAdornment: (
@@ -203,7 +203,7 @@ const MaterialVideoView = ({
                   mb={"11px"}
                   color='grey_500.main'
                   className='chakra-text css-0'>
-                  Enter a link, supports
+                  {t("import_from_link_desc")}
                 </Typography>
                 <div className='css-16iqw5x'>
                   <svg
@@ -520,7 +520,7 @@ const MaterialVideoView = ({
         </Box>
         <Box mt={"20px"}>
           <Typography mb={"5px"} fontWeight={"500"}>
-            Product Name
+            {t("product_name")}
           </Typography>
           <TextField
             className='search-input'
@@ -575,7 +575,7 @@ const MaterialVideoView = ({
                   borderRadius: "8px",
                   color: tabDes == 0 ? "white" : "black",
                 }}>
-                Product Details for The Script
+                {t("product_detail")}
               </Button>
             </Box>
             <Box>
@@ -589,13 +589,13 @@ const MaterialVideoView = ({
                   borderRadius: "8px",
                   color: tabDes == 1 ? "white" : "black",
                 }}>
-                Use My Script
+                {t("product_detail_my")}
               </Button>
             </Box>
           </Box>
           {tabDes == 0 && (
             <TextField
-              placeholder='Describe the features of your product/service/application.'
+              placeholder={t("product_detail_my_desc")}
               multiline
               value={productDesc}
               fullWidth
@@ -629,7 +629,7 @@ const MaterialVideoView = ({
           )}
           {tabDes == 1 && (
             <TextField
-              placeholder='Describe the features of your product/service/application.'
+              placeholder={t("product_detail_my_desc")}
               multiline
               fullWidth
               variant='standard' // Loại bỏ border mặc định
@@ -679,7 +679,7 @@ const MaterialVideoView = ({
               }}
               size={"20px"}
             />{" "}
-            More Options
+            {t("more_option")}
           </Typography>
           <Box mt={"20px"}>
             {/* <Box
@@ -731,11 +731,11 @@ const MaterialVideoView = ({
                 </Select>
               </FormControl> */}
               <Typography mb={"5px"} fontWeight={"500"}>
-                Target Audience (Optional)
+                {t("more_option_target")}
               </Typography>
               <TextField
                 className='search-input'
-                placeholder='The target audience can better guide the AI in script writing.'
+                placeholder={t("more_option_target_desc")}
                 id='demo-helper-text-aligned'
                 size='small'
                 sx={{
@@ -768,7 +768,7 @@ const MaterialVideoView = ({
                   },
               }}>
               <Typography mb={"5px"} fontWeight={"500"}>
-                Video Length
+                {t("size_video")}
               </Typography>
               <FormControl fullWidth>
                 <Select
@@ -803,7 +803,7 @@ const MaterialVideoView = ({
                   },
               }}>
               <Typography mb={"5px"} fontWeight={"500"}>
-                Logo & Endcard
+                {t("logo")}
               </Typography>
               <Box display={"flex"} gap={"20px"}>
                 <Box>
@@ -819,7 +819,7 @@ const MaterialVideoView = ({
                         defaultChecked
                       />
                     }
-                    label='Endcard'
+                    label={t("endcard")}
                   />
                   <ImageUploadPreview />
                 </Box>
@@ -1041,7 +1041,7 @@ const MaterialVideoView = ({
                         defaultChecked
                       />
                     }
-                    label='Watermark'
+                    label={t("watermark")}
                   />
                   <ImageUploadPreview />
                 </Box>
@@ -1219,7 +1219,7 @@ const MaterialVideoView = ({
               border: "1px solid #ccc",
               background: "white",
             }}>
-            <RiVoiceprintFill style={{ marginRight: "10px" }} /> Voice
+            <RiVoiceprintFill style={{ marginRight: "10px" }} /> {t("voice")}
           </Button>
           <Button
             onClick={handleClickOpenAvatar}
@@ -1232,7 +1232,7 @@ const MaterialVideoView = ({
               background: "white",
             }}>
             <RiImage2Line style={{ marginRight: "10px" }} />
-            Avatar
+            {t("avatar")}
           </Button>
         </Box>
 
@@ -1258,7 +1258,7 @@ const MaterialVideoView = ({
               fill='#fff'
               d='M9.05 8.2a.474.474 0 0 1 .901 0l.847 2.542a3.8 3.8 0 0 0 2.4 2.399l2.541.846a.474.474 0 0 1 0 .9l-2.542.847a3.8 3.8 0 0 0-2.4 2.4l-.846 2.542a.474.474 0 0 1-.9 0l-.847-2.542a3.8 3.8 0 0 0-2.399-2.4l-2.542-.846a.474.474 0 0 1 0-.9l2.542-.847a3.8 3.8 0 0 0 2.4-2.4zM3.98 1.506a.285.285 0 0 1 .541 0l.508 1.525c.227.68.76 1.213 1.44 1.44l1.525.508a.285.285 0 0 1 0 .54l-1.525.508a2.27 2.27 0 0 0-1.44 1.44l-.508 1.525a.285.285 0 0 1-.54 0l-.508-1.525a2.27 2.27 0 0 0-1.44-1.44L.508 5.52a.285.285 0 0 1 0-.54l1.525-.508a2.27 2.27 0 0 0 1.44-1.44zM13.26.13a.19.19 0 0 1 .36 0l.338 1.016c.15.454.507.81.96.96l1.017.34a.19.19 0 0 1 0 .359l-1.016.338a1.52 1.52 0 0 0-.961.961l-.339 1.016a.19.19 0 0 1-.36 0l-.338-1.016a1.52 1.52 0 0 0-.96-.96l-1.015-.34a.19.19 0 0 1 0-.359l1.016-.338c.454-.151.81-.507.96-.961z'></path>
           </svg>
-          Generate
+          {t("generate")}
         </Button>
       </Box>
       <Dialog
@@ -1289,12 +1289,8 @@ const MaterialVideoView = ({
                 },
               }}
               alignItems={"center"}>
-              <Typography fontWeight={"500"}>
-                Target website blocked direct access 😵‍💫
-              </Typography>
-              <Typography fontWeight={"500"}>
-                Please use our Chrome plugin to fetch page info again.
-              </Typography>
+              <Typography fontWeight={"500"}>{t("extension1")}</Typography>
+              <Typography fontWeight={"500"}>{t("extension2")}</Typography>
               <Button
                 variant='contained'
                 onClick={handleClickOpen}
@@ -1331,28 +1327,24 @@ const MaterialVideoView = ({
                   fontSize: { xs: "10px", md: "15px" },
                   borderRadius: "8px",
                 }}>
-                Get Chrome Extension
+                {t("extension3")}
               </Button>
-              <Typography fontWeight={"500"}>
-                Supports parsing info from almost any site
-              </Typography>
+              <Typography fontWeight={"500"}>{t("extension4")}</Typography>
             </Box>
             <Box
               display={"flex"}
               justifyContent={"space-between"}
               padding={"20px 0"}>
               <Box>
-                <Typography color=''>Step1</Typography>
-                <Typography color=''>
-                  Visit the target site, click Convert
-                </Typography>
+                <Typography color=''>{t("extension_step1")}</Typography>
+                <Typography color=''>{t("extension_step1_desc")}</Typography>
                 <Box width={205} height={147}>
                   <img src={ex1} width={"100%"} height={"100%"} alt='' />
                 </Box>
               </Box>
               <Box>
-                <Typography color=''>Step2</Typography>
-                <Typography color=''>Wait and get the result</Typography>
+                <Typography color=''>{t("extension_step2")}</Typography>
+                <Typography color=''>{t("extension_step2_desc")}</Typography>
                 <Box width={205} height={147}>
                   <img src={ex2} width={"170px"} height={"68px"} alt='' />
                   <img src={ex3} width={"170px"} height={"68px"} alt='' />
@@ -1415,6 +1407,7 @@ export default MaterialVideoView;
 
 import { LinearProgress } from "@mui/material";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const ImageUploadPreview = () => {
   const [file, setFile] = useState<File | null>(null); // Lưu file ảnh đã chọn
@@ -1518,7 +1511,7 @@ const FileUploader = ({
   handleAddLinkAsFile,
 }: any) => {
   const theme = useTheme();
-  // Hàm xử lý tải file
+ const {t} = useTranslation()
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
@@ -1586,7 +1579,7 @@ const FileUploader = ({
           }}>
           <RiUploadCloudLine size={55} color={theme.palette.active.main} />
           <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>
-            Click to upload a file or drag and drop
+            {t("upload_desc")}
           </Typography>
         </label>
         <p style={{ margin: "10px 0" }}>(mp4, mov, png, jpg, bmp, webp)</p>

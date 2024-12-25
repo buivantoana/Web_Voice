@@ -23,6 +23,7 @@ import { useCoursesContext } from "../../App";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import MaterialVideoRegenerateController from "./MaterialVideoRegenerateController";
+import { useTranslation } from "react-i18next";
 
 type Props = {};
 
@@ -49,6 +50,7 @@ const MaterialVideoController = (props: Props) => {
   const [selectedUrls, setSelectedUrls]: any = useState([]);
   const [fileList, setFileList] = useState<File[]>([]);
   const [progress, setProgress] = useState<number[]>([]);
+  const { t } = useTranslation();
   const handleCheckboxChange = (url: string) => {
     setSelectedUrls((prev: any) =>
       prev.includes(url)
@@ -305,7 +307,7 @@ const MaterialVideoController = (props: Props) => {
         setOpenUrlImage={setOpenUrlImage}
         productVideo={productVideo}
       /> */}
-      <MaterialVideoRegenerateController />;
+      <MaterialVideoRegenerateController />
       <Dialog
         fullWidth
         maxWidth='xl' // Đặt maxWidth lớn nhất để có thể sử dụng toàn bộ chiều rộng
@@ -366,11 +368,10 @@ const MaterialVideoController = (props: Props) => {
         <DialogContent>
           <Box textAlign={"center"} mb={"20px"}>
             <Typography fontWeight={"bold"} fontSize={"1.6rem"}>
-              Select the materials to use
+              {t("select_image")}
             </Typography>
-            <Typography fontSize={".8rem"}>
-              More materials mean a better video, but also longer processing
-              time.
+            <Typography fontSize={".8rem"} textAlign={"center"}>
+              {t("select_image_desc")}
             </Typography>
           </Box>
           <Box display={"flex"} flexWrap={"wrap"} gap={"25px"}>
