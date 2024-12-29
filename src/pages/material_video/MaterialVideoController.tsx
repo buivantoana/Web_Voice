@@ -24,6 +24,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import MaterialVideoRegenerateController from "./MaterialVideoRegenerateController";
 import { useTranslation } from "react-i18next";
+import { generateVideo } from "../../service/material_video";
 
 type Props = {};
 
@@ -41,6 +42,11 @@ const MaterialVideoController = (props: Props) => {
   const [productUrl, setProductUrl] = useState("");
   const [productUrlOld, setProductUrlOld] = useState(null);
   const [productDesc, setProductDesc] = useState("");
+  const [productMyDesc, setProductMyDesc] = useState("");
+  const [productTarget, setProductTarget] = useState("");
+  const [selectedVideolength, setSelectedVideolength] = useState("");
+  const [selectedVideoSize, setSelectedVideoSize] = useState("");
+  const [selectedVideoLanguage, setSelectedVideoLanguage] = useState("");
   const [productImage, setProductImage]: any = useState([]);
   const [productVideo, setProductVideo]: any = useState([]);
   const [productVideoUrl, setProductVideoUrl]: any = useState([]);
@@ -49,6 +55,8 @@ const MaterialVideoController = (props: Props) => {
   const [myVoices, setMyVoices] = useState<any>([]);
   const [selectedUrls, setSelectedUrls]: any = useState([]);
   const [fileList, setFileList] = useState<File[]>([]);
+  const [fileEndCard, setFileEndCard] = useState<any>(null);
+  const [fileWaterMark, setFileWaterMark] = useState<any>(null);
   const [progress, setProgress] = useState<number[]>([]);
   const { t } = useTranslation();
   const handleCheckboxChange = (url: string) => {
@@ -288,10 +296,48 @@ const MaterialVideoController = (props: Props) => {
       if (uploadProgress >= 100) clearInterval(interval);
     }, 500);
   };
-  console.log(fileList);
+  const generate = async () => {
+    try {
+      const formData: any = new FormData();
+      formData.append("product_name", productName); // Thêm user_id
+      formData.append("product_desc", productDesc); // Thêm voice
+      formData.append("my_script", productMyDesc); // Thêm speed
+      formData.append("target_audience", productTarget);
+      formData.append("video_length", selectedVideolength);
+      formData.append("video_size", selectedVideoSize);
+      formData.append("language", selectedVideoLanguage);
+      formData.append("watermark", "test");
+      formData.append("voice_id", voice.id);
+      formData.append("voice_type", voice.type);
+      formData.append("video_kol", "Tech Guru");
+      formData.append("logo_or_video", fileEndCard);
+
+      const imageFiles = fileList.filter((file) =>
+        file.type.startsWith("image/")
+      );
+      const videoFiles = fileList.filter((file) =>
+        file.type.startsWith("video/")
+      );
+
+      // Thêm file ảnh vào formData với key `listImage`
+      imageFiles.forEach((file) => {
+        formData.append("list_images", file);
+      });
+
+      // Thêm file video vào formData với key `listVideo`
+      videoFiles.forEach((file) => {
+        formData.append("list_videos", file);
+      });
+
+      let result = await generateVideo(formData);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
-      {/* <MaterialVideoView
+      <MaterialVideoView
         handleClickOpenAuthor={handleClickOpenAuthor}
         productName={productName}
         productUrl={productUrl}
@@ -306,8 +352,24 @@ const MaterialVideoController = (props: Props) => {
         productUrlOld={productUrlOld}
         setOpenUrlImage={setOpenUrlImage}
         productVideo={productVideo}
-      /> */}
-      <MaterialVideoRegenerateController />
+        generate={generate}
+        setProductMyDesc={setProductMyDesc}
+        productMyDesc={productMyDesc}
+        setProductTarget={setProductTarget}
+        productTarget={productTarget}
+        setSelectedVideolength={setSelectedVideolength}
+        selectedVideolength={selectedVideolength}
+        setSelectedVideoSize={setSelectedVideoSize}
+        selectedVideoSize={selectedVideoSize}
+        setSelectedVideoLanguage={setSelectedVideoLanguage}
+        selectedVideoLanguage={selectedVideoLanguage}
+        fileWaterMark={fileWaterMark}
+        setFileWaterMark={setFileWaterMark}
+        fileEndCard={fileEndCard}
+        setFileEndCard={setFileEndCard}
+      />
+      {/*  <MaterialVideoRegenerateController /> */}
+
       <Dialog
         fullWidth
         maxWidth='xl' // Đặt maxWidth lớn nhất để có thể sử dụng toàn bộ chiều rộng

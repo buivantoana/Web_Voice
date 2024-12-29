@@ -124,6 +124,9 @@ const SignUpController = (props: Props) => {
       if (verify_phone.code == 1000) {
         toast.warning("Số điện thoại đã được sử dụng hoặc không hợp lệ.");
       }
+      if (verify_phone.code == 1001) {
+        toast.warning("Số điện thoại đã được sử dụng hoặc không hợp lệ.");
+      }
     } catch (error) {
       console.log(error);
     }

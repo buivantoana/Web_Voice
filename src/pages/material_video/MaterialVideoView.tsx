@@ -54,6 +54,21 @@ type Props = {
   productUrlOld: any;
   setOpenUrlImage: any;
   productVideo: any;
+  generate: any;
+  setProductMyDesc: any;
+  productMyDesc: any;
+  setProductTarget: any;
+  productTarget: any;
+  setSelectedVideolength: any;
+  selectedVideolength: any;
+  setSelectedVideoSize: any;
+  selectedVideoSize: any;
+  setSelectedVideoLanguage: any;
+  selectedVideoLanguage: any;
+  fileWaterMark: any;
+  setFileWaterMark: any;
+  fileEndCard: any;
+  setFileEndCard: any;
 };
 
 const MaterialVideoView = ({
@@ -71,6 +86,21 @@ const MaterialVideoView = ({
   productUrlOld,
   setOpenUrlImage,
   productVideo,
+  generate,
+  setProductMyDesc,
+  productMyDesc,
+  setProductTarget,
+  productTarget,
+  setSelectedVideolength,
+  selectedVideolength,
+  setSelectedVideoSize,
+  selectedVideoSize,
+  setSelectedVideoLanguage,
+  selectedVideoLanguage,
+  fileWaterMark,
+  setFileWaterMark,
+  fileEndCard,
+  setFileEndCard,
 }: Props) => {
   const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -632,6 +662,10 @@ const MaterialVideoView = ({
               placeholder={t("product_detail_my_desc")}
               multiline
               fullWidth
+              value={productMyDesc}
+              onChange={(e) => {
+                setProductMyDesc(e.target.value);
+              }}
               variant='standard' // Loại bỏ border mặc định
               InputProps={{
                 disableUnderline: true, // Bỏ underline của variant="standard"
@@ -738,6 +772,10 @@ const MaterialVideoView = ({
                 placeholder={t("more_option_target_desc")}
                 id='demo-helper-text-aligned'
                 size='small'
+                value={productTarget}
+                onChange={(e) => {
+                  setProductTarget(e.target.value);
+                }}
                 sx={{
                   width: "100%",
 
@@ -774,7 +812,10 @@ const MaterialVideoView = ({
                 <Select
                   id='demo-simple-select'
                   className='more-select'
-                  defaultValue={10}
+                  value={selectedVideolength}
+                  onChange={(e) => {
+                    setSelectedVideolength(e.target.value);
+                  }}
                   sx={{
                     background: "white", // Màu nền mặc định
                     "&:focus": {
@@ -787,10 +828,10 @@ const MaterialVideoView = ({
                       borderColor: theme.palette.active.main, // Màu viền khi được focus
                     },
                   }}>
-                  <MenuItem value={10}>Auto (30s-50s)</MenuItem>
-                  <MenuItem value={20}>(15s-30s)</MenuItem>
-                  <MenuItem value={30}>(30s-45s)</MenuItem>
-                  <MenuItem value={40}>(45s-60s)</MenuItem>
+                  <MenuItem value={"30s-50s"}>Auto (30s-50s)</MenuItem>
+                  <MenuItem value={"15s-30s"}>(15s-30s)</MenuItem>
+                  <MenuItem value={"30s-45s"}>(30s-45s)</MenuItem>
+                  <MenuItem value={"45s-60s"}>(45s-60s)</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -821,7 +862,10 @@ const MaterialVideoView = ({
                     }
                     label={t("endcard")}
                   />
-                  <ImageUploadPreview />
+                  <ImageUploadPreview
+                    file={fileEndCard}
+                    setFile={setFileEndCard}
+                  />
                 </Box>
 
                 <Box
@@ -871,9 +915,8 @@ const MaterialVideoView = ({
                           borderColor: theme.palette.active.main, // Màu viền khi được focus
                         },
                       }}>
-                      <MenuItem value={10}>For All Size</MenuItem>
                       <MenuItem
-                        value={20}
+                        value={"16:9"}
                         sx={{
                           display: "flex",
                           alignItems: "center",
@@ -889,7 +932,7 @@ const MaterialVideoView = ({
                           borderRadius={"3px"}></Box>
                       </MenuItem>
                       <MenuItem
-                        value={20}
+                        value={"3:4"}
                         sx={{
                           display: "flex",
                           alignItems: "center",
@@ -904,7 +947,7 @@ const MaterialVideoView = ({
                           borderRadius={"3px"}></Box>
                       </MenuItem>
                       <MenuItem
-                        value={20}
+                        value={"1:1"}
                         sx={{
                           display: "flex",
                           alignItems: "center",
@@ -919,7 +962,7 @@ const MaterialVideoView = ({
                           borderRadius={"3px"}></Box>
                       </MenuItem>
                       <MenuItem
-                        value={20}
+                        value={"4:3"}
                         sx={{
                           display: "flex",
                           alignItems: "center",
@@ -934,7 +977,7 @@ const MaterialVideoView = ({
                           borderRadius={"3px"}></Box>
                       </MenuItem>
                       <MenuItem
-                        value={20}
+                        value={"16:9"}
                         sx={{
                           display: "flex",
                           alignItems: "center",
@@ -1043,7 +1086,10 @@ const MaterialVideoView = ({
                     }
                     label={t("watermark")}
                   />
-                  <ImageUploadPreview />
+                  <ImageUploadPreview
+                    file={fileWaterMark}
+                    setFile={setFileWaterMark}
+                  />
                 </Box>
               </Box>
             </Box>
@@ -1075,6 +1121,10 @@ const MaterialVideoView = ({
             <Select
               className='more-select'
               id='demo-simple-select'
+              value={selectedVideoSize}
+              onChange={(e) => {
+                setSelectedVideoSize(e.target.value);
+              }}
               MenuProps={{
                 anchorOrigin: {
                   vertical: "top",
@@ -1103,7 +1153,7 @@ const MaterialVideoView = ({
                 },
               }}>
               <MenuItem
-                value={20}
+                value={"9:16"}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -1112,7 +1162,7 @@ const MaterialVideoView = ({
                 <Typography width={"60px"}> 9:16</Typography>
               </MenuItem>
               <MenuItem
-                value={20}
+                value={"3:4"}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -1121,7 +1171,7 @@ const MaterialVideoView = ({
                 <Typography width={"60px"}> 3:4</Typography>{" "}
               </MenuItem>
               <MenuItem
-                value={20}
+                value={"1:1"}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -1130,7 +1180,7 @@ const MaterialVideoView = ({
                 <Typography width={"60px"}> 1:1</Typography>{" "}
               </MenuItem>
               <MenuItem
-                value={20}
+                value={"4:3"}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -1139,7 +1189,7 @@ const MaterialVideoView = ({
                 <Typography width={"60px"}> 4:3</Typography>
               </MenuItem>
               <MenuItem
-                value={20}
+                value={"16:9"}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -1153,6 +1203,10 @@ const MaterialVideoView = ({
             <Select
               className='more-select'
               id='demo-simple-select'
+              value={selectedVideoLanguage}
+              onChange={(e) => {
+                setSelectedVideoLanguage(e.target.value);
+              }}
               MenuProps={{
                 anchorOrigin: {
                   vertical: "top",
@@ -1184,18 +1238,12 @@ const MaterialVideoView = ({
               {country.map((item: any) => {
                 return (
                   <MenuItem
+                    value={item.name}
                     style={{
                       display: "flex",
                       alignItems: "center",
                       gap: "8px",
                     }}>
-                    <img
-                      src={item.flag}
-                      width={30}
-                      height={30}
-                      style={{ borderRadius: "50%", objectFit: "cover" }}
-                      alt=''
-                    />
                     <Typography
                       sx={{
                         padding: "3px 10px",
@@ -1238,7 +1286,7 @@ const MaterialVideoView = ({
 
         <Button
           variant='contained'
-          onClick={() => setTabDes(1)}
+          onClick={() => generate()}
           sx={{
             width: "200px",
             background: theme.palette.active.main,
@@ -1409,8 +1457,8 @@ import { LinearProgress } from "@mui/material";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
-const ImageUploadPreview = () => {
-  const [file, setFile] = useState<File | null>(null); // Lưu file ảnh đã chọn
+const ImageUploadPreview = ({ file, setFile }: any) => {
+  // Lưu file ảnh đã chọn
   const [progress, setProgress] = useState<number>(0); // Thanh tiến trình tải file
   const theme = useTheme();
   // Giả lập process tải ảnh
@@ -1511,7 +1559,7 @@ const FileUploader = ({
   handleAddLinkAsFile,
 }: any) => {
   const theme = useTheme();
- const {t} = useTranslation()
+  const { t } = useTranslation();
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
