@@ -58,6 +58,7 @@ type Props = {
   setOpenUrlImage: any;
   productVideo: any;
   generateResult: any;
+  setProductDesc: any;
 };
 
 const MaterialVideoRegenerateView = ({
@@ -76,6 +77,7 @@ const MaterialVideoRegenerateView = ({
   setOpenUrlImage,
   productVideo,
   generateResult,
+  setProductDesc,
 }: Props) => {
   const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -180,6 +182,10 @@ const MaterialVideoRegenerateView = ({
               placeholder='Describe the features of your product/service/application.'
               multiline
               fullWidth
+              value={productDesc}
+              onChange={(e) => {
+                setProductDesc(e.target.value);
+              }}
               variant='standard' // Loại bỏ border mặc định
               InputProps={{
                 disableUnderline: true, // Bỏ underline của variant="standard"

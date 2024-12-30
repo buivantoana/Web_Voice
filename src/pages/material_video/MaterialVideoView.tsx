@@ -32,8 +32,8 @@ import {
   RiUploadCloudLine,
   RiVoiceprintFill,
 } from "react-icons/ri";
-import ex1 from "../../images/extension_1.png";
-import ex2 from "../../images/extension_2.png";
+import ex1 from "../../images/Screenshot 2024-12-30 230225.png";
+import ex2 from "../../images/Screenshot 2024-12-30 230305.png";
 import ex3 from "../../images/extension_3.png";
 import ban from "../../images/ban.svg";
 import cover from "../../images/cover.jpg";
@@ -887,7 +887,7 @@ const MaterialVideoView = ({
                     <Select
                       className='more-select'
                       id='demo-simple-select'
-                      defaultValue={10}
+                      value={"16:9"}
                       MenuProps={{
                         anchorOrigin: {
                           vertical: "top",
@@ -1394,8 +1394,7 @@ const MaterialVideoView = ({
                 <Typography color=''>{t("extension_step2")}</Typography>
                 <Typography color=''>{t("extension_step2_desc")}</Typography>
                 <Box width={205} height={147}>
-                  <img src={ex2} width={"170px"} height={"68px"} alt='' />
-                  <img src={ex3} width={"170px"} height={"68px"} alt='' />
+                  <img src={ex2} width={"100%"} height={"100%"} alt='' />
                 </Box>
               </Box>
             </Box>

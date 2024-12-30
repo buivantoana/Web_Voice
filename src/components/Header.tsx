@@ -176,6 +176,16 @@ const Header = () => {
                   </Typography>
                 </Box>
               </NavLink>
+              <NavLink to='/material-video'>
+                <Box padding={"9px 0"}>
+                  <Typography
+                    fontSize={".9rem"}
+                    fontWeight={"500"}
+                    color={"grey_500.main"}>
+                    {t("materials_to_video")}
+                  </Typography>
+                </Box>
+              </NavLink>
             </Stack>
           </Box>
         </Hidden>

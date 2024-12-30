@@ -45,9 +45,9 @@ const MaterialVideoController = (props: Props) => {
   const [productDesc, setProductDesc] = useState("");
   const [productMyDesc, setProductMyDesc] = useState("");
   const [productTarget, setProductTarget] = useState("");
-  const [selectedVideolength, setSelectedVideolength] = useState("");
-  const [selectedVideoSize, setSelectedVideoSize] = useState("");
-  const [selectedVideoLanguage, setSelectedVideoLanguage] = useState("");
+  const [selectedVideolength, setSelectedVideolength] = useState("30s-50s");
+  const [selectedVideoSize, setSelectedVideoSize] = useState("9:16");
+  const [selectedVideoLanguage, setSelectedVideoLanguage] = useState("English");
   const [productImage, setProductImage]: any = useState([]);
   const [generateResult, setGenerateResult]: any = useState({});
   const [productVideo, setProductVideo]: any = useState([]);
@@ -379,7 +379,12 @@ const MaterialVideoController = (props: Props) => {
         />
       )}
       {Object.keys(generateResult).length > 0 && (
-        <MaterialVideoRegenerateController generateResult={generateResult} />
+        <MaterialVideoRegenerateController
+          generateResult={generateResult}
+          desc={productDesc}
+          listFile={fileList}
+          name={productName}
+        />
       )}
 
       <Dialog

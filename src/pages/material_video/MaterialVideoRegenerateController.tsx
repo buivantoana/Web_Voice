@@ -25,9 +25,17 @@ import { toast } from "react-toastify";
 
 type Props = {
   generateResult: any;
+  desc: any;
+  listFile: any;
+  name: any;
 };
 
-const MaterialVideoRegenerateController = ({ generateResult }: Props) => {
+const MaterialVideoRegenerateController = ({
+  generateResult,
+  desc,
+  listFile,
+  name,
+}: Props) => {
   const [searchParams] = useSearchParams();
   const productId = searchParams.get("product_id");
   const [typeVoice, setTypeVoice] = useState("openai");
@@ -59,7 +67,11 @@ const MaterialVideoRegenerateController = ({ generateResult }: Props) => {
   const handleClickOpenAuthor = () => {
     setOpenAuthor(true);
   };
-
+  useEffect(() => {
+    setProductDesc(desc);
+    setProductName(name);
+    setFileList(listFile);
+  }, []);
   const handleCloseAuthor = () => {
     setOpenAuthor(false);
   };
@@ -293,6 +305,7 @@ const MaterialVideoRegenerateController = ({ generateResult }: Props) => {
         productUrl={productUrl}
         productDesc={productDesc}
         setProductUrl={setProductUrl}
+        setProductDesc={setProductDesc}
         fileList={fileList}
         setFileList={setFileList}
         progress={progress}
