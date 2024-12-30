@@ -28,6 +28,7 @@ type Props = {
   desc: any;
   listFile: any;
   name: any;
+  videoUrl: any;
 };
 
 const MaterialVideoRegenerateController = ({
@@ -35,6 +36,7 @@ const MaterialVideoRegenerateController = ({
   desc,
   listFile,
   name,
+  videoUrl,
 }: Props) => {
   const [searchParams] = useSearchParams();
   const productId = searchParams.get("product_id");
@@ -316,6 +318,7 @@ const MaterialVideoRegenerateController = ({
         setOpenUrlImage={setOpenUrlImage}
         productVideo={productVideo}
         generateResult={generateResult}
+        videoUrl={videoUrl}
       />
 
       <Dialog

@@ -24,7 +24,10 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import MaterialVideoRegenerateController from "./MaterialVideoRegenerateController";
 import { useTranslation } from "react-i18next";
-import { generateVideo } from "../../service/material_video";
+import {
+  generateVideo,
+  generateVideoScript,
+} from "../../service/material_video";
 
 type Props = {};
 
@@ -41,6 +44,7 @@ const MaterialVideoController = (props: Props) => {
   const [voice, setVoice] = useState<any>({});
   const [productName, setProductName] = useState("");
   const [productUrl, setProductUrl] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
   const [productUrlOld, setProductUrlOld] = useState(null);
   const [productDesc, setProductDesc] = useState("");
   const [productMyDesc, setProductMyDesc] = useState("");
@@ -301,17 +305,20 @@ const MaterialVideoController = (props: Props) => {
   const generate = async () => {
     setLoading(true);
     try {
+      let formDataGenerate: any = new FormData();
+      formDataGenerate.append("product_id", productId);
+      formDataGenerate.append("product_name", productName);
+      formDataGenerate.append("product_desc", productDesc);
+      formDataGenerate.append("my_script", productMyDesc);
+      formDataGenerate.append("language", selectedVideoLanguage);
+      formDataGenerate.append("target_audience", productTarget);
+
       const formData: any = new FormData();
-      formData.append("product_name", productName); // Thêm user_id
-      formData.append("product_desc", productDesc); // Thêm voice
-      formData.append("my_script", productMyDesc); // Thêm speed
-      formData.append("target_audience", productTarget);
       formData.append("video_length", selectedVideolength);
       formData.append("video_size", selectedVideoSize);
-      formData.append("language", selectedVideoLanguage);
       formData.append("watermark", "test");
-      formData.append("voice_id", voice.id);
-      formData.append("voice_type", voice.type);
+      formData.append("voice_id", "alloy");
+      formData.append("voice_type", "openai");
       formData.append("video_kol", "Tech Guru");
       formData.append("logo_or_video", fileEndCard);
 
@@ -332,10 +339,29 @@ const MaterialVideoController = (props: Props) => {
         formData.append("list_videos", file);
       });
 
-      let result = await generateVideo(formData);
+      let result = await generateVideo(formDataGenerate);
       if (Object.keys(result).length > 0) {
         const cleanedData = processData(result);
+        formData.append("scrip", result.scrip_1);
         setGenerateResult(cleanedData);
+        let video = await generateVideoScript(formData);
+        console.log("video", video);
+        if (video && video.video) {
+          setVideoUrl(`data:video/mp4;base64,${video.video}`);
+        }
+
+        if (video && video.detail.length > 0) {
+          console.log(video.detail);
+          const messages = video.detail.map((error: any) => {
+            const loc = error.loc;
+            let message = `Error in: ${loc.join(" -> ")}`;
+            return message;
+          });
+          console.log(messages);
+          for (let i = 0; i < messages.length; i++) {
+            toast.warning(messages[i]);
+          }
+        }
       }
     } catch (error) {
       console.log(error);
@@ -345,7 +371,7 @@ const MaterialVideoController = (props: Props) => {
   return (
     <>
       {loading && <Loading />}
-      {!(Object.keys(generateResult).length > 0) && (
+      {(!(Object.keys(generateResult).length > 0) || !videoUrl) && (
         <MaterialVideoView
           handleClickOpenAuthor={handleClickOpenAuthor}
           productName={productName}
@@ -378,12 +404,13 @@ const MaterialVideoController = (props: Props) => {
           setFileEndCard={setFileEndCard}
         />
       )}
-      {Object.keys(generateResult).length > 0 && (
+      {Object.keys(generateResult).length > 0 && videoUrl && (
         <MaterialVideoRegenerateController
           generateResult={generateResult}
           desc={productDesc}
           listFile={fileList}
           name={productName}
+          videoUrl={videoUrl}
         />
       )}
 
@@ -561,4 +588,5 @@ const processData = (inputData: any) => {
   return result;
 };
 
+// Xử lý dữ liệu
 // Xử lý dữ liệu

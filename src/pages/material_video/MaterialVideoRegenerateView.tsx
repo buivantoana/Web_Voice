@@ -59,6 +59,7 @@ type Props = {
   productVideo: any;
   generateResult: any;
   setProductDesc: any;
+  videoUrl: any;
 };
 
 const MaterialVideoRegenerateView = ({
@@ -78,6 +79,7 @@ const MaterialVideoRegenerateView = ({
   productVideo,
   generateResult,
   setProductDesc,
+  videoUrl,
 }: Props) => {
   const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -377,38 +379,67 @@ const MaterialVideoRegenerateView = ({
                           </Button>
                         </Box>
                       </Box>
-                      <Box
-                        width={"30%"}
-                        display={"flex"}
-                        flexDirection={"column"}
-                        alignItems={"center"}
-                        gap={"10px"}
-                        borderRadius={"10px"}>
-                        <img
-                          src={cover}
-                          width={"100%"}
-                          height={"330px"}
-                          style={{ objectFit: "cover", borderRadius: "10px" }}
-                          alt=''
-                        />
-                        <Button
-                          variant='contained'
-                          onClick={() => setTabDes(1)}
-                          sx={{
-                            m: "10px",
-                            width: "200px",
-                            background: theme.palette.active.main,
-                            fontSize: { xs: "10px", md: "15px" },
-                            borderRadius: "8px",
-                            color: "white",
-                          }}>
-                          {" "}
-                          <RiExternalLinkFill
-                            style={{ marginRight: "10px" }}
-                          />{" "}
-                          {t("exports")}
-                        </Button>
-                      </Box>
+                      {key == "scrip_1" ? (
+                        <Box
+                          width={"30%"}
+                          display={"flex"}
+                          flexDirection={"column"}
+                          alignItems={"center"}
+                          gap={"10px"}
+                          borderRadius={"10px"}>
+                          <video
+                            width={"80%"}
+                            style={{ borderRadius: "10px" }}
+                            height={"355px"}
+                            controls>
+                            <source src={videoUrl} type='video/mp4' />
+                            Your browser does not support the video tag.
+                          </video>
+                          <a href={videoUrl} download='video.mp4'>
+                            <Button
+                              variant='contained'
+                              onClick={() => setTabDes(1)}
+                              sx={{
+                                m: "10px",
+                                width: "200px",
+                                background: theme.palette.active.main,
+                                fontSize: { xs: "10px", md: "15px" },
+                                borderRadius: "8px",
+                                color: "white",
+                              }}>
+                              {" "}
+                              <RiExternalLinkFill
+                                style={{ marginRight: "10px" }}
+                              />{" "}
+                              {t("exports")}
+                            </Button>
+                          </a>
+                        </Box>
+                      ) : (
+                        <Box
+                          width={"30%"}
+                          display={"flex"}
+                          flexDirection={"column"}
+                          justifyContent={"center"}
+                          alignItems={"center"}
+                          gap={"10px"}
+                          borderRadius={"10px"}>
+                          <Button
+                            variant='contained'
+                            onClick={() => setTabDes(1)}
+                            sx={{
+                              m: "10px",
+                              width: "200px",
+                              background: theme.palette.active.main,
+                              fontSize: { xs: "10px", md: "15px" },
+                              borderRadius: "8px",
+                              color: "white",
+                            }}>
+                            {" "}
+                            Preview
+                          </Button>
+                        </Box>
+                      )}
                     </div>
                   )
                 )}
