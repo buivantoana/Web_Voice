@@ -30,6 +30,7 @@ type Props = {};
 
 const MaterialVideoController = (props: Props) => {
   const [searchParams] = useSearchParams();
+  const [loading, setLoading] = useState(false);
   const productId = searchParams.get("product_id");
   const [typeVoice, setTypeVoice] = useState("openai");
   const [openAuthor, setOpenAuthor] = React.useState(false);
@@ -48,6 +49,7 @@ const MaterialVideoController = (props: Props) => {
   const [selectedVideoSize, setSelectedVideoSize] = useState("");
   const [selectedVideoLanguage, setSelectedVideoLanguage] = useState("");
   const [productImage, setProductImage]: any = useState([]);
+  const [generateResult, setGenerateResult]: any = useState({});
   const [productVideo, setProductVideo]: any = useState([]);
   const [productVideoUrl, setProductVideoUrl]: any = useState([]);
   const context: any = useCoursesContext();
@@ -297,6 +299,7 @@ const MaterialVideoController = (props: Props) => {
     }, 500);
   };
   const generate = async () => {
+    setLoading(true);
     try {
       const formData: any = new FormData();
       formData.append("product_name", productName); // Thêm user_id
@@ -330,45 +333,54 @@ const MaterialVideoController = (props: Props) => {
       });
 
       let result = await generateVideo(formData);
-      console.log(result);
+      if (Object.keys(result).length > 0) {
+        const cleanedData = processData(result);
+        setGenerateResult(cleanedData);
+      }
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
   return (
     <>
-      <MaterialVideoView
-        handleClickOpenAuthor={handleClickOpenAuthor}
-        productName={productName}
-        productUrl={productUrl}
-        productDesc={productDesc}
-        setProductUrl={setProductUrl}
-        fileList={fileList}
-        setFileList={setFileList}
-        progress={progress}
-        setProgress={setProgress}
-        simulateUpload={simulateUpload}
-        handleAddLinkAsFile={handleAddLinkAsFile}
-        productUrlOld={productUrlOld}
-        setOpenUrlImage={setOpenUrlImage}
-        productVideo={productVideo}
-        generate={generate}
-        setProductMyDesc={setProductMyDesc}
-        productMyDesc={productMyDesc}
-        setProductTarget={setProductTarget}
-        productTarget={productTarget}
-        setSelectedVideolength={setSelectedVideolength}
-        selectedVideolength={selectedVideolength}
-        setSelectedVideoSize={setSelectedVideoSize}
-        selectedVideoSize={selectedVideoSize}
-        setSelectedVideoLanguage={setSelectedVideoLanguage}
-        selectedVideoLanguage={selectedVideoLanguage}
-        fileWaterMark={fileWaterMark}
-        setFileWaterMark={setFileWaterMark}
-        fileEndCard={fileEndCard}
-        setFileEndCard={setFileEndCard}
-      />
-      {/*  <MaterialVideoRegenerateController /> */}
+      {loading && <Loading />}
+      {!(Object.keys(generateResult).length > 0) && (
+        <MaterialVideoView
+          handleClickOpenAuthor={handleClickOpenAuthor}
+          productName={productName}
+          productUrl={productUrl}
+          productDesc={productDesc}
+          setProductUrl={setProductUrl}
+          fileList={fileList}
+          setFileList={setFileList}
+          progress={progress}
+          setProgress={setProgress}
+          simulateUpload={simulateUpload}
+          handleAddLinkAsFile={handleAddLinkAsFile}
+          productUrlOld={productUrlOld}
+          setOpenUrlImage={setOpenUrlImage}
+          productVideo={productVideo}
+          generate={generate}
+          setProductMyDesc={setProductMyDesc}
+          productMyDesc={productMyDesc}
+          setProductTarget={setProductTarget}
+          productTarget={productTarget}
+          setSelectedVideolength={setSelectedVideolength}
+          selectedVideolength={selectedVideolength}
+          setSelectedVideoSize={setSelectedVideoSize}
+          selectedVideoSize={selectedVideoSize}
+          setSelectedVideoLanguage={setSelectedVideoLanguage}
+          selectedVideoLanguage={selectedVideoLanguage}
+          fileWaterMark={fileWaterMark}
+          setFileWaterMark={setFileWaterMark}
+          fileEndCard={fileEndCard}
+          setFileEndCard={setFileEndCard}
+        />
+      )}
+      {Object.keys(generateResult).length > 0 && (
+        <MaterialVideoRegenerateController generateResult={generateResult} />
+      )}
 
       <Dialog
         fullWidth
@@ -532,3 +544,16 @@ const MaterialVideoController = (props: Props) => {
 };
 
 export default MaterialVideoController;
+const processData = (inputData: any) => {
+  const result: any = {};
+  for (const [key, value] of Object.entries(inputData)) {
+    // Loại bỏ phần tử rỗng và chia các đoạn theo dòng
+    result[key] = value
+      .split("\n")
+      .map((line: any) => line.trim())
+      .filter((line: any) => line !== "");
+  }
+  return result;
+};
+
+// Xử lý dữ liệu

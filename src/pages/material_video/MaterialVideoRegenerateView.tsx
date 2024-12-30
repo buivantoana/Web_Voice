@@ -57,6 +57,7 @@ type Props = {
   productUrlOld: any;
   setOpenUrlImage: any;
   productVideo: any;
+  generateResult: any;
 };
 
 const MaterialVideoRegenerateView = ({
@@ -74,6 +75,7 @@ const MaterialVideoRegenerateView = ({
   productUrlOld,
   setOpenUrlImage,
   productVideo,
+  generateResult,
 }: Props) => {
   const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -249,144 +251,161 @@ const MaterialVideoRegenerateView = ({
         borderRadius={"10px"}>
         <Box width={"100%"} height={"100%"} p={"15px"}>
           <Box>
-            <Typography fontSize={"1.4rem"} mb={"15px"} fontWeight={"500"}>
-              Pain points + harms + solutions, using pitfalls-based hooks
-            </Typography>
-            <Box display={"flex"} justifyContent={"space-between"}>
+            <Box>
               <Box
-                width={"68%"}
-                borderRadius={"10px"}
-                py={"10px"}
+                className='scroll-filter'
                 display={"flex"}
-                flexDirection={"column"}
-                justifyContent={"space-between"}
-                border={"1px solid #ccc"}>
-                <Box mt={"30px"}>
-                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                    Ever feel overwhelmed by home messes? We've all been there.
-                  </Typography>
-                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                    Ever feel overwhelmed by home messes? We've all been there.
-                  </Typography>
-                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                    Ever feel overwhelmed by home messes? We've all been there.
-                  </Typography>
-                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                    Ever feel overwhelmed by home messes? We've all been there.
-                  </Typography>
-                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                    Ever feel overwhelmed by home messes? We've all been there.
-                  </Typography>
-                  <Typography borderBottom={"1px solid #ccc"} p={"10px 10px"}>
-                    Ever feel overwhelmed by home messes? We've all been there.
-                  </Typography>
-                </Box>
-
-                <Box
-                  mt={"10px"}
-                  px={"10px"}
-                  display={"flex"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}>
-                  <Box display={"flex"} gap={"10px"}>
-                    <Button
-                      variant='contained'
-                      onClick={() => handleClickOpenAuthor()}
-                      sx={{
-                        width: "200px",
-                        background: theme.palette.active.main,
-                        fontSize: { xs: "10px", md: "15px" },
-                        borderRadius: "8px",
-                        color: "white",
+                width={"100%"}
+                height={"80vh"}
+                sx={{ overflowY: "scroll" }}
+                flexDirection={"column"}>
+                {Object.entries(generateResult).map(
+                  ([key, script]: any, index: any) => (
+                    <div
+                      key={index}
+                      style={{
+                        marginBottom: "20px",
+                        display: "flex",
+                        justifyContent: "space-between",
                       }}>
-                      {" "}
-                      <RiVoiceprintFill style={{ marginRight: "10px" }} />{" "}
-                      {t("voice")}
-                    </Button>
-                    <Button
-                      variant='contained'
-                      sx={{
-                        width: "50px",
-                        background: theme.palette.active.main,
-                        fontSize: { xs: "10px", md: "15px" },
-                        borderRadius: "8px",
-                        color: "white",
-                      }}>
-                      {" "}
-                      <RiUserVoiceLine />
-                    </Button>
-                  </Box>
+                      <Box width={"68%"}>
+                        <Typography
+                          fontSize={"1.4rem"}
+                          mb={"15px"}
+                          fontWeight={"500"}>
+                          {script[0]}
+                        </Typography>
+                        <Box
+                          borderRadius={"10px"}
+                          py={"10px"}
+                          display={"flex"}
+                          flexDirection={"column"}
+                          justifyContent={"space-between"}
+                          border={"1px solid #ccc"}>
+                          {script.map((line: any, lineIndex: any) => {
+                            if (lineIndex != 0) {
+                              return (
+                                <Typography
+                                  borderBottom={"1px solid #ccc"}
+                                  p={"10px 10px"}>
+                                  {line}
+                                </Typography>
+                              );
+                            }
+                          })}
+                        </Box>
+                        <Box
+                          mt={"10px"}
+                          px={"10px"}
+                          display={"flex"}
+                          justifyContent={"space-between"}
+                          alignItems={"center"}>
+                          <Box display={"flex"} gap={"10px"}>
+                            <Button
+                              variant='contained'
+                              onClick={() => handleClickOpenAuthor()}
+                              sx={{
+                                width: "200px",
+                                background: theme.palette.active.main,
+                                fontSize: { xs: "10px", md: "15px" },
+                                borderRadius: "8px",
+                                color: "white",
+                              }}>
+                              {" "}
+                              <RiVoiceprintFill
+                                style={{ marginRight: "10px" }}
+                              />{" "}
+                              {t("voice")}
+                            </Button>
+                            <Button
+                              variant='contained'
+                              sx={{
+                                width: "50px",
+                                background: theme.palette.active.main,
+                                fontSize: { xs: "10px", md: "15px" },
+                                borderRadius: "8px",
+                                color: "white",
+                              }}>
+                              {" "}
+                              <RiUserVoiceLine />
+                            </Button>
+                          </Box>
 
-                  <Button
-                    variant='contained'
-                    onClick={() => handleClickOpenAvatar()}
-                    sx={{
-                      width: "200px",
-                      background: theme.palette.active.main,
-                      fontSize: { xs: "10px", md: "15px" },
-                      borderRadius: "8px",
-                      color: "white",
-                    }}>
-                    {" "}
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      width='1.2em'
-                      height='1.2em'
-                      style={{ marginRight: "3px" }}
-                      fill='none'
-                      viewBox='0 0 20 20'
-                      focusable='false'
-                      className='chakra-icon css-1cv0b1u'>
-                      <path
-                        stroke='#fff'
-                        stroke-linecap='round'
-                        stroke-width='1.5'
-                        d='M12 3.5v-.3A1.2 1.2 0 0 0 10.8 2H3.2A1.2 1.2 0 0 0 2 3.2v9.6A1.2 1.2 0 0 0 3.2 14h2.3'></path>
-                      <path
-                        stroke='#fff'
-                        stroke-width='1.5'
-                        d='M8 7.2A1.2 1.2 0 0 1 9.2 6h7.6A1.2 1.2 0 0 1 18 7.2v9.6a1.2 1.2 0 0 1-1.2 1.2H9.2A1.2 1.2 0 0 1 8 16.8z'></path>
-                      <path
-                        stroke='#fff'
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
-                        stroke-width='1.5'
-                        d='M11 12h4m-2-2v4'></path>
-                    </svg>
-                    {t("duplicate_size_button")}
-                  </Button>
-                </Box>
-              </Box>
-              <Box
-                width={"30%"}
-                display={"flex"}
-                flexDirection={"column"}
-                alignItems={"center"}
-                gap={"10px"}
-                borderRadius={"10px"}
-                px={"30px"}>
-                <img
-                  src={cover}
-                  width={"100%"}
-                  height={"400px"}
-                  style={{ objectFit: "cover", borderRadius: "10px" }}
-                  alt=''
-                />
-                <Button
-                  variant='contained'
-                  onClick={() => setTabDes(1)}
-                  sx={{
-                    m: "10px",
-                    width: "200px",
-                    background: theme.palette.active.main,
-                    fontSize: { xs: "10px", md: "15px" },
-                    borderRadius: "8px",
-                    color: "white",
-                  }}>
-                  {" "}
-                  <RiExternalLinkFill style={{ marginRight: "10px" }} />{" "}
-                  {t("exports")}
-                </Button>
+                          <Button
+                            variant='contained'
+                            onClick={() => handleClickOpenAvatar()}
+                            sx={{
+                              width: "200px",
+                              background: theme.palette.active.main,
+                              fontSize: { xs: "10px", md: "15px" },
+                              borderRadius: "8px",
+                              color: "white",
+                            }}>
+                            {" "}
+                            <svg
+                              xmlns='http://www.w3.org/2000/svg'
+                              width='1.2em'
+                              height='1.2em'
+                              style={{ marginRight: "3px" }}
+                              fill='none'
+                              viewBox='0 0 20 20'
+                              focusable='false'
+                              className='chakra-icon css-1cv0b1u'>
+                              <path
+                                stroke='#fff'
+                                stroke-linecap='round'
+                                stroke-width='1.5'
+                                d='M12 3.5v-.3A1.2 1.2 0 0 0 10.8 2H3.2A1.2 1.2 0 0 0 2 3.2v9.6A1.2 1.2 0 0 0 3.2 14h2.3'></path>
+                              <path
+                                stroke='#fff'
+                                stroke-width='1.5'
+                                d='M8 7.2A1.2 1.2 0 0 1 9.2 6h7.6A1.2 1.2 0 0 1 18 7.2v9.6a1.2 1.2 0 0 1-1.2 1.2H9.2A1.2 1.2 0 0 1 8 16.8z'></path>
+                              <path
+                                stroke='#fff'
+                                stroke-linecap='round'
+                                stroke-linejoin='round'
+                                stroke-width='1.5'
+                                d='M11 12h4m-2-2v4'></path>
+                            </svg>
+                            {t("duplicate_size_button")}
+                          </Button>
+                        </Box>
+                      </Box>
+                      <Box
+                        width={"30%"}
+                        display={"flex"}
+                        flexDirection={"column"}
+                        alignItems={"center"}
+                        gap={"10px"}
+                        borderRadius={"10px"}>
+                        <img
+                          src={cover}
+                          width={"100%"}
+                          height={"330px"}
+                          style={{ objectFit: "cover", borderRadius: "10px" }}
+                          alt=''
+                        />
+                        <Button
+                          variant='contained'
+                          onClick={() => setTabDes(1)}
+                          sx={{
+                            m: "10px",
+                            width: "200px",
+                            background: theme.palette.active.main,
+                            fontSize: { xs: "10px", md: "15px" },
+                            borderRadius: "8px",
+                            color: "white",
+                          }}>
+                          {" "}
+                          <RiExternalLinkFill
+                            style={{ marginRight: "10px" }}
+                          />{" "}
+                          {t("exports")}
+                        </Button>
+                      </Box>
+                    </div>
+                  )
+                )}
               </Box>
             </Box>
           </Box>
@@ -667,6 +686,7 @@ export default MaterialVideoRegenerateView;
 import { LinearProgress } from "@mui/material";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { styled } from "@mui/material/styles";
 
 const FileUploader = ({
   fileList,

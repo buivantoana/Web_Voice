@@ -23,9 +23,11 @@ import { useCoursesContext } from "../../App";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-type Props = {};
+type Props = {
+  generateResult: any;
+};
 
-const MaterialVideoRegenerateController = (props: Props) => {
+const MaterialVideoRegenerateController = ({ generateResult }: Props) => {
   const [searchParams] = useSearchParams();
   const productId = searchParams.get("product_id");
   const [typeVoice, setTypeVoice] = useState("openai");
@@ -300,6 +302,7 @@ const MaterialVideoRegenerateController = (props: Props) => {
         productUrlOld={productUrlOld}
         setOpenUrlImage={setOpenUrlImage}
         productVideo={productVideo}
+        generateResult={generateResult}
       />
 
       <Dialog
