@@ -340,8 +340,10 @@ const MaterialVideoController = (props: Props) => {
       });
 
       let result = await generateVideo(formDataGenerate);
+      console.log(result)
       if (Object.keys(result).length > 0) {
         const cleanedData = processData(result);
+        console.log(cleanedData)
         formData.append("scrip", result.scrip_1);
         setGenerateResult(cleanedData);
         let video = await generateVideoScript(formData);
@@ -576,17 +578,32 @@ const MaterialVideoController = (props: Props) => {
 };
 
 export default MaterialVideoController;
-const processData = (inputData: any) => {
-  const result: any = {};
-  for (const [key, value] of Object.entries(inputData)) {
-    // Loại bỏ phần tử rỗng và chia các đoạn theo dòng
-    result[key] = value
-      .split("\n")
-      .map((line: any) => line.trim())
-      .filter((line: any) => line !== "");
-  }
-  return result;
+const processData = (data: any) => {
+  const result:any = {};
+
+    Object.entries(data).forEach(([key, value]:any) => {
+        // Bỏ phần "Script X\n\n"
+        const cleanedValue = value.replace(/^Script \d+\s*\n\n/, "").trim();
+
+        // Chia đoạn văn thành các câu, mỗi câu là một phần tử trong mảng
+        const sentences = cleanedValue
+        .split(/(?<=[.!?])\s+/) // Chia dựa trên dấu . ! ?
+        .map((sentence:any) => sentence.trim());
+
+        // Gán kết quả vào đối tượng
+        result[key] = sentences;
+    });
+    Object.entries(result).forEach(([key, value]:any) => {
+      // Loại bỏ "Script X" ở đầu
+      const cleanedArray = value.map((sentence:any) => sentence.replace(/^Script \d+:\n\n/, "").trim());
+
+      // Đánh số thứ tự từng phần tử trong mảng
+      const numberedArray = cleanedArray.map((sentence:any, index:any) => `${index + 1}. ${sentence}`);
+
+      // Gán kết quả vào đối tượng
+      result[key] = numberedArray;
+  });
+    return result;
 };
 
-// Xử lý dữ liệu
-// Xử lý dữ liệu
+

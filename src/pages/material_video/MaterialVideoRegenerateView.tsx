@@ -281,7 +281,7 @@ const MaterialVideoRegenerateView = ({
                           fontSize={"1.4rem"}
                           mb={"15px"}
                           fontWeight={"500"}>
-                          {script[0]}
+                          Kịch bản {index + 1}
                         </Typography>
                         <Box
                           borderRadius={"10px"}
@@ -291,15 +291,13 @@ const MaterialVideoRegenerateView = ({
                           justifyContent={"space-between"}
                           border={"1px solid #ccc"}>
                           {script.map((line: any, lineIndex: any) => {
-                            if (lineIndex != 0) {
-                              return (
-                                <Typography
-                                  borderBottom={"1px solid #ccc"}
-                                  p={"10px 10px"}>
-                                  {line}
-                                </Typography>
-                              );
-                            }
+                            return (
+                              <Typography
+                                borderBottom={"1px solid #ccc"}
+                                p={"10px 10px"}>
+                                {line}
+                              </Typography>
+                            );
                           })}
                         </Box>
                         <Box
