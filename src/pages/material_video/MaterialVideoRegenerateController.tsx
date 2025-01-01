@@ -22,6 +22,10 @@ import {
 import { useCoursesContext } from "../../App";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import {
+  generateVideo,
+  generateVideoScript,
+} from "../../service/material_video";
 
 type Props = {
   generateResult: any;
@@ -29,6 +33,13 @@ type Props = {
   listFile: any;
   name: any;
   videoUrl: any;
+  loadingScrip1: any;
+  formGenerate: any;
+  scrip: any;
+  formGenerateScrip: any;
+  setLoadingScrip1: any;
+  setGenerateResult: any;
+  setVideoUrl: any;
 };
 
 const MaterialVideoRegenerateController = ({
@@ -37,8 +48,16 @@ const MaterialVideoRegenerateController = ({
   listFile,
   name,
   videoUrl,
+  loadingScrip1,
+  formGenerate,
+  scrip,
+  formGenerateScrip,
+  setGenerateResult,
+  setLoadingScrip1,
+  setVideoUrl,
 }: Props) => {
   const [searchParams] = useSearchParams();
+  const [loading, setLoading] = useState(false);
   const productId = searchParams.get("product_id");
   const [typeVoice, setTypeVoice] = useState("openai");
   const [openAuthor, setOpenAuthor] = React.useState(false);
@@ -59,6 +78,10 @@ const MaterialVideoRegenerateController = ({
   const [selectedUrls, setSelectedUrls]: any = useState([]);
   const [fileList, setFileList] = useState<File[]>([]);
   const [progress, setProgress] = useState<number[]>([]);
+  const [loadingScrip2, setLoadingScrip2] = React.useState(false);
+  const [loadingScrip3, setLoadingScrip3] = React.useState(false);
+  const [videoUrl2, setVideoUrl2] = useState("");
+  const [videoUrl3, setVideoUrl3] = useState("");
   const handleCheckboxChange = (url: string) => {
     setSelectedUrls((prev: any) =>
       prev.includes(url)
@@ -298,9 +321,129 @@ const MaterialVideoRegenerateController = ({
       if (uploadProgress >= 100) clearInterval(interval);
     }, 500);
   };
-  console.log(fileList);
+  const generate = async (scrip_check: any) => {
+    if (scrip_check == "scrip_2") {
+      setLoadingScrip2(true);
+      try {
+        formGenerate.append("scrip", scrip.scrip_2);
+        let video = await generateVideoScript(formGenerate);
+        console.log("video", video);
+        if (video && video.video) {
+          setVideoUrl2(`data:video/mp4;base64,${video.video}`);
+        }
+
+        if (video && video.detail.length > 0) {
+          console.log(video.detail);
+          const messages = video.detail.map((error: any) => {
+            const loc = error.loc;
+            let message = `Error in: ${loc.join(" -> ")}`;
+            return message;
+          });
+          console.log(messages);
+          for (let i = 0; i < messages.length; i++) {
+            toast.warning(messages[i]);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      setLoadingScrip2(false);
+    }
+    if (scrip_check == "scrip_3") {
+      setLoadingScrip3(true);
+      try {
+        formGenerate.append("scrip", scrip.scrip_3);
+        let video = await generateVideoScript(formGenerate);
+        console.log("video", video);
+        if (video && video.video) {
+          setVideoUrl3(`data:video/mp4;base64,${video.video}`);
+        }
+
+        if (video && video.detail.length > 0) {
+          console.log(video.detail);
+          const messages = video.detail.map((error: any) => {
+            const loc = error.loc;
+            let message = `Error in: ${loc.join(" -> ")}`;
+            return message;
+          });
+          console.log(messages);
+          for (let i = 0; i < messages.length; i++) {
+            toast.warning(messages[i]);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      setLoadingScrip3(false);
+    }
+  };
+
+  const generateNew = async () => {
+    setLoadingScrip1(true);
+    setLoading(true);
+    try {
+      formGenerate.delete("list_images");
+      formGenerate.delete("list_videos");
+      formGenerate.delete("scrip");
+      formGenerateScrip.delete("product_name");
+      formGenerateScrip.delete("product_desc");
+      formGenerateScrip.append("product_name", productName);
+      formGenerateScrip.append("product_desc", productDesc);
+      const imageFiles = listFile.filter((file: any) =>
+        file.type.startsWith("image/")
+      );
+      const videoFiles = listFile.filter((file: any) =>
+        file.type.startsWith("video/")
+      );
+
+      // Thêm file ảnh vào formData với key `listImage`
+      imageFiles.forEach((file: any) => {
+        formGenerate.append("list_images", file);
+      });
+
+      // Thêm file video vào formGenerate với key `listVideo`
+      videoFiles.forEach((file: any) => {
+        formGenerate.append("list_videos", file);
+      });
+
+      let result = await generateVideo(formGenerateScrip);
+      console.log(result);
+      if (Object.keys(result).length > 0) {
+        const cleanedData = processData(result);
+        console.log(cleanedData);
+        formGenerate.append("scrip", result.scrip_1);
+        setLoading(false);
+        setGenerateResult(cleanedData);
+        let video = await generateVideoScript(formGenerate);
+        console.log("video", video);
+        if (video && video.video) {
+          setVideoUrl(`data:video/mp4;base64,${video.video}`);
+        }
+
+        if (video && video.detail.length > 0) {
+          console.log(video.detail);
+          const messages = video.detail.map((error: any) => {
+            const loc = error.loc;
+            let message = `Error in: ${loc.join(" -> ")}`;
+            return message;
+          });
+          console.log(messages);
+          for (let i = 0; i < messages.length; i++) {
+            toast.warning(messages[i]);
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    setLoadingScrip1(false);
+  };
   return (
     <>
+      {loading && <Loading />}
       <MaterialVideoRegenerateView
         handleClickOpenAuthor={handleClickOpenAuthor}
         productName={productName}
@@ -319,6 +462,14 @@ const MaterialVideoRegenerateController = ({
         productVideo={productVideo}
         generateResult={generateResult}
         videoUrl={videoUrl}
+        loadingScrip1={loadingScrip1}
+        videoUrl2={videoUrl2}
+        loadingScrip2={loadingScrip2}
+        videoUrl3={videoUrl3}
+        loadingScrip3={loadingScrip3}
+        generate={generate}
+        generateNew={generateNew}
+        setProductName={setProductName}
       />
 
       <Dialog
@@ -366,3 +517,34 @@ const MaterialVideoRegenerateController = ({
 };
 
 export default MaterialVideoRegenerateController;
+const processData = (data: any) => {
+  const result: any = {};
+
+  Object.entries(data).forEach(([key, value]: any) => {
+    // Bỏ phần "Script X\n\n"
+    const cleanedValue = value.replace(/^Script \d+\s*\n\n/, "").trim();
+
+    // Chia đoạn văn thành các câu, mỗi câu là một phần tử trong mảng
+    const sentences = cleanedValue
+      .split(/(?<=[.!?])\s+/) // Chia dựa trên dấu . ! ?
+      .map((sentence: any) => sentence.trim());
+
+    // Gán kết quả vào đối tượng
+    result[key] = sentences;
+  });
+  Object.entries(result).forEach(([key, value]: any) => {
+    // Loại bỏ "Script X" ở đầu
+    const cleanedArray = value.map((sentence: any) =>
+      sentence.replace(/^Script \d+:\n\n/, "").trim()
+    );
+
+    // Đánh số thứ tự từng phần tử trong mảng
+    const numberedArray = cleanedArray.map(
+      (sentence: any, index: any) => `${index + 1}. ${sentence}`
+    );
+
+    // Gán kết quả vào đối tượng
+    result[key] = numberedArray;
+  });
+  return result;
+};

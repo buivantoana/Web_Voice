@@ -24,6 +24,9 @@ import { IconButton } from "@mui/material";
 import { country } from "../../utils/acent";
 import axios from "axios";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import LoadingButton from "@mui/lab/LoadingButton";
+
+import SendIcon from "@mui/icons-material/Send";
 import {
   RiArrowRightSLine,
   RiCloseCircleFill,
@@ -60,6 +63,14 @@ type Props = {
   generateResult: any;
   setProductDesc: any;
   videoUrl: any;
+  loadingScrip1: any;
+  videoUrl2: any;
+  loadingScrip2: any;
+  generate: any;
+  videoUrl3: any;
+  loadingScrip3: any;
+  generateNew: any;
+  setProductName: any;
 };
 
 const MaterialVideoRegenerateView = ({
@@ -80,6 +91,14 @@ const MaterialVideoRegenerateView = ({
   generateResult,
   setProductDesc,
   videoUrl,
+  loadingScrip1,
+  videoUrl2,
+  loadingScrip2,
+  generate,
+  videoUrl3,
+  loadingScrip3,
+  generateNew,
+  setProductName,
 }: Props) => {
   const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -148,6 +167,9 @@ const MaterialVideoRegenerateView = ({
               placeholder='Your product name or video topic'
               id='demo-helper-text-aligned'
               value={productName}
+              onChange={(e) => {
+                setProductName(e.target.value);
+              }}
               size='small'
               sx={{
                 width: "100%",
@@ -228,7 +250,7 @@ const MaterialVideoRegenerateView = ({
           }}>
           <Button
             variant='contained'
-            onClick={() => setTabDes(1)}
+            onClick={() => generateNew()}
             sx={{
               width: "200px",
               background: theme.palette.active.main,
@@ -377,66 +399,262 @@ const MaterialVideoRegenerateView = ({
                           </Button>
                         </Box>
                       </Box>
-                      {key == "scrip_1" ? (
-                        <Box
-                          width={"30%"}
-                          display={"flex"}
-                          flexDirection={"column"}
-                          alignItems={"center"}
-                          gap={"10px"}
-                          borderRadius={"10px"}>
-                          <video
-                            width={"80%"}
-                            style={{ borderRadius: "10px" }}
-                            height={"355px"}
-                            controls>
-                            <source src={videoUrl} type='video/mp4' />
-                            Your browser does not support the video tag.
-                          </video>
-                          <a href={videoUrl} download='video.mp4'>
-                            <Button
-                              variant='contained'
-                              onClick={() => setTabDes(1)}
-                              sx={{
-                                m: "10px",
-                                width: "200px",
-                                background: theme.palette.active.main,
-                                fontSize: { xs: "10px", md: "15px" },
-                                borderRadius: "8px",
-                                color: "white",
-                              }}>
-                              {" "}
-                              <RiExternalLinkFill
-                                style={{ marginRight: "10px" }}
-                              />{" "}
-                              {t("exports")}
-                            </Button>
-                          </a>
-                        </Box>
-                      ) : (
-                        <Box
-                          width={"30%"}
-                          display={"flex"}
-                          flexDirection={"column"}
-                          justifyContent={"center"}
-                          alignItems={"center"}
-                          gap={"10px"}
-                          borderRadius={"10px"}>
-                          <Button
-                            variant='contained'
-                            onClick={() => setTabDes(1)}
-                            sx={{
-                              m: "10px",
-                              width: "200px",
-                              background: theme.palette.active.main,
-                              fontSize: { xs: "10px", md: "15px" },
-                              borderRadius: "8px",
-                              color: "white",
-                            }}>
-                            {" "}
-                            Preview
-                          </Button>
-                        </Box>
+                      {key == "scrip_1" && (
+                        <>
+                          {loadingScrip1 ? (
+                            <Box
+                              width={"30%"}
+                              display={"flex"}
+                              flexDirection={"column"}
+                              justifyContent={"center"}
+                              alignItems={"center"}>
+                              <LoadingButton
+                                endIcon={<SendIcon />}
+                                loading={loadingScrip1}
+                                loadingPosition='end'
+                                sx={{
+                                  bgcolor: loadingScrip1
+                                    ? theme.palette.active.main // Màu nền khi loading
+                                    : theme.palette.active.main, // Màu nền mặc định
+                                  color: "white",
+                                  "&.Mui-disabled": {
+                                    bgcolor: theme.palette.active.main, // Màu nền khi disabled
+                                    color: "white",
+                                  },
+                                }}
+                                variant='contained'>
+                                Generate
+                              </LoadingButton>
+                            </Box>
+                          ) : (
+                            <Box
+                              width={"30%"}
+                              display={"flex"}
+                              flexDirection={"column"}
+                              alignItems={"center"}
+                              justifyContent={"end"}
+                              gap={"10px"}
+                              borderRadius={"10px"}>
+                              <video
+                                width={"80%"}
+                                style={{ borderRadius: "10px" }}
+                                height={"355px"}
+                                controls>
+                                <source src={videoUrl} type='video/mp4' />
+                                Your browser does not support the video tag.
+                              </video>
+                              <a href={videoUrl} download='video.mp4'>
+                                <Button
+                                  variant='contained'
+                                  onClick={() => setTabDes(1)}
+                                  sx={{
+                                    m: "10px",
+                                    width: "200px",
+                                    background: theme.palette.active.main,
+                                    fontSize: { xs: "10px", md: "15px" },
+                                    borderRadius: "8px",
+                                    color: "white",
+                                  }}>
+                                  {" "}
+                                  <RiExternalLinkFill
+                                    style={{ marginRight: "10px" }}
+                                  />{" "}
+                                  {t("exports")}
+                                </Button>
+                              </a>
+                            </Box>
+                          )}
+                        </>
+                      )}
+                      {key == "scrip_2" && (
+                        <>
+                          {loadingScrip2 ? (
+                            <Box
+                              width={"30%"}
+                              display={"flex"}
+                              flexDirection={"column"}
+                              justifyContent={"center"}
+                              alignItems={"center"}>
+                              <LoadingButton
+                                endIcon={<SendIcon />}
+                                loading={loadingScrip2}
+                                loadingPosition='end'
+                                sx={{
+                                  bgcolor: loadingScrip1
+                                    ? theme.palette.active.main // Màu nền khi loading
+                                    : theme.palette.active.main, // Màu nền mặc định
+                                  color: "white",
+                                  "&.Mui-disabled": {
+                                    bgcolor: theme.palette.active.main, // Màu nền khi disabled
+                                    color: "white",
+                                  },
+                                }}
+                                variant='contained'>
+                                Generate
+                              </LoadingButton>
+                            </Box>
+                          ) : (
+                            <>
+                              {videoUrl2 ? (
+                                <Box
+                                  width={"30%"}
+                                  display={"flex"}
+                                  flexDirection={"column"}
+                                  alignItems={"center"}
+                                  justifyContent={"end"}
+                                  gap={"10px"}
+                                  borderRadius={"10px"}>
+                                  <video
+                                    width={"80%"}
+                                    style={{ borderRadius: "10px" }}
+                                    height={"355px"}
+                                    controls>
+                                    <source src={videoUrl2} type='video/mp4' />
+                                    Your browser does not support the video tag.
+                                  </video>
+                                  <a href={videoUrl2} download='video.mp4'>
+                                    <Button
+                                      variant='contained'
+                                      onClick={() => setTabDes(1)}
+                                      sx={{
+                                        m: "10px",
+                                        width: "200px",
+                                        background: theme.palette.active.main,
+                                        fontSize: { xs: "10px", md: "15px" },
+                                        borderRadius: "8px",
+                                        color: "white",
+                                      }}>
+                                      {" "}
+                                      <RiExternalLinkFill
+                                        style={{ marginRight: "10px" }}
+                                      />{" "}
+                                      {t("exports")}
+                                    </Button>
+                                  </a>
+                                </Box>
+                              ) : (
+                                <Box
+                                  width={"30%"}
+                                  display={"flex"}
+                                  flexDirection={"column"}
+                                  justifyContent={"center"}
+                                  alignItems={"center"}
+                                  gap={"10px"}
+                                  borderRadius={"10px"}>
+                                  <Button
+                                    variant='contained'
+                                    onClick={() => generate(key)}
+                                    sx={{
+                                      m: "10px",
+                                      width: "200px",
+                                      background: theme.palette.active.main,
+                                      fontSize: { xs: "10px", md: "15px" },
+                                      borderRadius: "8px",
+                                      color: "white",
+                                    }}>
+                                    {" "}
+                                    Preview
+                                  </Button>
+                                </Box>
+                              )}
+                            </>
+                          )}
+                        </>
+                      )}
+                      {key == "scrip_3" && (
+                        <>
+                          {loadingScrip3 ? (
+                            <Box
+                              width={"30%"}
+                              display={"flex"}
+                              flexDirection={"column"}
+                              justifyContent={"center"}
+                              alignItems={"center"}>
+                              <LoadingButton
+                                endIcon={<SendIcon />}
+                                loading={loadingScrip3}
+                                loadingPosition='end'
+                                sx={{
+                                  bgcolor: loadingScrip1
+                                    ? theme.palette.active.main // Màu nền khi loading
+                                    : theme.palette.active.main, // Màu nền mặc định
+                                  color: "white",
+                                  "&.Mui-disabled": {
+                                    bgcolor: theme.palette.active.main, // Màu nền khi disabled
+                                    color: "white",
+                                  },
+                                }}
+                                variant='contained'>
+                                Generate
+                              </LoadingButton>
+                            </Box>
+                          ) : (
+                            <>
+                              {videoUrl3 ? (
+                                <Box
+                                  width={"30%"}
+                                  display={"flex"}
+                                  flexDirection={"column"}
+                                  alignItems={"center"}
+                                  justifyContent={"end"}
+                                  gap={"10px"}
+                                  borderRadius={"10px"}>
+                                  <video
+                                    width={"80%"}
+                                    style={{ borderRadius: "10px" }}
+                                    height={"355px"}
+                                    controls>
+                                    <source src={videoUrl3} type='video/mp4' />
+                                    Your browser does not support the video tag.
+                                  </video>
+                                  <a href={videoUrl3} download='video.mp4'>
+                                    <Button
+                                      variant='contained'
+                                      onClick={() => setTabDes(1)}
+                                      sx={{
+                                        m: "10px",
+                                        width: "200px",
+                                        background: theme.palette.active.main,
+                                        fontSize: { xs: "10px", md: "15px" },
+                                        borderRadius: "8px",
+                                        color: "white",
+                                      }}>
+                                      {" "}
+                                      <RiExternalLinkFill
+                                        style={{ marginRight: "10px" }}
+                                      />{" "}
+                                      {t("exports")}
+                                    </Button>
+                                  </a>
+                                </Box>
+                              ) : (
+                                <Box
+                                  width={"30%"}
+                                  display={"flex"}
+                                  flexDirection={"column"}
+                                  justifyContent={"center"}
+                                  alignItems={"center"}
+                                  gap={"10px"}
+                                  borderRadius={"10px"}>
+                                  <Button
+                                    variant='contained'
+                                    onClick={() => generate(key)}
+                                    sx={{
+                                      m: "10px",
+                                      width: "200px",
+                                      background: theme.palette.active.main,
+                                      fontSize: { xs: "10px", md: "15px" },
+                                      borderRadius: "8px",
+                                      color: "white",
+                                    }}>
+                                    {" "}
+                                    Preview
+                                  </Button>
+                                </Box>
+                              )}
+                            </>
+                          )}
+                        </>
                       )}
                     </div>
                   )

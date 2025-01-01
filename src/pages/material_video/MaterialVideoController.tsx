@@ -63,7 +63,11 @@ const MaterialVideoController = (props: Props) => {
   const [fileList, setFileList] = useState<File[]>([]);
   const [fileEndCard, setFileEndCard] = useState<any>(null);
   const [fileWaterMark, setFileWaterMark] = useState<any>(null);
+  const [formGenerate, setFormGenerate] = useState<any>(null);
+  const [formGenerateScrip, setFormGenerateScrip] = useState<any>(null);
   const [progress, setProgress] = useState<number[]>([]);
+  const [loadingScrip1, setLoadingScrip1] = React.useState(false);
+  const [scrip, setScrip] = React.useState({});
   const { t } = useTranslation();
   const handleCheckboxChange = (url: string) => {
     setSelectedUrls((prev: any) =>
@@ -303,6 +307,7 @@ const MaterialVideoController = (props: Props) => {
     }, 500);
   };
   const generate = async () => {
+    setLoadingScrip1(true);
     setLoading(true);
     try {
       let formDataGenerate: any = new FormData();
@@ -312,7 +317,7 @@ const MaterialVideoController = (props: Props) => {
       formDataGenerate.append("my_script", productMyDesc);
       formDataGenerate.append("language", selectedVideoLanguage);
       formDataGenerate.append("target_audience", productTarget);
-
+      setFormGenerateScrip(formDataGenerate);
       const formData: any = new FormData();
       formData.append("video_length", selectedVideolength);
       formData.append("video_size", selectedVideoSize);
@@ -340,11 +345,14 @@ const MaterialVideoController = (props: Props) => {
       });
 
       let result = await generateVideo(formDataGenerate);
-      console.log(result)
+      console.log(result);
       if (Object.keys(result).length > 0) {
+        setScrip(result);
         const cleanedData = processData(result);
-        console.log(cleanedData)
+        console.log(cleanedData);
+        setFormGenerate(formData);
         formData.append("scrip", result.scrip_1);
+        setLoading(false);
         setGenerateResult(cleanedData);
         let video = await generateVideoScript(formData);
         console.log("video", video);
@@ -368,12 +376,13 @@ const MaterialVideoController = (props: Props) => {
     } catch (error) {
       console.log(error);
     }
-    setLoading(false);
+
+    setLoadingScrip1(false);
   };
   return (
     <>
       {loading && <Loading />}
-      {(!(Object.keys(generateResult).length > 0) || !videoUrl) && (
+      {!(Object.keys(generateResult).length > 0) && (
         <MaterialVideoView
           handleClickOpenAuthor={handleClickOpenAuthor}
           productName={productName}
@@ -406,13 +415,20 @@ const MaterialVideoController = (props: Props) => {
           setFileEndCard={setFileEndCard}
         />
       )}
-      {Object.keys(generateResult).length > 0 && videoUrl && (
+      {Object.keys(generateResult).length > 0 && (
         <MaterialVideoRegenerateController
           generateResult={generateResult}
           desc={productDesc}
           listFile={fileList}
           name={productName}
           videoUrl={videoUrl}
+          loadingScrip1={loadingScrip1}
+          formGenerate={formGenerate}
+          scrip={scrip}
+          formGenerateScrip={formGenerateScrip}
+          setGenerateResult={setGenerateResult}
+          setLoadingScrip1={setLoadingScrip1}
+          setVideoUrl={setVideoUrl}
         />
       )}
 
@@ -579,31 +595,33 @@ const MaterialVideoController = (props: Props) => {
 
 export default MaterialVideoController;
 const processData = (data: any) => {
-  const result:any = {};
+  const result: any = {};
 
-    Object.entries(data).forEach(([key, value]:any) => {
-        // Bỏ phần "Script X\n\n"
-        const cleanedValue = value.replace(/^Script \d+\s*\n\n/, "").trim();
+  Object.entries(data).forEach(([key, value]: any) => {
+    // Bỏ phần "Script X\n\n"
+    const cleanedValue = value.replace(/^Script \d+\s*\n\n/, "").trim();
 
-        // Chia đoạn văn thành các câu, mỗi câu là một phần tử trong mảng
-        const sentences = cleanedValue
-        .split(/(?<=[.!?])\s+/) // Chia dựa trên dấu . ! ?
-        .map((sentence:any) => sentence.trim());
+    // Chia đoạn văn thành các câu, mỗi câu là một phần tử trong mảng
+    const sentences = cleanedValue
+      .split(/(?<=[.!?])\s+/) // Chia dựa trên dấu . ! ?
+      .map((sentence: any) => sentence.trim());
 
-        // Gán kết quả vào đối tượng
-        result[key] = sentences;
-    });
-    Object.entries(result).forEach(([key, value]:any) => {
-      // Loại bỏ "Script X" ở đầu
-      const cleanedArray = value.map((sentence:any) => sentence.replace(/^Script \d+:\n\n/, "").trim());
-
-      // Đánh số thứ tự từng phần tử trong mảng
-      const numberedArray = cleanedArray.map((sentence:any, index:any) => `${index + 1}. ${sentence}`);
-
-      // Gán kết quả vào đối tượng
-      result[key] = numberedArray;
+    // Gán kết quả vào đối tượng
+    result[key] = sentences;
   });
-    return result;
+  Object.entries(result).forEach(([key, value]: any) => {
+    // Loại bỏ "Script X" ở đầu
+    const cleanedArray = value.map((sentence: any) =>
+      sentence.replace(/^Script \d+:\n\n/, "").trim()
+    );
+
+    // Đánh số thứ tự từng phần tử trong mảng
+    const numberedArray = cleanedArray.map(
+      (sentence: any, index: any) => `${index + 1}. ${sentence}`
+    );
+
+    // Gán kết quả vào đối tượng
+    result[key] = numberedArray;
+  });
+  return result;
 };
-
-
