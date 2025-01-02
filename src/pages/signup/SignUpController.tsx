@@ -96,13 +96,15 @@ const SignUpController = (props: Props) => {
           if(material_video){
             localStorage.removeItem("material_video");
             navigate(`/material-video?product_id=${material_video}`);
+          }else{
+
+            setTimeout(() => {
+              localStorage.removeItem("tts_text");
+              localStorage.removeItem("tts_story");
+              navigate("/");
+              setLoading(false);
+            }, 1000);
           }
-          setTimeout(() => {
-            localStorage.removeItem("tts_text");
-            localStorage.removeItem("tts_story");
-            navigate("/");
-            setLoading(false);
-          }, 1000);
         }
       }
       if (data.code == 1004) {
@@ -188,13 +190,15 @@ const SignUpController = (props: Props) => {
           if(material_video){
             localStorage.removeItem("material_video");
             navigate(`/material-video?product_id=${material_video}`);
+          }else{
+            setTimeout(() => {
+              localStorage.removeItem("tts_text");
+              localStorage.removeItem("tts_story");
+              navigate("/");
+              setLoading(false);
+            }, 1000);
+
           }
-          setTimeout(() => {
-            localStorage.removeItem("tts_text");
-            localStorage.removeItem("tts_story");
-            navigate("/");
-            setLoading(false);
-          }, 1000);
         }
       }
       if (data.code == 1000) {
