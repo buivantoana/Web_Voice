@@ -86,6 +86,7 @@ const MaterialVideoController = (props: Props) => {
     setOpenAuthor(false);
   };
   let user = localStorage.getItem("user");
+  console.log(user)
   useEffect(() => {
     if (productId) {
     if (user) {
@@ -151,6 +152,12 @@ const MaterialVideoController = (props: Props) => {
           }, 500);
         }
       })();
+    }else{
+      toast.warning("Bạn cần đăng nhập để sử dụng tính năng.")
+      localStorage.setItem("material_video",productId)
+      setTimeout(() => {
+        navigate("/signin");
+      }, 500);
     }
       
     }
