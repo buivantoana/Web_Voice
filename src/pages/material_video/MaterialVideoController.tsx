@@ -56,6 +56,7 @@ const MaterialVideoController = (props: Props) => {
   const [productImage, setProductImage]: any = useState([]);
   const [generateResult, setGenerateResult]: any = useState({});
   const [productVideo, setProductVideo]: any = useState([]);
+  const [avatarVideo, setAvatarVideo]: any = useState('');
   const [productVideoUrl, setProductVideoUrl]: any = useState([]);
   const context: any = useCoursesContext();
   const theme: any = useTheme();
@@ -105,7 +106,7 @@ const MaterialVideoController = (props: Props) => {
                       "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
                   },
                   body: JSON.stringify({
-                    user_id: "0399524219",
+                    user_id: context.state.user.user_id,
                     product_id: productId,
                   }),
                 }
@@ -177,6 +178,7 @@ const MaterialVideoController = (props: Props) => {
         });
         let result = await data.json();
         if (result.videos && result.videos.length > 0) {
+          setAvatarVideo(result.videos[0].thumb)
           setProductVideo(result.videos);
         }
       } catch (error) {
@@ -346,11 +348,20 @@ const MaterialVideoController = (props: Props) => {
       formData.append("video_length", selectedVideolength);
       formData.append("video_size", selectedVideoSize);
       formData.append("watermark", "test");
-      formData.append("voice_id", "alloy");
-      formData.append("voice_type", "openai");
-      formData.append("video_kol", "Tech Guru");
+      formData.append("voice_id", voice.id);
+      formData.append("voice_type", voice.type);
       formData.append("logo_or_video", fileEndCard);
+      const response = await fetch(avatarVideo);
+      // Kiểm tra nếu việc tải ảnh thành công
+      if (!response.ok) {
+        throw new Error(`Failed to fetch image from URL: ${response.statusText}`);
+      }
 
+      // Chuyển đổi ảnh thành blob
+      const blob = await response.blob();
+  
+      // Thêm blob vào FormData
+      formData.append("video_kol", blob, "image.jpg");
       const imageFiles = fileList.filter((file) =>
         file.type.startsWith("image/")
       );
@@ -437,6 +448,8 @@ const MaterialVideoController = (props: Props) => {
           setFileWaterMark={setFileWaterMark}
           fileEndCard={fileEndCard}
           setFileEndCard={setFileEndCard}
+          avatarVideo={avatarVideo}
+          setAvatarVideo={setAvatarVideo}
         />
       )}
       {Object.keys(generateResult).length > 0 && (

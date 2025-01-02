@@ -69,6 +69,8 @@ type Props = {
   setFileWaterMark: any;
   fileEndCard: any;
   setFileEndCard: any;
+  avatarVideo: any;
+  setAvatarVideo: any;
 };
 
 const MaterialVideoView = ({
@@ -101,6 +103,8 @@ const MaterialVideoView = ({
   setFileWaterMark,
   fileEndCard,
   setFileEndCard,
+  avatarVideo,
+  setAvatarVideo
 }: Props) => {
   const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -1435,10 +1439,11 @@ const MaterialVideoView = ({
               productVideo.map((item: any) => {
                 return (
                   <img
+                    onClick={()=>setAvatarVideo(item.thumb)}
                     src={item.thumb}
                     width={"13.5%"}
                     height={"250px"}
-                    style={{ borderRadius: "20px", objectFit: "cover" }}
+                    style={{ borderRadius: "20px", objectFit: "cover" ,border:avatarVideo == item.thumb? `4px solid ${theme.palette.active.main}`:"none" }}
                     alt=''
                   />
                 );
