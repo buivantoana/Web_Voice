@@ -272,7 +272,7 @@ const MaterialVideoRegenerateController = ({
         // if (!(Object.keys(context.state.history).length > 0)) {
         //   setVoice(data.voices[0]);
         // }
-        // setVoices(data.voices);
+        setVoices(data.voices);
       }
     } catch (error) {
       console.log(error);
