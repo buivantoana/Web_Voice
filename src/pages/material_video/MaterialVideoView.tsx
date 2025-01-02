@@ -72,6 +72,7 @@ type Props = {
   setFileEndCard: any;
   avatarVideo: any;
   setAvatarVideo: any;
+  productId: any;
 };
 
 const MaterialVideoView = ({
@@ -105,7 +106,8 @@ const MaterialVideoView = ({
   fileEndCard,
   setFileEndCard,
   avatarVideo,
-  setAvatarVideo
+  setAvatarVideo,
+  productId,
 }: Props) => {
   const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -1292,6 +1294,7 @@ const MaterialVideoView = ({
         <Button
           variant='contained'
           onClick={() => generate()}
+          disabled={!productId}
           sx={{
             width: "200px",
             background: theme.palette.active.main,

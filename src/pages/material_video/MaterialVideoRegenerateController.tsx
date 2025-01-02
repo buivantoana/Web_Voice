@@ -93,9 +93,15 @@ const MaterialVideoRegenerateController = ({
     setOpenAuthor(true);
   };
   useEffect(() => {
-    setProductDesc(desc);
-    setProductName(name);
-    setFileList(listFile);
+    if (!productDesc) {
+      setProductDesc(desc);
+    }
+    if (!productName) {
+      setProductName(name);
+    }
+    if (listFile.length == 0) {
+      setFileList(listFile);
+    }
   }, []);
   const handleCloseAuthor = () => {
     setOpenAuthor(false);

@@ -439,6 +439,7 @@ const MaterialVideoController = (props: Props) => {
           setFileEndCard={setFileEndCard}
           avatarVideo={avatarVideo}
           setAvatarVideo={setAvatarVideo}
+          productId={productId}
         />
       )}
       {Object.keys(generateResult).length > 0 && (
