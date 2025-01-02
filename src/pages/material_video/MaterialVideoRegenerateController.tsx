@@ -511,6 +511,14 @@ const MaterialVideoRegenerateController = ({
             <Loading height={"100%"} />
           )}
         </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleCloseAuthor}
+            variant='contained'
+            sx={{ background: theme.palette.active.main, borderRadius: "8px" }}>
+            Continue
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );

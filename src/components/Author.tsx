@@ -65,6 +65,7 @@ type Props = {
   setLoading?: any;
   setTypeVoice: any;
   typeVoice: any;
+  is_action?: any;
 };
 
 const Author = ({
@@ -80,12 +81,13 @@ const Author = ({
   loadMyVoices,
   setTypeVoice,
   typeVoice,
+  is_action,
 }: Props) => {
   const theme: any = useTheme();
   const [voices, setVoices] = useState(
     data.filter((item: any) => item.type == "openai")
   );
-  
+
   const [anchorElGender, setAnchorElGender] = useState(null);
   const [idDelete, setIdDelete] = useState(null);
   const { t } = useTranslation();
@@ -140,21 +142,29 @@ const Author = ({
   useEffect(() => {
     if (data.length > 0) {
       if (Object.keys(context.state.history).length > 0) {
-        console.log(context.state.history.type)
-        if(context.state.history.type != "story"){
-          let data_new:any
-           data_new = data.filter(
+        console.log(context.state.history.type);
+        if (context.state.history.type != "story") {
+          let data_new: any;
+          data_new = data.filter(
             (item: any) => item.id == context.state.history.type
           )[0];
-          if(data_new){
+          if (data_new) {
             console.log(data_new);
             console.log(data.filter((item: any) => item.type == data_new.type));
             setVoice(data_new);
             setVoices(data.filter((item: any) => item.type == data_new.type));
             setTypeVoice(data_new.type);
-          }else{
-            console.log(myVoices.filter((item:any)=>item.voice_id == context.state.history.type)[0])
-            setVoice(myVoices.filter((item:any)=>item.voice_id == context.state.history.type)[0]);
+          } else {
+            console.log(
+              myVoices.filter(
+                (item: any) => item.voice_id == context.state.history.type
+              )[0]
+            );
+            setVoice(
+              myVoices.filter(
+                (item: any) => item.voice_id == context.state.history.type
+              )[0]
+            );
             setVoices(myVoices);
             setTypeVoice("my_voices");
           }
@@ -245,7 +255,7 @@ const Author = ({
   };
   useEffect(() => {
     filterVoices();
-  }, [SelectedAcent, SelectedAge, SelectedGender, typeVoice,data]);
+  }, [SelectedAcent, SelectedAge, SelectedGender, typeVoice, data]);
   const filterVoices = () => {
     let data_filter = data;
     console.log(data_filter);
@@ -262,7 +272,7 @@ const Author = ({
         (item: any) => item.accent == SelectedAcent
       );
     }
-    
+
     if (typeVoice != "favorite") {
       setVoices(data_filter.filter((item: any) => item.type == typeVoice));
     }
@@ -290,7 +300,8 @@ const Author = ({
           user_id: context.state.user.user_id,
           voice_id: item.id,
           voice_type: item.type,
-          type_voice: typeVoice == "my_voices" || item.voice_id ? "my_voice" : null,
+          type_voice:
+            typeVoice == "my_voices" || item.voice_id ? "my_voice" : null,
         });
         if (data.voices && data.voices.length > 0) {
           data.voices = data.voices.filter(
@@ -299,34 +310,42 @@ const Author = ({
           if (typeVoice == "favorite") {
             setVoices(voices.filter((ix: any) => ix.id != item.id));
           }
-          if(typeVoice != "my_voices"){
-            setVoicesFavorite([...data.voices.map((item: any) => item.id),...myVoices.filter((item:any)=>voicesFavorite.includes(item.voice_id)).map((item:any)=>item.voice_id)]);
+          if (typeVoice != "my_voices") {
+            setVoicesFavorite([
+              ...data.voices.map((item: any) => item.id),
+              ...myVoices
+                .filter((item: any) => voicesFavorite.includes(item.voice_id))
+                .map((item: any) => item.voice_id),
+            ]);
           }
-        }else{
-            if (typeVoice == "favorite") {
-              setVoices(voices.filter((ix: any) => ix.id != item.id));
+        } else {
+          if (typeVoice == "favorite") {
+            setVoices(voices.filter((ix: any) => ix.id != item.id));
+          }
+          if (
+            Object.keys(context.state.user).length > 0 &&
+            context.state.user.user_id
+          ) {
+            let data_voice = await getVoicesFavorite({
+              user_id: context.state.user.user_id,
+            });
+            console.log("AAAA data", data_voice);
+            if (data_voice.voices && data_voice.voices.length > 0) {
+              data_voice.voices = data_voice.voices.filter(
+                (item: any) => item.favorite == true
+              );
+              let arr = [
+                ...data_voice.voices.map((item: any) => item.id),
+                ...data.my_voices
+                  .filter((item: any) => item.favorite == true)
+                  .map((item: any) => item.voice_id),
+              ];
+              console.log(arr);
+              const uniqueSet = new Set(arr);
+              console.log(uniqueSet);
+              setVoicesFavorite([...uniqueSet]);
             }
-            if (
-              Object.keys(context.state.user).length > 0 &&
-              context.state.user.user_id
-            ) {
-              let data_voice = await getVoicesFavorite({
-                user_id: context.state.user.user_id,
-              });
-              console.log("AAAA data", data_voice);
-              if (data_voice.voices && data_voice.voices.length > 0) {
-                data_voice.voices = data_voice.voices.filter(
-                  (item: any) => item.favorite == true
-                );
-                let arr = [...data_voice.voices.map((item: any) => item.id),...data.my_voices.filter((item:any)=>item.favorite==true).map((item:any)=>item.voice_id)]
-                console.log(arr)
-                const uniqueSet = new Set(arr);
-                console.log(uniqueSet)
-                setVoicesFavorite([...uniqueSet])
-              }
-            }
-           
-          
+          }
         }
       } else {
         navigate("/signin");
@@ -349,7 +368,7 @@ const Author = ({
     }
     setLoading(false);
   };
-  
+
   return (
     <Box
       border={"1px solid #dddddd"}
@@ -435,9 +454,14 @@ const Author = ({
                 console.log(
                   data.filter((item: any) => voicesFavorite.includes(item.id))
                 );
-                setVoices(
-                  [...data.filter((item: any) => voicesFavorite.includes(item.id)),...myVoices.filter((item:any)=>voicesFavorite.includes(item.voice_id))]
-                );
+                setVoices([
+                  ...data.filter((item: any) =>
+                    voicesFavorite.includes(item.id)
+                  ),
+                  ...myVoices.filter((item: any) =>
+                    voicesFavorite.includes(item.voice_id)
+                  ),
+                ]);
                 if (type !== "story") {
                   setVoice(
                     data.filter((item: any) =>
@@ -544,9 +568,14 @@ const Author = ({
                   console.log(
                     data.filter((item: any) => voicesFavorite.includes(item.id))
                   );
-                  setVoices(
-                    [...data.filter((item: any) => voicesFavorite.includes(item.id)),...myVoices.filter((item:any)=>voicesFavorite.includes(item.voice_id))]
-                  );
+                  setVoices([
+                    ...data.filter((item: any) =>
+                      voicesFavorite.includes(item.id)
+                    ),
+                    ...myVoices.filter((item: any) =>
+                      voicesFavorite.includes(item.voice_id)
+                    ),
+                  ]);
                   if (type !== "story") {
                     setVoice(
                       data.filter((item: any) =>
@@ -930,13 +959,12 @@ const Author = ({
                 {myVoices &&
                   myVoices.length > 0 &&
                   myVoices.map((item: any, index: any) => {
-                    console.log(voicesFavorite)
+                    console.log(voicesFavorite);
                     let favorite = false;
-                      if (voicesFavorite && voicesFavorite.length > 0) {
-                        console.log(item)
-                        favorite = voicesFavorite.includes(item.id);
-                        
-                      }
+                    if (voicesFavorite && voicesFavorite.length > 0) {
+                      console.log(item);
+                      favorite = voicesFavorite.includes(item.id);
+                    }
                     return (
                       <Box
                         onClick={() => setVoice(item)}
@@ -1019,24 +1047,24 @@ const Author = ({
                             borderRight={"1px solid rgb(226 232 240)"}
                             justifyContent={"center"}>
                             {favorite ? (
-                        <RiHeartFill color='rgb(5, 122, 85)' />
-                       ) : ( 
-                            <svg
-                              data-v-fa4d36aa=''
-                              xmlns='http://www.w3.org/2000/svg'
-                              xmlnsXlink='http://www.w3.org/1999/xlink'
-                              aria-hidden='true'
-                              role='img'
-                              className='icon text-lg'
-                              width='1em'
-                              height='1em'
-                              viewBox='0 0 24 24'>
-                              <path
-                                fill='currentColor'
-                                d='m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825'
-                              />
-                            </svg>
-                             )} 
+                              <RiHeartFill color='rgb(5, 122, 85)' />
+                            ) : (
+                              <svg
+                                data-v-fa4d36aa=''
+                                xmlns='http://www.w3.org/2000/svg'
+                                xmlnsXlink='http://www.w3.org/1999/xlink'
+                                aria-hidden='true'
+                                role='img'
+                                className='icon text-lg'
+                                width='1em'
+                                height='1em'
+                                viewBox='0 0 24 24'>
+                                <path
+                                  fill='currentColor'
+                                  d='m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825'
+                                />
+                              </svg>
+                            )}
 
                             <Typography fontSize={".85rem"}>
                               {" "}
@@ -1107,12 +1135,11 @@ const Author = ({
                   <>
                     {voices.map((item: any, index: number) => {
                       let favorite = false;
-                      console.log(item)
-                      console.log(voicesFavorite)
+                      console.log(item);
+                      console.log(voicesFavorite);
                       if (voicesFavorite && voicesFavorite.length > 0) {
-                        console.log(item)
+                        console.log(item);
                         favorite = voicesFavorite.includes(item.id);
-                        
                       }
                       return (
                         <Box
@@ -1122,7 +1149,7 @@ const Author = ({
                             borderRadius: "8px",
                             // flexGrow: 1,
                             border:
-                              (voice&& voice.id) == item.id
+                              (voice && voice.id) == item.id
                                 ? `2px solid ${theme.palette.active.main}`
                                 : "2px solid rgb(226 232 240)",
                             width: { xs: "100%", md: "48%" },
@@ -1188,40 +1215,48 @@ const Author = ({
                               />
                             </Box>
                           </Stack>
-                          <Stack mt={"30px"} sx={{
-                            position:item.voice_id && index%2 !=0   ?"absolute":"unset",
-                            bottom:0,
-                            width:"100%"
-                          }} direction={"row"}>
-                            {!item.voice_id&& <Box
-                              padding={"8px"}
-                              width={"50%"}
-                              display={"flex"}
-                              alignItems={"center"}
-                              gap={"5px"}
-                              borderTop={"1px solid rgb(226 232 240)"}
-                              borderRight={"1px solid rgb(226 232 240)"}
-                              onClick={() => togglePlayPause(index)}
-                              justifyContent={"center"}>
-                              {playingIndex === index ? (
-                                <RiPauseCircleLine />
-                              ) : (
-                                <RiPlayCircleLine />
-                              )}
-                              <Typography fontSize={".85rem"}>
-                                {t("sample")}
-                              </Typography>
-                              <audio
-                                ref={(el) => (audioRefs.current[index] = el)}
-                                src={item.sample_audio_path}
-                                onEnded={handleAudioEnded}
-                              />
-                            </Box>}
+                          <Stack
+                            mt={"30px"}
+                            sx={{
+                              position:
+                                item.voice_id && index % 2 != 0
+                                  ? "absolute"
+                                  : "unset",
+                              bottom: 0,
+                              width: "100%",
+                            }}
+                            direction={"row"}>
+                            {!item.voice_id && (
+                              <Box
+                                padding={"8px"}
+                                width={"50%"}
+                                display={"flex"}
+                                alignItems={"center"}
+                                gap={"5px"}
+                                borderTop={"1px solid rgb(226 232 240)"}
+                                borderRight={"1px solid rgb(226 232 240)"}
+                                onClick={() => togglePlayPause(index)}
+                                justifyContent={"center"}>
+                                {playingIndex === index ? (
+                                  <RiPauseCircleLine />
+                                ) : (
+                                  <RiPlayCircleLine />
+                                )}
+                                <Typography fontSize={".85rem"}>
+                                  {t("sample")}
+                                </Typography>
+                                <audio
+                                  ref={(el) => (audioRefs.current[index] = el)}
+                                  src={item.sample_audio_path}
+                                  onEnded={handleAudioEnded}
+                                />
+                              </Box>
+                            )}
 
                             <Box
                               onClick={() => handleFavorite(item)}
                               padding={"8px"}
-                              width={item.voice_id?"100%":"50%"}
+                              width={item.voice_id ? "100%" : "50%"}
                               display={"flex"}
                               position={"relative"}
                               zIndex={2}

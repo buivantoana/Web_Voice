@@ -3,6 +3,7 @@ import {
   Button,
   Checkbox,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -1439,17 +1440,32 @@ const MaterialVideoView = ({
               productVideo.map((item: any) => {
                 return (
                   <img
-                    onClick={()=>setAvatarVideo(item.id)}
+                    onClick={() => setAvatarVideo(item.id)}
                     src={item.thumb}
                     width={"13.5%"}
                     height={"250px"}
-                    style={{ borderRadius: "20px", objectFit: "cover" ,border:avatarVideo == item.id? `4px solid ${theme.palette.active.main}`:"none" }}
+                    style={{
+                      borderRadius: "20px",
+                      objectFit: "cover",
+                      border:
+                        avatarVideo == item.id
+                          ? `4px solid ${theme.palette.active.main}`
+                          : "none",
+                    }}
                     alt=''
                   />
                 );
               })}
           </Box>
         </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleCloseAvatar}
+            variant='contained'
+            sx={{ background: theme.palette.active.main, borderRadius: "8px" }}>
+            Continue
+          </Button>
+        </DialogActions>
       </Dialog>
     </Box>
   );

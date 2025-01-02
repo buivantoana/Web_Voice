@@ -345,7 +345,7 @@ const MaterialVideoRegenerateView = ({
                               />{" "}
                               {t("voice")}
                             </Button>
-                            <Button
+                            {/* <Button
                               variant='contained'
                               sx={{
                                 width: "50px",
@@ -356,7 +356,7 @@ const MaterialVideoRegenerateView = ({
                               }}>
                               {" "}
                               <RiUserVoiceLine />
-                            </Button>
+                            </Button> */}
                           </Box>
 
                           <Button

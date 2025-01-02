@@ -56,7 +56,7 @@ const MaterialVideoController = (props: Props) => {
   const [productImage, setProductImage]: any = useState([]);
   const [generateResult, setGenerateResult]: any = useState({});
   const [productVideo, setProductVideo]: any = useState([]);
-  const [avatarVideo, setAvatarVideo]: any = useState('');
+  const [avatarVideo, setAvatarVideo]: any = useState("");
   const [productVideoUrl, setProductVideoUrl]: any = useState([]);
   const context: any = useCoursesContext();
   const theme: any = useTheme();
@@ -70,7 +70,7 @@ const MaterialVideoController = (props: Props) => {
   const [progress, setProgress] = useState<number[]>([]);
   const [loadingScrip1, setLoadingScrip1] = React.useState(false);
   const [scrip, setScrip] = React.useState({});
-  const navigate:any = useNavigate()
+  const navigate: any = useNavigate();
   const { t } = useTranslation();
   const handleCheckboxChange = (url: string) => {
     setSelectedUrls((prev: any) =>
@@ -87,82 +87,81 @@ const MaterialVideoController = (props: Props) => {
     setOpenAuthor(false);
   };
   let user = localStorage.getItem("user");
-  console.log(user)
+  console.log(user);
   useEffect(() => {
     if (productId) {
-    if (user) {
-      (async () => {
-        let infor = await getInfo({ user_id: JSON.parse(user).phone });
-        if (infor.code == 0) {
-          (async () => {
-            try {
-              let data = await fetch(
-                "https://vp.zeezoo.mobi:8089/product/get/info",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-type": "application/json",
-                    Authorization:
-                      "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-                  },
-                  body: JSON.stringify({
-                    user_id: JSON.parse(user).phone,
-                    product_id: productId,
-                  }),
+      if (user) {
+        (async () => {
+          let infor = await getInfo({ user_id: JSON.parse(user).phone });
+          if (infor.code == 0) {
+            (async () => {
+              try {
+                let data = await fetch(
+                  "https://vp.zeezoo.mobi:8089/product/get/info",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-type": "application/json",
+                      Authorization:
+                        "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+                    },
+                    body: JSON.stringify({
+                      user_id: JSON.parse(user).phone,
+                      product_id: productId,
+                    }),
+                  }
+                );
+                let result = await data.json();
+                if (Object.keys(result.product).length > 0) {
+                  if (result.product.summary) {
+                    setProductDesc(result.product.summary);
+                  }
+                  if (result.product.product_url) {
+                    setProductUrlOld(result.product.product_url);
+                    setProductUrl(result.product.product_url);
+                  }
+                  if (result.product.title) {
+                    setProductName(result.product.title);
+                  }
+                  if (result.product.images.length > 0) {
+                    console.log(result.product.images);
+                    console.log(result.product.videos);
+                    setOpenUrlImage(true);
+                    setProductImage([
+                      ...JSON.parse(result.product.images[0]).filter(
+                        (item: any) => item != ""
+                      ),
+                    ]);
+                    setProductVideoUrl(
+                      JSON.parse(result.product.videos[0]).filter(
+                        (item: any) => item != ""
+                      )
+                    );
+                  }
+                } else {
+                  toast.warning("Error");
                 }
-              );
-              let result = await data.json();
-              if (Object.keys(result.product).length > 0) {
-                if (result.product.summary) {
-                  setProductDesc(result.product.summary);
-                }
-                if (result.product.product_url) {
-                  setProductUrlOld(result.product.product_url);
-                  setProductUrl(result.product.product_url);
-                }
-                if (result.product.title) {
-                  setProductName(result.product.title);
-                }
-                if (result.product.images.length > 0) {
-                  console.log(result.product.images);
-                  console.log(result.product.videos);
-                  setOpenUrlImage(true);
-                  setProductImage([
-                    ...JSON.parse(result.product.images[0]).filter(
-                      (item: any) => item != ""
-                    ),
-                  ]);
-                  setProductVideoUrl(
-                    JSON.parse(result.product.videos[0]).filter(
-                      (item: any) => item != ""
-                    )
-                  );
-                }
-              } else {
-                toast.warning("Error");
+              } catch (error) {
+                console.log(error);
               }
-            } catch (error) {
-              console.log(error);
-            }
-          })();
-        }else{
-          toast.warning("Bạn cần đăng nhập để sử dụng tính năng.")
-          localStorage.setItem("material_video",productId)
-          setTimeout(() => {
-            navigate("/signin");
-          }, 500);
-        }
-      })();
-    }else{
-      toast.warning("Bạn cần đăng nhập để sử dụng tính năng.")
-      localStorage.setItem("material_video",productId)
-      setTimeout(() => {
-        navigate("/signin");
-      }, 500);
+            })();
+          } else {
+            toast.warning("Bạn cần đăng nhập để sử dụng tính năng.");
+            localStorage.setItem("material_video", productId);
+            setTimeout(() => {
+              navigate("/signin");
+            }, 500);
+          }
+        })();
+      } else {
+        toast.warning("Bạn cần đăng nhập để sử dụng tính năng.");
+        localStorage.setItem("material_video", productId);
+        setTimeout(() => {
+          navigate("/signin");
+        }, 500);
+      }
     }
-      
-    }
-  }, [productId,user]);
+  }, [productId, user]);
   console.log(productImage);
   useEffect(() => {
     loadVoicesOpenai();
@@ -178,7 +177,7 @@ const MaterialVideoController = (props: Props) => {
         });
         let result = await data.json();
         if (result.videos && result.videos.length > 0) {
-          setAvatarVideo(result.videos[0].id)
+          setAvatarVideo(result.videos[0].id);
           setProductVideo(result.videos);
         }
       } catch (error) {
@@ -493,11 +492,20 @@ const MaterialVideoController = (props: Props) => {
               myVoices={myVoices}
               typeVoice={typeVoice}
               setTypeVoice={setTypeVoice}
+              is_action={true}
             />
           ) : (
             <Loading height={"100%"} />
           )}
         </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleCloseAuthor}
+            variant='contained'
+            sx={{ background: theme.palette.active.main, borderRadius: "8px" }}>
+            Continue
+          </Button>
+        </DialogActions>
       </Dialog>
       <Dialog
         sx={{ cursor: "pointer" }}
