@@ -40,6 +40,7 @@ type Props = {
   setLoadingScrip1: any;
   setGenerateResult: any;
   setVideoUrl: any;
+  voice_old: any;
 };
 
 const MaterialVideoRegenerateController = ({
@@ -55,6 +56,7 @@ const MaterialVideoRegenerateController = ({
   setGenerateResult,
   setLoadingScrip1,
   setVideoUrl,
+  voice_old,
 }: Props) => {
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -102,6 +104,8 @@ const MaterialVideoRegenerateController = ({
     if (fileList.length == 0) {
       setFileList(listFile);
     }
+    setTypeVoice(voice_old.type);
+    setVoice(voice_old);
   }, []);
   const handleCloseAuthor = () => {
     setOpenAuthor(false);
@@ -265,11 +269,10 @@ const MaterialVideoRegenerateController = ({
       let data = await getVoicesOpenAi();
       console.log("AAAA data", data);
       if (data.voices && data.voices.length > 0) {
-        if (!(Object.keys(context.state.history).length > 0)) {
-          setVoice(data.voices[0]);
-        }
-
-        setVoices(data.voices);
+        // if (!(Object.keys(context.state.history).length > 0)) {
+        //   setVoice(data.voices[0]);
+        // }
+        // setVoices(data.voices);
       }
     } catch (error) {
       console.log(error);

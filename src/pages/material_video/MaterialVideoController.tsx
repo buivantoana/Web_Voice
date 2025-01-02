@@ -456,6 +456,7 @@ const MaterialVideoController = (props: Props) => {
           setGenerateResult={setGenerateResult}
           setLoadingScrip1={setLoadingScrip1}
           setVideoUrl={setVideoUrl}
+          voice_old={voice}
         />
       )}
 
