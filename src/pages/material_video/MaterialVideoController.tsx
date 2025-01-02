@@ -106,7 +106,7 @@ const MaterialVideoController = (props: Props) => {
                       "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
                   },
                   body: JSON.stringify({
-                    user_id: context.state.user.user_id,
+                    user_id: JSON.parse(user).phone,
                     product_id: productId,
                   }),
                 }
