@@ -99,7 +99,7 @@ const MaterialVideoRegenerateController = ({
     if (!productName) {
       setProductName(name);
     }
-    if (listFile.length == 0) {
+    if (fileList.length == 0) {
       setFileList(listFile);
     }
   }, []);
