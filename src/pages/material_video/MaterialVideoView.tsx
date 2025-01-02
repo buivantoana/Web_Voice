@@ -1439,11 +1439,11 @@ const MaterialVideoView = ({
               productVideo.map((item: any) => {
                 return (
                   <img
-                    onClick={()=>setAvatarVideo(item.thumb)}
+                    onClick={()=>setAvatarVideo(item.id)}
                     src={item.thumb}
                     width={"13.5%"}
                     height={"250px"}
-                    style={{ borderRadius: "20px", objectFit: "cover" ,border:avatarVideo == item.thumb? `4px solid ${theme.palette.active.main}`:"none" }}
+                    style={{ borderRadius: "20px", objectFit: "cover" ,border:avatarVideo == item.id? `4px solid ${theme.palette.active.main}`:"none" }}
                     alt=''
                   />
                 );

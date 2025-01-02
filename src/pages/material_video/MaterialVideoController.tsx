@@ -178,7 +178,7 @@ const MaterialVideoController = (props: Props) => {
         });
         let result = await data.json();
         if (result.videos && result.videos.length > 0) {
-          setAvatarVideo(result.videos[0].thumb)
+          setAvatarVideo(result.videos[0].id)
           setProductVideo(result.videos);
         }
       } catch (error) {
@@ -351,17 +351,7 @@ const MaterialVideoController = (props: Props) => {
       formData.append("voice_id", voice.id);
       formData.append("voice_type", voice.type);
       formData.append("logo_or_video", fileEndCard);
-      const response = await fetch(avatarVideo);
-      // Kiểm tra nếu việc tải ảnh thành công
-      if (!response.ok) {
-        throw new Error(`Failed to fetch image from URL: ${response.statusText}`);
-      }
-
-      // Chuyển đổi ảnh thành blob
-      const blob = await response.blob();
-  
-      // Thêm blob vào FormData
-      formData.append("video_kol", blob, "image.jpg");
+      formData.append("video_kol", avatarVideo);
       const imageFiles = fileList.filter((file) =>
         file.type.startsWith("image/")
       );
