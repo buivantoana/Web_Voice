@@ -65,6 +65,7 @@ const SignUpController = (props: Props) => {
           localStorage.setItem("user", JSON.stringify(data.data.user));
           let tts_text = localStorage.getItem("tts_text");
           let tts_story = localStorage.getItem("tts_story");
+         
           if (tts_text) {
             context.dispatch({
               type: "TTS_TEXT",
@@ -91,6 +92,11 @@ const SignUpController = (props: Props) => {
               user: { ...data.data.user },
             },
           });
+          let material_video = localStorage.getItem("material_video");
+          if(material_video){
+            localStorage.removeItem("material_video");
+            navigate(`/material-video?product_id=${material_video}`);
+          }
           setTimeout(() => {
             localStorage.removeItem("tts_text");
             localStorage.removeItem("tts_story");
@@ -178,6 +184,11 @@ const SignUpController = (props: Props) => {
               user: { ...data.data.user },
             },
           });
+          let material_video = localStorage.getItem("material_video");
+          if(material_video){
+            localStorage.removeItem("material_video");
+            navigate(`/material-video?product_id=${material_video}`);
+          }
           setTimeout(() => {
             localStorage.removeItem("tts_text");
             localStorage.removeItem("tts_story");

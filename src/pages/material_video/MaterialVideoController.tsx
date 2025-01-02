@@ -15,6 +15,7 @@ import { RiCloseCircleFill, RiCloseLine } from "react-icons/ri";
 import Author from "../../components/Author";
 import Loading from "../../components/Loading";
 import {
+  getInfo,
   getMyVoices,
   getVoicesFavorite,
   getVoicesOpenAi,
@@ -68,6 +69,7 @@ const MaterialVideoController = (props: Props) => {
   const [progress, setProgress] = useState<number[]>([]);
   const [loadingScrip1, setLoadingScrip1] = React.useState(false);
   const [scrip, setScrip] = React.useState({});
+  const navigate:any = useNavigate()
   const { t } = useTranslation();
   const handleCheckboxChange = (url: string) => {
     setSelectedUrls((prev: any) =>
@@ -83,61 +85,76 @@ const MaterialVideoController = (props: Props) => {
   const handleCloseAuthor = () => {
     setOpenAuthor(false);
   };
+  let user = localStorage.getItem("user");
   useEffect(() => {
     if (productId) {
+    if (user) {
       (async () => {
-        try {
-          let data = await fetch(
-            "https://vp.zeezoo.mobi:8089/product/get/info",
-            {
-              method: "POST",
-              headers: {
-                "Content-type": "application/json",
-                Authorization:
-                  "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-              },
-              body: JSON.stringify({
-                user_id: "0399524219",
-                product_id: productId,
-              }),
-            }
-          );
-          let result = await data.json();
-          if (Object.keys(result.product).length > 0) {
-            if (result.product.summary) {
-              setProductDesc(result.product.summary);
-            }
-            if (result.product.product_url) {
-              setProductUrlOld(result.product.product_url);
-              setProductUrl(result.product.product_url);
-            }
-            if (result.product.title) {
-              setProductName(result.product.title);
-            }
-            if (result.product.images.length > 0) {
-              console.log(result.product.images);
-              console.log(result.product.videos);
-              setOpenUrlImage(true);
-              setProductImage([
-                ...JSON.parse(result.product.images[0]).filter(
-                  (item: any) => item != ""
-                ),
-              ]);
-              setProductVideoUrl(
-                JSON.parse(result.product.videos[0]).filter(
-                  (item: any) => item != ""
-                )
+        let infor = await getInfo({ user_id: JSON.parse(user).phone });
+        if (infor.code == 0) {
+          (async () => {
+            try {
+              let data = await fetch(
+                "https://vp.zeezoo.mobi:8089/product/get/info",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-type": "application/json",
+                    Authorization:
+                      "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+                  },
+                  body: JSON.stringify({
+                    user_id: "0399524219",
+                    product_id: productId,
+                  }),
+                }
               );
+              let result = await data.json();
+              if (Object.keys(result.product).length > 0) {
+                if (result.product.summary) {
+                  setProductDesc(result.product.summary);
+                }
+                if (result.product.product_url) {
+                  setProductUrlOld(result.product.product_url);
+                  setProductUrl(result.product.product_url);
+                }
+                if (result.product.title) {
+                  setProductName(result.product.title);
+                }
+                if (result.product.images.length > 0) {
+                  console.log(result.product.images);
+                  console.log(result.product.videos);
+                  setOpenUrlImage(true);
+                  setProductImage([
+                    ...JSON.parse(result.product.images[0]).filter(
+                      (item: any) => item != ""
+                    ),
+                  ]);
+                  setProductVideoUrl(
+                    JSON.parse(result.product.videos[0]).filter(
+                      (item: any) => item != ""
+                    )
+                  );
+                }
+              } else {
+                toast.warning("Error");
+              }
+            } catch (error) {
+              console.log(error);
             }
-          } else {
-            toast.warning("Error");
-          }
-        } catch (error) {
-          console.log(error);
+          })();
+        }else{
+          toast.warning("Bạn cần đăng nhập để sử dụng tính năng.")
+          localStorage.setItem("material_video",productId)
+          setTimeout(() => {
+            navigate("/signin");
+          }, 500);
         }
       })();
     }
-  }, [productId]);
+      
+    }
+  }, [productId,user]);
   console.log(productImage);
   useEffect(() => {
     loadVoicesOpenai();
