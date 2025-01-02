@@ -251,6 +251,7 @@ const MaterialVideoRegenerateView = ({
           <Button
             variant='contained'
             onClick={() => generateNew()}
+            disabled={!productName || !productDesc || !(fileList.length > 0)}
             sx={{
               width: "200px",
               background: theme.palette.active.main,
