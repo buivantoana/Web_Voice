@@ -335,12 +335,7 @@ const MaterialVideoController = (props: Props) => {
     setLoadingScrip1(true);
     setLoading(true);
     try {
-      if(!fileEndCard){
-        setLoadingScrip1(false);
-    setLoading(false);
-    toast.warning("Bạn cần chọn logo.")
-        return
-      }
+     
       let formDataGenerate: any = new FormData();
       formDataGenerate.append("product_id", productId);
       formDataGenerate.append("product_name", productName);
@@ -355,7 +350,10 @@ const MaterialVideoController = (props: Props) => {
       formData.append("watermark", "test");
       formData.append("voice_id", voice.id);
       formData.append("voice_type", voice.type);
-      formData.append("logo_or_video", fileEndCard);
+      if(fileEndCard){
+        formData.append("logo_or_video", fileEndCard);
+      }
+      
       formData.append("video_kol", avatarVideo);
       const imageFiles = fileList.filter((file) =>
         file.type.startsWith("image/")
