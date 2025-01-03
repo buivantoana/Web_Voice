@@ -335,6 +335,12 @@ const MaterialVideoController = (props: Props) => {
     setLoadingScrip1(true);
     setLoading(true);
     try {
+      if(!fileEndCard){
+        setLoadingScrip1(false);
+    setLoading(false);
+    toast.warning("Bạn cần chọn logo.")
+        return
+      }
       let formDataGenerate: any = new FormData();
       formDataGenerate.append("product_id", productId);
       formDataGenerate.append("product_name", productName);
