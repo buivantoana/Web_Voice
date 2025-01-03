@@ -96,12 +96,13 @@ const MaterialVideoRegenerateController = ({
     setOpenAuthor(true);
   };
   useEffect(() => {
+    let boby:any = {}
     if (!productDesc) {
-      setProductNameAndDescOld({...productNameAndDescOld,productDesc:desc})
+      boby.productDesc = desc
       setProductDesc(desc);
     }
     if (!productName) {
-      setProductNameAndDescOld({...productNameAndDescOld,productName:desc})
+      boby.productName = name
       setProductName(name);
     }
     if (fileList.length == 0) {
@@ -109,10 +110,12 @@ const MaterialVideoRegenerateController = ({
     }
     setTypeVoice(voice_old.type);
     setVoice(voice_old);
+    setProductNameAndDescOld(boby)
   }, []);
   const handleCloseAuthor = () => {
     setOpenAuthor(false);
   };
+  console.log(productNameAndDescOld)
   useEffect(() => {
     if (productId) {
       (async () => {
@@ -334,13 +337,14 @@ const MaterialVideoRegenerateController = ({
     }, 500);
   };
   const generate = async (scrip_check: any) => {
+    formGenerate.delete("scrip");
     if (scrip_check == "scrip_2") {
       setLoadingScrip2(true);
       try {
         formGenerate.delete("voice_id");
         formGenerate.delete("voice_type");
-        formGenerateScrip.append("voice_id", voice.id);
-        formGenerateScrip.append("voice_type", voice.type);
+        formGenerate.append("voice_id", voice.id);
+        formGenerate.append("voice_type", voice.type);
         formGenerate.append("scrip", scrip.scrip_2);
         let video = await generateVideoScript(formGenerate);
         console.log("video", video);
@@ -371,8 +375,8 @@ const MaterialVideoRegenerateController = ({
       try {
         formGenerate.delete("voice_id");
         formGenerate.delete("voice_type");
-        formGenerateScrip.append("voice_id", voice.id);
-        formGenerateScrip.append("voice_type", voice.type);
+        formGenerate.append("voice_id", voice.id);
+        formGenerate.append("voice_type", voice.type);
         formGenerate.append("scrip", scrip.scrip_3);
         let video = await generateVideoScript(formGenerate);
         console.log("video", video);
@@ -402,7 +406,7 @@ const MaterialVideoRegenerateController = ({
 
   const generateNew = async () => {
     setLoadingScrip1(true);
-    setLoading(true);
+    
     try {
       formGenerate.delete("list_images");
       formGenerate.delete("list_videos");
@@ -412,8 +416,8 @@ const MaterialVideoRegenerateController = ({
       formGenerateScrip.delete("product_desc");
       formGenerateScrip.append("product_name", productName);
       formGenerateScrip.append("product_desc", productDesc);
-      formGenerateScrip.append("voice_id", voice.id);
-      formGenerateScrip.append("voice_type", voice.type);
+      formGenerate.append("voice_id", voice.id);
+      formGenerate.append("voice_type", voice.type);
 
       const imageFiles = listFile.filter((file: any) =>
         file.type.startsWith("image/")
@@ -432,6 +436,7 @@ const MaterialVideoRegenerateController = ({
         formGenerate.append("list_videos", file);
       });
       if(productNameAndDescOld.productName == productName &&productNameAndDescOld.productDesc == productDesc){
+        console.log(productName)
         let video = await generateVideoScript(formGenerate);
         console.log("video", video);
         if (video && video.video) {
@@ -450,7 +455,10 @@ const MaterialVideoRegenerateController = ({
             toast.warning(messages[i]);
           }
         }
+        setLoadingScrip1(false);
       }else{
+        setLoading(true);
+        console.log("test")
         formGenerate.delete("scrip");
         let result = await generateVideo(formGenerateScrip);
         console.log(result);
