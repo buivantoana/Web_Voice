@@ -71,6 +71,7 @@ const MaterialVideoRegenerateController = ({
   const [productName, setProductName] = useState("");
   const [productUrl, setProductUrl] = useState("");
   const [productUrlOld, setProductUrlOld] = useState(null);
+  const [productNameAndDescOld, setProductNameAndDescOld]:any = useState({});
   const [productDesc, setProductDesc] = useState("");
   const [productImage, setProductImage]: any = useState([]);
   const [productVideo, setProductVideo]: any = useState([]);
@@ -96,9 +97,11 @@ const MaterialVideoRegenerateController = ({
   };
   useEffect(() => {
     if (!productDesc) {
+      setProductNameAndDescOld({...productNameAndDescOld,productDesc:desc})
       setProductDesc(desc);
     }
     if (!productName) {
+      setProductNameAndDescOld({...productNameAndDescOld,productName:desc})
       setProductName(name);
     }
     if (fileList.length == 0) {
@@ -334,6 +337,10 @@ const MaterialVideoRegenerateController = ({
     if (scrip_check == "scrip_2") {
       setLoadingScrip2(true);
       try {
+        formGenerate.delete("voice_id");
+        formGenerate.delete("voice_type");
+        formGenerateScrip.append("voice_id", voice.id);
+        formGenerateScrip.append("voice_type", voice.type);
         formGenerate.append("scrip", scrip.scrip_2);
         let video = await generateVideoScript(formGenerate);
         console.log("video", video);
@@ -362,6 +369,10 @@ const MaterialVideoRegenerateController = ({
     if (scrip_check == "scrip_3") {
       setLoadingScrip3(true);
       try {
+        formGenerate.delete("voice_id");
+        formGenerate.delete("voice_type");
+        formGenerateScrip.append("voice_id", voice.id);
+        formGenerateScrip.append("voice_type", voice.type);
         formGenerate.append("scrip", scrip.scrip_3);
         let video = await generateVideoScript(formGenerate);
         console.log("video", video);
@@ -395,11 +406,15 @@ const MaterialVideoRegenerateController = ({
     try {
       formGenerate.delete("list_images");
       formGenerate.delete("list_videos");
-      formGenerate.delete("scrip");
+      formGenerate.delete("voice_id");
+      formGenerate.delete("voice_type");
       formGenerateScrip.delete("product_name");
       formGenerateScrip.delete("product_desc");
       formGenerateScrip.append("product_name", productName);
       formGenerateScrip.append("product_desc", productDesc);
+      formGenerateScrip.append("voice_id", voice.id);
+      formGenerateScrip.append("voice_type", voice.type);
+
       const imageFiles = listFile.filter((file: any) =>
         file.type.startsWith("image/")
       );
@@ -416,15 +431,7 @@ const MaterialVideoRegenerateController = ({
       videoFiles.forEach((file: any) => {
         formGenerate.append("list_videos", file);
       });
-
-      let result = await generateVideo(formGenerateScrip);
-      console.log(result);
-      if (Object.keys(result).length > 0) {
-        const cleanedData = processData(result);
-        console.log(cleanedData);
-        formGenerate.append("scrip", result.scrip_1);
-        setLoading(false);
-        setGenerateResult(cleanedData);
+      if(productNameAndDescOld.productName == productName &&productNameAndDescOld.productDesc == productDesc){
         let video = await generateVideoScript(formGenerate);
         console.log("video", video);
         if (video && video.video) {
@@ -441,6 +448,35 @@ const MaterialVideoRegenerateController = ({
           console.log(messages);
           for (let i = 0; i < messages.length; i++) {
             toast.warning(messages[i]);
+          }
+        }
+      }else{
+        formGenerate.delete("scrip");
+        let result = await generateVideo(formGenerateScrip);
+        console.log(result);
+        if (Object.keys(result).length > 0) {
+          const cleanedData = processData(result);
+          console.log(cleanedData);
+          formGenerate.append("scrip", result.scrip_1);
+          setLoading(false);
+          setGenerateResult(cleanedData);
+          let video = await generateVideoScript(formGenerate);
+          console.log("video", video);
+          if (video && video.video) {
+            setVideoUrl(`data:video/mp4;base64,${video.video}`);
+          }
+  
+          if (video && video.detail.length > 0) {
+            console.log(video.detail);
+            const messages = video.detail.map((error: any) => {
+              const loc = error.loc;
+              let message = `Error in: ${loc.join(" -> ")}`;
+              return message;
+            });
+            console.log(messages);
+            for (let i = 0; i < messages.length; i++) {
+              toast.warning(messages[i]);
+            }
           }
         }
       }
