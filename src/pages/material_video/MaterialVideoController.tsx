@@ -640,31 +640,25 @@ export default MaterialVideoController;
 const processData = (data: any) => {
   const result: any = {};
 
-  Object.entries(data).forEach(([key, value]: any) => {
-    // Bỏ phần "Script X\n\n"
-    const cleanedValue = value.replace(/^Script \d+\s*\n\n/, "").trim();
+  Object.entries(data).forEach(([key, value]: [string, string]) => {
+    // Remove the "**Script X:**\n\n" part
+    const cleanedValue = value
+      .replace(/^\*\*Script\s*\d+:\*\*\s*\n\n/, "")
+      .trim();
 
-    // Chia đoạn văn thành các câu, mỗi câu là một phần tử trong mảng
+    // Split the cleaned text into sentences based on ., !, or ?
     const sentences = cleanedValue
-      .split(/(?<=[.!?])\s+/) // Chia dựa trên dấu . ! ?
-      .map((sentence: any) => sentence.trim());
+      .split(/(?<=[.!?])\s+/) // Split after ., !, or ?
+      .map((sentence: string) => sentence.trim());
 
-    // Gán kết quả vào đối tượng
-    result[key] = sentences;
-  });
-  Object.entries(result).forEach(([key, value]: any) => {
-    // Loại bỏ "Script X" ở đầu
-    const cleanedArray = value.map((sentence: any) =>
-      sentence.replace(/^Script \d+:\n\n/, "").trim()
+    // Number each sentence
+    const numberedArray = sentences.map(
+      (sentence: string, index: number) => `${index + 1}. ${sentence}`
     );
 
-    // Đánh số thứ tự từng phần tử trong mảng
-    const numberedArray = cleanedArray.map(
-      (sentence: any, index: any) => `${index + 1}. ${sentence}`
-    );
-
-    // Gán kết quả vào đối tượng
+    // Assign the numbered array to the result object
     result[key] = numberedArray;
   });
+
   return result;
 };
