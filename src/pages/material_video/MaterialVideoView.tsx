@@ -1294,7 +1294,9 @@ const MaterialVideoView = ({
         <Button
           variant='contained'
           onClick={() => generate()}
-          disabled={!productId}
+          disabled={
+            !productId || !(fileList.length > 0) || !productDesc || !productName
+          }
           sx={{
             width: "200px",
             background: theme.palette.active.main,
