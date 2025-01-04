@@ -835,10 +835,10 @@ const MaterialVideoView = ({
                       borderColor: theme.palette.active.main, // Màu viền khi được focus
                     },
                   }}>
-                  <MenuItem value={"30s-50s"}>Auto (30s-50s)</MenuItem>
-                  <MenuItem value={"15s-30s"}>(15s-30s)</MenuItem>
-                  <MenuItem value={"30s-45s"}>(30s-45s)</MenuItem>
-                  <MenuItem value={"45s-60s"}>(45s-60s)</MenuItem>
+                  <MenuItem value={"50"}>Auto (30s-50s)</MenuItem>
+                  <MenuItem value={"30"}>(15s-30s)</MenuItem>
+                  <MenuItem value={"45"}>(30s-45s)</MenuItem>
+                  <MenuItem value={"60"}>(45s-60s)</MenuItem>
                 </Select>
               </FormControl>
             </Box>

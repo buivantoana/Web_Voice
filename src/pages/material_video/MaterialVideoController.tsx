@@ -50,7 +50,7 @@ const MaterialVideoController = (props: Props) => {
   const [productDesc, setProductDesc] = useState("");
   const [productMyDesc, setProductMyDesc] = useState("");
   const [productTarget, setProductTarget] = useState("");
-  const [selectedVideolength, setSelectedVideolength] = useState("30s-50s");
+  const [selectedVideolength, setSelectedVideolength] = useState("50");
   const [selectedVideoSize, setSelectedVideoSize] = useState("9:16");
   const [selectedVideoLanguage, setSelectedVideoLanguage] = useState("English");
   const [productImage, setProductImage]: any = useState([]);
@@ -344,7 +344,7 @@ const MaterialVideoController = (props: Props) => {
       formDataGenerate.append("target_audience", productTarget);
       setFormGenerateScrip(formDataGenerate);
       const formData: any = new FormData();
-      formData.append("video_length", "30");
+      formData.append("video_length", selectedVideolength);
       formData.append("video_size", selectedVideoSize);
       formData.append("voice_id", voice.id);
       formData.append("logo_position", "start");
