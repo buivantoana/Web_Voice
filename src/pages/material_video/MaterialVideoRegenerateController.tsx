@@ -406,7 +406,8 @@ const MaterialVideoRegenerateController = ({
 
   const generateNew = async () => {
     setLoadingScrip1(true);
-
+    setVideoUrl2("")
+    setVideoUrl3("")
     try {
       formGenerate.delete("list_images");
       formGenerate.delete("list_videos");
