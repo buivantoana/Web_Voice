@@ -73,6 +73,8 @@ type Props = {
   avatarVideo: any;
   setAvatarVideo: any;
   productId: any;
+  setProductDesc: any;
+  setProductName: any;
 };
 
 const MaterialVideoView = ({
@@ -108,6 +110,8 @@ const MaterialVideoView = ({
   avatarVideo,
   setAvatarVideo,
   productId,
+  setProductDesc,
+  setProductName,
 }: Props) => {
   const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -564,6 +568,7 @@ const MaterialVideoView = ({
             placeholder='Your product name or video topic'
             id='demo-helper-text-aligned'
             value={productName}
+            onChange={(e) => setProductName(e.target.value)}
             size='small'
             sx={{
               width: "100%",
@@ -635,6 +640,7 @@ const MaterialVideoView = ({
               placeholder={t("product_detail_my_desc")}
               multiline
               value={productDesc}
+              onChange={(e) => setProductDesc(e.target.value)}
               fullWidth
               variant='standard' // Loại bỏ border mặc định
               InputProps={{

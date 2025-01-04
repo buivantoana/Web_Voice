@@ -71,7 +71,7 @@ const MaterialVideoRegenerateController = ({
   const [productName, setProductName] = useState("");
   const [productUrl, setProductUrl] = useState("");
   const [productUrlOld, setProductUrlOld] = useState(null);
-  const [productNameAndDescOld, setProductNameAndDescOld]:any = useState({});
+  const [productNameAndDescOld, setProductNameAndDescOld]: any = useState({});
   const [productDesc, setProductDesc] = useState("");
   const [productImage, setProductImage]: any = useState([]);
   const [productVideo, setProductVideo]: any = useState([]);
@@ -96,13 +96,13 @@ const MaterialVideoRegenerateController = ({
     setOpenAuthor(true);
   };
   useEffect(() => {
-    let boby:any = {}
+    let boby: any = {};
     if (!productDesc) {
-      boby.productDesc = desc
+      boby.productDesc = desc;
       setProductDesc(desc);
     }
     if (!productName) {
-      boby.productName = name
+      boby.productName = name;
       setProductName(name);
     }
     if (fileList.length == 0) {
@@ -110,12 +110,12 @@ const MaterialVideoRegenerateController = ({
     }
     setTypeVoice(voice_old.type);
     setVoice(voice_old);
-    setProductNameAndDescOld(boby)
+    setProductNameAndDescOld(boby);
   }, []);
   const handleCloseAuthor = () => {
     setOpenAuthor(false);
   };
-  console.log(productNameAndDescOld)
+  console.log(productNameAndDescOld);
   useEffect(() => {
     if (productId) {
       (async () => {
@@ -406,7 +406,7 @@ const MaterialVideoRegenerateController = ({
 
   const generateNew = async () => {
     setLoadingScrip1(true);
-    
+
     try {
       formGenerate.delete("list_images");
       formGenerate.delete("list_videos");
@@ -435,8 +435,11 @@ const MaterialVideoRegenerateController = ({
       videoFiles.forEach((file: any) => {
         formGenerate.append("list_videos", file);
       });
-      if(productNameAndDescOld.productName == productName &&productNameAndDescOld.productDesc == productDesc){
-        console.log(productName)
+      if (
+        productNameAndDescOld.productName == productName &&
+        productNameAndDescOld.productDesc == productDesc
+      ) {
+        console.log(productName);
         let video = await generateVideoScript(formGenerate);
         console.log("video", video);
         if (video && video.video) {
@@ -456,9 +459,9 @@ const MaterialVideoRegenerateController = ({
           }
         }
         setLoadingScrip1(false);
-      }else{
+      } else {
         setLoading(true);
-        console.log("test")
+        console.log("test");
         formGenerate.delete("scrip");
         let result = await generateVideo(formGenerateScrip);
         console.log(result);
@@ -473,7 +476,7 @@ const MaterialVideoRegenerateController = ({
           if (video && video.video) {
             setVideoUrl(`data:video/mp4;base64,${video.video}`);
           }
-  
+
           if (video && video.detail.length > 0) {
             console.log(video.detail);
             const messages = video.detail.map((error: any) => {
@@ -582,30 +585,24 @@ const processData = (data: any) => {
   const result: any = {};
 
   Object.entries(data).forEach(([key, value]: any) => {
-    // Bỏ phần "Script X\n\n"
-    const cleanedValue = value.replace(/^Script \d+\s*\n\n/, "").trim();
+    // Remove the "**Script X:**\n\n" part
+    const cleanedValue = value
+      .replace(/^\*\*Script\s*\d+:\*\*\s*\n\n/, "")
+      .trim();
 
-    // Chia đoạn văn thành các câu, mỗi câu là một phần tử trong mảng
+    // Split the cleaned text into sentences based on ., !, or ?
     const sentences = cleanedValue
-      .split(/(?<=[.!?])\s+/) // Chia dựa trên dấu . ! ?
-      .map((sentence: any) => sentence.trim());
+      .split(/(?<=[.!?])\s+/) // Split after ., !, or ?
+      .map((sentence: string) => sentence.trim());
 
-    // Gán kết quả vào đối tượng
-    result[key] = sentences;
-  });
-  Object.entries(result).forEach(([key, value]: any) => {
-    // Loại bỏ "Script X" ở đầu
-    const cleanedArray = value.map((sentence: any) =>
-      sentence.replace(/^Script \d+:\n\n/, "").trim()
+    // Number each sentence
+    const numberedArray = sentences.map(
+      (sentence: string, index: number) => `${index + 1}. ${sentence}`
     );
 
-    // Đánh số thứ tự từng phần tử trong mảng
-    const numberedArray = cleanedArray.map(
-      (sentence: any, index: any) => `${index + 1}. ${sentence}`
-    );
-
-    // Gán kết quả vào đối tượng
+    // Assign the numbered array to the result object
     result[key] = numberedArray;
   });
+
   return result;
 };

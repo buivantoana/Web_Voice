@@ -446,6 +446,8 @@ const MaterialVideoController = (props: Props) => {
           avatarVideo={avatarVideo}
           setAvatarVideo={setAvatarVideo}
           productId={productId}
+          setProductDesc={setProductDesc}
+          setProductName={setProductName}
         />
       )}
       {Object.keys(generateResult).length > 0 && (
@@ -640,7 +642,7 @@ export default MaterialVideoController;
 const processData = (data: any) => {
   const result: any = {};
 
-  Object.entries(data).forEach(([key, value]: [string, string]) => {
+  Object.entries(data).forEach(([key, value]: any) => {
     // Remove the "**Script X:**\n\n" part
     const cleanedValue = value
       .replace(/^\*\*Script\s*\d+:\*\*\s*\n\n/, "")
