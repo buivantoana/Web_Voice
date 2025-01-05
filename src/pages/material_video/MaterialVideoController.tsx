@@ -645,7 +645,7 @@ const processData = (data: any) => {
   Object.entries(data).forEach(([key, value]) => {
     // Loại bỏ dấu chấm không cần thiết và tách thành các câu
     const sentences = value
-      .split(/(?<=[.!?])\s+/) // Tách dựa trên dấu câu: . ! ?
+      .split(/(?<=[.])\s+/) // Tách dựa trên dấu câu: . ! ?
       .filter((sentence) => sentence.trim() !== "") // Loại bỏ câu rỗng
       .map((sentence, index) => `${index + 1}. ${sentence.trim()}`); // Đánh số
 
