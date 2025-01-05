@@ -647,7 +647,7 @@ const processData = (data: any) => {
     const sentences = value
       .split(/(?<=[.])\s+/) // Tách dựa trên dấu câu: . ! ?
       .filter((sentence) => sentence.trim() !== "" || sentence.trim() == ".") // Loại bỏ câu rỗng
-      .map((sentence, index) => `${index + 1}. ${sentence.trim()}`); // Đánh số
+     
 
     result[key] = sentences;
   });
