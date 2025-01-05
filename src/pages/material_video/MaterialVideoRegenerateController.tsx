@@ -406,8 +406,8 @@ const MaterialVideoRegenerateController = ({
 
   const generateNew = async () => {
     setLoadingScrip1(true);
-    setVideoUrl2("")
-    setVideoUrl3("")
+    setVideoUrl2("");
+    setVideoUrl3("");
     try {
       formGenerate.delete("list_images");
       formGenerate.delete("list_videos");
@@ -583,26 +583,19 @@ const MaterialVideoRegenerateController = ({
 
 export default MaterialVideoRegenerateController;
 const processData = (data: any) => {
-  const result: any = {};
+  const result = {};
 
-  Object.entries(data).forEach(([key, value]: any) => {
-    // Remove the "**Script X:**\n\n" part
-    const cleanedValue = value
-      .replace(/^\*\*Script\s*\d+:\*\*\s*\n\n/, "")
-      .trim();
+  Object.entries(data).forEach(([key, value]) => {
+    // Loại bỏ dấu chấm không cần thiết và tách thành các câu
+    const sentences = value
+      .split(/(?<=[.])\s+/) // Tách dựa trên dấu câu: . ! ?
+      .filter((sentence) => {
+        console.log("sentence", sentence);
+        return sentence.trim() != "." || sentence.trim() != "";
+      }) // Loại bỏ câu rỗng
+      .map((sentence, index) => `${index + 1}. ${sentence.trim()}`); // Đánh số
 
-    // Split the cleaned text into sentences based on ., !, or ?
-    const sentences = cleanedValue
-      .split(/(?<=[.!?])\s+/) // Split after ., !, or ?
-      .map((sentence: string) => sentence.trim());
-
-    // Number each sentence
-    const numberedArray = sentences.map(
-      (sentence: string, index: number) => `${index + 1}. ${sentence}`
-    );
-
-    // Assign the numbered array to the result object
-    result[key] = numberedArray;
+    result[key] = sentences;
   });
 
   return result;
