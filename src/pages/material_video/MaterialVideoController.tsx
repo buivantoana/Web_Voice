@@ -640,16 +640,16 @@ const MaterialVideoController = (props: Props) => {
 
 export default MaterialVideoController;
 const processData = (data: any) => {
-  const result = {};
+  const result: any = {};
 
   Object.entries(data).forEach(([key, value]) => {
+    // Loại bỏ || cuối cùng (nếu có)
+    const cleanedValue = value.endsWith("||") ? value.slice(0, -2) : value;
+
     // Loại bỏ dấu chấm không cần thiết và tách thành các câu
-    const sentences = value
-      .split(/(?<=[.])\s+/) // Tách dựa trên dấu câu: . ! ?
-      .filter((sentence) => {
-        console.log("sentence", sentence);
-        return sentence.trim() != "." || sentence.trim() != "";
-      }) // Loại bỏ câu rỗng
+    const sentences = cleanedValue
+      .split("||") // Tách dựa trên dấu ||
+      .filter((sentence) => sentence.trim() !== "" && sentence.trim() !== ".") // Loại bỏ câu rỗng hoặc chỉ chứa dấu chấm
       .map((sentence, index) => `${index + 1}. ${sentence.trim()}`); // Đánh số
 
     result[key] = sentences;
