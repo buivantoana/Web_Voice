@@ -293,7 +293,7 @@ const MaterialVideoController = (props: Props) => {
       console.log("Error in handleSelectImage:", error);
     }
   };
-
+  console.log("Proceess", progress);
   const handleAddLinkAsFile = async (url: string) => {
     try {
       const response = await fetch(url);
@@ -465,6 +465,7 @@ const MaterialVideoController = (props: Props) => {
           setLoadingScrip1={setLoadingScrip1}
           setVideoUrl={setVideoUrl}
           voice_old={voice}
+          progress_child={progress}
         />
       )}
 

@@ -41,6 +41,7 @@ type Props = {
   setGenerateResult: any;
   setVideoUrl: any;
   voice_old: any;
+  progress_child: any;
 };
 
 const MaterialVideoRegenerateController = ({
@@ -57,6 +58,7 @@ const MaterialVideoRegenerateController = ({
   setLoadingScrip1,
   setVideoUrl,
   voice_old,
+  progress_child,
 }: Props) => {
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -97,6 +99,7 @@ const MaterialVideoRegenerateController = ({
   };
   useEffect(() => {
     let boby: any = {};
+    setProgress(progress_child);
     if (!productDesc) {
       boby.productDesc = desc;
       setProductDesc(desc);

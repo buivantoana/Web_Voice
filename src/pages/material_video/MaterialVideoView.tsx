@@ -1301,7 +1301,14 @@ const MaterialVideoView = ({
           variant='contained'
           onClick={() => generate()}
           disabled={
-            !productId || !(fileList.length > 0) || !productDesc || !productName
+            !productId ||
+            !(
+              fileList.length ==
+              progress.filter((item: any) => item == 100).length
+            ) ||
+            !(fileList.length > 0) ||
+            !productDesc ||
+            !productName
           }
           sx={{
             width: "200px",
