@@ -196,6 +196,17 @@ const Header = () => {
             </Typography>
           </Box>
         </Hidden>
+        {/* <Box
+          padding={"3px 5px"}
+          borderRadius={"10px"}
+          bgcolor={"rgb(225 239 254)"}>
+          <Typography fontWeight={"500"}>
+            {t("available_credit")}:
+            {Object.keys(context.state.user).length > 0
+              ? context.state.user.credits
+              : 0}
+          </Typography>
+        </Box> */}
         <Box
           display={"flex"}
           alignItems={"center"}
@@ -384,7 +395,7 @@ const Header = () => {
               </Box>
               <Box
                 padding={"3px 10px"}
-                borderRadius={"50%"}
+                borderRadius={"10px"}
                 bgcolor={"rgb(225 239 254)"}>
                 <Typography fontWeight={"500"}>
                   {Object.keys(context.state.user).length > 0

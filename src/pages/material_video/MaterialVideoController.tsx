@@ -332,82 +332,95 @@ const MaterialVideoController = (props: Props) => {
     }, 500);
   };
   const generate = async () => {
-    setLoadingScrip1(true);
-    setLoading(true);
-    try {
-      let formDataGenerate: any = new FormData();
-      formDataGenerate.append("product_id", productId);
-      formDataGenerate.append("product_name", productName);
-      formDataGenerate.append("product_desc", productDesc);
-      formDataGenerate.append("my_script", productMyDesc);
-      formDataGenerate.append("language", selectedVideoLanguage);
-      formDataGenerate.append("target_audience", productTarget);
-      setFormGenerateScrip(formDataGenerate);
-      const formData: any = new FormData();
-      formData.append("video_length", selectedVideolength);
-      formData.append("video_size", selectedVideoSize);
-      formData.append("voice_id", voice.id);
-      formData.append("logo_position", "start");
-      formData.append("voice_type", voice.type);
-      if (fileWaterMark) {
-        formData.append("watermark", fileWaterMark);
-      }
-      if (fileEndCard) {
-        formData.append("logo_or_video", fileEndCard);
-      }
-
-      formData.append("video_kol", avatarVideo);
-      const imageFiles = fileList.filter((file) =>
-        file.type.startsWith("image/")
-      );
-      const videoFiles = fileList.filter((file) =>
-        file.type.startsWith("video/")
-      );
-
-      // Thêm file ảnh vào formData với key `listImage`
-      imageFiles.forEach((file) => {
-        formData.append("list_images", file);
-      });
-
-      // Thêm file video vào formData với key `listVideo`
-      videoFiles.forEach((file) => {
-        formData.append("list_videos", file);
-      });
-
-      let result = await generateVideo(formDataGenerate);
-      console.log(result);
-      if (Object.keys(result).length > 0) {
-        setScrip(result);
-        const cleanedData = processData(result);
-        console.log(cleanedData);
-        setFormGenerate(formData);
-        formData.append("scrip", result.scrip_1);
-        setLoading(false);
-        setGenerateResult(cleanedData);
-        let video = await generateVideoScript(formData);
-        console.log("video", video);
-        if (video && video.video) {
-          setVideoUrl(`data:video/mp4;base64,${video.video}`);
+    if (context.state.user.credits > 100000) {
+      setLoadingScrip1(true);
+      setLoading(true);
+      try {
+        let formDataGenerate: any = new FormData();
+        formDataGenerate.append("product_id", productId);
+        formDataGenerate.append("product_name", productName);
+        formDataGenerate.append("product_desc", productDesc);
+        formDataGenerate.append("my_script", productMyDesc);
+        formDataGenerate.append("language", selectedVideoLanguage);
+        formDataGenerate.append("target_audience", productTarget);
+        setFormGenerateScrip(formDataGenerate);
+        const formData: any = new FormData();
+        formData.append("video_length", selectedVideolength);
+        formData.append("video_size", selectedVideoSize);
+        formData.append("voice_id", voice.id);
+        formData.append("logo_position", "start");
+        formData.append("voice_type", voice.type);
+        if (fileWaterMark) {
+          formData.append("watermark", fileWaterMark);
+        }
+        if (fileEndCard) {
+          formData.append("logo_or_video", fileEndCard);
         }
 
-        if (video && video.detail.length > 0) {
-          console.log(video.detail);
-          const messages = video.detail.map((error: any) => {
-            const loc = error.loc;
-            let message = `Error in: ${loc.join(" -> ")}`;
-            return message;
-          });
-          console.log(messages);
-          for (let i = 0; i < messages.length; i++) {
-            toast.warning(messages[i]);
+        formData.append("video_kol", avatarVideo);
+        const imageFiles = fileList.filter((file) =>
+          file.type.startsWith("image/")
+        );
+        const videoFiles = fileList.filter((file) =>
+          file.type.startsWith("video/")
+        );
+
+        // Thêm file ảnh vào formData với key `listImage`
+        imageFiles.forEach((file) => {
+          formData.append("list_images", file);
+        });
+
+        // Thêm file video vào formData với key `listVideo`
+        videoFiles.forEach((file) => {
+          formData.append("list_videos", file);
+        });
+
+        let result = await generateVideo(formDataGenerate);
+        console.log(result);
+        if (Object.keys(result).length > 0) {
+          setScrip(result);
+          const cleanedData = processData(result);
+          console.log(cleanedData);
+          setFormGenerate(formData);
+          formData.append("scrip", result.scrip_1);
+          setLoading(false);
+          setGenerateResult(cleanedData);
+          let video = await generateVideoScript(formData);
+          console.log("video", video);
+          if (video && video.video) {
+            setVideoUrl(`data:video/mp4;base64,${video.video}`);
+            let infor = await getInfo({ user_id: context.state.user.phone });
+            if (infor.code == 0) {
+              context.dispatch({
+                type: "LOGIN",
+                payload: {
+                  ...context.state,
+                  user: { ...context.state.user, ...infor.data },
+                },
+              });
+            }
+          }
+
+          if (video && video.detail.length > 0) {
+            console.log(video.detail);
+            const messages = video.detail.map((error: any) => {
+              const loc = error.loc;
+              let message = `Error in: ${loc.join(" -> ")}`;
+              return message;
+            });
+            console.log(messages);
+            for (let i = 0; i < messages.length; i++) {
+              toast.warning(messages[i]);
+            }
           }
         }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+      setLoadingScrip1(false);
+    } else {
+      toast.warning("Số dư tín dụng không đủ.");
     }
-
-    setLoadingScrip1(false);
   };
   return (
     <>
