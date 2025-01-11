@@ -250,5 +250,7 @@
   "duplicate_size": "Duplicate & Resize",
   "duplicate_size_button": "Duplicate & Resize",
   "exports": "Export",
-  "materials_to_video": "Materials to Video"
+  "materials_to_video": "Materials to Video",
+  "select_all": "Select All",
+  "clear_all": "Clear All"
 }

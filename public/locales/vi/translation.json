@@ -252,5 +252,7 @@
   "duplicate_size": "Nhân đôi & Thay đổi kích thước",
   "duplicate_size_button": "Thay đổi kích thước",
   "exports": "Xuất",
-  "materials_to_video":"Vật liệu cho Video"
+  "materials_to_video": "Nguyên liệu cho video",
+  "select_all": "Chọn tất cả",
+  "clear_all": "Hủy chọn tất cả"
 }

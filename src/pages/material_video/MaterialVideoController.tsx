@@ -544,6 +544,7 @@ const MaterialVideoController = (props: Props) => {
               {t("select_image_desc")}
             </Typography>
           </Box>
+
           <Box display={"flex"} flexWrap={"wrap"} gap={"25px"}>
             {productImage.map((item: any, index: number) => {
               return (
@@ -626,6 +627,23 @@ const MaterialVideoController = (props: Props) => {
           </Box>
         </DialogContent>
         <DialogActions>
+          <Button
+            variant='contained'
+            onClick={() => {
+              if (selectedUrls.length == productImage.length) {
+                setSelectedUrls([]);
+              } else {
+                setSelectedUrls(productImage);
+              }
+            }}
+            sx={{
+              background: theme.palette.active.main,
+              borderRadius: "8px",
+            }}>
+            {selectedUrls.length == productImage.length
+              ? t("clear_all")
+              : t("select_all")}
+          </Button>
           <Button
             onClick={handleSelectImage}
             disabled={!selectedUrls.length > 0}
