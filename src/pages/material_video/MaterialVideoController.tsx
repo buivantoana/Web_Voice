@@ -357,8 +357,9 @@ const MaterialVideoController = (props: Props) => {
         if (fileEndCard) {
           formData.append("logo_or_video", fileEndCard);
         }
-
-        formData.append("video_kol", avatarVideo);
+        if(avatarVideo){
+          formData.append("video_kol", avatarVideo);
+        }
         const imageFiles = fileList.filter((file) =>
           file.type.startsWith("image/")
         );
