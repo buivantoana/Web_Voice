@@ -121,7 +121,7 @@ const MaterialVideoView = ({
   const [tabDes, setTabDes] = useState(0);
   const { t } = useTranslation();
   const [viewMore, setViewMore] = useState(false);
-
+  const navigate = useNavigate()
   const handleClickOpenAvatar = () => {
     setOpenAvatar(true);
   };
@@ -814,9 +814,9 @@ const MaterialVideoView = ({
               width={"25%"}
               sx={{
                 ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                  {
-                    padding: "10px",
-                  },
+                {
+                  padding: "10px",
+                },
               }}>
               <Typography mb={"5px"} fontWeight={"500"}>
                 {t("size_video")}
@@ -852,9 +852,9 @@ const MaterialVideoView = ({
               mt={"20px"}
               sx={{
                 ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                  {
-                    padding: "10px",
-                  },
+                {
+                  padding: "10px",
+                },
               }}>
               <Typography mb={"5px"} fontWeight={"500"}>
                 {t("logo")}
@@ -891,11 +891,11 @@ const MaterialVideoView = ({
                     sx={{
                       width: "200px",
                       ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                        {
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                        },
+                      {
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      },
                     }}>
                     <Select
                       className='more-select'
@@ -1010,11 +1010,11 @@ const MaterialVideoView = ({
                     sx={{
                       width: "200px",
                       ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                        {
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                        },
+                      {
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      },
                     }}>
                     <Select
                       id='demo-simple-select'
@@ -1125,11 +1125,11 @@ const MaterialVideoView = ({
             sx={{
               width: "150px",
               ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                {
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                },
+              {
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              },
             }}>
             <Select
               className='more-select'
@@ -1316,7 +1316,7 @@ const MaterialVideoView = ({
             fontSize: { xs: "10px", md: "15px" },
             borderRadius: "8px",
             color: "white",
-            py:"0px"
+            py: "0px"
           }}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -1331,9 +1331,9 @@ const MaterialVideoView = ({
               d='M9.05 8.2a.474.474 0 0 1 .901 0l.847 2.542a3.8 3.8 0 0 0 2.4 2.399l2.541.846a.474.474 0 0 1 0 .9l-2.542.847a3.8 3.8 0 0 0-2.4 2.4l-.846 2.542a.474.474 0 0 1-.9 0l-.847-2.542a3.8 3.8 0 0 0-2.399-2.4l-2.542-.846a.474.474 0 0 1 0-.9l2.542-.847a3.8 3.8 0 0 0 2.4-2.4zM3.98 1.506a.285.285 0 0 1 .541 0l.508 1.525c.227.68.76 1.213 1.44 1.44l1.525.508a.285.285 0 0 1 0 .54l-1.525.508a2.27 2.27 0 0 0-1.44 1.44l-.508 1.525a.285.285 0 0 1-.54 0l-.508-1.525a2.27 2.27 0 0 0-1.44-1.44L.508 5.52a.285.285 0 0 1 0-.54l1.525-.508a2.27 2.27 0 0 0 1.44-1.44zM13.26.13a.19.19 0 0 1 .36 0l.338 1.016c.15.454.507.81.96.96l1.017.34a.19.19 0 0 1 0 .359l-1.016.338a1.52 1.52 0 0 0-.961.961l-.339 1.016a.19.19 0 0 1-.36 0l-.338-1.016a1.52 1.52 0 0 0-.96-.96l-1.015-.34a.19.19 0 0 1 0-.359l1.016-.338c.454-.151.81-.507.96-.961z'></path>
           </svg>
           <Box ml={"10px"}>
-          {t("generate")}  <p style={{fontSize:"10px",marginTop:"-5px"}}>(100000 {t("credits")})</p>
+            {t("generate")}  <p style={{ fontSize: "10px", marginTop: "-5px" }}>(100000 {t("credits")})</p>
           </Box>
-         
+
         </Button>
       </Box>
       <Dialog
@@ -1368,7 +1368,10 @@ const MaterialVideoView = ({
               <Typography fontWeight={"500"}>{t("extension2")}</Typography>
               <Button
                 variant='contained'
-                onClick={handleClickOpen}
+                onClick={() => {
+                  const url = "https://chromewebstore.google.com/detail/gmv-aiconvert-any-url-to/cghofmippgoofobjppomgbbkiblkckbk?utm_source=ext_app_menu";
+                  window.open(url, "_blank");
+                }}
                 endIcon={
                   <div className='css-3ukjbq'>
                     <svg
@@ -1498,6 +1501,7 @@ export default MaterialVideoView;
 import { LinearProgress } from "@mui/material";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const ImageUploadPreview = ({ file, setFile }: any) => {
   // Lưu file ảnh đã chọn
