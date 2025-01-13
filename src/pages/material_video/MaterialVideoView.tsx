@@ -1455,10 +1455,13 @@ const MaterialVideoView = ({
               height={"250px"}
               display={"flex"}
               justifyContent={"center"}
-              alignItems={"center"}
+              alignItems={"center"}sx={{ border:
+                avatarVideo == null
+                  ? `4px solid ${theme.palette.active.main}`
+                  : "none",}}
               borderRadius={"20px"}
               bgcolor={"#dddddd"}>
-              <img src={ban} width={60} height={60} alt='' />
+              <img src={ban}    onClick={() => setAvatarVideo(null)} width={60} height={60} alt='' />
             </Box>
             {productVideo &&
               productVideo.length > 0 &&
