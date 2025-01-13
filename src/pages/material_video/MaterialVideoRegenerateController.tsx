@@ -358,10 +358,10 @@ const MaterialVideoRegenerateController = ({
             }
           });
           formGenerate = newFormData;
-          const imageFiles = listFile.filter((file: any) =>
+          const imageFiles = fileList.filter((file: any) =>
             file.type.startsWith("image/")
           );
-          const videoFiles = listFile.filter((file: any) =>
+          const videoFiles = fileList.filter((file: any) =>
             file.type.startsWith("video/")
           );
 
@@ -423,10 +423,10 @@ const MaterialVideoRegenerateController = ({
             }
           });
           formGenerate = newFormData;
-          const imageFiles = listFile.filter((file: any) =>
+          const imageFiles = fileList.filter((file: any) =>
             file.type.startsWith("image/")
           );
-          const videoFiles = listFile.filter((file: any) =>
+          const videoFiles = fileList.filter((file: any) =>
             file.type.startsWith("video/")
           );
 
@@ -499,10 +499,10 @@ const MaterialVideoRegenerateController = ({
           }
         });
         formGenerate = newFormData;
-        const imageFiles = listFile.filter((file: any) =>
+        const imageFiles = fileList.filter((file: any) =>
           file.type.startsWith("image/")
         );
-        const videoFiles = listFile.filter((file: any) =>
+        const videoFiles = fileList.filter((file: any) =>
           file.type.startsWith("video/")
         );
 
