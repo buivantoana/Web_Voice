@@ -933,13 +933,9 @@ const MaterialVideoRegenerateView = ({
           </Box>
         </DialogContent>
         <DialogActions>
+        
           <Button
-            onClick={handleCloseAvatar}
-            variant='contained'
-            sx={{ borderRadius: "8px", background: "white", color: "black" }}>
-            Cancel
-          </Button>
-          <Button
+             onClick={handleCloseAvatar}
             variant='contained'
             sx={{ background: theme.palette.active.main, borderRadius: "8px" }}>
             OK
