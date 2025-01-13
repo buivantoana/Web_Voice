@@ -1453,6 +1453,7 @@ const MaterialVideoView = ({
             <Box
               width={"13.5%"}
               height={"250px"}
+              onClick={() => setAvatarVideo(null)}
               display={"flex"}
               justifyContent={"center"}
               alignItems={"center"}sx={{ border:
@@ -1461,7 +1462,7 @@ const MaterialVideoView = ({
                   : "none",}}
               borderRadius={"20px"}
               bgcolor={"#dddddd"}>
-              <img src={ban}    onClick={() => setAvatarVideo(null)} width={60} height={60} alt='' />
+              <img src={ban}    width={60} height={60} alt='' />
             </Box>
             {productVideo &&
               productVideo.length > 0 &&
