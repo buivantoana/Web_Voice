@@ -480,6 +480,7 @@ const MaterialVideoController = (props: Props) => {
           setVideoUrl={setVideoUrl}
           voice_old={voice}
           progress_child={progress}
+          selectedVideoSize={selectedVideoSize}
         />
       )}
 

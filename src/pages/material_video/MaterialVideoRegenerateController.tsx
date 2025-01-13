@@ -43,6 +43,7 @@ type Props = {
   setVideoUrl: any;
   voice_old: any;
   progress_child: any;
+  selectedVideoSize:any;
 };
 
 const MaterialVideoRegenerateController = ({
@@ -60,6 +61,7 @@ const MaterialVideoRegenerateController = ({
   setVideoUrl,
   voice_old,
   progress_child,
+  selectedVideoSize
 }: Props) => {
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -88,6 +90,7 @@ const MaterialVideoRegenerateController = ({
   const [loadingScrip3, setLoadingScrip3] = React.useState(false);
   const [videoUrl2, setVideoUrl2] = useState("");
   const [videoUrl3, setVideoUrl3] = useState("");
+  const [resize, setResize] = useState("");
   const handleCheckboxChange = (url: string) => {
     setSelectedUrls((prev: any) =>
       prev.includes(url)
@@ -101,6 +104,7 @@ const MaterialVideoRegenerateController = ({
   useEffect(() => {
     let boby: any = {};
     setProgress(progress_child);
+    setResize(selectedVideoSize)
     if (!productDesc) {
       boby.productDesc = desc;
       setProductDesc(desc);
@@ -347,9 +351,11 @@ const MaterialVideoRegenerateController = ({
         setLoadingScrip2(true);
         try {
           formGenerate.delete("voice_id");
+          formGenerate.delete("video_size");
           formGenerate.delete("voice_type");
           formGenerate.append("voice_id", voice.id);
           formGenerate.append("voice_type", voice.type);
+          formGenerate.append("video_size", resize);
           formGenerate.append("scrip", scrip.scrip_2);
           const newFormData = new FormData();
           formGenerate.forEach((value: any, key: any) => {
@@ -412,9 +418,11 @@ const MaterialVideoRegenerateController = ({
         setLoadingScrip3(true);
         try {
           formGenerate.delete("voice_id");
+          formGenerate.delete("video_size");
           formGenerate.delete("voice_type");
           formGenerate.append("voice_id", voice.id);
           formGenerate.append("voice_type", voice.type);
+          formGenerate.append("video_size", resize);
           formGenerate.append("scrip", scrip.scrip_3);
           const newFormData = new FormData();
           formGenerate.forEach((value: any, key: any) => {
@@ -485,6 +493,7 @@ const MaterialVideoRegenerateController = ({
       setVideoUrl3("");
       try {
         formGenerate.delete("voice_id");
+        formGenerate.delete("video_size");
         formGenerate.delete("voice_type");
         formGenerateScrip.delete("product_name");
         formGenerateScrip.delete("product_desc");
@@ -492,6 +501,7 @@ const MaterialVideoRegenerateController = ({
         formGenerateScrip.append("product_desc", productDesc);
         formGenerate.append("voice_id", voice.id);
         formGenerate.append("voice_type", voice.type);
+        formGenerate.append("video_size", resize);
         const newFormData = new FormData();
         formGenerate.forEach((value: any, key: any) => {
           if (key !== "list_images") {
@@ -629,6 +639,8 @@ const MaterialVideoRegenerateController = ({
         generate={generate}
         generateNew={generateNew}
         setProductName={setProductName}
+        resize={resize}
+        setResize={setResize}
       />
 
       <Dialog

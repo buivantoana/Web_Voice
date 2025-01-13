@@ -71,6 +71,8 @@ type Props = {
   loadingScrip3: any;
   generateNew: any;
   setProductName: any;
+  resize: any;
+  setResize: any;
 };
 
 const MaterialVideoRegenerateView = ({
@@ -99,12 +101,14 @@ const MaterialVideoRegenerateView = ({
   loadingScrip3,
   generateNew,
   setProductName,
+  resize,
+  setResize
 }: Props) => {
   const theme: any = useTheme();
   const [isFocused, setIsFocused] = useState(false);
   const [link, setLink] = useState("");
   const [open, setOpen] = useState(false);
-  const [resize, setResize] = useState(0);
+  
   const [openAvatar, setOpenAvatar] = useState(false);
   const [tabDes, setTabDes] = useState(0);
   const { t } = useTranslation();
@@ -807,9 +811,9 @@ const MaterialVideoRegenerateView = ({
             justifyContent={"space-between"}
             gap={"10px"}>
             <Box
-              onClick={() => setResize(0)}
+              onClick={() => setResize("9:16")}
               border={
-                resize == 0
+                resize == "9:16"
                   ? `1px solid ${theme.palette.active.main}`
                   : "1px solid #ccc"
               }
@@ -834,9 +838,9 @@ const MaterialVideoRegenerateView = ({
               width={"65px"}
               height={"65px"}
               borderRadius={"8px"}
-              onClick={() => setResize(1)}
+              onClick={() => setResize("3:4")}
               border={
-                resize == 1
+                resize == "3:4"
                   ? `1px solid ${theme.palette.active.main}`
                   : "1px solid #ccc"
               }
@@ -858,9 +862,9 @@ const MaterialVideoRegenerateView = ({
               width={"65px"}
               height={"65px"}
               borderRadius={"8px"}
-              onClick={() => setResize(2)}
+              onClick={() => setResize("1:1")}
               border={
-                resize == 2
+                resize == "1:1"
                   ? `1px solid ${theme.palette.active.main}`
                   : "1px solid #ccc"
               }
@@ -882,9 +886,9 @@ const MaterialVideoRegenerateView = ({
               width={"65px"}
               height={"65px"}
               borderRadius={"8px"}
-              onClick={() => setResize(3)}
+              onClick={() => setResize("4:3")}
               border={
-                resize == 3
+                resize == "4:3"
                   ? `1px solid ${theme.palette.active.main}`
                   : "1px solid #ccc"
               }
@@ -906,9 +910,9 @@ const MaterialVideoRegenerateView = ({
               width={"65px"}
               height={"65px"}
               borderRadius={"8px"}
-              onClick={() => setResize(4)}
+              onClick={() => setResize("16:9")}
               border={
-                resize == 4
+                resize == "16:9"
                   ? `1px solid ${theme.palette.active.main}`
                   : "1px solid #ccc"
               }
