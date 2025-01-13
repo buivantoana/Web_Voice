@@ -351,6 +351,29 @@ const MaterialVideoRegenerateController = ({
           formGenerate.append("voice_id", voice.id);
           formGenerate.append("voice_type", voice.type);
           formGenerate.append("scrip", scrip.scrip_2);
+          const newFormData = new FormData();
+          formGenerate.forEach((value: any, key: any) => {
+            if (key !== "list_images") {
+              newFormData.append(key, value);
+            }
+          });
+          formGenerate = newFormData;
+          const imageFiles = listFile.filter((file: any) =>
+            file.type.startsWith("image/")
+          );
+          const videoFiles = listFile.filter((file: any) =>
+            file.type.startsWith("video/")
+          );
+
+          // Thêm file ảnh vào formData với key `listImage`
+          imageFiles.forEach((file: any) => {
+            formGenerate.append("list_images", file);
+          });
+
+          // Thêm file video vào formGenerate với key `listVideo`
+          videoFiles.forEach((file: any) => {
+            formGenerate.append("list_videos", file);
+          });
           let video = await generateVideoScript(formGenerate);
           console.log("video", video);
           if (video && video.video) {
@@ -393,6 +416,29 @@ const MaterialVideoRegenerateController = ({
           formGenerate.append("voice_id", voice.id);
           formGenerate.append("voice_type", voice.type);
           formGenerate.append("scrip", scrip.scrip_3);
+          const newFormData = new FormData();
+          formGenerate.forEach((value: any, key: any) => {
+            if (key !== "list_images") {
+              newFormData.append(key, value);
+            }
+          });
+          formGenerate = newFormData;
+          const imageFiles = listFile.filter((file: any) =>
+            file.type.startsWith("image/")
+          );
+          const videoFiles = listFile.filter((file: any) =>
+            file.type.startsWith("video/")
+          );
+
+          // Thêm file ảnh vào formData với key `listImage`
+          imageFiles.forEach((file: any) => {
+            formGenerate.append("list_images", file);
+          });
+
+          // Thêm file video vào formGenerate với key `listVideo`
+          videoFiles.forEach((file: any) => {
+            formGenerate.append("list_videos", file);
+          });
           let video = await generateVideoScript(formGenerate);
           console.log("video", video);
           if (video && video.video) {
@@ -438,8 +484,6 @@ const MaterialVideoRegenerateController = ({
       setVideoUrl2("");
       setVideoUrl3("");
       try {
-        formGenerate.delete("list_images");
-        formGenerate.delete("list_videos");
         formGenerate.delete("voice_id");
         formGenerate.delete("voice_type");
         formGenerateScrip.delete("product_name");
@@ -448,7 +492,13 @@ const MaterialVideoRegenerateController = ({
         formGenerateScrip.append("product_desc", productDesc);
         formGenerate.append("voice_id", voice.id);
         formGenerate.append("voice_type", voice.type);
-
+        const newFormData = new FormData();
+        formGenerate.forEach((value: any, key: any) => {
+          if (key !== "list_images") {
+            newFormData.append(key, value);
+          }
+        });
+        formGenerate = newFormData;
         const imageFiles = listFile.filter((file: any) =>
           file.type.startsWith("image/")
         );

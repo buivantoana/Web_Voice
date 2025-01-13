@@ -350,6 +350,7 @@ const MaterialVideoController = (props: Props) => {
         formData.append("voice_id", voice.id);
         formData.append("logo_position", "start");
         formData.append("voice_type", voice.type);
+        formData.append("user_id", context.state.user.user_id);
         if (fileWaterMark) {
           formData.append("watermark", fileWaterMark);
         }
