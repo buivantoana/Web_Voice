@@ -122,7 +122,7 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
                 fontWeight={"bold"}>
                 {t("welcome_back")}
               </Typography>
-              <Typography
+              {/* <Typography
                 sx={{ display: "flex", gap: "5px" }}
                 color='grey_500.main'>
                 {t("do_you_have_account")} ?{" "}
@@ -131,7 +131,7 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
                     {t("register")}
                   </Typography>
                 </Link>
-              </Typography>
+              </Typography> */}
             </Box>
             <Box>
               {/* <CustomTextField
