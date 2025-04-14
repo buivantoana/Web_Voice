@@ -195,7 +195,7 @@ const VocalizeView = ({
                   {t("input_text")}
                 </Typography>
               </Box>
-              <Box
+              {/* <Box
                 display={"flex"}
                 alignItems={"center"}
                 onClick={() => {
@@ -217,7 +217,7 @@ const VocalizeView = ({
                   fontWeight={"500"}>
                   {t("emotional_text")}
                 </Typography>
-              </Box>
+              </Box> */}
               <Box
                 onClick={() => {
                   setBlock([]);

@@ -134,7 +134,7 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
               </Typography>
             </Box>
             <Box>
-              <CustomTextField
+              {/* <CustomTextField
                 register={() => {}}
                 errors={""}
                 setValue={""}
@@ -167,7 +167,7 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
                   width: "100%",
                 }}>
                 {t("sign_up")}
-              </Button>
+              </Button> */}
               <Button
                 onClick={handleTikTokAuthorizeLink}
                 variant='contained'
