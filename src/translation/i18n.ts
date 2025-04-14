@@ -4,18 +4,39 @@ import HttpBackend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 i18n
-  .use(HttpBackend) // Tải tệp dịch từ server hoặc cục bộ
-  .use(LanguageDetector) // Tự động phát hiện ngôn ngữ
-  .use(initReactI18next) // Tích hợp với React
+  .use(HttpBackend)
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
-    fallbackLng: "en", // Ngôn ngữ mặc định nếu không tìm thấy
-    debug: true, // Hiện log debug (bỏ khi triển khai thực tế)
+    fallbackLng: "en",
+    debug: true,
     interpolation: {
-      escapeValue: false, // React đã bảo vệ XSS nên không cần escape
+      escapeValue: false,
     },
     backend: {
-      loadPath: "/locales/{{lng}}/{{ns}}.json", // Đường dẫn tới file JSON dịch
+      loadPath: "/locales/{{lng}}/{{ns}}.json",
+    },
+    detection: {
+      order: ["localStorage", "navigator"], // Ưu tiên localStorage trước
+      lookupLocalStorage: "i18nextLng", 
+      caches: ["localStorage"], 
     },
   });
+
+// Chuẩn hóa ngôn ngữ trước khi set vào i18next
+i18n.on("languageChanged", (lng) => {
+  let normalizedLang = lng;
+
+  if (lng === "vi-VN") {
+    normalizedLang = "vi";
+  } else if (lng === "en-US") {
+    normalizedLang = "en";
+  }
+
+  if (normalizedLang !== lng) {
+    i18n.changeLanguage(normalizedLang);
+    localStorage.setItem("i18nextLng", normalizedLang);
+  }
+});
 
 export default i18n;

@@ -38,7 +38,11 @@ import { useEffect, useRef, useState } from "react";
 import { country } from "../utils/acent";
 import { useTranslation } from "react-i18next";
 import vn from "../images/vn.png";
-import { addVoicesFavorite, deleteMyVoices, getVoicesFavorite } from "../service/voice";
+import {
+  addVoicesFavorite,
+  deleteMyVoices,
+  getVoicesFavorite,
+} from "../service/voice";
 import { useCoursesContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -66,6 +70,7 @@ type Props = {
   setTypeVoice: any;
   typeVoice: any;
   is_action?: any;
+  filterVoice?: any;
 };
 
 const Author = ({
@@ -82,10 +87,11 @@ const Author = ({
   setTypeVoice,
   typeVoice,
   is_action,
+  filterVoice,
 }: Props) => {
   const theme: any = useTheme();
   const [voices, setVoices] = useState(
-    data.filter((item: any) => item.type == "openai")
+    data.filter((item: any) => item.type == "system")
   );
 
   const [anchorElGender, setAnchorElGender] = useState(null);
@@ -242,7 +248,11 @@ const Author = ({
 
     handleCloseAge();
   };
-  const [SelectedAcent, setSelectedAcent] = useState(null);
+  const [SelectedAcent, setSelectedAcent] = useState(
+    filterVoice ? filterVoice : null
+  );
+
+  console.log("accent", SelectedAcent);
   const handleSelectAcent = (Acent: any) => {
     if (Acent == SelectedAcent) {
       setSelectedAcent(null);
@@ -284,7 +294,9 @@ const Author = ({
   };
   console.log(voices);
   const handleReset = () => {
-    setSelectedAcent(null);
+    if (!filterVoice) {
+      setSelectedAcent(null);
+    }
     setSelectedAge(null);
     setSelectedGender(null);
     setSearch("");
@@ -388,27 +400,6 @@ const Author = ({
             display={"flex"}
             alignItems={"center"}
             width={{ xs: "50%", md: "25%" }}
-            bgcolor={typeVoice == "openai" ? "white" : undefined}
-            onClick={() => {
-              setTypeVoice("openai");
-              if (type !== "story") {
-                setVoice(data.filter((item: any) => item.type == "openai")[0]);
-              }
-              setVoices(data.filter((item: any) => item.type == "openai"));
-              handleReset();
-            }}
-            borderRadius={"5px"}
-            justifyContent={"center"}
-            gap={"5px"}>
-            <RiOpenaiFill fontWeight={"500"} />
-            <Typography fontSize={".9rem"} fontWeight={"500"}>
-              {t("voice_openai")}
-            </Typography>
-          </Box>
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            width={{ xs: "50%", md: "25%" }}
             bgcolor={typeVoice == "system" ? "white" : undefined}
             onClick={() => {
               setTypeVoice("system");
@@ -424,6 +415,27 @@ const Author = ({
             <RiVoiceprintFill fontWeight={"500"} />
             <Typography fontSize={".9rem"} fontWeight={"500"}>
               {t("system_voices")}
+            </Typography>
+          </Box>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            width={{ xs: "50%", md: "25%" }}
+            bgcolor={typeVoice == "openai" ? "white" : undefined}
+            onClick={() => {
+              setTypeVoice("openai");
+              if (type !== "story") {
+                setVoice(data.filter((item: any) => item.type == "openai")[0]);
+              }
+              setVoices(data.filter((item: any) => item.type == "openai"));
+              handleReset();
+            }}
+            borderRadius={"5px"}
+            justifyContent={"center"}
+            gap={"5px"}>
+            <RiOpenaiFill fontWeight={"500"} />
+            <Typography fontSize={".9rem"} fontWeight={"500"}>
+              {t("voice_openai")}
             </Typography>
           </Box>
           <Box
@@ -1202,7 +1214,9 @@ const Author = ({
                                   typeVoice == "system" ||
                                   (typeVoice == "favorite" &&
                                     !images[item.name.toLowerCase()])
-                                    ? vn
+                                    ? item.accent == "English"
+                                      ? "https://flagcdn.com/w320/us.png"
+                                      : vn
                                     : images[item.name.toLowerCase()]
                                 }
                                 alt=''

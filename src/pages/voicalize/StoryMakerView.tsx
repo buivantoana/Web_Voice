@@ -470,7 +470,7 @@ const StoryMakerView = ({
                                       src={
                                         images[item.voice]
                                           ? images[item.voice]
-                                          : vn
+                                          : voices && voices.filter((item:any)=>item.voice == item.voice)&&voices && voices.filter((item:any)=>item.voice == item.voice)[0].accent=="English" ?"https://flagcdn.com/w320/us.png" : vn
                                       }
                                       width={22}
                                       style={{ borderRadius: "50%" }}
@@ -607,7 +607,7 @@ const StoryMakerView = ({
                               gap={"8px"}>
                               <img
                                 src={
-                                  images[item.voice] ? images[item.voice] : vn
+                                  images[item.voice] ? images[item.voice] : voices && voices.filter((item:any)=>item.voice == item.voice)&&voices && voices.filter((item:any)=>item.voice == item.voice)[0].accent=="English" ?"https://flagcdn.com/w320/us.png" : vn
                                 }
                                 width={18}
                                 style={{ borderRadius: "50%" }}

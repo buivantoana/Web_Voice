@@ -1,32 +1,15 @@
 import axios from "axios";
 import { url_voice } from "../config";
-export async function generateVideo(body: any) {
+
+export async function dashBoard({ name, password }: any) {
   try {
-    const headers = {
-      Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-    };
     const response = await axios.post(
-      `https://api.ttsopenai.zeezoo.mobi/generate_ad_scripts`,
-      body,
+      `${url_voice}/admin/login`,
+      { name, password },
       {
-        headers,
-      }
-    );
-    return response.data;
-  } catch (error: any) {
-    console.error("Error fetching data:", error.message);
-  }
-}
-export async function generateVideoScript(body: any) {
-  try {
-    const headers = {
-      Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-    };
-    const response = await axios.post(
-      `https://api.ttsopenai.zeezoo.mobi/generate_video`,
-      body,
-      {
-        headers,
+        headers: {
+          Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+        },
       }
     );
     return response.data;

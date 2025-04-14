@@ -14,6 +14,8 @@ const BuyCreditController = () => {
   const [openQr, setOpenQr] = useState(false);
   const [codePayment, setCodePayment] = useState("");
   const [loading, setLoading] = useState(false);
+  const [countdown, setCountdown] = useState(10);
+  const [disabled, setDisabled] = useState(false);
   const context: any = useCoursesContext();
   const { t } = useTranslation();
   const handleSliderChange = (event: any, newValue: any) => {
@@ -45,22 +47,49 @@ const BuyCreditController = () => {
     setOpenQr(false);
   };
   const handleConfirmPayment = async () => {
+    
     try {
-      let data = await confirmPayment({ payment_id: `${codePayment}` });
-      if (data.code == 0) {
-        context.dispatch({
-          type: "PAYMENT",
-          payload: {
-            ...context.state,
-            user: { ...context.state.user, credits: data.data.credits },
-          },
-        });
-        toast.success("Bạn đã nạp tiền thành công");
-        handleCloseQr();
-      }
+      await handleClick()
+      // let data = await confirmPayment({ payment_id: `${codePayment}` });
+      // if (data.code == 0) {
+      //   context.dispatch({
+      //     type: "PAYMENT",
+      //     payload: {
+      //       ...context.state,
+      //       user: { ...context.state.user, credits: data.data.credits },
+      //     },
+      //   });
+      //   toast.success("Bạn đã nạp tiền thành công");
+      // }
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleClick = () => {
+    setDisabled(true);
+    let timer = 10;
+    const interval = setInterval(async() => {
+      timer -= 1;
+      setCountdown(timer);
+      if (timer === 0) {
+        clearInterval(interval);
+        setDisabled(false)
+        setCountdown(10)
+        let data = await confirmPayment({ payment_id: `${codePayment}` });
+        if (data.code == 0) {
+          context.dispatch({
+            type: "PAYMENT",
+            payload: {
+              ...context.state,
+              user: { ...context.state.user, credits: data.data.credits },
+            },
+          });
+          toast.success("Bạn đã nạp tiền thành công");
+          handleCloseQr();
+        }
+        
+      }
+    }, 1000);
   };
   return (
     <>
@@ -81,12 +110,13 @@ const BuyCreditController = () => {
         maxWidth='xs' // sets a maximum width
         fullWidth
         open={openQr}
-        onClose={handleCloseQr}
+        onClose={!disabled ? handleCloseQr : () => { }}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'>
-        <Box display={"flex"} onClick={handleCloseQr} justifyContent={"end"}>
-          <RiCloseLine size={25} />
-        </Box>
+        {!disabled &&
+          <Box display={"flex"} onClick={handleCloseQr} sx={{ cursor: "pointer" }} justifyContent={"end"}>
+            <RiCloseLine size={25} />
+          </Box>}
 
         <DialogContent>
           <Box
@@ -99,10 +129,9 @@ const BuyCreditController = () => {
               {t("qr")}
             </Typography>
             <img
-              src={`https://qr.limcorp.vn/qrcode.png?bank=970422&number=99192886868&amount=${
-                2000
-                // amount < 1 ? amount * 1000000 : amount * 1000000
-              }&content=TTS ${codePayment}`}
+              src={`https://qr.limcorp.vn/qrcode.png?bank=970422&number=1200104838688&amount=${
+                amount < 1 ? amount * 1000000 : amount * 1000000
+                }&content=TTS ${codePayment}`}
               alt='QR Code'
               width='300px'
               height='100%'
@@ -111,10 +140,10 @@ const BuyCreditController = () => {
               Số tiền: {convertToVND(amount * 1000000)}
             </Typography>
             <Typography textAlign={"center"} fontSize={"1rem"}>
-              Số TK: 99192886868
+              Số TK: 1200104838688
             </Typography>
             <Typography textAlign={"center"} fontSize={"1rem"}>
-              Chủ tài khoản: TRAN MANH TOAN
+              Chủ tài khoản: NONG DUC THANH
             </Typography>
             <Typography textAlign={"center"} fontSize={"1rem"}>
               Ngân hàng: MB Bank
@@ -122,16 +151,17 @@ const BuyCreditController = () => {
             <Box mt={"5px"}>
               <Button
                 onClick={handleConfirmPayment}
+                disabled={disabled}
                 sx={{
                   width: "100%",
-                  backgroundColor: "#4CAF50", // Màu nền của nút
-                  color: "#fff", // Màu chữ
+                  backgroundColor: "#4CAF50", 
+                  color: "#fff", 
                   "&:hover": {
-                    backgroundColor: "#388E3C", // Màu nền khi hover
+                    backgroundColor: "#388E3C", 
                   },
                 }}
                 variant='contained'>
-                {t("paid")}
+                {disabled ? t("close_later") + " " + countdown + " " + "s" : t("paid")}
               </Button>
             </Box>
           </Box>

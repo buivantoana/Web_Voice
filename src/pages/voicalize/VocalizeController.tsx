@@ -18,7 +18,7 @@ import AddMyVoiceController from "./AddMyVoiceController";
 type Props = {};
 let arr: any = [];
 const VocalizeController = (props: Props) => {
-  const [typeVoice, setTypeVoice] = useState("openai");
+  const [typeVoice, setTypeVoice] = useState("system");
   const [textVoice, setTextVoice] = useState("");
   const [loading, setLoading] = useState(false);
   const [speed, setSpeed] = useState<any>(1);
@@ -155,7 +155,7 @@ const VocalizeController = (props: Props) => {
       console.log("AAAA data", data);
       if (data.voices && data.voices.length > 0) {
         if (!(Object.keys(context.state.history).length > 0)) {
-          setVoice(data.voices[0]);
+          setVoice(data.voices.filter((item: any) => item.type == "system")[0]);
         }
 
         setVoices(data.voices);
