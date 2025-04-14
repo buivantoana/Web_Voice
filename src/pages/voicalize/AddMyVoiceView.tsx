@@ -383,7 +383,7 @@ const VoiceAndFileUploader = ({ setSamples, samples }: any) => {
     <Box style={{ maxWidth: "600px", margin: "20px auto" }}>
       {!showRecord ? (
         <Box
-          padding={"20px 0"}
+          padding={"20px 15px"}
           sx={{
             border: "2px dashed #ccc",
             textAlign: "center",
@@ -452,7 +452,9 @@ const VoiceAndFileUploader = ({ setSamples, samples }: any) => {
             </Button>
           </Box>
           <Box>
-            <Typography>{t("note_myvoice")}</Typography>
+            <Typography sx={{ fontSize: "14px" }}>
+              {t("note_myvoice")}
+            </Typography>
             <Box sx={{ padding: "5px 25%" }}>
               <AudioButton />
             </Box>
