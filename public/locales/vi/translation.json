@@ -306,5 +306,18 @@
   "forgot_your_password": "Quên mật khẩu?",
   "forgot_your_password_des": "Đừng lo lắng, chỉ cần nhập địa chỉ email của bạn và chúng tôi sẽ gửi cho bạn mã để đặt lại mật khẩu!",
   "send_code": "Gửi cho tôi một mã",
-  "back_to_signin": "Trở về đăng nhập"
+  "back_to_signin": "Trở về đăng nhập",
+  "note_myvoice": "Lưu ý: Ghi âm giọng nói rõ ràng, thời lượng từ 5-20 giây. Bạn có thể nhấp vào giọng nói mẫu để nghe.",
+  "add_voice": "Thêm giọng",
+  "name_voice": "Tên giọng",
+  "sample_audio": "Mẫu âm thanh",
+  "record_audio": "Ghi âm thanh",
+  "upload_file": "Nhấp để tải lên tệp hoặc kéo và thả",
+  "or": "Hoặc",
+  "remove_background": "Loại bỏ tiếng ồn nền khỏi các mẫu âm thanh",
+  "description": "Mô tả",
+  "up_to": "Tệp âm thanh hoặc video, mỗi tệp tối đa 10MB",
+  "add": "Thêm",
+  "enter_description": "Nhập mô tả...",
+  "recording_time": "Thời gian ghi âm"
 }

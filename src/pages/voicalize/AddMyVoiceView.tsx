@@ -44,6 +44,7 @@ const AddMyVoiceView = ({
   const [desc, setDesc]: any = useState("");
   const [checked, setChecked] = useState(true);
   const context: any = useCoursesContext();
+  const { t } = useTranslation();
   const handleAddMyVoice = async () => {
     setLoading(true);
     try {
@@ -125,7 +126,7 @@ const AddMyVoiceView = ({
           display={"flex"}
           onClick={handleCloseAddMyVoice}
           justifyContent={"space-between"}>
-          <Typography variant='h6'>Add Voice</Typography>
+          <Typography variant='h6'>{t("add_voice")}</Typography>
           <RiCloseLine size={25} />
         </Box>
         <Box
@@ -145,7 +146,7 @@ const AddMyVoiceView = ({
               },
             }}>
             <Typography my={"5px"} fontWeight={"500"}>
-              Name
+              {t("name_voice")}
             </Typography>
             <TextField
               className='search-input'
@@ -187,7 +188,7 @@ const AddMyVoiceView = ({
                   color={theme.palette.active.main}
                 />
               }
-              label='Remove background noise from audio samples'
+              label={t("remove_background")}
             />
           </Box>
           <Box
@@ -197,9 +198,9 @@ const AddMyVoiceView = ({
                 border: "1px solid #dddddd",
               },
             }}>
-            <Typography>Description</Typography>
+            <Typography> {t("description")}</Typography>
             <TextField
-              placeholder='Nhập mô tả...'
+              placeholder={t("enter_description")}
               multiline
               value={desc}
               onChange={(e) => {
@@ -239,7 +240,7 @@ const AddMyVoiceView = ({
             onClick={handleCloseAddMyVoice}
             variant='contained'
             sx={{ background: "white", color: "black", borderRadius: "8px" }}>
-            Cancel
+            {t("cancle")}
           </Button>
 
           <Button
@@ -247,7 +248,7 @@ const AddMyVoiceView = ({
             onClick={handleAddMyVoice}
             variant='contained'
             sx={{ background: theme.palette.active.main, borderRadius: "8px" }}>
-            Add
+            {t("add")}
           </Button>
         </DialogActions>
       </Dialog>
@@ -261,6 +262,7 @@ import { useState, useRef } from "react";
 import { useCoursesContext } from "../../App";
 import { addMyVoice } from "../../service/voice";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const VoiceAndFileUploader = ({ setSamples, samples }: any) => {
   const [isRecording, setIsRecording]: any = useState(false); // Trạng thái ghi âm
@@ -272,6 +274,7 @@ const VoiceAndFileUploader = ({ setSamples, samples }: any) => {
   const recordTimeoutRef: any = useRef(null); // Hẹn giờ dừng ghi âm sau 30 giây
   const theme: any = useTheme();
   // Bắt đầu ghi âm
+  const { t } = useTranslation();
   const startRecording = async () => {
     if (isRecording) return;
 
@@ -406,12 +409,10 @@ const VoiceAndFileUploader = ({ setSamples, samples }: any) => {
             }}>
             <RiFileAddLine size={55} color={theme.palette.active.main} />
             <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>
-              Click to upload a file or drag and drop
+              {t("upload_file")}
             </Typography>
           </label>
-          <p style={{ margin: "10px 0" }}>
-            Audio or Video files, up to 10MB each
-          </p>
+          <p style={{ margin: "10px 0" }}>{t("up_to")}</p>
 
           <Box sx={{ padding: "5px 25%" }}>
             <Box>
@@ -427,7 +428,7 @@ const VoiceAndFileUploader = ({ setSamples, samples }: any) => {
                     height: "2px",
                     background: theme.palette.active.main,
                   }}></Box>
-                <Typography>OR</Typography>
+                <Typography> {t("or")}</Typography>
                 <Box
                   sx={{
                     width: "40%",
@@ -447,8 +448,14 @@ const VoiceAndFileUploader = ({ setSamples, samples }: any) => {
                 marginTop: "10px",
                 color: theme.palette.active.main,
               }}>
-              Record Audio
+              {t("record_audio")}
             </Button>
+          </Box>
+          <Box>
+            <Typography>{t("note_myvoice")}</Typography>
+            <Box sx={{ padding: "5px 25%" }}>
+              <AudioButton />
+            </Box>
           </Box>
 
           {/* <Button
@@ -525,14 +532,17 @@ const VoiceAndFileUploader = ({ setSamples, samples }: any) => {
               fontSize: "16px",
               fontWeight: "bold",
             }}>
-            Recording Time {recordTime}s / 30s
+            {t("recording_time")} {recordTime}s / 30s
           </Typography>
         </Box>
       )}
 
       {/* Khu vực ghi âm */}
 
-      <Typography fontWeight={"bold"}>Samples {samples.length} / 25</Typography>
+      <Typography fontWeight={"bold"}>
+        {" "}
+        {t("sample")} {samples.length} / 25
+      </Typography>
       <ul
         className='hidden-add-voice'
         style={{
@@ -598,5 +608,68 @@ const VoiceAndFileUploader = ({ setSamples, samples }: any) => {
         ))}
       </ul>
     </Box>
+  );
+};
+
+import { IconButton, Stack } from "@mui/material";
+import { PlayArrow, Pause } from "@mui/icons-material";
+
+const AudioButton = () => {
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const theme = useTheme();
+  const { t } = useTranslation();
+  const togglePlay = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+
+    setIsPlaying(!isPlaying);
+  };
+
+  return (
+    <Button
+      onClick={togglePlay}
+      sx={{
+        borderRadius: "8px",
+        border: "1px solid #dddddd",
+        width: "100%",
+        marginTop: "10px",
+        color: theme.palette.active.main,
+        padding: 0,
+      }}>
+      <IconButton color='primary'>
+        {isPlaying ? (
+          <Pause
+            sx={{
+              width: "1.3rem",
+              height: "1.3rem",
+              color: theme.palette.active.main,
+            }}
+            color={theme.palette.active.main}
+          />
+        ) : (
+          <PlayArrow
+            sx={{
+              width: "1.3rem",
+              height: "1.3rem",
+              color: theme.palette.active.main,
+            }}
+            color={theme.palette.active.main}
+          />
+        )}
+      </IconButton>
+      {t("sample_audio")}
+      <audio
+        ref={audioRef}
+        src='https://res.zeezoo.mobi/ttsgmv/ngocngan.mp3'
+        onEnded={() => setIsPlaying(false)}
+      />
+    </Button>
   );
 };

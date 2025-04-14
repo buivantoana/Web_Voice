@@ -305,5 +305,18 @@
   "forgot_your_password": "Forgot your password?",
   "forgot_your_password_des": "Don't worry, just enter your email address and we'll send you a code to reset your password!",
   "send_code": "Send me a code",
-  "back_to_signin":"Back to Sign In"
+  "back_to_signin": "Back to Sign In",
+  "note_myvoice": "Note: Record a clear voice, duration from 5-20 seconds. You can click on the sample voice to listen to it.",
+  "add_voice": "Add voice",
+  "name_voice": "Voice name",
+  "sample_audio": "Audio sample",
+  "record_audio": "Record audio",
+  "upload_file": "Click to upload a file or drag and drop",
+  "or": "Or",
+  "remove_background": "Remove background noise from audio samples",
+  "description": "Description",
+  "up_to": "Audio or video file, each up to 10MB",
+  "add": "Add",
+  "enter_description": "Enter description...",
+  "recording_time":"Recording Time"
 }
