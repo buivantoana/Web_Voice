@@ -1,12 +1,28 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import { Box, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useTheme,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const CustomTextField = ({ label, setValue, value, type }: any) => {
   const theme: any = useTheme();
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleChange = (event: any) => {
     setValue(event.target.value);
   };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const isPassword = type === "password";
 
   return (
     <Box
@@ -26,7 +42,7 @@ const CustomTextField = ({ label, setValue, value, type }: any) => {
       </Typography>
       <TextField
         onChange={handleChange}
-        type={type ? type : "text"}
+        type={isPassword && !showPassword ? "password" : "text"}
         value={value}
         className='search-input'
         id='demo-helper-text-aligned'
@@ -36,16 +52,25 @@ const CustomTextField = ({ label, setValue, value, type }: any) => {
             borderRadius: "25px",
             backgroundColor: "white",
             "& fieldset": {
-              borderColor: "#dddddd", // Màu viền khi không có focus
+              borderColor: "#dddddd",
             },
             "&:hover fieldset": {
-              borderColor: "transparent", // Màu viền khi hover
+              borderColor: "transparent",
             },
             "&.Mui-focused fieldset": {
-              borderColor: theme.palette.active.main, // Màu viền khi focused
+              borderColor: theme.palette.active.main,
             },
           },
           fontSize: "16px",
+        }}
+        InputProps={{
+          endAdornment: isPassword ? (
+            <InputAdornment position='end'>
+              <IconButton onClick={togglePasswordVisibility} edge='end'>
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ) : null,
         }}
       />
     </Box>
