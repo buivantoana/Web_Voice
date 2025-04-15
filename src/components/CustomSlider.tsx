@@ -7,7 +7,6 @@ const BarContainer = styled("div")({
   justifyContent: "end",
   alignItems: "flex-end",
   height: 40,
-
   gap: 2,
 });
 
@@ -37,25 +36,38 @@ const CustomSlider = styled(Slider)({
   },
 });
 
-export default function VisualSlider({ title }) {
-  const [value, setValue] = useState(40);
+export default function VisualSlider({ 
+  title, 
+  onChange, 
+  value, 
+  min = 0, 
+  max = 100 
+}: { 
+  title: string; 
+  onChange: (value: number) => void; 
+  value: number; 
+  min?: number; 
+  max?: number 
+}) {
   const totalBars = 10;
 
   return (
-    <div style={{}}>
+    <div>
       <Box
         sx={{
           display: "flex",
           alignItems: "end",
           justifyContent: "space-between",
-        }}>
+        }}
+      >
         <Typography fontSize={14} sx={{ lineHeight: ".8" }}>
           {title}
         </Typography>
         <BarContainer>
           {[...Array(totalBars)].map((_, i) => {
-            const isActive = i < (value / 100) * totalBars;
+            const isActive = i < (value / max) * totalBars;
             const scale = (i + 1) / totalBars;
+            console.log(isActive)
             return (
               <Bar
                 key={i}
@@ -67,12 +79,13 @@ export default function VisualSlider({ title }) {
               />
             );
           })}
-        </BarContainer>
+      </BarContainer>
       </Box>
-
       <CustomSlider
         value={value}
-        onChange={(_, val) => setValue(val as number)}
+        onChange={(_, val) => onChange(val as number)}
+        min={min}
+        max={max}
       />
     </div>
   );
