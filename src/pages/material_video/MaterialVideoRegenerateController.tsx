@@ -43,7 +43,7 @@ type Props = {
   setVideoUrl: any;
   voice_old: any;
   progress_child: any;
-  selectedVideoSize:any;
+  selectedVideoSize: any;
 };
 
 const MaterialVideoRegenerateController = ({
@@ -61,7 +61,7 @@ const MaterialVideoRegenerateController = ({
   setVideoUrl,
   voice_old,
   progress_child,
-  selectedVideoSize
+  selectedVideoSize,
 }: Props) => {
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -104,7 +104,7 @@ const MaterialVideoRegenerateController = ({
   useEffect(() => {
     let boby: any = {};
     setProgress(progress_child);
-    setResize(selectedVideoSize)
+    setResize(selectedVideoSize);
     if (!productDesc) {
       boby.productDesc = desc;
       setProductDesc(desc);
@@ -182,14 +182,17 @@ const MaterialVideoRegenerateController = ({
     loadVoicesOpenai();
     (async () => {
       try {
-        let data = await fetch("https://dev.ttsopenai.zeezoo.mobi/api/product/samples", {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Authorization:
-              "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-          },
-        });
+        let data = await fetch(
+          "https://dev.ttsopenai.zeezoo.mobi/api/product/samples",
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              Authorization:
+                "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+            },
+          }
+        );
         let result = await data.json();
         if (result.videos && result.videos.length > 0) {
           setProductVideo(result.videos);
@@ -384,7 +387,11 @@ const MaterialVideoRegenerateController = ({
           console.log("video", video);
           if (video && video.video) {
             setVideoUrl2(`data:video/mp4;base64,${video.video}`);
-            let infor = await getInfo({ user_id: context.state.user.phone });
+            let infor = await getInfo({
+              user_id: context.state.user.phone
+                ? context.state.user.phone
+                : context.state.user.user_id,
+            });
             if (infor.code == 0) {
               context.dispatch({
                 type: "LOGIN",
@@ -451,7 +458,11 @@ const MaterialVideoRegenerateController = ({
           console.log("video", video);
           if (video && video.video) {
             setVideoUrl3(`data:video/mp4;base64,${video.video}`);
-            let infor = await getInfo({ user_id: context.state.user.phone });
+            let infor = await getInfo({
+              user_id: context.state.user.phone
+                ? context.state.user.phone
+                : context.state.user.user_id,
+            });
             if (infor.code == 0) {
               context.dispatch({
                 type: "LOGIN",
@@ -534,7 +545,11 @@ const MaterialVideoRegenerateController = ({
           console.log("video", video);
           if (video && video.video) {
             setVideoUrl(`data:video/mp4;base64,${video.video}`);
-            let infor = await getInfo({ user_id: context.state.user.phone });
+            let infor = await getInfo({
+              user_id: context.state.user.phone
+                ? context.state.user.phone
+                : context.state.user.user_id,
+            });
             if (infor.code == 0) {
               context.dispatch({
                 type: "LOGIN",
@@ -575,7 +590,11 @@ const MaterialVideoRegenerateController = ({
             console.log("video", video);
             if (video && video.video) {
               setVideoUrl(`data:video/mp4;base64,${video.video}`);
-              let infor = await getInfo({ user_id: context.state.user.phone });
+              let infor = await getInfo({
+                user_id: context.state.user.phone
+                  ? context.state.user.phone
+                  : context.state.user.user_id,
+              });
               if (infor.code == 0) {
                 context.dispatch({
                   type: "LOGIN",

@@ -36,7 +36,7 @@ export async function addMyVoice(body: any) {
     console.error("Error fetching data:", error.message);
   }
 }
-export async function getMyVoices(user_id:any) {
+export async function getMyVoices(user_id: any) {
   try {
     const response = await axios.get(`${url_voice}/voice/myvoice/${user_id}`, {
       headers: {
@@ -49,13 +49,16 @@ export async function getMyVoices(user_id:any) {
     console.error("Error fetching data:", error.message);
   }
 }
-export async function deleteMyVoices(idDelete:any) {
+export async function deleteMyVoices(idDelete: any) {
   try {
-    const response = await axios.delete(`${url_voice}/voice/delete_my_voice/${idDelete}`, {
-      headers: {
-        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-      },
-    });
+    const response = await axios.delete(
+      `${url_voice}/voice/delete_my_voice/${idDelete}`,
+      {
+        headers: {
+          Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+        },
+      }
+    );
     console.error("AAAA data:====", response.data);
     return response.data;
   } catch (error: any) {
@@ -149,10 +152,10 @@ export async function getInfo({ user_id }: any) {
     let access_token: any = localStorage.getItem("access_token");
     console.log(access_token);
     const response = await axios.post(
-      `${url_voice}/voice/user?user_id${user_id}`,
+      `${url_voice}/user/login`,
       {
         user_id: user_id,
-        bearer_token: JSON.parse(access_token),
+        utm: localStorage.getItem("utm") ? localStorage.getItem("utm") : "",
       },
       {
         headers: {

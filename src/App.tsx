@@ -61,7 +61,11 @@ const App = () => {
   useEffect(() => {
     if (user) {
       (async () => {
-        let infor = await getInfo({ user_id: JSON.parse(user).phone });
+        let infor = await getInfo({
+          user_id: JSON.parse(user).phone
+            ? JSON.parse(user).phone
+            : JSON.parse(user).user_id,
+        });
         if (infor.code == 0) {
           console.log("AAAA USER====", { ...JSON.parse(user), ...infor.data });
           dispatch({

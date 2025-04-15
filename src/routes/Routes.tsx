@@ -20,6 +20,7 @@ import useUTMTracker from "../components/useUTMTracker";
 import TranslationController from "../pages/translation/TranslationController";
 import SignUpNomalController from "../pages/signup/SignUpNomalController";
 import ForgotPasswordController from "../pages/signup/ForgotPasswordController";
+import ResetPasswordController from "../pages/signup/ResetPasswordController";
 
 const Router = () => {
   const context: any = useCoursesContext();
@@ -46,6 +47,7 @@ const Router = () => {
           }
         />
         <Route path='history' element={<HistoryController />} />
+
         <Route path='privacy' element={<PrivacyController />} />
         <Route path='terms' element={<TermsController />} />
         <Route path='material-video' element={<MaterialVideoController />} />
@@ -62,6 +64,7 @@ const Router = () => {
       <Route path='/admin' element={<LayoutAdmin />}>
         <Route path='' element={<DashBoardController />} />
       </Route>
+      <Route path='reset-password' element={<ResetPasswordController />} />
       <Route path='signin' element={<SignInController />} />
       <Route path='signup' element={<SignUpNomalController />} />
       <Route path='forgot-password' element={<ForgotPasswordController />} />

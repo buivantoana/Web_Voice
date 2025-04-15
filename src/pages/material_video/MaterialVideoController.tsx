@@ -92,7 +92,11 @@ const MaterialVideoController = (props: Props) => {
     if (productId) {
       if (user) {
         (async () => {
-          let infor = await getInfo({ user_id: JSON.parse(user).phone });
+          let infor = await getInfo({
+            user_id: JSON.parse(user).phone
+              ? JSON.parse(user).phone
+              : JSON.parse(user).user_id,
+          });
           if (infor.code == 0) {
             (async () => {
               try {
@@ -167,14 +171,17 @@ const MaterialVideoController = (props: Props) => {
     loadVoicesOpenai();
     (async () => {
       try {
-        let data = await fetch("https://dev.ttsopenai.zeezoo.mobi/api/product/samples", {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Authorization:
-              "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-          },
-        });
+        let data = await fetch(
+          "https://dev.ttsopenai.zeezoo.mobi/api/product/samples",
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              Authorization:
+                "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+            },
+          }
+        );
         let result = await data.json();
         if (result.videos && result.videos.length > 0) {
           setAvatarVideo(result.videos[0].id);
@@ -357,7 +364,7 @@ const MaterialVideoController = (props: Props) => {
         if (fileEndCard) {
           formData.append("logo_or_video", fileEndCard);
         }
-        if(avatarVideo){
+        if (avatarVideo) {
           formData.append("video_kol", avatarVideo);
         }
         const imageFiles = fileList.filter((file) =>
@@ -391,7 +398,11 @@ const MaterialVideoController = (props: Props) => {
           console.log("video", video);
           if (video && video.video) {
             setVideoUrl(`data:video/mp4;base64,${video.video}`);
-            let infor = await getInfo({ user_id: context.state.user.phone });
+            let infor = await getInfo({
+              user_id: context.state.user.phone
+                ? context.state.user.phone
+                : context.state.user.user_id,
+            });
             if (infor.code == 0) {
               context.dispatch({
                 type: "LOGIN",

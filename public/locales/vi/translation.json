@@ -319,5 +319,6 @@
   "up_to": "Tệp âm thanh hoặc video, mỗi tệp tối đa 10MB",
   "add": "Thêm",
   "enter_description": "Nhập mô tả...",
-  "recording_time": "Thời gian ghi âm"
+  "recording_time": "Thời gian ghi âm",
+  "reset_password": "Đặt lại mật khẩu"
 }

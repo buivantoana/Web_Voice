@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SignUpNomalView from "./SignUpNomalView";
+import ResetPasswordView from "./ResetPasswordView";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   getOtp,
@@ -19,7 +19,7 @@ type Props = {};
 const schema = yup.object({
   phone: yup.string().required(),
 });
-const SignUpNomalController = (props: Props) => {
+const ResetPasswordController = (props: Props) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const location = useLocation();
@@ -224,7 +224,7 @@ const SignUpNomalController = (props: Props) => {
   return (
     <>
       {loading && <Loading />}
-      <SignUpNomalView
+      <ResetPasswordView
         setOtp={setOtp}
         handleClickOpenOtp={handleClickOpenOtp}
         handleCloseOtp={handleCloseOtp}
@@ -244,4 +244,4 @@ const SignUpNomalController = (props: Props) => {
   );
 };
 
-export default SignUpNomalController;
+export default ResetPasswordController;

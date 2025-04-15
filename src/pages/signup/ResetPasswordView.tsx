@@ -12,11 +12,11 @@ import background_gif from "../../images/source.gif";
 import logo from "../../images/loading-lines-6747317-5601928.webp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CustomTextField from "../../components/CustomTextField";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import OTPInput from "react-otp-input";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { registerEmail } from "../../service/auth";
+import { registerEmail, resetPasswordEmail } from "../../service/auth";
 type Props = {
   setOtp: any;
   otp: any;
@@ -34,7 +34,7 @@ type Props = {
   setLoading: any;
 };
 
-const SignUpNomalView = ({
+const ResetPasswordView = ({
   handleSubmit,
   otp,
   handleOTP,
@@ -46,9 +46,9 @@ const SignUpNomalView = ({
   const theme: any = useTheme();
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
     password: "",
     confirmPassword: "",
   });
@@ -59,7 +59,7 @@ const SignUpNomalView = ({
 
   const handleRegister = async (e: React.FormEvent) => {
     setLoading(true);
-    const { email, password, confirmPassword } = formData;
+    const { password, confirmPassword } = formData;
 
     if (password !== confirmPassword) {
       toast.warning("Mật khẩu và xác nhận mật khẩu không khớp.");
@@ -67,10 +67,9 @@ const SignUpNomalView = ({
     }
     console.log(formData);
     try {
-      let result = await registerEmail({
-        user_id: email,
-        password,
-        utm: localStorage.getItem("utm") ? localStorage.getItem("utm") : "",
+      let result = await resetPasswordEmail({
+        token: token,
+        new_password: password,
       });
       if (result && result.code == 0) {
         toast.success(result.msg);
@@ -189,7 +188,7 @@ const SignUpNomalView = ({
                 variant='h5'
                 fontSize={{ xs: "15px", md: "25px" }}
                 fontWeight={"bold"}>
-                {t("create_account")}
+                {t("reset_password")}
               </Typography>
               <Typography
                 sx={{ display: "flex", gap: "5px" }}
@@ -205,16 +204,6 @@ const SignUpNomalView = ({
             <Box>
               <Box>
                 <CustomTextField
-                  setValue={(val: string) => handleChange("name", val)}
-                  value={formData.name}
-                  label={t("name")}
-                />
-                <CustomTextField
-                  setValue={(val: string) => handleChange("email", val)}
-                  value={formData.email}
-                  label={t("Email")}
-                />
-                <CustomTextField
                   setValue={(val: string) => handleChange("password", val)}
                   value={formData.password}
                   label={t("password")}
@@ -229,12 +218,7 @@ const SignUpNomalView = ({
                   type='password'
                 />
                 <Button
-                  disabled={
-                    !formData.email ||
-                    !formData.name ||
-                    !formData.password ||
-                    !formData.confirmPassword
-                  }
+                  disabled={!formData.password || !formData.confirmPassword}
                   onClick={handleRegister}
                   variant='contained'
                   sx={{
@@ -242,7 +226,7 @@ const SignUpNomalView = ({
                     mt: "15px",
                     width: "100%",
                   }}>
-                  {t("register")}
+                  {t("reset")}
                 </Button>
               </Box>
               {i18n.language === "vi" && (
@@ -325,4 +309,4 @@ const SignUpNomalView = ({
   );
 };
 
-export default SignUpNomalView;
+export default ResetPasswordView;

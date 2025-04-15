@@ -219,7 +219,11 @@ const VocalizeController = (props: Props) => {
         if (data.code == 0) {
           setBase64Voice(data.voice_base64);
           setIsOpen(true);
-          let infor = await getInfo({ user_id: context.state.user.phone });
+          let infor = await getInfo({
+            user_id: context.state.user.phone
+              ? context.state.user.phone
+              : context.state.user.user_id,
+          });
           if (infor.code == 0) {
             context.dispatch({
               type: "LOGIN",
@@ -276,7 +280,11 @@ const VocalizeController = (props: Props) => {
         if (data.code == 0) {
           setBase64Voice(data.voice_base64);
           setIsOpen(true);
-          let infor = await getInfo({ user_id: context.state.user.phone });
+          let infor = await getInfo({
+            user_id: context.state.user.phone
+              ? context.state.user.phone
+              : context.state.user.user_id,
+          });
           if (infor.code == 0) {
             context.dispatch({
               type: "LOGIN",
@@ -317,7 +325,11 @@ const VocalizeController = (props: Props) => {
         if (data.code == 0) {
           setBase64Voice(data.voice_base64);
           setIsOpen(true);
-          let infor = await getInfo({ user_id: context.state.user.phone });
+          let infor = await getInfo({
+            user_id: context.state.user.phone
+              ? context.state.user.phone
+              : context.state.user.user_id,
+          });
           if (infor.code == 0) {
             context.dispatch({
               type: "LOGIN",

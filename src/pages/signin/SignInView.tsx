@@ -1,21 +1,63 @@
 import { Box, Button, Typography, useTheme } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { RiArrowLeftLine, RiTiktokFill } from "react-icons/ri";
 import background_gif from "../../images/source.gif";
 import logo from "../../images/loading-lines-6747317-5601928.webp";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomTextField from "../../components/CustomTextField";
 import { useTranslation } from "react-i18next";
+import { loginEmail } from "../../service/auth";
+import { toast } from "react-toastify";
+import { useCoursesContext } from "../../App";
 type Props = {
   handleTikTokAuthorizeLink: any;
+  setLoading: any;
 };
 
-const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
+const SignInView = ({ handleTikTokAuthorizeLink, setLoading }: Props) => {
   const theme: any = useTheme();
   const { t, i18n } = useTranslation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const context: any = useCoursesContext();
+  const navigate = useNavigate();
+  const handleLogin = async () => {
+    setLoading(true);
+    const body = {
+      utm: localStorage.getItem("utm") ? localStorage.getItem("utm") : "",
+      user_id: email,
+      password,
+    };
+    try {
+      let result = await loginEmail(body);
+      if (result && result.code == 0) {
+        toast.success(result.msg);
+        localStorage.setItem(
+          "access_token",
+          JSON.stringify(result.access_token)
+        );
+        localStorage.setItem("user", JSON.stringify(result.data));
+        context.dispatch({
+          type: "LOGIN",
+          payload: {
+            ...context.state,
+            user: { ...result.data },
+          },
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+        toast.warning(result.msg);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
   return (
     <Box
       sx={{
@@ -122,7 +164,7 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
                 fontWeight={"bold"}>
                 {t("welcome_back")}
               </Typography>
-              {/* <Typography
+              <Typography
                 sx={{ display: "flex", gap: "5px" }}
                 color='grey_500.main'>
                 {t("do_you_have_account")} ?{" "}
@@ -131,23 +173,19 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
                     {t("register")}
                   </Typography>
                 </Link>
-              </Typography> */}
+              </Typography>
             </Box>
             <Box>
-              {/* <CustomTextField
-                register={() => {}}
-                errors={""}
-                setValue={""}
-                value={""}
+              <CustomTextField
+                value={email}
+                setValue={setEmail}
                 label={"Email"}
               />
-
               <CustomTextField
-                register={() => {}}
-                errors={""}
-                setValue={""}
-                value={""}
+                value={password}
+                setValue={setPassword}
                 label={t("password")}
+                type={"password"}
               />
               <Link to={"/forgot-password"}>
                 <Typography
@@ -159,7 +197,8 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
                 </Typography>
               </Link>
               <Button
-                onClick={handleTikTokAuthorizeLink}
+                onClick={handleLogin}
+                disabled={!email || !password}
                 variant='contained'
                 sx={{
                   background: theme.palette.active.main,
@@ -167,7 +206,7 @@ const SignInView = ({ handleTikTokAuthorizeLink }: Props) => {
                   width: "100%",
                 }}>
                 {t("sign_up")}
-              </Button> */}
+              </Button>
               <Button
                 onClick={handleTikTokAuthorizeLink}
                 variant='contained'

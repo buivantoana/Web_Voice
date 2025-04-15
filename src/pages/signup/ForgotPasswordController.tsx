@@ -238,6 +238,7 @@ const ForgotPasswordController = (props: Props) => {
         handleSubmit={handleSubmit}
         register={register}
         errors={errors}
+        setLoading={setLoading}
       />
     </>
   );

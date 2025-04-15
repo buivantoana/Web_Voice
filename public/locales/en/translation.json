@@ -318,5 +318,6 @@
   "up_to": "Audio or video file, each up to 10MB",
   "add": "Add",
   "enter_description": "Enter description...",
-  "recording_time":"Recording Time"
+  "recording_time": "Recording Time",
+  "reset_password": "Reset password"
 }

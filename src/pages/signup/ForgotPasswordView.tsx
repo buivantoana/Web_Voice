@@ -6,7 +6,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { RiArrowLeftLine } from "react-icons/ri";
 import background_gif from "../../images/source.gif";
 import logo from "../../images/loading-lines-6747317-5601928.webp";
@@ -15,6 +15,8 @@ import CustomTextField from "../../components/CustomTextField";
 import { Link } from "react-router-dom";
 import OTPInput from "react-otp-input";
 import { useTranslation } from "react-i18next";
+import { forgotPasswordEmail } from "../../service/auth";
+import { toast } from "react-toastify";
 type Props = {
   setOtp: any;
   otp: any;
@@ -29,6 +31,7 @@ type Props = {
   handleSubmit: any;
   register: any;
   errors: any;
+  setLoading: any;
 };
 
 const ForgotPasswordView = ({
@@ -43,9 +46,25 @@ const ForgotPasswordView = ({
   handleRegister,
   errors,
   register,
+  setLoading,
 }: Props) => {
   const theme: any = useTheme();
   const { t, i18n } = useTranslation();
+  const [email, setEmail] = useState("");
+  const handleForgotPassword = async () => {
+    setLoading(true);
+    try {
+      let result = await forgotPasswordEmail({ user_id: email });
+      if (result && result.code == 0) {
+        toast.success(result.msg);
+      } else {
+        toast.warning(result.msg);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
   return (
     <Box
       sx={{
@@ -158,18 +177,17 @@ const ForgotPasswordView = ({
               </Typography>
             </Box>
             <Box>
-              <form onSubmit={handleSubmit(handleOTP)}>
+              <Box>
                 <CustomTextField
-                  register={register}
-                  errors={errors}
-                  setValue={setPhone}
-                  value={phone}
-                  label={t("Email")}
+                  value={email}
+                  setValue={setEmail}
+                  label={"Email"}
                 />
 
                 <Button
-                  type='submit'
+                  onClick={handleForgotPassword}
                   variant='contained'
+                  disabled={!email}
                   sx={{
                     background: theme.palette.active.main,
                     mt: "15px",
@@ -177,7 +195,7 @@ const ForgotPasswordView = ({
                   }}>
                   {t("send_code")}
                 </Button>
-              </form>
+              </Box>
               {i18n.language === "vi" && (
                 <Typography
                   my={"10px"}

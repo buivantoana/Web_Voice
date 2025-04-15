@@ -25,7 +25,10 @@ const SignInController = (props: Props) => {
     <>
       {" "}
       {loading && <Loading />}
-      <SignInView handleTikTokAuthorizeLink={handleTikTokAuthorizeLink} />
+      <SignInView
+        handleTikTokAuthorizeLink={handleTikTokAuthorizeLink}
+        setLoading={setLoading}
+      />
     </>
   );
 };
