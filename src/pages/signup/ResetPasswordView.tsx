@@ -63,7 +63,6 @@ const ResetPasswordView = ({
 
     if (password !== confirmPassword) {
       toast.warning("Mật khẩu và xác nhận mật khẩu không khớp.");
-      return;
     }
     console.log(formData);
     try {
