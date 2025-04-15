@@ -126,8 +126,11 @@ export async function verify({ phone }: any) {
 export async function signupWebHook({ user_id, utm }: any) {
   try {
     const response = await axios.post(
-      `${url_voice}/voice/login?user_id=${user_id}&utm=${utm}`,
-      {},
+      `${url_voice}/voice/login`,
+      {
+        user_id,
+        utm: localStorage.getItem("utm") ? localStorage.getItem("utm") : "",
+      },
       {
         headers: {
           Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
