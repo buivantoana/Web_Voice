@@ -34,6 +34,9 @@ import fable from "../images/fable.svg";
 import onyx from "../images/onyx.svg";
 import nova from "../images/nova.svg";
 import shimmer from "../images/shimmer.svg";
+import ash from "../images/ash (1).svg";
+import coral from "../images/coral.svg";
+import sage from "../images/sage.svg";
 import { useEffect, useRef, useState } from "react";
 import { country } from "../utils/acent";
 import { useTranslation } from "react-i18next";
@@ -54,6 +57,9 @@ const images: any = {
   onyx: onyx,
   nova: nova,
   shimmer: shimmer,
+  sage: sage,
+  ash: ash,
+  coral: coral,
 };
 
 type Props = {
