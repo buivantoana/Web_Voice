@@ -880,17 +880,18 @@ function AdvancedOptions({
                       secondaryAction={
                         <Box display='flex' gap={1}>
                           {isSelected ? (
-                            <Button
-                              size='small'
-                              variant='outlined'
-                              sx={{
-                                borderColor: "rgb(5 122 85)",
-                                color: "rgb(5 122 85)",
-                              }}
-                              onClick={() => handleReminderUnselect()}>
-                              Không dùng
-                            </Button>
+                            <></>
                           ) : (
+                            // <Button
+                            //   size='small'
+                            //   variant='outlined'
+                            //   sx={{
+                            //     borderColor: "rgb(5 122 85)",
+                            //     color: "rgb(5 122 85)",
+                            //   }}
+                            //   onClick={() => handleReminderUnselect()}>
+                            //   Không dùng
+                            // </Button>
                             <Button
                               size='small'
                               variant='contained'
