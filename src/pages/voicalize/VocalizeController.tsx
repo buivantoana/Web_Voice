@@ -41,6 +41,7 @@ const VocalizeController = (props: Props) => {
   const [file, setFile] = useState<any>(null);
   const [tab, setTab] = useState("input_text");
   const [myVoices, setMyVoices] = useState<any>([]);
+  const [prompt, setPrompt] = useState(null);
 
   const toggleDrawer = (open: any) => () => {
     setIsOpen(open);
@@ -204,17 +205,18 @@ const VocalizeController = (props: Props) => {
         Object.keys(context.state.user).length > 0 &&
         context.state.user.user_id
       ) {
-        let data = await createVoice(
-          {
-            user_id: context.state.user.user_id,
-            txt: textVoice,
-            speed: speed,
-            voice: voice.id,
-            voice_type: voice.type,
-            voice_name: voice.name,
-          },
-          false
-        );
+        let body: any = {
+          user_id: context.state.user.user_id,
+          txt: textVoice,
+          speed: speed,
+          voice: voice.id,
+          voice_name: voice.name,
+        };
+        if (tab == "emoj") {
+          body["voice_type"] = "emotions";
+          body["instructions"] = prompt;
+        }
+        let data = await createVoice(body, false);
         console.log(data);
         if (data.code == 0) {
           setBase64Voice(data.voice_base64);
@@ -350,10 +352,12 @@ const VocalizeController = (props: Props) => {
     }
     setLoading(false);
   };
+
   return (
     <>
       {loading && <Loading />}
       <VocalizeView
+        setPrompt={setPrompt}
         textVoice={textVoice}
         setSpeed={setSpeed}
         speed={speed}

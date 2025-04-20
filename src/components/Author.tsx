@@ -71,6 +71,7 @@ type Props = {
   typeVoice: any;
   is_action?: any;
   filterVoice?: any;
+  tab?: any;
 };
 
 const Author = ({
@@ -88,6 +89,7 @@ const Author = ({
   typeVoice,
   is_action,
   filterVoice,
+  tab,
 }: Props) => {
   const theme: any = useTheme();
   const [voices, setVoices] = useState(
@@ -417,6 +419,7 @@ const Author = ({
               {t("system_voices")}
             </Typography>
           </Box>
+
           <Box
             display={"flex"}
             alignItems={"center"}
@@ -438,23 +441,28 @@ const Author = ({
               {t("voice_openai")}
             </Typography>
           </Box>
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            width={{ xs: "50%", md: "25%" }}
-            bgcolor={typeVoice == "my_voices" ? "white" : undefined}
-            onClick={() => {
-              setTypeVoice("my_voices");
-              handleReset();
-            }}
-            borderRadius={"5px"}
-            justifyContent={"center"}
-            gap={"5px"}>
-            <RiUserVoiceFill fontWeight={"500"} />
-            <Typography fontSize={".9rem"} fontWeight={"500"}>
-              {t("my_voices")}
-            </Typography>
-          </Box>
+          {tab && tab == "emoj" ? (
+            <Box></Box>
+          ) : (
+            <Box
+              display={"flex"}
+              alignItems={"center"}
+              width={{ xs: "50%", md: "25%" }}
+              bgcolor={typeVoice == "my_voices" ? "white" : undefined}
+              onClick={() => {
+                setTypeVoice("my_voices");
+                handleReset();
+              }}
+              borderRadius={"5px"}
+              justifyContent={"center"}
+              gap={"5px"}>
+              <RiUserVoiceFill fontWeight={"500"} />
+              <Typography fontSize={".9rem"} fontWeight={"500"}>
+                {t("my_voices")}
+              </Typography>
+            </Box>
+          )}
+
           <Box
             display={"flex"}
             alignItems={"center"}

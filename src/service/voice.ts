@@ -181,3 +181,61 @@ export async function createStoryMaker(body: any) {
     console.error("Error fetching data:", error.message);
   }
 }
+
+export async function createCustomEmotions(body: any) {
+  try {
+    const response = await axios.post(`${url_voice}/voice/emotions`, body, {
+      headers: {
+        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+
+export async function getEmotions(user_id?: any) {
+  try {
+    let url = `${url_voice}/voice/emotions`;
+    if (user_id) url = url + `/${user_id}`;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+
+export async function updateCustomEmotions(user_id: any, body: any) {
+  try {
+    const response = await axios.put(
+      `${url_voice}/voice/emotions/${user_id}`,
+      body,
+      {
+        headers: {
+          Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+
+export async function deleteCustomEmotions(id: any) {
+  try {
+    const response = await axios.delete(`${url_voice}/voice/emotions/${id}`, {
+      headers: {
+        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}

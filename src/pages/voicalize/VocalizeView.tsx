@@ -88,6 +88,7 @@ type Props = {
   setLoading: any;
   setTypeVoice: any;
   typeVoice: any;
+  setPrompt: any;
 };
 const VocalizeView = ({
   textVoice,
@@ -131,6 +132,7 @@ const VocalizeView = ({
   setLoading,
   setTypeVoice,
   typeVoice,
+  setPrompt,
 }: Props) => {
   const theme: any = useTheme();
   let max_length = "";
@@ -195,7 +197,7 @@ const VocalizeView = ({
                   {t("input_text")}
                 </Typography>
               </Box>
-              {/* <Box
+              <Box
                 display={"flex"}
                 alignItems={"center"}
                 onClick={() => {
@@ -217,7 +219,7 @@ const VocalizeView = ({
                   fontWeight={"500"}>
                   {t("emotional_text")}
                 </Typography>
-              </Box> */}
+              </Box>
               <Box
                 onClick={() => {
                   setBlock([]);
@@ -362,11 +364,16 @@ const VocalizeView = ({
               )}
             </>
           )}
-           {tab == "emoj" &&
-           <Box>
-              <EmojController setTextVoice={setTextVoice} limit={limit} textVoice={textVoice} />
-           </Box>
-           }
+          {tab == "emoj" && (
+            <Box>
+              <EmojController
+                setTextVoice={setTextVoice}
+                limit={limit}
+                textVoice={textVoice}
+                setPrompt={setPrompt}
+              />
+            </Box>
+          )}
         </Box>
         <Box
           display={{ xs: "none", md: "flex" }}
@@ -389,6 +396,7 @@ const VocalizeView = ({
                 setLoading={setLoading}
                 setTypeVoice={setTypeVoice}
                 typeVoice={typeVoice}
+                tab={tab}
               />
             ) : (
               <Loading height={"100%"} />
@@ -402,7 +410,7 @@ const VocalizeView = ({
             width={"100%"}
             sx={{ cursor: "pointer" }}
             height={"45px"}>
-            {(tab == "input_text" || tab == "document") && (
+            {(tab == "input_text" || tab == "document" || tab == "emoj") && (
               <Box
                 height={"100%"}
                 width={"48%"}
@@ -512,7 +520,7 @@ const VocalizeView = ({
                 </Popover>
               </Box>
             </Box> */}
-            {tab == "input_text" && (
+            {(tab == "input_text" || tab == "emoj") && (
               <Box
                 width={"48%"}
                 onClick={handleCreateVoice}
@@ -544,7 +552,9 @@ const VocalizeView = ({
                   fontSize={".9rem"}
                   fontWeight={"bold"}
                   color='white'>
-                  {t("create_speech")} ( {textVoice.length} {t("credits")} )
+                  {t("create_speech")} ({" "}
+                  {tab == "emoj" ? textVoice.length * 2 : textVoice.length}{" "}
+                  {t("credits")} )
                 </Typography>
                 <Box>
                   <svg
@@ -731,7 +741,11 @@ const VocalizeView = ({
             }}>
             <img
               src={
-                voice && voice.id && images[voice.id] ? images[voice.id] : voice.accent == "English"? "https://flagcdn.com/w320/us.png": vn
+                voice && voice.id && images[voice.id]
+                  ? images[voice.id]
+                  : voice.accent == "English"
+                  ? "https://flagcdn.com/w320/us.png"
+                  : vn
               }
               width={90}
               height={90}
@@ -873,7 +887,9 @@ const VocalizeView = ({
                     src={
                       voice && voice.id && images[voice.id]
                         ? images[voice.id]
-                        : voice.accent == "English"? "https://flagcdn.com/w320/us.png": vn
+                        : voice.accent == "English"
+                        ? "https://flagcdn.com/w320/us.png"
+                        : vn
                     }
                     width={40}
                     style={{ borderRadius: "50%" }}
@@ -1195,6 +1211,7 @@ const VocalizeView = ({
               setLoading={setLoading}
               setTypeVoice={setTypeVoice}
               typeVoice={typeVoice}
+              tab={tab}
             />
           ) : (
             <Loading height={"100%"} />
