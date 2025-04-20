@@ -892,6 +892,7 @@ const VocalizeView = ({
                         : vn
                     }
                     width={40}
+                    height={40}
                     style={{ borderRadius: "50%" }}
                     alt=''
                   />
@@ -1107,6 +1108,7 @@ const VocalizeView = ({
                   <img
                     src={images[voice.id]}
                     width={40}
+                    height={40}
                     style={{ borderRadius: "50%" }}
                     alt=''
                   />
