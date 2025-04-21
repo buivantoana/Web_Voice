@@ -211,9 +211,9 @@ const VocalizeController = (props: Props) => {
           speed: speed,
           voice: voice.id,
           voice_name: voice.name,
+          voice_type: voice.type,
         };
         if (tab == "emoj") {
-          body["voice_type"] = "emotions";
           body["instructions"] = prompt;
         }
         let data = await createVoice(body, false);
