@@ -551,7 +551,7 @@ function AdvancedOptions({
                         variant='body2'
                         sx={{ width: "70%" }}
                         color='text.secondary'>
-                        {option.prompt}
+                        {option.user_id ?  option.prompt : t(option.id)}
                       </Typography>
                     }
                   />
@@ -625,7 +625,7 @@ function AdvancedOptions({
               <List>
                 {filteredEnergyOptions.map((option) => {
                   const isSelected = selectedEnergy.name === option.name;
-                  const htmlText = option.prompt.replace(/\n\n/g, "<br/>");
+                  const htmlText =  option.user_id ? option.prompt.replace(/\n\n/g, "<br/>"):t(option.id).replace(/\n\n/g, "<br/>") ;
                   if (!option.user_id) {
                     return (
                       <ListItem

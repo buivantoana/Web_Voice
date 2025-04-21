@@ -320,5 +320,9 @@
   "enter_description": "Enter description...",
   "recording_time": "Recording Time",
   "reset_password": "Reset password",
-  "vibe_custom": "Custom vibes"
+  "vibe_custom": "Custom vibes",
+  "emotion_1":"engaging, lively voice, emphasizing product benefits.",
+  "emotion_2":"sharp, exaggerated voice, expressing frustration.",
+  "viber_1":"Voice: Warm, upbeat, and reassuring, with a steady and confident cadence that keeps the conversation calm and productive.\n\nTone: Positive and solution-oriented, always focusing on the next steps rather than dwelling on the problem.\n\nDialect: Neutral and professional, avoiding overly casual speech but maintaining a friendly and approachable style.\n\nPronunciation: Clear and precise, with a natural rhythm that emphasizes key words to instill confidence and keep the customer engaged.\n\nFeatures: Uses empathetic phrasing, gentle reassurance, and proactive language to shift the focus from frustration to resolution.",
+  "viber_2":"Identity: Santa Claus\n\nAffect: Jolly, warm, and cheerful, with a playful and magical quality that fits Santa's personality.\n\nTone: Festive and welcoming, creating a joyful, holiday atmosphere for the caller.\n\nEmotion: Joyful and playful, filled with holiday spirit, ensuring the caller feels excited and appreciated.\n\nPronunciation: Clear, articulate, and exaggerated in key festive phrases to maintain clarity and fun.\n\nPause: Brief pauses after each option and statement to allow for processing and to add a natural flow to the message."
 }
