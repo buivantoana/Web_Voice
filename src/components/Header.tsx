@@ -149,7 +149,7 @@ const Header = () => {
                   </Typography>
                 </Box>
               </NavLink>
-              {/* <NavLink to='/translation'>
+              <NavLink to='/translation'>
                 <Box padding={"9px 0"}>
                   <Typography
                     fontSize={".9rem"}
@@ -158,7 +158,7 @@ const Header = () => {
                     {t("translate")}
                   </Typography>
                 </Box>
-              </NavLink> */}
+              </NavLink>
               <NavLink to='/history'>
                 <Box padding={"9px 0"}>
                   <Typography

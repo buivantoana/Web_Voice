@@ -58,10 +58,7 @@ const TranslationView = ({
   const { t } = useTranslation();
   const [selectedLanguage, setSeletedLanguage] = useState("English");
   const [selectedTranslation, setSelectedTranslation] = useState("deepseek");
-  const [subtitles, setSubtitles] = useState([
-    { id: 1, start: "00:00:01,000", end: "00:00:04,000", text: "Hello world!" },
-    { id: 2, start: "00:00:05,000", end: "00:00:07,000", text: "Second subtitle" },
-  ]);
+  const [subtitles, setSubtitles]:any = useState([]);
   const context: any = useCoursesContext();
   const [applySubtitle, setApplySubtitle] = useState(false);
   const [sizeSubtitle, setSizeSubtitle] = useState(14);
@@ -74,7 +71,7 @@ const TranslationView = ({
     const languageCode = country.find((item: any) => item.name === selectedLanguage2)?.code || "en";
     
     const body = {
-      video_name:video?.video_name,
+      video_url:video?.video_name,
       user_id:context.state.user.user_id,
       subtitles: subtitles.map(sub => ({
         start: sub.start,
@@ -91,15 +88,19 @@ const TranslationView = ({
       original_volume: originalVolume / 100
     };
 
-    // let result = await translateVideo(body)
-    // if(result && result.base_64){
-    //   setVideo({...video,base_64:result.base_64})
-    // }
+    let result = await translateVideo(body)
+    if(result && result.base_64){
+      setVideo({...video,base_64:result.base_64})
+    }
     console.log("Translate body:", body);
     setLoading(false)
   };
 
 
+  function capitalizeFirstLetter(str:any) {
+    if (typeof str !== 'string' || str.length === 0) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
    const handleClickOpen = async () => {
         setLoading(true)
         if (
@@ -107,26 +108,16 @@ const TranslationView = ({
           productUrl.startsWith("https://")
         ) {
           try {
-            setVideo({
-              "video_name": "video_1744644138662.mp4",
-              "base_64": "",
-              "subtitles": [
-                  {
-                      "start": "00:00:01,000",
-                      "end": "00:00:04,000",
-                      "text": "Hello world!"
-                  },
-                  {
-                      "start": "00:00:05,000",
-                      "end": "00:00:07,000",
-                      "text": "Second subtitle"
-                  }
-              ]
-          })
-            // let result  = await getVideo(productUrl) 
-            // if(result && result.video_name){
-            //   setVideo(result)
-            // }
+            let result  = await getVideo(productUrl) 
+            if(result && result.video_url){
+              setVideo({
+                video_name:result.video_url,
+                subtitles:result.subtitles,
+                language:result.language
+              })
+              setSeletedLanguage(capitalizeFirstLetter(result.language))
+              setSubtitles(result.subtitles)
+            }
           } catch (error) {
             console.log(error)
           }
@@ -309,14 +300,14 @@ const TranslationView = ({
               controls
             >
               <source
-                src={`data:video/mp4;base64,${video&& video.base_64}`}
+                src={video.video_name}
                 type="video/mp4"
               />
               Your browser does not support the video tag.
             </video>
           </Box>
           <Box mt={"20px"}>
-            <SubtitleEditor onSubtitlesChange={setSubtitles} />
+            <SubtitleEditor subtitles={subtitles} onSubtitlesChange={setSubtitles} />
           </Box>
           
           </>
@@ -736,12 +727,10 @@ type Subtitle = {
   text: string;
 };
 
-function SubtitleEditor({ onSubtitlesChange }: { onSubtitlesChange: (subs: Subtitle[]) => void }) {
-  const [subs, setSubs] = useState<Subtitle[]>([
-    { id: 1, start: "00:00:01,000", end: "00:00:04,000", text: "Hello world!" },
-    { id: 2, start: "00:00:05,000", end: "00:00:07,000", text: "Second subtitle" },
-  ]);
+function SubtitleEditor({ onSubtitlesChange,subtitles }: { onSubtitlesChange: (subs: Subtitle[]) => void ,subtitles:any}) {
+  const [subs, setSubs] = useState(subtitles);
   const { t } = useTranslation();
+
 
   const handleChange = (id: number, field: keyof Subtitle, value: string) => {
     const newSubs = subs.map((sub) => (sub.id === id ? { ...sub, [field]: value } : sub));
