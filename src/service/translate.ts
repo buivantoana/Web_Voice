@@ -3,7 +3,7 @@ import { url_voice } from "../config";
 
 export async function getVideo(url:String) {
   try {
-    const response = await axios.post(`${url_voice}/translate/getvideo?video_url=${url}`, {}, {
+    const response = await axios.post(`${url_voice}/transvideo/getvideo?video_url=${url}`, {}, {
       headers: {
         Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
       },
@@ -16,7 +16,7 @@ export async function getVideo(url:String) {
 export async function translateVideo(body:any) {
   try {
     const response = await axios.post(
-      `${url_voice}/translate/trans`,body,
+      `${url_voice}/transvideo/process`,body,
       {
         headers: {
           Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
