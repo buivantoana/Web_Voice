@@ -101,7 +101,7 @@ const MaterialVideoController = (props: Props) => {
             (async () => {
               try {
                 let data = await fetch(
-                  "https://dev.ttsopenai.zeezoo.mobi/api/product/get/info",
+                  "https://dev.ttsopenai.zeezoo.mobi:8081/api/product/get/info",
                   {
                     method: "POST",
                     headers: {
@@ -172,7 +172,7 @@ const MaterialVideoController = (props: Props) => {
     (async () => {
       try {
         let data = await fetch(
-          "https://dev.ttsopenai.zeezoo.mobi/api/product/samples",
+          "https://dev.ttsopenai.zeezoo.mobi:8081/api/product/samples",
           {
             method: "GET",
             headers: {
