@@ -103,6 +103,7 @@ const TranslationView = ({
     console.log("AAA result trans ", result);
     if (result && result.code == 0) {
       console.log("AAA result trans ", result);
+      setSeletedLanguage(selectedLanguage2);
       setUrlVideo(result.video_url);
       setSubtitles(
         result.subtitles.map((item, index) => {
