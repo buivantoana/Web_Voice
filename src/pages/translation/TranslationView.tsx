@@ -73,52 +73,61 @@ const TranslationView = ({
     }
   }, [urlVideo]);
   const handleTranslate = async () => {
-    setLoading(true);
-    const translateService =
-      selectedTranslation === "chatgpt" ? "GPT" : "Deepseek";
-    const languageCode =
-      country.find((item: any) => item.name === selectedLanguage2)?.code ||
-      "en";
+    if (
+      context.state &&
+      context.state.user &&
+      context.state.user &&
+      context.state.user.user_id
+    ) {
+      setLoading(true);
+      const translateService =
+        selectedTranslation === "chatgpt" ? "GPT" : "Deepseek";
+      const languageCode =
+        country.find((item: any) => item.name === selectedLanguage2)?.code ||
+        "en";
 
-    const body = {
-      video_url: video?.video_url,
-      video_name: video.video_name,
-      user_id: context.state.user.user_id,
-      subtitles: subtitles.map((sub) => ({
-        start: sub.start,
-        end: sub.end,
-        text: sub.text,
-      })),
-      translate_sevice: translateService,
-      language: languageCode,
-      voice_id: voice?.name?.toLowerCase() || "onyx",
-      voice_type: typeVoice || "openai",
-      apply_subtitle: applySubtitle,
-      size_subtitle: sizeSubtitle,
-      tts_volume: ttsVolume / 100,
-      original_volume: originalVolume / 100,
-    };
+      const body = {
+        video_url: video?.video_url,
+        video_name: video.video_name,
+        user_id: context.state.user.user_id,
+        subtitles: subtitles.map((sub) => ({
+          start: sub.start,
+          end: sub.end,
+          text: sub.text,
+        })),
+        translate_sevice: translateService,
+        language: languageCode,
+        voice_id: voice?.id?.toLowerCase() || "onyx",
+        voice_type: typeVoice || "openai",
+        apply_subtitle: applySubtitle,
+        size_subtitle: sizeSubtitle,
+        tts_volume: ttsVolume / 100,
+        original_volume: originalVolume / 100,
+      };
 
-    let result = await translateVideo(body);
-    console.log("AAA result trans ", result);
-    if (result && result.code == 0) {
+      let result = await translateVideo(body);
       console.log("AAA result trans ", result);
-      setSeletedLanguage(selectedLanguage2);
-      setUrlVideo(result.video_url);
-      setSubtitles(
-        result.subtitles.map((item, index) => {
-          return {
-            ...item,
-            id: index,
-          };
-        })
-      );
-      toast.success(result.msg);
+      if (result && result.code == 0) {
+        console.log("AAA result trans ", result);
+        setSeletedLanguage(selectedLanguage2);
+        setUrlVideo(result.video_url);
+        setSubtitles(
+          result.subtitles.map((item, index) => {
+            return {
+              ...item,
+              id: index,
+            };
+          })
+        );
+        toast.success(result.msg);
+      } else {
+        toast.warning(result.msg);
+      }
+      console.log("Translate body:", body);
+      setLoading(false);
     } else {
-      toast.warning(result.msg);
+      toast.warning("Bạn cần đăng nhập để sử dụng tính năng.");
     }
-    console.log("Translate body:", body);
-    setLoading(false);
   };
 
   function capitalizeFirstLetter(str: any) {

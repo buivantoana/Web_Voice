@@ -277,24 +277,46 @@ const Author = ({
   const filterVoices = () => {
     let data_filter = data;
     console.log(data_filter);
+
+    // Áp dụng bộ lọc tuổi (SelectedAge) cho tất  tất cả các tab
     if (SelectedAge) {
       data_filter = data_filter.filter((item: any) => item.age == SelectedAge);
     }
+
+    // Áp dụng bộ lọc giới tính (SelectedGender) cho tất cả các tab
     if (SelectedGender) {
       data_filter = data_filter.filter(
         (item: any) => item.gender == SelectedGender
       );
     }
-    if (SelectedAcent) {
+
+    // Chỉ áp dụng bộ lọc accent (SelectedAcent) cho system và my_voices, không áp dụng cho openai
+    if (SelectedAcent && filterVoice && typeVoice !== "openai") {
       data_filter = data_filter.filter(
         (item: any) => item.accent == SelectedAcent
       );
     }
 
-    if (typeVoice != "favorite") {
-      setVoices(data_filter.filter((item: any) => item.type == typeVoice));
+    if (!filterVoice && SelectedAcent) {
+      data_filter = data_filter.filter(
+        (item: any) => item.accent == SelectedAcent
+      );
     }
-    if (typeVoice == "my_voices" && type !== "story") {
+    if (typeVoice !== "favorite") {
+      // Lọc dữ liệu theo typeVoice
+      setVoices(data_filter.filter((item: any) => item.type == typeVoice));
+    } else {
+      // Xử lý tab favorite
+      setVoices([
+        ...data_filter.filter((item: any) => voicesFavorite.includes(item.id)),
+        ...myVoices.filter((item: any) =>
+          voicesFavorite.includes(item.voice_id)
+        ),
+      ]);
+    }
+
+    // Nếu là tab my_voices và không phải là story, chọn giọng đầu tiên
+    if (typeVoice === "my_voices" && type !== "story") {
       if (myVoices.length > 0) {
         setVoice(myVoices[0]);
       }
