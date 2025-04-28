@@ -387,8 +387,8 @@ const TranslationView = ({
                 }}>
                 {country.map((item: any) => (
                   <MenuItem
-                    key={item.name}
-                    value={item.name}
+                    key={item.language}
+                    value={item.language}
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -451,7 +451,7 @@ const TranslationView = ({
                 {country.map((item: any) => (
                   <MenuItem
                     key={item.name}
-                    value={item.name}
+                    value={item.language}
                     style={{
                       display: "flex",
                       alignItems: "center",

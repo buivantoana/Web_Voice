@@ -17,6 +17,7 @@ import {
   getVoicesFavorite,
   getVoicesOpenAi,
 } from "../../service/voice";
+import { country } from "../../utils/acent";
 
 type Props = {};
 
@@ -181,7 +182,11 @@ const TranslationController = (props: Props) => {
               typeVoice={typeVoice}
               setTypeVoice={setTypeVoice}
               is_action={true}
-              filterVoice={selectedLanguage2}
+              filterVoice={
+                selectedLanguage2 &&
+                country.filter((item) => item.language == selectedLanguage2)[0]
+                  .name
+              }
             />
           ) : (
             <Loading height={"100%"} />
