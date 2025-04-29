@@ -66,13 +66,14 @@ const TranslationView = ({
   const [originalVolume, setOriginalVolume] = useState(40);
   const [video, setVideo]: any = useState(null);
   const [urlVideo, setUrlVideo]: any = useState(null);
+  const [urlVideoTrans, setUrlVideoTrans]: any = useState(null);
   const videoRef = useRef(null);
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.load(); 
       videoRef.current.play(); 
     }
-  }, [urlVideo]);
+  }, [urlVideoTrans]);
   const handleTranslate = async () => {
     if (
       context.state &&
@@ -111,7 +112,7 @@ const TranslationView = ({
       if (result && result.code == 0) {
         console.log("AAA result trans ", result);
         // setSeletedLanguage(selectedLanguage2);
-        setUrlVideo(result.video_url);
+        setUrlVideoTrans(result.video_url);
         setSubtitles(
           result.subtitles.map((item, index) => {
             return {
@@ -324,10 +325,11 @@ const TranslationView = ({
                 <video
                   ref={videoRef}
                   width={"100%"}
+                  
                   style={{ borderRadius: "10px" }}
                   height={"255px"}
                   controls>
-                  <source src={urlVideo} type='video/mp4' />
+                  <source src={urlVideoTrans?urlVideoTrans: urlVideo} type='video/mp4' />
                   Your browser does not support the video tag.
                 </video>
               </Box>
