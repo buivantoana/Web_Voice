@@ -69,7 +69,8 @@ const TranslationView = ({
   const videoRef = useRef(null);
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.load(); // ép video reload lại
+      videoRef.current.load(); 
+      videoRef.current.play(); 
     }
   }, [urlVideo]);
   const handleTranslate = async () => {
