@@ -22,7 +22,7 @@ import { country } from "../../utils/acent";
 type Props = {};
 
 const TranslationController = (props: Props) => {
-  const [typeVoice, setTypeVoice] = useState("system");
+  const [typeVoice, setTypeVoice] = useState("openai");
   const [openAuthor, setOpenAuthor] = React.useState(false);
   const [voicesFavorite, setVoicesFavorite]: any = useState([]);
   const [loadingVoices, setLoadingVoices] = useState(false);
@@ -127,9 +127,9 @@ const TranslationController = (props: Props) => {
       let data = await getVoicesOpenAi();
       console.log("AAAA data", data);
       if (data.voices && data.voices.length > 0) {
-        // if (!(Object.keys(context.state.history).length > 0)) {
-        //   setVoice(data.voices[0]);
-        // }
+        if (!(Object.keys(context.state.history).length > 0)) {
+          setVoice(data.voices[0]);
+        }
 
         setVoices(data.voices);
       }

@@ -62,7 +62,7 @@ const TranslationView = ({
   const context: any = useCoursesContext();
   const [applySubtitle, setApplySubtitle] = useState(false);
   const [sizeSubtitle, setSizeSubtitle] = useState(14);
-  const [ttsVolume, setTtsVolume] = useState(40);
+  const [ttsVolume, setTtsVolume] = useState(80);
   const [originalVolume, setOriginalVolume] = useState(40);
   const [video, setVideo]: any = useState(null);
   const [urlVideo, setUrlVideo]: any = useState(null);
@@ -101,15 +101,15 @@ const TranslationView = ({
         voice_type: typeVoice || "openai",
         apply_subtitle: applySubtitle,
         size_subtitle: sizeSubtitle,
-        tts_volume: ttsVolume / 100,
-        original_volume: originalVolume / 100,
+        tts_volume: (ttsVolume / 100)/2,
+        original_volume: (originalVolume / 100),
       };
 
       let result = await translateVideo(body);
       console.log("AAA result trans ", result);
       if (result && result.code == 0) {
         console.log("AAA result trans ", result);
-        setSeletedLanguage(selectedLanguage2);
+        // setSeletedLanguage(selectedLanguage2);
         setUrlVideo(result.video_url);
         setSubtitles(
           result.subtitles.map((item, index) => {
