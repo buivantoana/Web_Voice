@@ -61,7 +61,7 @@ const TranslationView = ({
   const [subtitles, setSubtitles]: any = useState([]);
   const context: any = useCoursesContext();
   const [applySubtitle, setApplySubtitle] = useState(false);
-  const [sizeSubtitle, setSizeSubtitle] = useState(14);
+  const [sizeSubtitle, setSizeSubtitle] = useState(8);
   const [ttsVolume, setTtsVolume] = useState(80);
   const [originalVolume, setOriginalVolume] = useState(40);
   const [video, setVideo]: any = useState(null);
@@ -665,8 +665,7 @@ const TranslationView = ({
                 title={t("size")}
                 onChange={setSizeSubtitle}
                 value={sizeSubtitle}
-                min={8}
-                max={24}
+                max={20}
               />
             </Box>
           </Box>

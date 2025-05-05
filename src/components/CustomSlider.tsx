@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Slider, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 
@@ -50,6 +50,12 @@ export default function VisualSlider({
   max?: number 
 }) {
   const totalBars = 10;
+  const valuePerBar = max / totalBars; // Giá trị mỗi vạch (ví dụ: 20 / 10 = 2)
+
+  const handleChange = (_: Event, newValue: number | number[]) => {
+    const roundedValue = Math.round((newValue as number) / valuePerBar) * valuePerBar;
+    onChange(roundedValue);
+  };
 
   return (
     <div>
@@ -65,9 +71,8 @@ export default function VisualSlider({
         </Typography>
         <BarContainer>
           {[...Array(totalBars)].map((_, i) => {
-            const isActive = i < (value / max) * totalBars;
+            const isActive = i < value / valuePerBar; // Số vạch active
             const scale = (i + 1) / totalBars;
-            console.log(isActive)
             return (
               <Bar
                 key={i}
@@ -79,13 +84,14 @@ export default function VisualSlider({
               />
             );
           })}
-      </BarContainer>
+        </BarContainer>
       </Box>
       <CustomSlider
         value={value}
-        onChange={(_, val) => onChange(val as number)}
+        onChange={handleChange}
         min={min}
         max={max}
+        step={valuePerBar} // Giới hạn giá trị slider theo bước valuePerBar
       />
     </div>
   );
