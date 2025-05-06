@@ -11,6 +11,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import {
   RiArrowRightLine,
+  RiFileDownloadLine,
   RiLinksFill,
   RiVoiceprintFill,
 } from "react-icons/ri";
@@ -66,11 +67,12 @@ const TranslationView = ({
   const [originalVolume, setOriginalVolume] = useState(40);
   const [video, setVideo]: any = useState(null);
   const [urlVideo, setUrlVideo]: any = useState(null);
+  const [isGen, setIsGen]: any = useState(false);
   const videoRef = useRef(null);
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.load(); 
-      videoRef.current.play(); 
+      videoRef.current.load();
+      videoRef.current.play();
     }
   }, [urlVideo]);
   const handleTranslate = async () => {
@@ -102,8 +104,8 @@ const TranslationView = ({
         voice_type: typeVoice || "openai",
         apply_subtitle: applySubtitle,
         size_subtitle: sizeSubtitle,
-        tts_volume: (ttsVolume / 100),
-        original_volume: (originalVolume / 100),
+        tts_volume: ttsVolume / 100,
+        original_volume: originalVolume / 100,
       };
 
       let result = await translateVideo(body);
@@ -111,6 +113,7 @@ const TranslationView = ({
       if (result && result.code == 0) {
         console.log("AAA result trans ", result);
         // setSeletedLanguage(selectedLanguage2);
+        setIsGen(true);
         setUrlVideo(result.video_url);
         setSubtitles(
           result.subtitles.map((item, index) => {
@@ -324,13 +327,70 @@ const TranslationView = ({
                 <video
                   ref={videoRef}
                   width={"100%"}
-                  
                   style={{ borderRadius: "10px" }}
                   height={"255px"}
                   controls>
                   <source src={urlVideo} type='video/mp4' />
                   Your browser does not support the video tag.
                 </video>
+                {isGen && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "end",
+                      mt: "10px",
+                    }}>
+                    <Button
+                      variant='contained'
+                      sx={{
+                        background: theme.palette.active.main,
+                        fontSize: { xs: "10px", md: "15px" },
+                        borderRadius: "8px",
+                        color: "white",
+                        py: "5px",
+                        px: "10px",
+                        mt: "10px",
+                      }}
+                      onClick={async () => {
+                        try {
+                          setLoading(true);
+                          const videoFilename = urlVideo.split("/").pop();
+                          const response = await fetch(
+                            `${url_voice}/download_video?video_filename=${encodeURIComponent(
+                              videoFilename
+                            )}`,
+                            {
+                              method: "GET",
+                              credentials: "include",
+                            }
+                          );
+                          if (!response.ok) {
+                            throw new Error(
+                              `Không thể tải video: ${response.statusText}`
+                            );
+                          }
+                          const blob = await response.blob();
+                          const blobUrl = window.URL.createObjectURL(blob);
+                          const link = document.createElement("a");
+                          link.href = blobUrl;
+                          link.download = "video.mp4";
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                          window.URL.revokeObjectURL(blobUrl);
+                          toast.success("Tải video thành công!");
+                        } catch (error) {
+                          console.error("Lỗi tải video:", error);
+                          toast.error("Không thể tải video. Vui lòng thử lại.");
+                        } finally {
+                          setLoading(false);
+                        }
+                      }}>
+                      <RiFileDownloadLine />
+                      {t("download_video")}
+                    </Button>
+                  </Box>
+                )}
               </Box>
               <Box mt={"20px"}>
                 <SubtitleEditor
@@ -758,6 +818,7 @@ import { toast } from "react-toastify";
 import { Await } from "react-router-dom";
 import { getVideo, translateVideo } from "../../service/translate";
 import { useCoursesContext } from "../../App";
+import { url_voice } from "../../config";
 
 type Subtitle = {
   id: number;
