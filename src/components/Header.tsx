@@ -34,6 +34,7 @@ import {
   RiNotification2Line,
   RiPriceTag2Line,
   RiShieldKeyholeLine,
+  RiTranslate,
 } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../images/loading-lines-6747317-5601928.webp";
@@ -618,6 +619,30 @@ const Header = () => {
                     />
                   </svg>
                   <Typography> {t("vocalize")}</Typography>
+                </Box>
+              </Box>
+            </Link>
+            <Link onClick={toggleDrawerMenu(false)} to={"/translation"}>
+              <Box
+                mt={"20px"}
+                border={"1px solid #dddddd"}
+                borderRadius={"10px"}
+                p={"10px 15px"}
+                sx={{
+                  cursor: "pointer",
+                  transition: "background-color 0.3s, color 0.3s", // Smooth transition for hover
+                  "&:hover": {
+                    backgroundColor: "grey_700.main", // Background on hover
+                    color: "active.main", // Text and icon color on hover
+                  },
+                  "&:hover .MuiSvgIcon-root": {
+                    color: "active.main", // Icon color on hover
+                  },
+                }}
+                width={"calc(100%-30px)"}>
+                <Box display={"flex"} alignItems={"center"} gap={"10px"}>
+                <RiTranslate />
+                  <Typography> {t("translation")}</Typography>
                 </Box>
               </Box>
             </Link>

@@ -157,8 +157,9 @@ const VocalizeView = ({
           <Box sx={{ borderBottom: "1px solid rgb(226 232 240)" }}>
             <Stack
               direction={"row"}
-              gap={"20px"}
-              padding={"0 20px"}
+              gap={{xs:"10px",md:"20px"}}
+              padding={{xs:"4px", md:"0 20px"}}
+              justifyContent={{ xs:"space-between",md:"unset"}}
               sx={{ cursor: "pointer" }}>
               <Box
                 display={"flex"}
@@ -792,7 +793,7 @@ const VocalizeView = ({
           left: "0px",
           width: "100%",
         }}>
-        {tab == "input_text" && (
+        {(tab == "input_text" || tab == "emoj") && (
           <Box>
             <Box display={"flex"} bgcolor={"white"} sx={{ px: "20px" }}>
               <Box
