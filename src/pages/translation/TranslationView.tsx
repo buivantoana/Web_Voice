@@ -69,7 +69,7 @@ const TranslationView = ({
   const [urlVideo, setUrlVideo]: any = useState(null);
   const [isGen, setIsGen]: any = useState(false);
   const videoRef = useRef(null);
-  const [subtitleColor, setSubtitleColor] = useState("#FFFFFF"); // Default white
+  const [subtitleColor, setSubtitleColor] = useState("#87CEEB"); // Default white
   const [subtitlePosition, setSubtitlePosition] = useState("bottom"); // Default bottom
   useEffect(() => {
     if (videoRef.current) {
@@ -108,8 +108,8 @@ const TranslationView = ({
         size_subtitle: sizeSubtitle,
         tts_volume: ttsVolume / 100,
         original_volume: originalVolume / 100,
-        subtitle_color: subtitleColor, // Added subtitle color
-        subtitle_position: subtitlePosition, // Added subtitle position
+        sub_color: subtitleColor, // Added subtitle color
+        sub_position: subtitlePosition, // Added subtitle position
       };
 
       let result = await translateVideo(body);
@@ -797,7 +797,7 @@ const TranslationView = ({
                         },
                       }}>
                       <MenuItem value="top">{t("top")}</MenuItem>
-                      <MenuItem value="middle">{t("middle")}</MenuItem>
+                      <MenuItem value="mid">{t("middle")}</MenuItem>
                       <MenuItem value="bottom">{t("bottom")}</MenuItem>
                     </Select>
                   </FormControl>
