@@ -594,9 +594,8 @@ const TranslationView = ({
                   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                     borderColor: theme.palette.active.main,
                   },
-                  ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                  {
-                    padding: "10px !important",
+                  "& .MuiInputBase-input": {
+                    padding: "8px", // giống như bạn đã dùng
                   },
                 }}>
                 <MenuItem
@@ -763,9 +762,8 @@ const TranslationView = ({
                         "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                           borderColor: theme.palette.active.main,
                         },
-                        ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                        {
-                          padding: "10px !important",
+                        "& .MuiSelect-select": {
+                          padding: "10px",
                         },
                       }}>
                       <MenuItem value="1">{t("1")}</MenuItem>
@@ -793,8 +791,8 @@ const TranslationView = ({
                     onChange={(e) => setSubtitleColor(e.target.value)}
                     sx={{
                       width:"100%",
-                      ".css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input": {
-                        padding: "10.5px 6px",
+                      "& .MuiInputBase-input": {
+                        padding: "10.5px 6px", // giống như bạn đã dùng
                       },
 
                       "& .MuiOutlinedInput-root": {
@@ -819,9 +817,9 @@ const TranslationView = ({
                     onChange={(e) => setSubtitleColor1(e.target.value)}
                     sx={{
                         width:"100%",
-                      ".css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input": {
-                        padding: "10.5px 6px",
-                      },
+                        "& .MuiInputBase-input": {
+                          padding: "10.5px 6px", // giống như bạn đã dùng
+                        },
 
                       "& .MuiOutlinedInput-root": {
 
@@ -846,8 +844,8 @@ const TranslationView = ({
                     onChange={(e) => setSubtitleColor2(e.target.value)}
                     sx={{
                       width:"100%",
-                      ".css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input": {
-                        padding: "10.5px 6px",
+                      "& .MuiInputBase-input": {
+                        padding: "10.5px 6px", // giống như bạn đã dùng
                       },
 
                       "& .MuiOutlinedInput-root": {
@@ -889,9 +887,8 @@ const TranslationView = ({
                         "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                           borderColor: theme.palette.active.main,
                         },
-                        ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                        {
-                          padding: "10px !important",
+                        "& .MuiSelect-select": {
+                          padding: "10px",
                         },
                       }}>
                       <MenuItem value="top">{t("top")}</MenuItem>
