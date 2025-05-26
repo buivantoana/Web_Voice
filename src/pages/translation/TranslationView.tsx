@@ -407,6 +407,7 @@ const TranslationView = ({
             background: "white",
             borderRadius: "5px",
             padding: "30px",
+            overflowY: "scroll",
           }}>
           <Typography sx={{ mb: "10px", fontWeight: "500" }}>
             {t("language")}
@@ -729,7 +730,11 @@ const TranslationView = ({
               />
             </Box>
           </Box>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}>
             <Button
               variant='contained'
               disabled={!video}
