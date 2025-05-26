@@ -462,7 +462,7 @@ function AdvancedOptions({
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <Box
           sx={{
-            width: 500,
+            maxWidth: 500,
             maxHeight: 600,
             overflowY: "auto",
             bgcolor: "background.paper",
@@ -549,7 +549,7 @@ function AdvancedOptions({
                     secondary={
                       <Typography
                         variant='body2'
-                        sx={{ width: "70%" }}
+                        sx={{ width: {xs:"60%" ,md:"70%"} }}
                         color='text.secondary'>
                         {option.user_id ?  option.prompt : t(option.id)}
                       </Typography>
@@ -575,7 +575,7 @@ function AdvancedOptions({
       <Modal open={openEnergyModal} onClose={() => setOpenEnergyModal(false)}>
         <Box
           sx={{
-            width: 800,
+            maxWidth: 800,
             maxHeight: 600,
             overflowY: "auto",
             bgcolor: "background.paper",
@@ -834,7 +834,7 @@ function AdvancedOptions({
         onClose={() => setOpenReminderModal(false)}>
         <Box
           sx={{
-            width: 500,
+            maxWidth: 500,
             maxHeight: 600,
             overflowY: "auto",
             bgcolor: "background.paper",

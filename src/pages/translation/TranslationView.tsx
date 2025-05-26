@@ -69,6 +69,12 @@ const TranslationView = ({
   const [urlVideo, setUrlVideo]: any = useState(null);
   const [isGen, setIsGen]: any = useState(false);
   const videoRef = useRef(null);
+  const [subtitleColor, setSubtitleColor] = useState("#D9D9D9"); // Default white
+  const [subtitleColor1, setSubtitleColor1] = useState("#007BFF"); // Default white
+  const [subtitleColor2, setSubtitleColor2] = useState("#FFFFFF"); // Default white
+  const [subtitlePosition, setSubtitlePosition] = useState("bottom"); // Default bottom
+  
+  const [subtitleLine, setSubtitleLine] = useState("1"); // Default bottom
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.load();
@@ -89,7 +95,7 @@ const TranslationView = ({
         country.find((item: any) => item.name === selectedLanguage2)?.code ||
         "en";
 
-      const body = {
+      const body:any = {
         video_url: video?.video_url,
         video_name: video.video_name,
         user_id: context.state.user.user_id,
@@ -103,11 +109,17 @@ const TranslationView = ({
         voice_id: voice?.id?.toLowerCase() || "onyx",
         voice_type: typeVoice || "openai",
         apply_subtitle: applySubtitle,
-        size_subtitle: sizeSubtitle,
         tts_volume: ttsVolume / 100,
         original_volume: originalVolume / 100,
       };
-
+      if(applySubtitle){
+        body['sub_color'] = subtitleColor
+        body['sub_position'] = subtitlePosition
+        body['sub_number_line'] = Number(subtitleLine)
+        body['sub_highlight_color'] = subtitleColor1
+        body['sub_border_color'] = subtitleColor2
+        body['size_subtitle'] = sizeSubtitle
+      }
       let result = await translateVideo(body);
       console.log("AAA result trans ", result);
       if (result && result.code == 0) {
@@ -174,14 +186,14 @@ const TranslationView = ({
   return (
     <Box sx={{ marginTop: "20px" }} px={{ xs: "2%", md: "11%" }}>
       {loading && <Loading />}
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" } }}>
         <Box
           sx={{
-            width: "47%",
+            width: { xs: "97%", md: "47%" },
             background: "white",
             borderRadius: "5px",
-            padding: "30px",
-            height: "72vh",
+            padding: { xs: "3%", md: "30px" },
+            maxHeight: "72vh",
             overflowY: "scroll",
           }}>
           <Typography sx={{ mb: "10px", fontWeight: "500" }}>Link</Typography>
@@ -403,11 +415,10 @@ const TranslationView = ({
         </Box>
         <Box
           sx={{
-            width: "47%",
+            width: { xs: "97%", md: "47%" },
             background: "white",
             borderRadius: "5px",
             padding: "30px",
-            overflowY: "scroll",
           }}>
           <Typography sx={{ mb: "10px", fontWeight: "500" }}>
             {t("language")}
@@ -444,9 +455,9 @@ const TranslationView = ({
                     borderColor: theme.palette.active.main,
                   },
                   ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                    {
-                      padding: "10px !important",
-                    },
+                  {
+                    padding: "10px !important",
+                  },
                 }}>
                 {country.map((item: any) => (
                   <MenuItem
@@ -582,10 +593,9 @@ const TranslationView = ({
                   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                     borderColor: theme.palette.active.main,
                   },
-                  ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                    {
-                      padding: "10px !important",
-                    },
+                  "& .MuiInputBase-input": {
+                    padding: "8px", // giống như bạn đã dùng
+                  },
                 }}>
                 <MenuItem
                   value={"deepseek"}
@@ -699,28 +709,31 @@ const TranslationView = ({
               />
             </Box>
           </Box>
-          <Typography sx={{ my: "20px", fontWeight: "500", width: "45%" }}>
-            {t("sub")}
-          </Typography>
+
+          <Box
+            width={"45%"}
+            sx={{
+              display: "flex",
+              alignItems: "end",
+              justifyContent: "space-between",
+              my: "10px",
+            }}>
+            <Typography sx={{ fontWeight: "500", width: "45%" }}>
+              {t("sub")}
+            </Typography>
+            <CustomSwitch
+              onChange={setApplySubtitle}
+              checked={applySubtitle}
+            />
+          </Box>
+          {applySubtitle&&<>
           <Box
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              mt: "-30px",
+              alignItems:"end",
+              mt: "30px",
             }}>
-            <Box
-              width={"45%"}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}>
-              <Typography mt={"30px"}>{t("sub")}</Typography>
-              <CustomSwitch
-                onChange={setApplySubtitle}
-                checked={applySubtitle}
-              />
-            </Box>
             <Box width={"45%"}>
               <VisualSlider
                 title={t("size")}
@@ -730,11 +743,7 @@ const TranslationView = ({
               />
             </Box>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Button
               variant='contained'
               disabled={!video}
