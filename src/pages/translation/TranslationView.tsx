@@ -73,7 +73,7 @@ const TranslationView = ({
   const [subtitleColor1, setSubtitleColor1] = useState("#007BFF"); // Default white
   const [subtitleColor2, setSubtitleColor2] = useState("#FFFFFF"); // Default white
   const [subtitlePosition, setSubtitlePosition] = useState("bottom"); // Default bottom
-  
+
   const [subtitleLine, setSubtitleLine] = useState("1"); // Default bottom
   useEffect(() => {
     if (videoRef.current) {
@@ -95,7 +95,7 @@ const TranslationView = ({
         country.find((item: any) => item.name === selectedLanguage2)?.code ||
         "en";
 
-      const body:any = {
+      const body: any = {
         video_url: video?.video_url,
         video_name: video.video_name,
         user_id: context.state.user.user_id,
@@ -112,13 +112,13 @@ const TranslationView = ({
         tts_volume: ttsVolume / 100,
         original_volume: originalVolume / 100,
       };
-      if(applySubtitle){
-        body['sub_color'] = subtitleColor
-        body['sub_position'] = subtitlePosition
-        body['sub_number_line'] = Number(subtitleLine)
-        body['sub_highlight_color'] = subtitleColor1
-        body['sub_border_color'] = subtitleColor2
-        body['size_subtitle'] = sizeSubtitle
+      if (applySubtitle) {
+        body["sub_color"] = subtitleColor;
+        body["sub_position"] = subtitlePosition;
+        body["sub_number_line"] = Number(subtitleLine);
+        body["sub_highlight_color"] = subtitleColor1;
+        body["sub_border_color"] = subtitleColor2;
+        body["size_subtitle"] = sizeSubtitle;
       }
       let result = await translateVideo(body);
       console.log("AAA result trans ", result);
@@ -186,7 +186,12 @@ const TranslationView = ({
   return (
     <Box sx={{ marginTop: "20px" }} px={{ xs: "2%", md: "11%" }}>
       {loading && <Loading />}
-      <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" } }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: { xs: "column", md: "row" },
+        }}>
         <Box
           sx={{
             width: { xs: "97%", md: "47%" },
@@ -418,8 +423,9 @@ const TranslationView = ({
             width: { xs: "97%", md: "47%" },
             background: "white",
             borderRadius: "5px",
-            padding: "30px",
-            overflowY:"scroll"
+            padding: { xs: "3%", md: "30px" },
+            height: { xs: "90vh", md: "72vh" },
+            overflowY: "scroll",
           }}>
           <Typography sx={{ mb: "10px", fontWeight: "500" }}>
             {t("language")}
@@ -456,9 +462,9 @@ const TranslationView = ({
                     borderColor: theme.palette.active.main,
                   },
                   ".css-1kg98rc-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                  {
-                    padding: "10px !important",
-                  },
+                    {
+                      padding: "10px !important",
+                    },
                 }}>
                 {country.map((item: any) => (
                   <MenuItem
@@ -722,28 +728,196 @@ const TranslationView = ({
             <Typography sx={{ fontWeight: "500", width: "45%" }}>
               {t("sub")}
             </Typography>
-            <CustomSwitch
-              onChange={setApplySubtitle}
-              checked={applySubtitle}
-            />
+            <CustomSwitch onChange={setApplySubtitle} checked={applySubtitle} />
           </Box>
-          {applySubtitle&&<>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems:"end",
-              mt: "30px",
-            }}>
-            <Box width={"45%"}>
-              <VisualSlider
-                title={t("size")}
-                onChange={setSizeSubtitle}
-                value={sizeSubtitle}
-                max={20}
-              />
-            </Box>
-          </Box>
+          {applySubtitle && (
+            <>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "end",
+                  mt: "30px",
+                }}>
+                <Box width={"45%"}>
+                  <VisualSlider
+                    title={t("size")}
+                    onChange={setSizeSubtitle}
+                    value={sizeSubtitle}
+                    max={20}
+                  />
+                </Box>
+                <Box width={"45%"}>
+                  <Typography sx={{ my: "5px", fontWeight: "500" }}>
+                    {t("Line")}
+                  </Typography>
+                  <Box>
+                    <Box>
+                      <FormControl sx={{ width: "100%" }}>
+                        <Select
+                          value={subtitleLine}
+                          onChange={(e) => setSubtitleLine(e.target.value)}
+                          sx={{
+                            background: "white",
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "gray",
+                            },
+                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                              borderColor: theme.palette.active.main,
+                            },
+                            "& .MuiSelect-select": {
+                              padding: "10px",
+                            },
+                          }}>
+                          <MenuItem value='1'>{t("1")}</MenuItem>
+                          <MenuItem value='2'>{t("2")}</MenuItem>
+                          <MenuItem value='3'>{t("3")}</MenuItem>
+                          <MenuItem value='4'>{t("4")}</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+
+              <Box
+                display={"flex"}
+                width={"100%"}
+                justifyContent={"space-between"}>
+                <Box width={"45%"}>
+                  <Typography sx={{ my: "20px", fontWeight: "500" }}>
+                    {t("subtitle_color")}
+                  </Typography>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <Box
+                      width={"25%"}
+                      display={"flex"}
+                      flexDirection={"column"}
+                      justifyContent={"center"}
+                      alignItems={"center"}>
+                      <TextField
+                        type='color'
+                        value={subtitleColor}
+                        onChange={(e) => setSubtitleColor(e.target.value)}
+                        sx={{
+                          width: "100%",
+                          "& .MuiInputBase-input": {
+                            padding: "10.5px 6px", // giống như bạn đã dùng
+                          },
+
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: theme.palette.grey_500.main,
+                            },
+                            "&:hover fieldset": {
+                              borderColor: theme.palette.grey_500.main,
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: theme.palette.active.main,
+                            },
+                          },
+                        }}
+                      />{" "}
+                      <Typography>Base</Typography>
+                    </Box>
+                    <Box
+                      width={"25%"}
+                      display={"flex"}
+                      flexDirection={"column"}
+                      justifyContent={"center"}
+                      alignItems={"center"}>
+                      <TextField
+                        type='color'
+                        value={subtitleColor1}
+                        onChange={(e) => setSubtitleColor1(e.target.value)}
+                        sx={{
+                          width: "100%",
+                          "& .MuiInputBase-input": {
+                            padding: "10.5px 6px", // giống như bạn đã dùng
+                          },
+
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: theme.palette.grey_500.main,
+                            },
+                            "&:hover fieldset": {
+                              borderColor: theme.palette.grey_500.main,
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: theme.palette.active.main,
+                            },
+                          },
+                        }}
+                      />
+                      <Typography>Highlight</Typography>
+                    </Box>
+                    <Box
+                      width={"25%"}
+                      display={"flex"}
+                      flexDirection={"column"}
+                      justifyContent={"center"}
+                      alignItems={"center"}>
+                      <TextField
+                        type='color'
+                        value={subtitleColor2}
+                        onChange={(e) => setSubtitleColor2(e.target.value)}
+                        sx={{
+                          width: "100%",
+                          "& .MuiInputBase-input": {
+                            padding: "10.5px 6px", // giống như bạn đã dùng
+                          },
+
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: theme.palette.grey_500.main,
+                            },
+                            "&:hover fieldset": {
+                              borderColor: theme.palette.grey_500.main,
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: theme.palette.active.main,
+                            },
+                          },
+                        }}
+                      />
+                      <Typography>Outline</Typography>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box width={"45%"}>
+                  <Typography sx={{ my: "20px", fontWeight: "500" }}>
+                    {t("subtitle_position")}
+                  </Typography>
+                  <Box>
+                    <Box>
+                      <FormControl sx={{ width: "100%" }}>
+                        <Select
+                          value={subtitlePosition}
+                          onChange={(e) => setSubtitlePosition(e.target.value)}
+                          sx={{
+                            background: "white",
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "gray",
+                            },
+                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                              borderColor: theme.palette.active.main,
+                            },
+                            "& .MuiSelect-select": {
+                              padding: "10px",
+                            },
+                          }}>
+                          <MenuItem value='top'>{t("top")}</MenuItem>
+                          <MenuItem value='mid'>{t("middle")}</MenuItem>
+                          <MenuItem value='bottom'>{t("bottom")}</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+            </>
+          )}
+
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Button
               variant='contained'
