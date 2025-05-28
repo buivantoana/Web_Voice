@@ -73,6 +73,7 @@ const TranslationView = ({
   const [subtitleColor1, setSubtitleColor1] = useState("#007BFF"); // Default white
   const [subtitleColor2, setSubtitleColor2] = useState("#FFFFFF"); // Default white
   const [subtitlePosition, setSubtitlePosition] = useState("bottom"); // Default bottom
+  const [fileName, setFilename] = useState(null);
 
   const [subtitleLine, setSubtitleLine] = useState("1"); // Default bottom
   useEffect(() => {
@@ -81,68 +82,108 @@ const TranslationView = ({
       videoRef.current.play();
     }
   }, [urlVideo]);
-  const handleTranslate = async () => {
-    if (
-      context.state &&
-      context.state.user &&
-      context.state.user &&
-      context.state.user.user_id
-    ) {
-      setLoading(true);
-      const translateService =
-        selectedTranslation === "chatgpt" ? "GPT" : "Deepseek";
-      const languageCode =
-        country.find((item: any) => item.name === selectedLanguage2)?.code ||
-        "en";
 
-      const body: any = {
-        video_url: video?.video_url,
-        video_name: video.video_name,
-        user_id: context.state.user.user_id,
-        subtitles: subtitles.map((sub) => ({
-          start: sub.start,
-          end: sub.end,
-          text: sub.text,
-        })),
-        translate_sevice: translateService,
-        language: languageCode,
-        voice_id: voice?.id?.toLowerCase() || "onyx",
-        voice_type: typeVoice || "openai",
-        apply_subtitle: applySubtitle,
-        tts_volume: ttsVolume / 100,
-        original_volume: originalVolume / 100,
-      };
-      if (applySubtitle) {
-        body["sub_color"] = subtitleColor;
-        body["sub_position"] = subtitlePosition;
-        body["sub_number_line"] = Number(subtitleLine);
-        body["sub_highlight_color"] = subtitleColor1;
-        body["sub_border_color"] = subtitleColor2;
-        body["size_subtitle"] = sizeSubtitle;
-      }
-      let result = await translateVideo(body);
-      console.log("AAA result trans ", result);
-      if (result && result.code == 0) {
-        console.log("AAA result trans ", result);
-        // setSeletedLanguage(selectedLanguage2);
-        setIsGen(true);
-        setUrlVideo(result.video_url);
-        setSubtitles(
-          result.subtitles.map((item, index) => {
-            return {
+  useEffect(() => {
+    let count = 0;
+    let interval;
+
+    const fetchData = async () => {
+      try {
+        let result = await getProcessVideo(fileName);
+        count++;
+
+        if (result && result.code === 0) {
+          clearInterval(interval);
+          setLoading(false);
+          setIsGen(true);
+          setUrlVideo(result.video_url);
+          setSubtitles(
+            result.subtitles.map((item, index) => ({
               ...item,
               id: index,
-            };
-          })
-        );
-        toast.success(result.msg);
-      } else {
-        toast.warning(result.msg);
+            }))
+          );
+          toast.success(result.msg);
+          return;
+        }
+
+        // Dừng sau 15 lần
+        if (count >= 15) {
+          clearInterval(interval);
+          setLoading(false);
+          toast.error("Quá 15 lần gọi API, vui lòng thử lại sau.");
+        }
+      } catch (error) {
+        clearInterval(interval); // Nếu lỗi xảy ra thì cũng dừng
+        setLoading(false);
+        console.error("Error fetching data:", error);
+        toast.error("Có lỗi xảy ra khi gọi API.");
       }
-      console.log("Translate body:", body);
+    };
+
+    if (fileName) {
+      fetchData(); // Gọi lần đầu
+      interval = setInterval(fetchData, 60000);
+    }
+
+    return () => clearInterval(interval);
+  }, [fileName]);
+
+  const handleTranslate = async () => {
+    try {
+      if (
+        context.state &&
+        context.state.user &&
+        context.state.user &&
+        context.state.user.user_id
+      ) {
+        setLoading(true);
+        const translateService =
+          selectedTranslation === "chatgpt" ? "GPT" : "Deepseek";
+        const languageCode =
+          country.find((item: any) => item.name === selectedLanguage2)?.code ||
+          "en";
+
+        const body: any = {
+          video_url: video?.video_url,
+          video_name: video.video_name,
+          user_id: context.state.user.user_id,
+          subtitles: subtitles.map((sub) => ({
+            start: sub.start,
+            end: sub.end,
+            text: sub.text,
+          })),
+          translate_sevice: translateService,
+          language: languageCode,
+          voice_id: voice?.id?.toLowerCase() || "onyx",
+          voice_type: typeVoice || "openai",
+          apply_subtitle: applySubtitle,
+          tts_volume: ttsVolume / 100,
+          original_volume: originalVolume / 100,
+        };
+        if (applySubtitle) {
+          body["sub_color"] = subtitleColor;
+          body["sub_position"] = subtitlePosition;
+          body["sub_number_line"] = Number(subtitleLine);
+          body["sub_highlight_color"] = subtitleColor1;
+          body["sub_border_color"] = subtitleColor2;
+          body["size_subtitle"] = sizeSubtitle;
+        }
+        let result = await translateVideo(body);
+        console.log("AAA result trans ", result);
+        if (result && result.code == 2) {
+          console.log("AAA result trans ", result);
+          // setSeletedLanguage(selectedLanguage2);
+          setFilename(result.video_name);
+        } else {
+          toast.warning(result.msg);
+        }
+        console.log("Translate body:", body);
+      } else {
+        toast.warning("Bạn cần đăng nhập để sử dụng tính năng.");
+      }
+    } catch (error) {
       setLoading(false);
-    } else {
-      toast.warning("Bạn cần đăng nhập để sử dụng tính năng.");
     }
   };
 
@@ -1005,7 +1046,11 @@ import { Delete, Add, PlaylistAdd } from "@mui/icons-material";
 import Loading from "../../components/Loading";
 import { toast } from "react-toastify";
 import { Await } from "react-router-dom";
-import { getVideo, translateVideo } from "../../service/translate";
+import {
+  getProcessVideo,
+  getVideo,
+  translateVideo,
+} from "../../service/translate";
 import { useCoursesContext } from "../../App";
 import { url_voice } from "../../config";
 

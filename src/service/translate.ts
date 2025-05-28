@@ -1,9 +1,25 @@
 import axios from "axios";
 import { url_voice } from "../config";
 
-export async function getVideo(url:String) {
+export async function getVideo(url: String) {
   try {
-    const response = await axios.post(`${url_voice}/transvideo/getvideo?video_url=${url}`, {}, {
+    const response = await axios.post(
+      `${url_voice}/transvideo/getvideo?video_url=${url}`,
+      {},
+      {
+        headers: {
+          Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+export async function getProcessVideo(url: String) {
+  try {
+    const response = await axios.get(`${url_voice}/transvideo/status/${url}`, {
       headers: {
         Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
       },
@@ -13,16 +29,13 @@ export async function getVideo(url:String) {
     console.error("Error fetching data:", error.message);
   }
 }
-export async function translateVideo(body:any) {
+export async function translateVideo(body: any) {
   try {
-    const response = await axios.post(
-      `${url_voice}/transvideo/process`,body,
-      {
-        headers: {
-          Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
-        },
-      }
-    );
+    const response = await axios.post(`${url_voice}/transvideo/process`, body, {
+      headers: {
+        Authorization: "Bearer dHRzb3BlbmFpeGluY2hhb2NhY2JhbmdtdjEyMzQ1Ng==",
+      },
+    });
     return response.data;
   } catch (error: any) {
     console.error("Error fetching data:", error.message);
