@@ -948,7 +948,9 @@ const TranslationView = ({
                             },
                           }}>
                           <MenuItem value='top'>{t("top")}</MenuItem>
+                          <MenuItem value='upper'>{t("upper")}</MenuItem>
                           <MenuItem value='mid'>{t("middle")}</MenuItem>
+                          <MenuItem value='lower'>{t("lower")}</MenuItem>
                           <MenuItem value='bottom'>{t("bottom")}</MenuItem>
                         </Select>
                       </FormControl>
