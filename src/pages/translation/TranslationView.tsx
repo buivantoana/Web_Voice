@@ -177,7 +177,7 @@ const TranslationView = ({
         console.log("AAA result trans ", result);
         if (result && result.code == 2) {
           console.log("AAA result trans ", result);
-          // setSeletedLanguage(selectedLanguage2);
+          setSeletedLanguage(selectedLanguage2);
           setFilename(result.video_name);
         } else {
           toast.warning(result.msg);
