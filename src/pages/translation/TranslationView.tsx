@@ -140,8 +140,11 @@ const TranslationView = ({
         setLoading(true);
         const translateService =
           selectedTranslation === "chatgpt" ? "GPT" : "Deepseek";
-        const languageCode =
+        const languageCodeTo =
           country.find((item: any) => item.name === selectedLanguage2)?.code ||
+          "en";
+        const languageCodeFrom =
+          country.find((item: any) => item.name === selectedLanguage)?.code ||
           "en";
 
         const body: any = {
@@ -154,7 +157,8 @@ const TranslationView = ({
             text: sub.text,
           })),
           translate_sevice: translateService,
-          language: languageCode,
+          language_from: languageCodeFrom,
+          language_to: languageCodeTo,
           voice_id: voice?.id?.toLowerCase() || "onyx",
           voice_type: typeVoice || "openai",
           apply_subtitle: applySubtitle,
