@@ -167,7 +167,7 @@ const TranslationView = ({
         };
         if (applySubtitle) {
           body["sub_color"] = subtitleColor;
-          body["sub_position"] = subtitlePosition;
+          body["sub_position"] = Math.round(subtitlePosition);
           body["sub_number_line"] = Number(subtitleLine);
           body["sub_highlight_color"] = subtitleColor1;
           body["sub_border_color"] = subtitleColor2;
