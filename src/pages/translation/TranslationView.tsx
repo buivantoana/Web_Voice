@@ -141,10 +141,10 @@ const TranslationView = ({
         const translateService =
           selectedTranslation === "chatgpt" ? "GPT" : "Deepseek";
         const languageCodeTo =
-          country.find((item: any) => item.name === selectedLanguage2)?.code ||
+          country.find((item: any) => item.name.toLowerCase() == selectedLanguage2.toLowerCase())?.code ||
           "en";
         const languageCodeFrom =
-          country.find((item: any) => item.name === selectedLanguage)?.code ||
+          country.find((item: any) => item.name.toLowerCase() == selectedLanguage.toLowerCase())?.code ||
           "en";
 
         const body: any = {
