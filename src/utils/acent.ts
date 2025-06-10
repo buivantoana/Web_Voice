@@ -20,7 +20,7 @@ export const country = [
   {
     name: "Chinese",
     flag: "https://flagcdn.com/w320/cn.png",
-    code: "zh",
+    code: "cn",
     language: "Chinese",
   },
   {

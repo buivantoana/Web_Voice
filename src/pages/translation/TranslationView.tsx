@@ -140,12 +140,20 @@ const TranslationView = ({
         setLoading(true);
         const translateService =
           selectedTranslation === "chatgpt" ? "GPT" : "Deepseek";
+        console.log(
+          "selectedLanguage.toLowerCase()",
+          selectedLanguage.toLowerCase()
+        );
         const languageCodeTo =
-          country.find((item: any) => item.name.toLowerCase() == selectedLanguage2.toLowerCase())?.code ||
-          "en";
+          country.find(
+            (item: any) =>
+              item.name.toLowerCase() == selectedLanguage2.toLowerCase()
+          )?.code || "en";
         const languageCodeFrom =
-          country.find((item: any) => item.name.toLowerCase() == selectedLanguage.toLowerCase())?.code ||
-          "en";
+          country.find(
+            (item: any) =>
+              item.name.toLowerCase() == selectedLanguage.toLowerCase()
+          )?.code || "en";
 
         const body: any = {
           video_url: video?.video_url,
@@ -208,6 +216,10 @@ const TranslationView = ({
             subtitles: result.subtitles,
             language: result.language,
           });
+          console.log(
+            "capitalizeFirstLetter(result.language)",
+            capitalizeFirstLetter(result.language)
+          );
           setSeletedLanguage(capitalizeFirstLetter(result.language));
           setSubtitles(
             result.subtitles.map((item, index) => {
@@ -465,7 +477,7 @@ const TranslationView = ({
           )}
         </Box>
         <Box
-          className="hidden-add-voice"
+          className='hidden-add-voice'
           sx={{
             width: { xs: "97%", md: "47%" },
             background: "white",
@@ -936,13 +948,18 @@ const TranslationView = ({
                     {t("subtitle_position")}
                   </Typography>
                   <Box>
-                  <SubPositionPicker urlVideo={urlVideo} videoRef={videoRef} setSubtitlePosition={setSubtitlePosition} subtitlePosition={subtitlePosition} />
+                    <SubPositionPicker
+                      urlVideo={urlVideo}
+                      videoRef={videoRef}
+                      setSubtitlePosition={setSubtitlePosition}
+                      subtitlePosition={subtitlePosition}
+                    />
                   </Box>
                 </Box>
               </Box>
             </>
           )}
-       
+
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Button
               variant='contained'
@@ -1195,19 +1212,25 @@ function SubtitleEditor({
         onClick={handleAdd}>
         {t("add_sub")}
       </Button>
-      
     </div>
   );
 }
 
-
 import {
-   Dialog, DialogTitle, DialogContent,
-  InputAdornment, Slider
-} from '@mui/material';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  InputAdornment,
+  Slider,
+} from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
-const SubPositionPicker = ({setSubtitlePosition,subtitlePosition,urlVideo,videoRef}) => {
+const SubPositionPicker = ({
+  setSubtitlePosition,
+  subtitlePosition,
+  urlVideo,
+  videoRef,
+}) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const containerRef = useRef(null);
@@ -1247,31 +1270,35 @@ const SubPositionPicker = ({setSubtitlePosition,subtitlePosition,urlVideo,videoR
   return (
     <>
       <TextField
-       sx={{width:"100%",height:"30px"}}
-        type="number"
+        sx={{ width: "100%", height: "30px" }}
+        type='number'
         value={Math.round(subtitlePosition)}
         onChange={handleInputChange}
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end">
+            <InputAdornment position='end'>
               <IconButton onClick={() => setOpen(true)}>
                 <PlayArrowIcon />
               </IconButton>
             </InputAdornment>
           ),
           sx: {
-            height: '45px',             // Set height cho input wrapper
-            '& input': {
-              height: '45px',           // Set height cho chính input
-              padding: '0 8px',         // Giảm padding để vừa chiều cao
-              boxSizing: 'border-box',
+            height: "45px", // Set height cho input wrapper
+            "& input": {
+              height: "45px", // Set height cho chính input
+              padding: "0 8px", // Giảm padding để vừa chiều cao
+              boxSizing: "border-box",
             },
           },
         }}
       />
 
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
-        <DialogTitle>   {t("adjust_sub_position")}</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        fullWidth
+        maxWidth='sm'>
+        <DialogTitle> {t("adjust_sub_position")}</DialogTitle>
         <DialogContent>
           <Box
             ref={containerRef}
@@ -1279,45 +1306,43 @@ const SubPositionPicker = ({setSubtitlePosition,subtitlePosition,urlVideo,videoR
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
             sx={{
-              border: '1px solid #ccc',
+              border: "1px solid #ccc",
               height: 300,
-              position: 'relative',
-              overflow: 'hidden',
+              position: "relative",
+              overflow: "hidden",
               mt: 2,
               mb: 2,
-              backgroundColor: '#000',
-              color: '#fff',
-              borderRadius:3
-            }}
-          >
+              backgroundColor: "#000",
+              color: "#fff",
+              borderRadius: 3,
+            }}>
             <video
-                  ref={videoRef}
-                  width={"100%"}
-                  style={{ borderRadius: "10px" }}
-                  height={'100%'}
-                  controls>
-                  <source src={urlVideo} type='video/mp4' />
-                  Your browser does not support the video tag.
-                </video>
+              ref={videoRef}
+              width={"100%"}
+              style={{ borderRadius: "10px" }}
+              height={"100%"}
+              controls>
+              <source src={urlVideo} type='video/mp4' />
+              Your browser does not support the video tag.
+            </video>
             <Box
               onMouseDown={handleMouseDown}
               sx={{
-                position: 'absolute',
+                position: "absolute",
                 left: 0,
-                width: '100%',
+                width: "100%",
                 height: 30,
-                backgroundColor: 'rgba(255,255,255,0.8)',
-                color: '#000',
-                textAlign: 'center',
-                cursor: 'grab',
+                backgroundColor: "rgba(255,255,255,0.8)",
+                color: "#000",
+                textAlign: "center",
+                cursor: "grab",
                 top: `${subtitlePosition}%`,
-                transform: 'translateY(-50%)',
-                display:"flex",
-                alignItems:"center",
-                justifyContent:"center"
-              }}
-            >
-             {t("sub_position_pull_me")}
+                transform: "translateY(-50%)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+              {t("sub_position_pull_me")}
             </Box>
           </Box>
 
@@ -1326,10 +1351,10 @@ const SubPositionPicker = ({setSubtitlePosition,subtitlePosition,urlVideo,videoR
             onChange={handleSliderChange}
             min={0}
             max={100}
-            valueLabelDisplay="auto"
+            valueLabelDisplay='auto'
           />
 
-          <Box textAlign="right">
+          <Box textAlign='right'>
             <Button onClick={() => setOpen(false)}>{t("close")}</Button>
           </Box>
         </DialogContent>
@@ -1337,5 +1362,3 @@ const SubPositionPicker = ({setSubtitlePosition,subtitlePosition,urlVideo,videoR
     </>
   );
 };
-
-
