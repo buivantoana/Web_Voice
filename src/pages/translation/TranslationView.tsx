@@ -72,7 +72,7 @@ const TranslationView = ({
   const [subtitleColor, setSubtitleColor] = useState("#D9D9D9"); // Default white
   const [subtitleColor1, setSubtitleColor1] = useState("#007BFF"); // Default white
   const [subtitleColor2, setSubtitleColor2] = useState("#FFFFFF"); // Default white
-  const [subtitlePosition, setSubtitlePosition] = useState("bottom"); // Default bottom
+  const [subtitlePosition, setSubtitlePosition] = useState(50); // Default bottom
   const [fileName, setFilename] = useState(null);
 
   const [subtitleLine, setSubtitleLine] = useState("1"); // Default bottom
@@ -238,6 +238,7 @@ const TranslationView = ({
           flexDirection: { xs: "column", md: "row" },
         }}>
         <Box
+          className={"hidden-story"}
           sx={{
             width: { xs: "97%", md: "47%" },
             background: "white",
@@ -464,6 +465,7 @@ const TranslationView = ({
           )}
         </Box>
         <Box
+          className="hidden-add-voice"
           sx={{
             width: { xs: "97%", md: "47%" },
             background: "white",
@@ -934,37 +936,13 @@ const TranslationView = ({
                     {t("subtitle_position")}
                   </Typography>
                   <Box>
-                    <Box>
-                      <FormControl sx={{ width: "100%" }}>
-                        <Select
-                          value={subtitlePosition}
-                          onChange={(e) => setSubtitlePosition(e.target.value)}
-                          sx={{
-                            background: "white",
-                            "& .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "gray",
-                            },
-                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                              borderColor: theme.palette.active.main,
-                            },
-                            "& .MuiSelect-select": {
-                              padding: "10px",
-                            },
-                          }}>
-                          <MenuItem value='top'>{t("top")}</MenuItem>
-                          <MenuItem value='upper'>{t("upper")}</MenuItem>
-                          <MenuItem value='mid'>{t("middle")}</MenuItem>
-                          <MenuItem value='lower'>{t("lower")}</MenuItem>
-                          <MenuItem value='bottom'>{t("bottom")}</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Box>
+                  <SubPositionPicker urlVideo={urlVideo} videoRef={videoRef} setSubtitlePosition={setSubtitlePosition} subtitlePosition={subtitlePosition} />
                   </Box>
                 </Box>
               </Box>
             </>
           )}
-
+       
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Button
               variant='contained'
@@ -1217,6 +1195,147 @@ function SubtitleEditor({
         onClick={handleAdd}>
         {t("add_sub")}
       </Button>
+      
     </div>
   );
 }
+
+
+import {
+   Dialog, DialogTitle, DialogContent,
+  InputAdornment, Slider
+} from '@mui/material';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+
+const SubPositionPicker = ({setSubtitlePosition,subtitlePosition,urlVideo,videoRef}) => {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef(null);
+  const isDragging = useRef(false);
+
+  const handleInputChange = (e) => {
+    let val = Number(e.target.value);
+    if (val > 100) val = 100;
+    if (val < 0) val = 0;
+    setSubtitlePosition(val);
+  };
+
+  const handleSliderChange = (_, newValue) => {
+    setSubtitlePosition(newValue);
+  };
+
+  const handleMouseDown = () => {
+    isDragging.current = true;
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging.current || !containerRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const y = e.clientY - rect.top;
+    const newPos = (y / rect.height) * 100;
+
+    if (newPos >= 0 && newPos <= 100) {
+      setSubtitlePosition(newPos);
+    }
+  };
+
+  return (
+    <>
+      <TextField
+       sx={{width:"100%",height:"30px"}}
+        type="number"
+        value={Math.round(subtitlePosition)}
+        onChange={handleInputChange}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={() => setOpen(true)}>
+                <PlayArrowIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+          sx: {
+            height: '45px',             // Set height cho input wrapper
+            '& input': {
+              height: '45px',           // Set height cho chính input
+              padding: '0 8px',         // Giảm padding để vừa chiều cao
+              boxSizing: 'border-box',
+            },
+          },
+        }}
+      />
+
+      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
+        <DialogTitle>   {t("adjust_sub_position")}</DialogTitle>
+        <DialogContent>
+          <Box
+            ref={containerRef}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            sx={{
+              border: '1px solid #ccc',
+              height: 300,
+              position: 'relative',
+              overflow: 'hidden',
+              mt: 2,
+              mb: 2,
+              backgroundColor: '#000',
+              color: '#fff',
+              borderRadius:3
+            }}
+          >
+            <video
+                  ref={videoRef}
+                  width={"100%"}
+                  style={{ borderRadius: "10px" }}
+                  height={'100%'}
+                  controls>
+                  <source src={urlVideo} type='video/mp4' />
+                  Your browser does not support the video tag.
+                </video>
+            <Box
+              onMouseDown={handleMouseDown}
+              sx={{
+                position: 'absolute',
+                left: 0,
+                width: '100%',
+                height: 30,
+                backgroundColor: 'rgba(255,255,255,0.8)',
+                color: '#000',
+                textAlign: 'center',
+                cursor: 'grab',
+                top: `${subtitlePosition}%`,
+                transform: 'translateY(-50%)',
+                display:"flex",
+                alignItems:"center",
+                justifyContent:"center"
+              }}
+            >
+             {t("sub_position_pull_me")}
+            </Box>
+          </Box>
+
+          <Slider
+            value={subtitlePosition}
+            onChange={handleSliderChange}
+            min={0}
+            max={100}
+            valueLabelDisplay="auto"
+          />
+
+          <Box textAlign="right">
+            <Button onClick={() => setOpen(false)}>{t("close")}</Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
+
+

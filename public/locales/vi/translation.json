@@ -332,8 +332,10 @@
   "viber_3": "Cảm xúc: một thám tử đen tối bí ẩn\n\nGiọng điệu: Lạnh lùng, tách biệt, nhưng có chút an ủi tinh tế—như thể họ đã chứng kiến ​​mọi thứ và biết cách xử lý một gói hàng bị mất như thể đó chỉ là một vụ án khác.\n\nTruyền tải: Chậm rãi và thận trọng, với những khoảng dừng kịch tính để tạo sự hồi hộp, như thể mọi chi tiết đều quan trọng trong cuộc điều tra này.\n\nCảm xúc: Sự kết hợp giữa sự mệt mỏi với thế giới và sự quyết tâm thầm lặng, chỉ với một chút hài hước khô khan để mọi thứ không trở nên quá ảm đạm.\n\nDấu câu: Câu ngắn, súc tích với dấu ba chấm và dấu gạch ngang để tạo nhịp điệu và sự căng thẳng, mô phỏng độc thoại nội tâm của một thám tử đang ghép các manh mối lại với nhau.",
   "viber_4": "Giọng nói Cảm xúc: Nhẹ nhàng, dịu dàng, nhẹ nhàng; thể hiện sự yên tĩnh.\n\nGiọng điệu: Bình tĩnh, trấn an, thanh bình; truyền tải sự ấm áp và thanh thản thực sự.\n\nNhịp độ: Chậm, thận trọng và không vội vàng; tạm dừng nhẹ nhàng sau hướng dẫn để người nghe có thời gian thư giãn và theo dõi.\n\nCảm xúc: Nhẹ nhàng và thoải mái sâu sắc; thể hiện lòng tốt và sự quan tâm thực sự.\n\nPhát âm: Cách phát âm mượt mà, nhẹ nhàng, nguyên âm hơi kéo dài để tạo cảm giác dễ chịu.\n\nTạm dừng: Sử dụng các khoảng dừng có suy nghĩ, đặc biệt là giữa các hướng dẫn thở và hướng dẫn hình dung, tăng cường sự thư giãn và chánh niệm.",
   "download_video": "Tải video",
-  "subtitle_color": "Màu phụ đề",
-  "subtitle_position": "Vị trí phụ đề",
+  "subtitle_color": "Màu",
+  "subtitle_position": "Vị trí",
   "upper": "Phía trên",
-  "lower": "Thấp hơn "
+  "lower": "Thấp hơn ",
+  "adjust_sub_position":"Điều chỉnh vị trí sub",
+  "sub_position_pull_me":"Vị trí Sub (kéo tôi!)"
 }
