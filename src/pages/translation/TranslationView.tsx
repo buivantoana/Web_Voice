@@ -148,12 +148,12 @@ const TranslationView = ({
           country.find(
             (item: any) =>
               item.name.toLowerCase() == selectedLanguage2.toLowerCase()
-          )?.code || "en";
+          )?.name || "vietnamese";
         const languageCodeFrom =
           country.find(
             (item: any) =>
               item.name.toLowerCase() == selectedLanguage.toLowerCase()
-          )?.code || "en";
+          )?.name || "vietnamese";
 
         const body: any = {
           video_url: video?.video_url,
